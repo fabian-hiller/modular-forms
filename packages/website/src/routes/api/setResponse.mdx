@@ -1,0 +1,55 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>setResponse | Modular Forms</Title>
+<Meta name="description" content="Sets the response of the form." />
+
+# setResponse
+
+Sets the response of the form.
+
+```ts
+setResponse(form, response, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `response` <Property {...properties.response} />
+  - `variant` <Property {...properties.variant} />
+  - `message` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `duration` <Property {...properties.duration} />
+
+### Explanation
+
+To reset the `response` state of the `form`, simply set the `response` parameter to an empty object.
+
+If you want the `response` to be automatically reset after a certain time, you can add a `duration` in milliseconds to the `options`. If the response changes in the meantime of the specified duration, the reset will be skipped.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  response: {
+    type: ['object', { type: 'object', entries: [] }],
+  },
+  variant: {
+    type: [
+      { type: 'string', value: 'info' },
+      { type: 'string', value: 'error' },
+      { type: 'string', value: 'success' },
+    ],
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  duration: {
+    type: ['number', 'undefined'],
+  },
+};

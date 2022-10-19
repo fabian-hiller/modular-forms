@@ -1,0 +1,38 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>remove | Modular Forms</Title>
+<Meta name="description" content="Removes a item of the field array." />
+
+# remove
+
+Removes a item of the field array.
+
+```ts
+remove(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `at` <Property type="number" />
+
+### Explanation
+
+With `at` you define the index of the item to be removed. The action is executed only if you specify a valid index.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+};

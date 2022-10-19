@@ -1,0 +1,40 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>maxRange | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation functions that validates the range of a string."
+/>
+
+# maxRange
+
+Creates a validation functions that validates the range of a string.
+
+```ts
+const validate = maxRange(requirement, error);
+```
+
+## Parameters
+
+- `requirement` <Property type="string" />
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: ['string', 'null', 'undefined'],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

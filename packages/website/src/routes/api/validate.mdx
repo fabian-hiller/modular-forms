@@ -1,0 +1,66 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>validate | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Validates the entire form, several fields and field arrays or a singel field or field array."
+/>
+
+# validate
+
+Validates the entire form, several fields and field arrays or a singel field or field array.
+
+```ts
+// Validate the entire form
+validate(form, options);
+
+// Validate several fields and field arrays
+validate(form, names, options);
+
+// Validate a singel field or field array
+validate(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `names` <Property {...properties.names} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `shouldActive` <Property {...properties.shouldActive} />
+  - `shouldFocus` <Property {...properties.shouldFocus} />
+
+### Explanation
+
+In addition to the names of the fields, you can also specify the name of a field array under `names` or `name`. In this case, the field array and the fields it contains will be validated.
+
+By default, only the active fields are validated and the first field where an error occurs during the validation is focused. To change this behavior you can set `shouldActive` and/or `shouldFocus` to `false`.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  names: {
+    type: {
+      type: 'array',
+      item: 'string',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldFocus: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+};

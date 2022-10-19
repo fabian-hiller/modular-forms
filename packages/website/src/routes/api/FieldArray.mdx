@@ -1,0 +1,117 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>FieldArray | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Wrapper component that provides the reactive properties and state of a form field array."
+/>
+
+# FieldArray
+
+Wrapper component that provides the reactive properties and state of a form field array.
+
+```tsx
+<FieldArray of={…} name={…} validate={…} keepActive={…} keepState={…}>
+  children
+</FieldArray>
+```
+
+## Properties
+
+- `of` <Property {...properties.of} />
+- `name` <Property type="string" />
+- `validate` <Property {...properties.validate} />
+- `keepActive` <Property {...properties.keepActive} />
+- `keepState` <Property {...properties.keepState} />
+- `children` <Property {...properties.children} />
+
+### Explanation
+
+For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
+
+Field arrays automatically detect if they are still in use and update their status accordingly. If you don't want a field array to become inactive when it is no longer in use, you can set `keepActive` to `true`.
+
+By default, the state of an inactive field array is maintained. If you want a field to be reset when it becomes inactive, you can set `keepState` to `false`.
+
+export const properties = {
+  of: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  validate: {
+    type: [
+      {
+        type: 'function',
+        params: [
+          {
+            name: 'items',
+            type: {
+              type: 'array',
+              item: 'number',
+            },
+          },
+        ],
+        return: [
+          'string',
+          {
+            type: 'custom',
+            name: 'Promise',
+            generics: ['string'],
+          },
+        ],
+      },
+      {
+        type: 'array',
+        item: {
+          type: 'function',
+          params: [
+            {
+              name: 'items',
+              type: {
+                type: 'array',
+                item: 'number',
+              },
+            },
+          ],
+          return: [
+            'string',
+            {
+              type: 'custom',
+              name: 'Promise',
+              generics: ['string'],
+            },
+          ],
+        },
+      },
+      'undefined',
+    ],
+  },
+  keepActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepState: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  children: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'fieldArray',
+          type: {
+            type: 'custom',
+            name: 'ModularFieldArray',
+            href: 'modularfieldarray',
+          },
+        },
+      ],
+      return: { type: 'custom', name: 'JSX.Element' },
+    },
+  },
+};

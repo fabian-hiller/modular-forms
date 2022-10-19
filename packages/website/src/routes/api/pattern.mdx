@@ -1,0 +1,46 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>pattern | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation functions that validates the pattern of a string."
+/>
+
+# pattern
+
+Creates a validation functions that validates the pattern of a string.
+
+```ts
+const validate = pattern(requirement, error);
+```
+
+## Parameters
+
+- `requirement` <Property {...properties.requirement} />
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  requirement: {
+    type: {
+      type: 'custom',
+      name: 'RegExp',
+    },
+  },
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: ['string', 'null', 'undefined'],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

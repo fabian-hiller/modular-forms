@@ -1,0 +1,127 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>useField | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Returns the reactive properties and state of a form field."
+/>
+
+# useField
+
+Returns the reactive properties and state of a form field.
+
+```ts
+const field = useField(form, name, options);
+```
+
+> The `useField` primitive is used internally in the [`Field`](field) component. It's better to use the [`Field`](field) component and only if there is a good reason to switch to the `useField` primitive.
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `initialValue` <Property {...properties.initialValue} />
+  - `validate` <Property {...properties.validate} />
+  - `keepActive` <Property {...properties.keepActive} />
+  - `keepState` <Property {...properties.keepState} />
+
+### Explanation
+
+The `initialValue` you define directly at a field has the highest specificity and overrides the initial values you set at [`createForm`](createform) and [`reset`](reset) when `useField` is executed.
+
+For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
+
+Fields automatically detect if they are still in use and update their status accordingly. If you don't want a field to become inactive when it is no longer in use, you can set `keepActive` to `true`.
+
+By default, the state of an inactive field is maintained. If you want a field to be reset when it becomes inactive, you can set `keepState` to `false`.
+
+## Return
+
+- `field` <Property {...properties.field} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  initialValue: {
+    type: [
+      {
+        type: 'custom',
+        name: 'ModularValue',
+        href: 'modularvalue',
+      },
+      'undefined',
+    ],
+  },
+  validate: {
+    type: [
+      {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: {
+              type: 'custom',
+              name: 'ModularValue',
+              href: 'modularvalue',
+            },
+          },
+        ],
+        return: [
+          'string',
+          {
+            type: 'custom',
+            name: 'Promise',
+            generics: ['string'],
+          },
+        ],
+      },
+      {
+        type: 'array',
+        item: {
+          type: 'function',
+          params: [
+            {
+              name: 'value',
+              type: {
+                type: 'custom',
+                name: 'ModularValue',
+                href: 'modularvalue',
+              },
+            },
+          ],
+          return: [
+            'string',
+            {
+              type: 'custom',
+              name: 'Promise',
+              generics: ['string'],
+            },
+          ],
+        },
+      },
+      'undefined',
+    ],
+  },
+  keepActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepState: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  field: {
+    type: { type: 'custom', name: 'ModularField', href: 'modularfield' },
+  },
+};

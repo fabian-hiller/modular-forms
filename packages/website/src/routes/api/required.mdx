@@ -1,0 +1,42 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>required | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation function that checks the existence of an input."
+/>
+
+# required
+
+Creates a validation function that checks the existence of an input.
+
+```ts
+const validate = required(error);
+```
+
+## Parameter
+
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: [
+            { type: 'custom', name: 'ModularValue', href: 'modularvalue' },
+            'undefined',
+          ],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

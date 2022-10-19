@@ -1,0 +1,37 @@
+import { Meta, Title } from 'solid-start';
+
+<Title>Add fields to form | Modular Forms</Title>
+<Meta
+  name="description"
+  content="To add a field to your form, you use the Field component. It has a readable API and accepts a render function as a child."
+/>
+
+# Add fields to form
+
+To add a field to your form, you use the [`Field`](/api/field) component. It is similar to the `For` component from Solid. It has a readable API and accepts a render function as a child.
+
+```tsx
+import { createForm, Form, Field } from '@modular-forms/solid';
+import { loginUser } from '../api';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export default function App() {
+  const loginForm = createForm<LoginForm>();
+
+  return (
+    <Form of={loginForm} onSubmit={loginUser}>
+      <Field of={loginForm} name="email">
+        {(field) => <input {...field.props} type="email" />}
+      </Field>
+      <Field of={loginForm} name="password">
+        {(field) => <input {...field.props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```

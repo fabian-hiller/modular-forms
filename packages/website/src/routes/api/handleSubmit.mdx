@@ -1,0 +1,103 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>handleSubmit | Modular Forms</Title>
+<Meta name="description" content="Handles the submission of the form." />
+
+# handleSubmit
+
+Handles the submission of the form.
+
+```ts
+const onSubmit = handleSubmit(form, submitAction, options);
+```
+
+> The `handleSubmit` method is used internally in the [`Form`](form) component. It is better to leave the submission of the form to the [`Form`](form) component and only when there is a good reason to switch to the `handleSubmit` method to build your own solution.
+
+It is recommended to execute the `handleSubmit` method directly in the `onSubmit` property of an HTML form element, as shown in the following example.
+
+```tsx
+<form onSubmit={handleSubmit(form, submitAction, options)} noValidate>
+  …
+</form>
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `submitAction` <Property {...properties.submitAction} />
+- `options` <Property {...properties.options} />
+  - `shouldActive` <Property {...properties.shouldActive} />
+  - `shouldTouched` <Property {...properties.shouldTouched} />
+  - `shouldDirty` <Property {...properties.shouldDirty} />
+  - `shouldFocus` <Property {...properties.shouldFocus} />
+
+### Explanation
+
+Errors thrown by the `submitAction` function are made available via the `response` property of the [`ModularForm`](modularform) object to display them to your user.
+
+By default, the `submitAction` function provides only the values of active fields via the `values` parameter. To change this behavior you can set the `shouldActive` property to `false`.
+
+By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the `submitAction` function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the `submitAction` function and can be combined with each other.
+
+By default, the returned `onSubmit` function validates only the values of active fields during its execution and focuses on the first field with an error during validation if one occurs. To change this behavior you can set `shouldActive` and/or `shouldFocus` to `false`.
+
+## Return
+
+- `onSubmit` <Property {...properties.onSubmit} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  submitAction: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'values',
+          type: {
+            type: 'custom',
+            name: 'ModularValues',
+            href: 'modularvalues',
+          },
+        },
+        { name: 'event', type: { type: 'custom', name: 'Event' } },
+      ],
+      return: ['void', { type: 'custom', name: 'Promise', generics: ['void'] }],
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldFocus: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  onSubmit: {
+    type: {
+      type: 'function',
+      params: [{ name: 'event', type: { type: 'custom', name: 'Event' } }],
+      return: { type: 'custom', name: 'Promise', generics: ['void'] },
+    },
+  },
+};

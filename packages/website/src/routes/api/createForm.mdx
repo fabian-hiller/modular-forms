@@ -1,0 +1,78 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>createForm | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates the core of a modular form that contains its reactive state."
+/>
+
+# createForm
+
+Creates the core of a modular form that contains its reactive state.
+
+```ts
+const form = createForm<Values>(options);
+```
+
+## Generic
+
+- `Values` <Property {...properties.Values} />
+
+### Explanation
+
+If you use TypeScript, you should define your field values. This way the library knows exactly which fields your form has and what values they expect. It also allows autocompletion and TypeScript notifies you of typos.
+
+## Parameter
+
+- `options` <Property {...properties.options} />
+  - `initialValues` <Property {...properties.initialValues} />
+  - `validateOn` <Property {...properties.validateOn} />
+  - `revalidateOn` <Property {...properties.revalidateOn} />
+
+### Explanation
+
+Use `validateOn` to define the validation strategy that will be applied before the form is submitted, and `revalidateOn` to define the one that will be applied afterwards.
+
+## Return
+
+- `form` <Property {...properties.form} />
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'ModularValues', href: 'modularvalues' },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  initialValues: {
+    type: {
+      type: 'custom',
+      name: 'DeepPartial',
+      generics: [
+        { type: 'custom', name: 'ModularValues', href: 'modularvalues' },
+      ],
+    },
+    defaultValue: { type: 'object', entries: [] },
+  },
+  validateOn: {
+    type: [
+      { type: 'string', value: 'input' },
+      { type: 'string', value: 'change' },
+      { type: 'string', value: 'submit' },
+    ],
+    defaultValue: { type: 'string', value: 'submit' },
+  },
+  revalidateOn: {
+    type: [
+      { type: 'string', value: 'input' },
+      { type: 'string', value: 'change' },
+      { type: 'string', value: 'submit' },
+    ],
+    defaultValue: { type: 'string', value: 'input' },
+  },
+  form: {
+    type: { type: 'custom', name: 'ModularForm', href: 'modularform' },
+  },
+};

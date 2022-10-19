@@ -1,0 +1,29 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>ModularFieldArray | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Type that defines the state of a form field array."
+/>
+
+# ModularFieldArray
+
+Type that defines the state of a form field array.
+
+## Definition
+
+- `ModularFieldArray` <Property type="object" />
+  - `name` <Property type="string" />
+  - `items` <Property type={{ type: 'array', item: 'number' }} />
+  - `length` <Property type="number" />
+  - `error` <Property type="string" />
+  - `active` <Property type="boolean" />
+  - `touched` <Property type="boolean" />
+  - `dirty` <Property type="boolean" />
+
+### Explanation
+
+The `items` do not contain the value of the fields, but only a random unique number. This allows the `For` component of SolidJS to detect when a field moves within the array.
+
+The state properties of the field array are reactive and can be used, for example, in the JSX area or Solid's `createEffect` primitive.

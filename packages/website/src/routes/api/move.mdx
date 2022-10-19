@@ -1,0 +1,42 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>move | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Moves a field of the field array to a new position and rearranges all fields in between."
+/>
+
+# move
+
+Moves a field of the field array to a new position and rearranges all fields in between.
+
+```ts
+move(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `from` <Property type="number" />
+  - `to` <Property type="number" />
+
+### Explanation
+
+With `from` you set the index of the item to be moved to the index defined under `to`. The action is executed only if both indexes are valid.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+};

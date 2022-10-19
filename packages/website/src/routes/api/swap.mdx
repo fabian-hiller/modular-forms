@@ -1,0 +1,42 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>swap | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Swaps two fields of a field array by their index."
+/>
+
+# swap
+
+Swaps two fields of a field array by their index.
+
+```ts
+swap(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `at` <Property type="number" />
+  - `and` <Property type="number" />
+
+### Explanation
+
+With `at` and `and` you define the indexes of the items to be swapped. The action is executed only if both indexes are valid.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+};

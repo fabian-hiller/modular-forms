@@ -1,0 +1,47 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>ModularValues | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Type that defines the field values of a form."
+/>
+
+# ModularValues
+
+Type that defines the field values of a form.
+
+## Definition
+
+- `ModularValues` <Property {...properties.ModularValues} />
+
+> When defining your field values, make sure that the individual values are compatible with the respective input element. You can learn more about this [here](/guides/special-inputs).
+
+export const properties = {
+  ModularValues: {
+    type: {
+      type: 'object',
+      entries: [
+        {
+          key: { name: 'name', type: 'string' },
+          value: [
+            { type: 'custom', name: 'ModularValue', href: 'modularvalue' },
+            {
+              type: 'array',
+              item: {
+                type: 'custom',
+                name: 'ModularValue',
+                href: 'modularvalue',
+              },
+            },
+            { type: 'custom', name: 'ModularValues' },
+            {
+              type: 'array',
+              item: { type: 'custom', name: 'ModularValues' },
+            },
+          ],
+        },
+      ],
+    },
+  },
+};

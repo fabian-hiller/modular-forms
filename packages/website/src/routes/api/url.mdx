@@ -1,0 +1,39 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>url | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation functions that validates a URL."
+/>
+
+# url
+
+Creates a validation functions that validates a URL.
+
+```ts
+const validate = url(error);
+```
+
+## Parameter
+
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: ['string', 'null', 'undefined'],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

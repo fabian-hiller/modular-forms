@@ -1,0 +1,20 @@
+{
+  "name": "modular-forms",
+  "description": "The modular form library for SolidJS",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "Fabian Hiller",
+  "homepage": "https://modularforms.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabian-hiller/modular-forms"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^18.8.3",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "typescript": "^4.8.4",
+    "vite": "3.1.8"
+  }
+}

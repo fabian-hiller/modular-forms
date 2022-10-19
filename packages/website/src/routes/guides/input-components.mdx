@@ -1,0 +1,166 @@
+import { Meta, Title } from 'solid-start';
+
+<Title>Input components | Modular Forms</Title>
+<Meta
+  name="description"
+  content="To make your code more readable, we recommend that you develop your own input components. There you can encapsulate logic to display error messages."
+/>
+
+# Input components
+
+To make your code more readable, we recommend that you develop your own input components. There you can encapsulate logic to display error messages, for example.
+
+> If you're already a bit more experienced, you can use the input components we developed for our [playground](/playground) as a starting point. You can find the code in our GitHub repository [here](https://github.com/fabian-hiller/modular-forms/tree/main/packages/website/components).
+
+Currently, your fields might look something like this:
+
+```tsx
+<Field
+  of={loginForm}
+  name="email"
+  validate={…}
+>
+  {(field) => (
+    <div>
+      <label for={field.name}>Email</label>
+      <input
+        {...field.props}
+        id={field.name}
+        type="email"
+        value={props.value || ''}
+        required
+      />
+      {field.error && <div>{field.error}</div>}
+    </div>
+  )}
+</Field>
+```
+
+If CSS and a few more functionalities are added here, the code quickly becomes confusing. In addition, you have to rewrite the same code for almost every form field.
+
+Our goal is to develop a `TextInput` component so that the code ends up looking like this:
+
+```tsx
+<Field
+  of={loginForm}
+  name="email"
+  validate={…}
+>
+  {(field) => (
+    <TextInput
+      {...field.props}
+      type="email"
+      label="Email"
+      value={field.value}
+      error={field.error}
+      required
+    />
+  )}
+</Field>
+```
+
+## Create an input component
+
+In the first step, you create a new file for the `TextInput` component and, if you use TypeScript, define its properties.
+
+```tsx
+import { JSX } from 'solid-js';
+
+type TextInputProps = {
+  ref: (element: HTMLInputElement) => void;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  name: string;
+  value: string | number | undefined;
+  onInput: JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;
+  onChange: JSX.EventHandlerUnion<HTMLInputElement, Event>;
+  onBlur: JSX.EventHandlerUnion<HTMLInputElement, FocusEvent>;
+  placeholder?: string;
+  required?: boolean;
+  label?: string;
+  error?: string;
+};
+```
+
+In the next step, add the component function to the file and use Solid's `splitProps` utility to separate the properties of the HTML `<input />` element from the rest.
+
+```tsx
+import { JSX, splitProps } from 'solid-js';
+
+type TextInputProps = { … };
+
+export function TextInput(props: TextInputProps) {
+  const [_, inputProps] = splitProps(props, ['value', 'label', 'error']);
+}
+```
+
+After that, next you can add the JSX code to the return statement.
+
+```tsx
+import { JSX, splitProps } from 'solid-js';
+
+type TextInputProps = { … };
+
+export function TextInput(props: TextInputProps) {
+  const [_, inputProps] = splitProps(props, ['value', 'label', 'error']);
+  return (
+    <div>
+      {props.label && (
+        <label for={props.name}>
+          {props.label} {props.required && <span>*</span>}
+        </label>
+      )}
+      <input
+        {...inputProps}
+        id={props.name}
+        value={props.value || ''}
+        aria-invalid={!!props.error}
+        aria-errormessage={`${props.name}-error`}
+      />
+      {props.error && <div id={`${props.name}-error`}>{props.error}</div>}
+    </div>
+  );
+}
+```
+
+You can now build on this code and add CSS, for example. You can also follow the procedure to create other components such as `Checkbox`, `Slider`, `Select` and `FileInput`.
+
+Below is an overview of the entire code of the `TextInput` component.
+
+```tsx
+import { JSX, splitProps } from 'solid-js';
+
+type TextInputProps = {
+  ref: (element: HTMLInputElement) => void;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  name: string;
+  value: string | number | undefined;
+  onInput: JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;
+  onChange: JSX.EventHandlerUnion<HTMLInputElement, Event>;
+  onBlur: JSX.EventHandlerUnion<HTMLInputElement, FocusEvent>;
+  placeholder?: string;
+  required?: boolean;
+  label?: string;
+  error?: string;
+};
+
+export function TextInput(props: TextInputProps) {
+  const [_, inputProps] = splitProps(props, ['value', 'label', 'error']);
+  return (
+    <div>
+      {props.label && (
+        <label for={props.name}>
+          {props.label} {props.required && <span>*</span>}
+        </label>
+      )}
+      <input
+        {...inputProps}
+        id={props.name}
+        value={props.value || ''}
+        aria-invalid={!!props.error}
+        aria-errormessage={`${props.name}-error`}
+      />
+      {props.error && <div id={`${props.name}-error`}>{props.error}</div>}
+    </div>
+  );
+}
+```

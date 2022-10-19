@@ -1,0 +1,58 @@
+import { Meta, Title } from 'solid-start';
+
+<Title>Field arrays | Modular Forms</Title>
+<Meta
+  name="description"
+  content="A somewhat more special case are dynamically generated form fields based on an array. For this purpose, the library provides you with the FieldArray component."
+/>
+
+# Field arrays
+
+A somewhat more special case are dynamically generated form fields based on an array. Since adding, removing, swapping and moving items can be a big challenge here, the library provides the [`FieldArray`](/api/fieldarray) component which, in combination with various methods, makes it very easy for you to create such forms.
+
+> In our [playground](/playground/todos) you can take a look at a form with a field array and test them out.
+
+In the following example we create a field array for a todo form with the following fields:
+
+```ts
+type TodoForm = {
+  heading: string;
+  todos: {
+    label: string;
+    deadline: string;
+  }[];
+};
+```
+
+To dynamically generate the form fields for the todos, you use our [`FieldArray`](/api/fieldarray) component in combination with the `For` component from Solid. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that the `For` component uses to detect when an item is added, moved, or removed.
+
+As with nested fields, you use dot notation for the name of each field. It is important that you use the index signal of the `For` component to specify the index, so that the fields are updated when the items are changed.
+
+```tsx
+<FieldArray of={todoForm} name="todos">
+  {(fieldArray) => (
+    <For each={fieldArray.items}>
+      {(item, index) => (
+        <div>
+          <Field of={todoForm} name={`todos.${index()}.label`}>
+            {(field) => <input {...field.props} type="texte" />}
+          </Field>
+          <Field of={todoForm} name={`todos.${index()}.deadline`}>
+            {(field) => <input {...field.props} type="date" />}
+          </Field>
+        </div>
+      )}
+    </For>
+  )}
+</FieldArray>
+```
+
+As with fields, you can also validate field arrays with the `validate` attribute. For example, to limit the length of the array you can use the [`maxLength`](/api/maxlength) function.
+
+Now you can use the [`insert`](/api/insert), [`move`](/api/move), [`remove`](/api/remove), [`replace`](/api/replace) and [`swap`](/api/swap) method to make changes to the field array. For example, to move the first item two positions back, use the [`move`](/api/move) method. It will automatically take care of rearranging all the fields in between.
+
+```ts
+move(todoForm, 'todos', { from: 0, to: 2 });
+```
+
+For more details on the other methods, see the [API Reference](/api).

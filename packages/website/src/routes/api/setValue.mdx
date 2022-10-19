@@ -1,0 +1,68 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>setValue | Modular Forms</Title>
+<Meta name="description" content="Sets the value of the specified field." />
+
+# setValue
+
+Sets the value of the specified field.
+
+```ts
+setValue(form, name, value, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `value` <Property {...properties.value} />
+- `options` <Property {...properties.options} />
+  - `shouldTouched` <Property {...properties.shouldTouched} />
+  - `shouldDirty` <Property {...properties.shouldDirty} />
+  - `shouldValidate` <Property {...properties.shouldValidate} />
+
+### Explanation
+
+By default, the field is set to touched and the dirty state is updated. If you don't want this, you can set `shouldTouched` and/or `shouldDirty` to `false`.
+
+By default, the field is validated according to the rules defined in the `options` of [`createForm`](createform). To disable validation you can set `shouldValidate` to `false`.
+
+## Return
+
+- `value` <Property {...properties.value} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  value: {
+    type: [
+      {
+        type: 'custom',
+        name: 'ModularValue',
+        href: 'modularvalue',
+      },
+    ],
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldValidate: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+};

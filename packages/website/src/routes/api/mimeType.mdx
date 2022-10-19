@@ -1,0 +1,48 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>mimeType | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation functions that validates the file type."
+/>
+
+# mimeType
+
+Creates a validation functions that validates the file type.
+
+```ts
+const validate = mimeType(requirement, error);
+```
+
+## Parameters
+
+- `requirement` <Property {...properties.requirement} />
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  requirement: {
+    type: ['string', { type: 'array', item: 'string' }],
+  },
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: [
+            { type: 'custom', name: 'File' },
+            { type: 'custom', name: 'FileList' },
+            'null',
+            'undefined',
+          ],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

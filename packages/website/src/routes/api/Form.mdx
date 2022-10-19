@@ -1,0 +1,93 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>Form | Modular Forms</Title>
+<Meta
+  name="description"
+  content="A wrapper component that handles the submission of a form and disables the browser's default form validation."
+/>
+
+# Form
+
+HTML form element that simplifies form submission and disables the browser's default form validation.
+
+```tsx
+<Form
+  of={…}
+  onSubmit={…}
+  shouldActive={…}
+  shouldTouched={…}
+  shouldDirty={…}
+  shouldFocus={…}
+>
+  children
+</Form>
+```
+
+## Properties
+
+- `of` <Property {...properties.of} />
+- `onSubmit` <Property {...properties.onSubmit} />
+- `shouldActive` <Property {...properties.shouldActive} />
+- `shouldTouched` <Property {...properties.shouldTouched} />
+- `shouldDirty` <Property {...properties.shouldDirty} />
+- `shouldFocus` <Property {...properties.shouldFocus} />
+- `children` <Property {...properties.children} />
+
+> Besides the specified properties, you can pass any other property of an HTML form element.
+
+### Explanation
+
+Errors thrown by the `onSubmit` function are made available via the `response` property of the [`ModularForm`](modularform) object to display them to your user.
+
+By default, the `onSubmit` function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
+
+By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the `onSubmit` function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the `onSubmit` function and can be combined with each other.
+
+export const properties = {
+  of: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  onSubmit: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'values',
+          type: {
+            type: 'custom',
+            name: 'ModularValues',
+            href: 'modularvalues',
+          },
+        },
+        { name: 'event', type: { type: 'custom', name: 'Event' } },
+      ],
+      return: ['void', { type: 'custom', name: 'Promise', generics: ['void'] }],
+    },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldFocus: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  children: {
+    type: { type: 'custom', name: 'JSX.Element' },
+  },
+};

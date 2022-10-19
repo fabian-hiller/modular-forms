@@ -1,0 +1,40 @@
+@tailwind utilities;
+@layer utilities {
+  @keyframes animate_logo_light {
+    0%,
+    100% {
+      @apply text-sky-600;
+    }
+    33% {
+      @apply text-red-600;
+    }
+    66% {
+      @apply text-emerald-600;
+    }
+  }
+  .animate-logo {
+    animation: animate_logo_light 20s linear infinite;
+  }
+  @keyframes animate_logo_dark {
+    0%,
+    100% {
+      @apply text-sky-400;
+    }
+    33% {
+      @apply text-red-400;
+    }
+    66% {
+      @apply text-emerald-400;
+    }
+  }
+  .dark .animate-logo {
+    animation-name: animate_logo_dark;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

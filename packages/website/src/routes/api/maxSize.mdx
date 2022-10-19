@@ -1,0 +1,45 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>maxSize | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation functions that validates the file size."
+/>
+
+# maxSize
+
+Creates a validation functions that validates the file size.
+
+```ts
+const validate = maxSize(requirement, error);
+```
+
+## Parameters
+
+- `requirement` <Property type="number" />
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: [
+            { type: 'custom', name: 'File' },
+            { type: 'custom', name: 'FileList' },
+            'null',
+            'undefined',
+          ],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

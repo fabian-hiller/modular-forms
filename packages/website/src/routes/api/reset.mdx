@@ -1,0 +1,133 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>reset | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Resets the entire form, several fields and field arrays or a singel field or field array."
+/>
+
+# reset
+
+Resets the entire form, several fields and field arrays or a singel field or field array.
+
+```ts
+// Reset the entire form
+reset(form, options);
+
+// Reset several fields and field arrays
+reset(form, names, options);
+
+// Reset a singel field or field array
+reset(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `names` <Property {...properties.names} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `initialValues` <Property {...properties.initialValues} />
+  - `initialValue` <Property {...properties.initialValue} />
+  - `keepSubmitCount` <Property {...properties.keepSubmitCount} />
+  - `keepSubmitted` <Property {...properties.keepSubmitted} />
+  - `keepValues` <Property {...properties.keepValues} />
+  - `keepDirtyValues` <Property {...properties.keepDirtyValues} />
+  - `keepErrors` <Property {...properties.keepErrors} />
+  - `keepTouched` <Property {...properties.keepTouched} />
+  - `keepDirty` <Property {...properties.keepDirty} />
+
+### Explanation
+
+In addition to the names of the fields, you can also specify the name of a field array under `names` or `name`. In this case, the field array and the fields it contains will be reset.
+
+When you reset the entire form, you can specify new `initialValues` that override the `initialValues` you may specified in the [`createForm`](createform) primitive.
+
+When you reset several fields, you can specify `initialValues` that get shallow merged into the `initialValues` you may specified in the [`createForm`](createform) primitive.
+
+When you reset a single field, you can specify a new `initialValue` that override the initial value you may set in the `initialValues` property of the [`createForm`](createform) primitive.
+
+By default, the reactive `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepSubmitCount` and/or `keepSubmitted` to `true` or `false`.
+
+By default, the value, error, touched and dirty state of each field and field array are reset. To change this behavior you can set `keepValues`, `keepDirtyValues`, `keepErrors`, `keepErrors` and/or `keepDirty` to `true`.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  names: {
+    type: {
+      type: 'array',
+      item: 'string',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  initialValues: {
+    type: [
+      {
+        type: 'custom',
+        name: 'DeepPartial',
+        generics: [
+          {
+            type: 'custom',
+            name: 'ModularValues',
+            href: 'modularvalues',
+          },
+        ],
+      },
+      'undefined',
+    ],
+  },
+  initialValue: {
+    type: [
+      {
+        type: 'custom',
+        name: 'ModularValue',
+        href: 'modularvalue',
+      },
+      'undefined',
+    ],
+  },
+  keepSubmitCount: {
+    type: 'boolean',
+    defaultValue: [
+      { type: 'boolean', value: true },
+      { type: 'boolean', value: false },
+    ],
+  },
+  keepSubmitted: {
+    type: 'boolean',
+    defaultValue: [
+      { type: 'boolean', value: true },
+      { type: 'boolean', value: false },
+    ],
+  },
+  keepValues: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepDirtyValues: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepErrors: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+};

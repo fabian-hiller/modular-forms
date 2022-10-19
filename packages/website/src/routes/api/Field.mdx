@@ -1,0 +1,135 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>Field | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Wrapper component that provides the reactive properties and state of a form field."
+/>
+
+# Field
+
+Wrapper component that provides the reactive properties and state of a form field.
+
+```tsx
+<Field
+  of={…}
+  name={…}
+  initialValue={…}
+  validate={…}
+  keepActive={…}
+  keepState={…}
+>
+  children
+</Field>
+```
+
+## Properties
+
+- `of` <Property {...properties.of} />
+- `name` <Property type="string" />
+- `initialValue` <Property {...properties.initialValue} />
+- `validate` <Property {...properties.validate} />
+- `keepActive` <Property {...properties.keepActive} />
+- `keepState` <Property {...properties.keepState} />
+- `children` <Property {...properties.children} />
+
+### Explanation
+
+The `initialValue` you define directly at a field has the highest specificity and overrides initial values you set at [`createForm`](createform) and [`reset`](reset). If the `initialValue` is reactive, changing the value will update the initial value of the field.
+
+For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
+
+Fields automatically detect if they are still in use and update their status accordingly. If you don't want a field to become inactive when it is no longer in use, you can set `keepActive` to `true`.
+
+By default, the state of an inactive field is maintained. If you want a field to be reset when it becomes inactive, you can set `keepState` to `false`.
+
+export const properties = {
+  of: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  initialValue: {
+    type: [
+      {
+        type: 'custom',
+        name: 'ModularValue',
+        href: 'modularvalue',
+      },
+      'undefined',
+    ],
+  },
+  validate: {
+    type: [
+      {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: {
+              type: 'custom',
+              name: 'ModularValue',
+              href: 'modularvalue',
+            },
+          },
+        ],
+        return: [
+          'string',
+          {
+            type: 'custom',
+            name: 'Promise',
+            generics: ['string'],
+          },
+        ],
+      },
+      {
+        type: 'array',
+        item: {
+          type: 'function',
+          params: [
+            {
+              name: 'value',
+              type: {
+                type: 'custom',
+                name: 'ModularValue',
+                href: 'modularvalue',
+              },
+            },
+          ],
+          return: [
+            'string',
+            {
+              type: 'custom',
+              name: 'Promise',
+              generics: ['string'],
+            },
+          ],
+        },
+      },
+      'undefined',
+    ],
+  },
+  keepActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepState: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  children: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'field',
+          type: { type: 'custom', name: 'ModularField', href: 'modularfield' },
+        },
+      ],
+      return: { type: 'custom', name: 'JSX.Element' },
+    },
+  },
+};

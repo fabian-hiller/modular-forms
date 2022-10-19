@@ -1,0 +1,12 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": {
+    "editor.formatOnSave": true,
+    "tailwindCSS.classAttributes": [
+      "class",
+      "classList",
+      "activeClass",
+      "inactiveClass"
+    ]
+  }
+}

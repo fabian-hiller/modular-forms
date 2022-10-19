@@ -1,0 +1,82 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>getValue | Modular Forms</Title>
+<Meta name="description" content="Returns the value of the specified field." />
+
+# getValue
+
+Returns the value of the specified field.
+
+```ts
+const value = getValue(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `shouldActive` <Property {...properties.shouldActive} />
+  - `shouldTouched` <Property {...properties.shouldTouched} />
+  - `shouldDirty` <Property {...properties.shouldDirty} />
+  - `shouldValid` <Property {...properties.shouldValid} />
+  - `typeValidated` <Property {...properties.typeValidated} />
+
+### Explanation
+
+By default `undefined` is returned if the field is inactive. To change this behavior you can set `shouldActive` to `false`.
+
+If you want `undefined` to be returned when the field is not touched, not dirty and/or not valid, you can set `shouldTouched`, `shouldDirty` and/or `shouldValid` to `true`.
+
+`shouldActive`, `shouldTouched`, `shouldDirty` and `shouldValid` act like a kind of filter and can be combined with each other.
+
+`typeValidated` is for TypeScript users only. By default, the value is returned as maybe `undefined` because we have no way of knowing whether you actually used the specified field and whether your user's input is valid. If you are sure that the returned value matches your type definition of the form values, for example because they have been validated before, you can tell us to cast it to your type definition by setting `typeValidated` to `true`.
+
+## Return
+
+- `value` <Property {...properties.value} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldValid: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  typeValidated: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  value: {
+    type: [
+      {
+        type: 'custom',
+        name: 'ModularValue',
+        href: 'modularvalue',
+      },
+      'undefined',
+    ],
+  },
+};

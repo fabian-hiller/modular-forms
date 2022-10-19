@@ -1,0 +1,55 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>insert | Modular Forms</Title>
+<Meta name="description" content="Inserts a new item into the field array." />
+
+# insert
+
+Inserts a new item into the field array.
+
+```ts
+insert(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `at` <Property type="number" />
+  - `value` <Property {...properties.value} />
+
+### Explanation
+
+With `at` you define the index where the item should be inserted. The action will only be executed if you define a valid index.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  value: {
+    type: [
+      {
+        type: 'custom',
+        name: 'DeepPartial',
+        generics: [
+          {
+            type: 'custom',
+            name: 'ModularValues',
+            href: 'modularvalues',
+          },
+        ],
+      },
+      'string',
+    ],
+  },
+};

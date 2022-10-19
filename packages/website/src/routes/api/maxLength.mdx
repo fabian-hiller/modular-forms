@@ -1,0 +1,46 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>maxLength | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation functions that validates the length of a string or array."
+/>
+
+# maxLength
+
+Creates a validation functions that validates the length of a string or array.
+
+```ts
+const validate = maxLength(requirement, error);
+```
+
+## Parameters
+
+- `requirement` <Property type="number" />
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: [
+            'string',
+            { type: 'array', item: 'string' },
+            { type: 'array', item: 'number' },
+            'null',
+            'undefined',
+          ],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

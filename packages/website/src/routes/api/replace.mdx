@@ -1,0 +1,56 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>replace | Modular Forms</Title>
+<Meta name="description" content="Replaces a item of the field array." />
+
+# replace
+
+Replaces a item of the field array.
+
+```ts
+replace(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `at` <Property type="number" />
+  - `value` <Property {...properties.value} />
+
+### Explanation
+
+With `at` you define the index of the item to be replaced. The action will only be executed if you define a valid index.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  value: {
+    type: [
+      {
+        type: 'custom',
+        name: 'DeepPartial',
+        generics: [
+          {
+            type: 'custom',
+            name: 'ModularValues',
+            href: 'modularvalues',
+          },
+        ],
+      },
+      'string',
+      'undefined',
+    ],
+  },
+};

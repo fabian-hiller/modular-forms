@@ -1,0 +1,109 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>ModularField | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Type that defines the state of a form field."
+/>
+
+# ModularField
+
+Type that defines the state of a form field.
+
+## Definition
+
+- `ModularField` <Property type="object" />
+  - `props` <Property type="object" />
+    - `name` <Property type="string" />
+    - `ref` <Property {...properties.ref} />
+    - `onInput` <Property {...properties.onInput} />
+    - `onChange` <Property {...properties.onChange} />
+    - `onBlur` <Property {...properties.onBlur} />
+  - `name` <Property type="string" />
+  - `value` <Property {...properties.value} />
+  - `error` <Property type="string" />
+  - `active` <Property type="boolean" />
+  - `touched` <Property type="boolean" />
+  - `dirty` <Property type="boolean" />
+
+### Explanation
+
+The `props` should be spread into a HTML input, select or textarea element as shown in the following example.
+
+```tsx
+<input {...field.props} type="text" />
+```
+
+The state properties of the field are reactive and can be used, for example, in the JSX area or Solid's `createEffect` primitive.
+
+export const properties = {
+  ref: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'element',
+          type: [
+            { type: 'custom', name: 'HTMLInputElement' },
+            { type: 'custom', name: 'HTMLSelectElement' },
+            { type: 'custom', name: 'HTMLTextAreaElement' },
+          ],
+        },
+      ],
+      return: 'void',
+    },
+  },
+  onInput: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'event',
+          type: {
+            type: 'custom',
+            name: 'InputEvent',
+          },
+        },
+      ],
+      return: 'void',
+    },
+  },
+  onChange: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'event',
+          type: {
+            type: 'custom',
+            name: 'Event',
+          },
+        },
+      ],
+      return: 'void',
+    },
+  },
+  onBlur: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'event',
+          type: {
+            type: 'custom',
+            name: 'FocusEvent',
+          },
+        },
+      ],
+      return: 'void',
+    },
+  },
+  value: {
+    type: {
+      type: 'custom',
+      name: 'ModularValue',
+      href: 'modularvalue',
+    },
+  },
+};

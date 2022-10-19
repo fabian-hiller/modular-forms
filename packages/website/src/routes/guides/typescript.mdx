@@ -1,0 +1,47 @@
+import { Meta, Title } from 'solid-start';
+
+<Title>TypeScript | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Since the library is written in TypeScript and we put a lot of emphasis on the development experience, you can expect maximum TypeScript support."
+/>
+
+# TypeScript
+
+Since the library is written in TypeScript and we put a lot of emphasis on the development experience, you can expect maximum TypeScript support.
+
+For example, to pass your form to another component via props, you can use the [`ModularForm`](/api/modularform) type to get type safety.
+
+```tsx
+import { createForm, ModularForm } from '@modular-forms/solid';
+
+type LoginForm = {
+  email: string;
+  password: string;
+}
+
+export function LoginPage() {
+  const loginForm = createForm<LoginForm>();
+  return <FormContent loginForm={loginForm} />
+}
+
+type FormContentProps {
+  loginForm: ModularForm<LoginForm>;
+}
+
+function FormContent(props: FormContentProps) {
+  return (
+    <Form of={props.loginForm} onSubmit={loginUser}>
+      <Field of={props.loginForm} name="email">
+        {(field) => <input {...field.props} type="email" />}
+      </Field>
+      <Field of={props.loginForm} name="password">
+        {(field) => <input {...field.props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+All other types you can import can be found in our [API reference](/api). Please let us know if you need more types from us.

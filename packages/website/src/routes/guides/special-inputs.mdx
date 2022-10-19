@@ -1,0 +1,111 @@
+import { Meta, Title } from 'solid-start';
+
+<Title>Special inputs | Modular Forms</Title>
+<Meta
+  name="description"
+  content="As listed in our features, the library supports all native HTML form fields. This includes the HTML select element as well as special cases of the input element."
+/>
+
+# Special inputs
+
+As listed in our features, the library supports all native HTML form fields. This includes the HTML `<select />` element as well as special cases of the `<input />` element.
+
+> In our [playground](/playground/special) you can take a look at such fields and test them out.
+
+## Checkbox
+
+A simple checkbox represents a boolean and is `true` when checked or `false` otherwise.
+
+```tsx
+<Field of={specialForm} name="cookies">
+  {(field) => (
+    <label>
+      <input {...field.props} type="checkbox" checked={field.value} />
+      Yes, I want cookies
+    </label>
+  )}
+</Field>
+```
+
+However, you can also use multiple checkboxes to represent an array of strings. For this you simply have to add the `value` attribute to the HTML `<input />` element.
+
+```tsx
+<For
+  each={[
+    { label: 'Bananas', value: 'bananas' },
+    { label: 'Apples', value: 'apples' },
+    { label: 'Grapes', value: 'grapes' },
+  ]}
+>
+  {({ label, value }) => (
+    <Field of={specialForm} name="fruits">
+      {(field) => (
+        <label>
+          <input
+            {...field.props}
+            type="checkbox"
+            value={value}
+            checked={field.value?.includes(value)}
+          />
+          {label}
+        </label>
+      )}
+    </Field>
+  )}
+</For>
+```
+
+## Select
+
+An HTML `<select />` element allows you to select a string from a predefined list of options.
+
+```tsx
+<Field of={specialForm} name="framework">
+  {(field) => (
+    <select {...field.props}>
+      <For
+        each={[
+          { label: 'React', value: 'react' },
+          { label: 'Svelte', value: 'svelte' },
+          { label: 'Solid', value: 'solid' },
+        ]}
+      >
+        {({ label, value }) => (
+          <option value={value} selected={field.value === value}>
+            {label}
+          </option>
+        )}
+      </For>
+    </select>
+  )}
+</Field>
+```
+
+However, if you set the `multiple` attribute, multiple options can be selected making the field represent an array of strings.
+
+```tsx
+<Field of={specialForm} name="framework">
+  {(field) => (
+    // Set "multiple" to "true"
+    <select {...field.props} multiple>
+      <For
+        each={[
+          { label: 'React', value: 'react' },
+          { label: 'Svelte', value: 'svelte' },
+          { label: 'Solid', value: 'solid' },
+        ]}
+      >
+        {({ label, value }) => (
+          <option value={value} selected={field.value === value}>
+            {label}
+          </option>
+        )}
+      </For>
+    </select>
+  )}
+</Field>
+```
+
+## File
+
+For the HTML `<input type="file" />` element it works similar to the HTML `<select />` element. Without the `multiple` attribute it represents a single file and with, a list of files.

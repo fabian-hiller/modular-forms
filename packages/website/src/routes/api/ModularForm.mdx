@@ -1,0 +1,46 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>TypeScript | Modular Forms</Title>
+<Meta name="description" content="Type that defines the state of a form." />
+
+# ModularForm
+
+Type that defines the state of a form.
+
+## Definition
+
+- `ModularForm` <Property type="object" />
+  - `element` <Property {...properties.element} />
+  - `submitCount` <Property type="number" />
+  - `submitting` <Property type="boolean" />
+  - `submitted` <Property type="boolean" />
+  - `validating` <Property type="boolean" />
+  - `touched` <Property type="boolean" />
+  - `dirty` <Property type="boolean" />
+  - `invalid` <Property type="boolean" />
+  - `response` <Property type="object" />
+    - `variant` <Property {...properties.variant} />
+    - `message` <Property type={['string', 'undefined']} />
+
+> The object also contains a key named `internal` which provides API's that we need internally in the library. You should not access it. Instead, use the form, field and array methods we provide you.
+
+### Explanation
+
+The state properties of the form are reactive and can be used, for example, in the JSX area or Solid's `createEffect` primitive.
+
+If you use the [`Form`](form) component or the [`handleSubmit`](handlesubmit) method to submit your form, errors that are thrown are made accessible via the `response` object. In conjunction with the [`setResponse`](setresponse) method, you can also use `response` to display other feedback to your user.
+
+export const properties = {
+  element: {
+    type: [{ type: 'custom', name: 'HTMLFormElement' }, 'undefined'],
+  },
+  variant: {
+    type: [
+      { type: 'string', value: 'info' },
+      { type: 'string', value: 'error' },
+      { type: 'string', value: 'succes' },
+      'undefined',
+    ],
+  },
+};

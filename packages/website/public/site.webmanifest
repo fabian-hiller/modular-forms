@@ -1,0 +1,20 @@
+{
+  "name": "Modular Forms",
+  "short_name": "Modular Forms",
+  "description": "The modular form library for SolidJS",
+  "theme_color": "#111827",
+  "background_color": "#111827",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

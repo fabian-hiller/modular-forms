@@ -1,0 +1,40 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>minNumber | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Creates a validation functions that validates a number."
+/>
+
+# minNumber
+
+Creates a validation functions that validates a number.
+
+```ts
+const validate = minNumber(requirement, error);
+```
+
+## Parameters
+
+- `requirement` <Property type="number" />
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+export const properties = {
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: ['number', 'null', 'undefined'],
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

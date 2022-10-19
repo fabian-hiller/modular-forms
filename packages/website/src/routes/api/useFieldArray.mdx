@@ -1,0 +1,116 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>useFieldArray | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Returns the reactive state of a form field array."
+/>
+
+# useFieldArray
+
+Returns the reactive state of a form field array.
+
+```ts
+const fieldArray = useFieldArray(form, name, options);
+```
+
+> The `useFieldArray` primitive is used internally in the [`FieldArray`](fieldarray) component. It's better to use the [`FieldArray`](fieldarray) component and only if there is a good reason to switch to the `useFieldArray` primitive.
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `validate` <Property {...properties.validate} />
+  - `keepActive` <Property {...properties.keepActive} />
+  - `keepState` <Property {...properties.keepState} />
+
+### Explanation
+
+For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
+
+Field arrays automatically detect if they are still in use and update their status accordingly. If you don't want a field array to become inactive when it is no longer in use, you can set `keepActive` to `true`.
+
+By default, the state of an inactive field array is maintained. If you want a field to be reset when it becomes inactive, you can set `keepState` to `false`.
+
+## Return
+
+- `fieldArray` <Property {...properties.fieldArray} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  validate: {
+    type: [
+      {
+        type: 'function',
+        params: [
+          {
+            name: 'items',
+            type: {
+              type: 'array',
+              item: 'number',
+            },
+          },
+        ],
+        return: [
+          'string',
+          {
+            type: 'custom',
+            name: 'Promise',
+            generics: ['string'],
+          },
+        ],
+      },
+      {
+        type: 'array',
+        item: {
+          type: 'function',
+          params: [
+            {
+              name: 'items',
+              type: {
+                type: 'array',
+                item: 'number',
+              },
+            },
+          ],
+          return: [
+            'string',
+            {
+              type: 'custom',
+              name: 'Promise',
+              generics: ['string'],
+            },
+          ],
+        },
+      },
+      'undefined',
+    ],
+  },
+  keepActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepState: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  fieldArray: {
+    type: {
+      type: 'custom',
+      name: 'ModularFieldArray',
+      href: 'modularfieldarray',
+    },
+  },
+};
