@@ -1,4 +1,4 @@
-![Modular Forms: The modular form library for SolidJS](https://raw.githubusercontent.com/fabian-hiller/modular-forms/main/banner.jpg)
+# Modular Forms
 
 Modular Forms is a JavaScript library that is build on top of [SolidJS](https://github.com/solidjs/solid) to validate and handle various types of forms. It is fast by default and the bundle size is small due to a modular design. Try it out on our [website](https://modularforms.dev/playground)!
 
