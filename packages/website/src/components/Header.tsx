@@ -1,8 +1,8 @@
 import { makeEventListener } from '@solid-primitives/event-listener';
 import { isClient } from '@solid-primitives/utils';
-import { NavLink } from '@solidjs/router';
 import clsx from 'clsx';
 import { createSignal, For } from 'solid-js';
+import { A } from 'solid-start';
 import { GitHubIcon, LogoIcon } from '~/icons';
 import { Hamburger } from './Hamburger';
 import { ThemeToggle } from './ThemeToggle';
@@ -48,14 +48,14 @@ export function Header() {
       >
         {/* Website logo */}
         <div class="lg:w-56">
-          <a
+          <A
             class="inline-flex items-center p-4 font-medium md:text-lg lg:text-xl"
             href="/"
             onClick={() => setMenuOpen(false)}
           >
             <LogoIcon class="mr-2 h-5 md:h-[23px] lg:h-[26px]" />
             Modular Forms
-          </a>
+          </A>
         </div>
 
         {/* Main menu */}
@@ -74,14 +74,14 @@ export function Header() {
             ]}
           >
             {({ label, href }) => (
-              <NavLink
+              <A
                 class="px-8 py-3 text-lg hover:text-slate-900 dark:hover:text-slate-200 lg:px-3 lg:text-[17px] lg:font-medium"
                 activeClass="text-slate-900 dark:text-slate-200"
                 href={href}
                 onClick={() => setMenuOpen(false)}
               >
                 {label}
-              </NavLink>
+              </A>
             )}
           </For>
         </nav>

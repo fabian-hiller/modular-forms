@@ -1,4 +1,4 @@
-import { Meta, Title } from 'solid-start';
+import { A, Meta, Title } from 'solid-start';
 
 <Title>Controlled fields | Modular Forms</Title>
 <Meta
@@ -10,7 +10,7 @@ import { Meta, Title } from 'solid-start';
 
 By default, all form fields are uncontrolled because that's the default behavior of the browser. For a simple login or contact form this is also quite sufficient.
 
-However, as soon as your forms become more complex, for example you set initial values or change the values of a form field via [`setValue`](/api/setvalue), it becomes necessary that you control your fields yourself. For example, depending on which HTML form field you use, you may need to set the `value`, `checked`, or `selected` attributes.
+However, as soon as your forms become more complex, for example you set initial values or change the values of a form field via <A href="/api/setvalue">`setValue`</A>, it becomes necessary that you control your fields yourself. For example, depending on which HTML form field you use, you may need to set the `value`, `checked`, or `selected` attributes.
 
 For a text input field you simply add the `value` attribute and pass the value of the field or in case of `undefined` or `null` an empty string.
 
@@ -27,4 +27,4 @@ For a text input field you simply add the `value` attribute and pass the value o
 </Field>
 ```
 
-> The HTML `<input type="file" />` element is an exception because it cannot be controlled. However, you have the possibility to control the UI around it. For inspiration you can use the code of our [`FileInput`](https://github.com/fabian-hiller/modular-forms/tree/main/packages/website/components/FileInput.tsx) component from our [playground](/playground/special).
+> The HTML `<input type="file" />` element is an exception because it cannot be controlled. However, you have the possibility to control the UI around it. For inspiration you can use the code of our <a href="https://github.com/fabian-hiller/modular-forms/tree/main/packages/website/components/FileInput.tsx" target="_blank" rel="noreferrer">`FileInput`</a> component from our <A href="/playground/special">playground</A>.

@@ -1,4 +1,4 @@
-import { Meta, Title } from 'solid-start';
+import { A, Meta, Title } from 'solid-start';
 import { Property } from '~/components';
 
 <Title>Form | Modular Forms</Title>
@@ -38,7 +38,7 @@ HTML form element that simplifies form submission and disables the browser's def
 
 ### Explanation
 
-Errors thrown by the `onSubmit` function are made available via the `response` property of the [`ModularForm`](modularform) object to display them to your user.
+Errors thrown by the `onSubmit` function are made available via the `response` property of the <A href="/api/modularform">`ModularForm`</A> object to display them to your user.
 
 By default, the `onSubmit` function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
 

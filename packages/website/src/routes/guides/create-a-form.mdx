@@ -1,4 +1,4 @@
-import { Meta, Title } from 'solid-start';
+import { A, Meta, Title } from 'solid-start';
 
 <Title>Create a form | Modular Forms</Title>
 <Meta
@@ -8,9 +8,9 @@ import { Meta, Title } from 'solid-start';
 
 # Create a form
 
-Like Solid, the library consists of primitives and components. To create a form you use the primitive [`createForm`](/api/createform).
+Like Solid, the library consists of primitives and components. To create a form you use the primitive <A href="/api/createform">`createForm`</A>.
 
-If you use TypeScript, you can additionally define the fields and their values and pass the type as a generic. You also have the option to pass initial values to the form. See the [API reference](/api/createform) for more details.
+If you use TypeScript, you can additionally define the fields and their values and pass the type as a generic. You also have the option to pass initial values to the form. See the <A href="/api/createform">API reference</A> for more details.
 
 ```tsx
 import { createForm } from '@modular-forms/solid';
@@ -28,9 +28,9 @@ export default function App() {
 }
 ```
 
-Using the return value of the [`createForm`](/api/createform) primitive, you can directly access the reactive state to, for example, display a loading animation while the form is being submitted. In our [playground](/playground), you can use the debugger to track the state of the form as you make changes to it.
+Using the return value of the <A href="/api/createform">`createForm`</A> primitive, you can directly access the reactive state to, for example, display a loading animation while the form is being submitted. In our <A href="/playground">playground</A>, you can use the debugger to track the state of the form as you make changes to it.
 
-For the JSX part of your form, the library provides the [`Form`](/api/form) component. If you prefer, you can also keep the HTML `<form />` element. The component is not mandatory, it just helps you write less code.
+For the JSX part of your form, the library provides the <A href="/api/form">`Form`</A> component. If you prefer, you can also keep the HTML `<form />` element. The component is not mandatory, it just helps you write less code.
 
 ```tsx
 import { createForm, Form } from '@modular-forms/solid';

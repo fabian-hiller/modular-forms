@@ -1,4 +1,5 @@
 import { createSignal, JSX, Match, Switch } from 'solid-js';
+import { A } from 'solid-start';
 
 export type DefaultButtonProps =
   | {
@@ -34,7 +35,7 @@ export function UnstyledButton(props: UnstyledButtonProps) {
       {/* Link button */}
       <Match when={props.type === 'link' && props} keyed>
         {(link) => (
-          <a
+          <A
             class={props.class}
             href={link.href}
             download={link.download}
@@ -42,7 +43,7 @@ export function UnstyledButton(props: UnstyledButtonProps) {
             rel={link.target === '_blank' ? 'noreferrer' : undefined}
           >
             {props.children({})}
-          </a>
+          </A>
         )}
       </Match>
 

@@ -1,5 +1,5 @@
-import { NavLink, useLocation } from '@solidjs/router';
 import { createEffect, createSignal, For } from 'solid-js';
+import { A, useLocation } from 'solid-start';
 
 type NavigationProps = {
   items: NavItemProps[];
@@ -66,7 +66,7 @@ function NavItem(props: NavItemProps) {
           <For each={props.items}>
             {(item) => (
               <li>
-                <NavLink
+                <A
                   class="relative -left-0.5 block border-l-2 border-l-transparent pl-4 hover:border-l-slate-400 hover:dark:border-l-slate-600"
                   inactiveClass="hover:text-slate-800 dark:hover:text-slate-300"
                   activeClass="text-sky-600 dark:text-sky-400"
@@ -74,7 +74,7 @@ function NavItem(props: NavItemProps) {
                   end
                 >
                   {item}
-                </NavLink>
+                </A>
               </li>
             )}
           </For>

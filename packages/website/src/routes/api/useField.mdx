@@ -1,4 +1,4 @@
-import { Meta, Title } from 'solid-start';
+import { A, Meta, Title } from 'solid-start';
 import { Property } from '~/components';
 
 <Title>useField | Modular Forms</Title>
@@ -15,7 +15,7 @@ Returns the reactive properties and state of a form field.
 const field = useField(form, name, options);
 ```
 
-> The `useField` primitive is used internally in the [`Field`](field) component. It's better to use the [`Field`](field) component and only if there is a good reason to switch to the `useField` primitive.
+> The `useField` primitive is used internally in the <A href="/api/field">`Field`</A> component. It's better to use the <A href="/api/field">`Field`</A> component and only if there is a good reason to switch to the `useField` primitive.
 
 ## Parameters
 
@@ -29,7 +29,7 @@ const field = useField(form, name, options);
 
 ### Explanation
 
-The `initialValue` you define directly at a field has the highest specificity and overrides the initial values you set at [`createForm`](createform) and [`reset`](reset) when `useField` is executed.
+The `initialValue` you define directly at a field has the highest specificity and overrides the initial values you set at <A href="/api/createform">`createForm`</A> and <A href="/api/reset">`reset`</A> when `useField` is executed.
 
 For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
 

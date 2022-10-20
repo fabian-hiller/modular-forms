@@ -1,7 +1,7 @@
-import { NavLink, useLocation } from '@solidjs/router';
 import { makeEventListener } from '@solid-primitives/event-listener';
 import { isClient } from '@solid-primitives/utils';
 import { createEffect, createSignal, For } from 'solid-js';
+import { A, useLocation } from 'solid-start';
 
 type TabsProps = {
   items: string[];
@@ -43,7 +43,7 @@ export function Tabs(props: TabsProps) {
         <nav class="flex space-x-8 lg:space-x-14">
           <For each={props.items}>
             {(item) => (
-              <NavLink
+              <A
                 class="block pb-4 lg:text-lg"
                 inactiveClass="hover:text-slate-900 dark:hover:text-slate-200"
                 activeClass="text-sky-600 dark:text-sky-400"
@@ -54,7 +54,7 @@ export function Tabs(props: TabsProps) {
                 }
               >
                 {item}
-              </NavLink>
+              </A>
             )}
           </For>
         </nav>

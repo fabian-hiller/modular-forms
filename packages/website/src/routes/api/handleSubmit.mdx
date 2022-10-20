@@ -1,4 +1,4 @@
-import { Meta, Title } from 'solid-start';
+import { A, Meta, Title } from 'solid-start';
 import { Property } from '~/components';
 
 <Title>handleSubmit | Modular Forms</Title>
@@ -12,7 +12,7 @@ Handles the submission of the form.
 const onSubmit = handleSubmit(form, submitAction, options);
 ```
 
-> The `handleSubmit` method is used internally in the [`Form`](form) component. It is better to leave the submission of the form to the [`Form`](form) component and only when there is a good reason to switch to the `handleSubmit` method to build your own solution.
+> The `handleSubmit` method is used internally in the <A href="/api/form">`Form`</A> component. It is better to leave the submission of the form to the <A href="/api/form">`Form`</A> component and only when there is a good reason to switch to the `handleSubmit` method to build your own solution.
 
 It is recommended to execute the `handleSubmit` method directly in the `onSubmit` property of an HTML form element, as shown in the following example.
 
@@ -34,7 +34,7 @@ It is recommended to execute the `handleSubmit` method directly in the `onSubmit
 
 ### Explanation
 
-Errors thrown by the `submitAction` function are made available via the `response` property of the [`ModularForm`](modularform) object to display them to your user.
+Errors thrown by the `submitAction` function are made available via the `response` property of the <A href="/api/modularform">`ModularForm`</A> object to display them to your user.
 
 By default, the `submitAction` function provides only the values of active fields via the `values` parameter. To change this behavior you can set the `shouldActive` property to `false`.
 
