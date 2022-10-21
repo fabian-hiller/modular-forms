@@ -35,7 +35,7 @@ As with nested fields, you use dot notation for the name of each field. It is im
       {(item, index) => (
         <div>
           <Field of={todoForm} name={`todos.${index()}.label`}>
-            {(field) => <input {...field.props} type="texte" />}
+            {(field) => <input {...field.props} type="text" />}
           </Field>
           <Field of={todoForm} name={`todos.${index()}.deadline`}>
             {(field) => <input {...field.props} type="date" />}
