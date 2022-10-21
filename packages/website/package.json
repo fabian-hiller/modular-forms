@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "solid-start dev",
-    "build": "solid-start build",
+    "build": "solid-start build && node scripts/fixNetlifyBuild.js",
     "start": "solid-start start"
   },
   "type": "module",

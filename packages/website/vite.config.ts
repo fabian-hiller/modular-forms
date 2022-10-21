@@ -18,7 +18,7 @@ export default defineConfig({
     solid({
       adapter: netlify({ edge: false }),
       extensions: ['.tsx', '.mdx'],
-      ssr: true,
+      ssr: false,
     }),
   ],
 });
