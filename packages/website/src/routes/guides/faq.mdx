@@ -3,9 +3,41 @@ import { Meta, Title } from 'solid-start';
 <Title>FAQ | Modular Forms</Title>
 <Meta
   name="description"
-  content="Here follows an overview of frequently asked questions in the future. Please fill out an issue to ask us anything. We're looking forward to your message."
+  content="Below you will find an overview of frequently asked questions. Please fill out an issue to ask us anything. We're looking forward to your message."
 />
 
 # FAQ
 
-Here follows an overview of frequently asked questions in the future. Please fill out an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a> to ask us anything. We're looking forward to your message.
+Below you will find an overview of frequently asked questions. Please fill out an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a> to ask us anything. We're looking forward to your message.
+
+## Why don't you use yup or zod for validation?
+
+You may be wondering why we don't use a <a href="https://github.com/jquense/yup" target="_blank" rel="noreferrer">yup</a> or <a href="https://github.com/colinhacks/zod" target="_blank" rel="noreferrer">zod</a> scheme for validation. This is for several reasons. The first is the bundle size. A simple SolidJS app using Modular Forms starts at an approximate bundle size of 10 KB. yup alone has a bundle size of 18.2 KB and zod of 11 KB. Thus, yup and zod would more than double it.
+
+Another reason is that yup and zod are not optimized for form validation and therefore cannot map all cases. For example, imagine a file upload field where you want to validate the file type for each file, the size of each file, and the total size of all files. Can this be mapped into a schema? With our internal validation you only need 3 lines of code for this.
+
+```tsx
+<Field
+  of={contactForm}
+  name="attachments"
+  validate={[
+    mimeType(['image/jpeg', 'image/png'], 'Only image files are allowed.'),
+    maxSize(1e7, 'The file size of an image must not exceed 10 MB.'),
+    maxTotalSize(5e7, 'The total size of all images must not exceed 50 MB.'),
+  ]}
+>
+  {(field) => (
+    <FileInput
+      {...field.props}
+      value={field.value}
+      error={field.error}
+      label="Attachments"
+      multiple
+    />
+  )}
+</Field>
+```
+
+Don't get us wrong, we for example use zod ourselves on several projects and are a big fan of the library. However, our usage is limited to server-side only. There has been no need for schema validation in the browser, as all the data we receive from the backend has already been validated on the server beforehand.
+
+Please let us know if you miss any specific validation features that yup and zod provide. We can add more validation functions to the library.
