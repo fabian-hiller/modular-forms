@@ -10,34 +10,24 @@ export default function ApiLayout() {
         },
         {
           heading: 'Components',
-          items: ['Form', 'Field', 'FieldArray'],
+          items: ['Field', 'FieldArray', 'Form'],
         },
         {
-          heading: 'Form methods',
-          items: ['handleSubmit', 'reset', 'setResponse'],
-        },
-        {
-          heading: 'Field methods',
+          heading: 'Methods',
           items: [
             'focus',
+            'getArrayValues',
             'getValue',
             'getValues',
-            'reset',
-            'setError',
-            'setValue',
-            'validate',
-          ],
-        },
-        {
-          heading: 'Array methods',
-          items: [
-            'getArrayValues',
+            'handleSubmit',
             'insert',
             'move',
             'remove',
             'replace',
             'reset',
             'setError',
+            'setResponse',
+            'setValue',
             'swap',
             'validate',
           ],
@@ -69,9 +59,9 @@ export default function ApiLayout() {
         {
           heading: 'Types',
           items: [
-            'ModularForm',
             'ModularField',
             'ModularFieldArray',
+            'ModularForm',
             'ModularValue',
             'ModularValues',
           ],
