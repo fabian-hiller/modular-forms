@@ -15,8 +15,10 @@ export default function ApiLayout() {
         {
           heading: 'Methods',
           items: [
+            'clearError',
             'focus',
             'getArrayValues',
+            'getError',
             'getValue',
             'getValues',
             'handleSubmit',

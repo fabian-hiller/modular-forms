@@ -1,0 +1,31 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>clearError | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Clears the error of the specified field or field array."
+/>
+
+# clearError
+
+Clears the error of the specified field or field array.
+
+```ts
+clearError(form, name);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+};

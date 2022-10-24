@@ -1,0 +1,66 @@
+import { Meta, Title } from 'solid-start';
+import { Property } from '~/components';
+
+<Title>getError | Modular Forms</Title>
+<Meta
+  name="description"
+  content="Returns the error of the specified field or field array."
+/>
+
+# getError
+
+Returns the error of the specified field or field array.
+
+```ts
+const error = getError(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `shouldActive` <Property {...properties.shouldActive} />
+  - `shouldTouched` <Property {...properties.shouldTouched} />
+  - `shouldDirty` <Property {...properties.shouldDirty} />
+
+### Explanation
+
+By default `undefined` is returned if the field is inactive. To change this behavior you can set `shouldActive` to `false`.
+
+If you want `undefined` to be returned when the field is not touched and/or not dirty, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter and can be combined with each other.
+
+## Return
+
+- `error` <Property {...properties.error} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'ModularForm',
+      href: 'modularform',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  error: {
+    type: ['string', 'undefined'],
+  },
+};
