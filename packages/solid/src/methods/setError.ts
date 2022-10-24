@@ -1,12 +1,7 @@
 import { batch, untrack } from 'solid-js';
-import {
-  FieldArrayPath,
-  FieldPath,
-  FieldStore,
-  FieldValues,
-  FormState,
-} from '../types';
+import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
 import { getField, getFieldArray } from '../utils';
+import { focus } from './focus';
 
 type ErrorOptions = Partial<{
   shouldFocus: boolean;
@@ -59,9 +54,7 @@ export function setError<
 
     // Focus element if set to "true"
     if (error && !isFieldArray && shouldFocus) {
-      (fieldOrFieldArray as FieldStore<TFieldValues, TFieldName>)
-        .getElements()[0]
-        ?.focus();
+      focus(form, name as TFieldName);
     }
   });
 }

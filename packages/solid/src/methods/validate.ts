@@ -8,6 +8,7 @@ import {
   getFilteredNames,
   getFieldArray,
 } from '../utils';
+import { focus } from './focus';
 
 type ValidateOptions = Partial<{
   shouldActive: boolean;
@@ -83,7 +84,7 @@ export async function validate<
 
                   // Focus first field with an error if specified
                   if (shouldFocus) {
-                    field.getElements()?.[0].focus();
+                    focus(form, name);
                   }
                 }
 
