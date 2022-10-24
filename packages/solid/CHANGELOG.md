@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix focus bug at `setError` method
+
 ## v0.1.2 (October 21, 2022)
 
 - Fix typos at README.md

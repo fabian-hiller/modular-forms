@@ -58,7 +58,7 @@ export function setError<
     });
 
     // Focus element if set to "true"
-    if (!isFieldArray && shouldFocus) {
+    if (error && !isFieldArray && shouldFocus) {
       (fieldOrFieldArray as FieldStore<TFieldValues, TFieldName>)
         .getElements()[0]
         ?.focus();
