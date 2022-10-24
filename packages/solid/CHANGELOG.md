@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.2.0 (October 24, 2022)
 
 - Add `clearError` and `getError` method
 - Refactor `setError` and `validate` method
