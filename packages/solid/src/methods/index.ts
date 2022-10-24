@@ -1,5 +1,7 @@
+export * from './clearError';
 export * from './focus';
 export * from './getArrayValues';
+export * from './getError';
 export * from './getValue';
 export * from './getValues';
 export * from './handleSubmit';

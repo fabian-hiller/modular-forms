@@ -4,6 +4,7 @@ All notable changes to the library will be documented in this file.
 
 ## vX.X.X (Month DD, YYYY)
 
+- Add `clearError` and `getError` method
 - Refactor `setError` and `validate` method
 - Fix focus bug at `setError` method
 
