@@ -14,9 +14,6 @@ import { useForm } from '~/contexts';
 type LoginForm = {
   email: string;
   password: string;
-  nested: {
-    test: number;
-  };
 };
 
 export default function LoginPage() {
