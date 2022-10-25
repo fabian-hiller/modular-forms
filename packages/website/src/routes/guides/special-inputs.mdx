@@ -96,7 +96,7 @@ However, if you set the `multiple` attribute, multiple options can be selected m
         ]}
       >
         {({ label, value }) => (
-          <option value={value} selected={field.value === value}>
+          <option value={value} selected={field.value?.includes(value)}>
             {label}
           </option>
         )}
