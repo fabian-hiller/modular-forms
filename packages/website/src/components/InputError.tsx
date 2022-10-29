@@ -1,9 +1,9 @@
 import { Expandable } from './Expandable';
 
-interface InputErrorProps {
+type InputErrorProps = {
   name: string;
   error?: string;
-}
+};
 
 /**
  * Input error that tells the user what to do to fix the problem.

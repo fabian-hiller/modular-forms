@@ -3,17 +3,17 @@ import { isClient } from '@solid-primitives/utils';
 import clsx from 'clsx';
 import { createEffect, createSignal, JSX, on } from 'solid-js';
 
-interface ExpandableProps {
+type ExpandableProps = {
   class?: string;
   children: JSX.Element;
   expanded: boolean;
-}
+};
 
 /**
  * Wrapper component to vertically expand or collapse content.
  */
 export function Expandable(props: ExpandableProps) {
-  // Create element and frozen children signal
+  // Create element, element height and frozen children signal
   const [getElement, setElement] = createSignal<HTMLDivElement>();
   const [getElementHeight, setElementHeight] = createSignal<number>(0);
   const [getFrozenChildren, setFrozenChildren] = createSignal<JSX.Element>();

@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { JSX } from 'solid-js';
 
-interface ButtonGroupProps {
+type ButtonGroupProps = {
   class?: string;
   children: JSX.Element;
-}
+};
 
 /**
  * Button group displays multiple related actions side-by-side and helps with
