@@ -2,6 +2,12 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Change form response object
+  - Rename key `variant` to `status`
+  - Fix typo in `success` literal type
+
 ## v0.2.0 (October 24, 2022)
 
 - Add `clearError` and `getError` method

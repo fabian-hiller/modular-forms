@@ -4,16 +4,16 @@ import { FieldArrayStore } from './fieldArray';
 import { DeepPartial } from './utils';
 
 /**
- * Value type of the response variant.
+ * Value type of the response status.
  */
-type ResponseVariant = 'info' | 'error' | 'succes';
+type ResponseStatus = 'info' | 'error' | 'success';
 
 /**
  * Value type of the form response.
  */
 export type Response =
   | {
-      variant: ResponseVariant;
+      status: ResponseStatus;
       message: string;
     }
   | {};

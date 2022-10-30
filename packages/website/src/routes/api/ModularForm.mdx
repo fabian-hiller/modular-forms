@@ -20,7 +20,7 @@ Type that defines the state of a form.
   - `dirty` <Property type="boolean" />
   - `invalid` <Property type="boolean" />
   - `response` <Property type="object" />
-    - `variant` <Property {...properties.variant} />
+    - `status` <Property {...properties.status} />
     - `message` <Property type={['string', 'undefined']} />
 
 > The object also contains a key named `internal` which provides API's that we need internally in the library. You should not access it. Instead, use the form, field and array methods we provide you.
@@ -35,11 +35,11 @@ export const properties = {
   element: {
     type: [{ type: 'custom', name: 'HTMLFormElement' }, 'undefined'],
   },
-  variant: {
+  status: {
     type: [
       { type: 'string', value: 'info' },
       { type: 'string', value: 'error' },
-      { type: 'string', value: 'succes' },
+      { type: 'string', value: 'success' },
       'undefined',
     ],
   },

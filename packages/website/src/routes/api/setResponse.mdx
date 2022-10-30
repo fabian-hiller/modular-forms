@@ -16,7 +16,7 @@ setResponse(form, response, options);
 
 - `form` <Property {...properties.form} />
 - `response` <Property {...properties.response} />
-  - `variant` <Property {...properties.variant} />
+  - `status` <Property {...properties.status} />
   - `message` <Property type="string" />
 - `options` <Property {...properties.options} />
   - `duration` <Property {...properties.duration} />
@@ -38,7 +38,7 @@ export const properties = {
   response: {
     type: ['object', { type: 'object', entries: [] }],
   },
-  variant: {
+  status: {
     type: [
       { type: 'string', value: 'info' },
       { type: 'string', value: 'error' },

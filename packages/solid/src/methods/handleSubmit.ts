@@ -58,7 +58,7 @@ export function handleSubmit<TFieldValues extends FieldValues>(
       // If an error occurred, set error response
     } catch (error: any) {
       form.internal.setResponse({
-        variant: 'error',
+        status: 'error',
         message: error?.message || 'An unknown error has occurred.',
       });
 
