@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.3.0 (October 30, 2022)
 
 - Change form response object
   - Rename key `variant` to `status`
