@@ -24,12 +24,14 @@ export function ActionButton(props: ActionButtonProps) {
       )}
       {...props}
     >
-      {({ loading }) => (
+      {(renderProps) => (
         <Show when={props.type !== 'link'} fallback={props.label}>
           <div
             class={clsx(
               'duration-200',
-              loading ? 'invisible translate-x-5 opacity-0 ' : 'delay-300'
+              renderProps.loading
+                ? 'invisible translate-x-5 opacity-0'
+                : 'delay-300'
             )}
           >
             {props.label}
@@ -37,7 +39,9 @@ export function ActionButton(props: ActionButtonProps) {
           <div
             class={clsx(
               'absolute duration-200',
-              loading ? 'delay-300' : 'invisible -translate-x-5 opacity-0 '
+              renderProps.loading
+                ? 'delay-300'
+                : 'invisible -translate-x-5 opacity-0'
             )}
           >
             <Spinner label={`${props.label} is loading`} />

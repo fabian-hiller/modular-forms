@@ -65,7 +65,11 @@ export function UnstyledButton(props: UnstyledButtonProps) {
             }}
             disabled={getLoading()}
           >
-            {props.children({ loading: getLoading() })}
+            {props.children({
+              get loading() {
+                return getLoading();
+              },
+            })}
           </button>
         )}
       </Match>
@@ -74,7 +78,11 @@ export function UnstyledButton(props: UnstyledButtonProps) {
       <Match when={props.type === 'submit' && props} keyed>
         {(submit) => (
           <button class={props.class} type="submit" disabled={submit.loading}>
-            {props.children({ loading: submit.loading })}
+            {props.children({
+              get loading() {
+                return submit.loading;
+              },
+            })}
           </button>
         )}
       </Match>
