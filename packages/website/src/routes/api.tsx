@@ -23,6 +23,7 @@ export default function ApiLayout() {
             'getValue',
             'getValues',
             'handleSubmit',
+            'hasField',
             'insert',
             'move',
             'remove',

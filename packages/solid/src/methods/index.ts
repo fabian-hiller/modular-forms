@@ -6,6 +6,7 @@ export * from './getError';
 export * from './getValue';
 export * from './getValues';
 export * from './handleSubmit';
+export * from './hasField';
 export * from './insert';
 export * from './move';
 export * from './remove';
