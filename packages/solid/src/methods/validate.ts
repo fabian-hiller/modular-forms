@@ -124,8 +124,9 @@ export async function validate<
 
       // Update invalid state of form
       form.internal.setInvalid(
-        [...form.internal.fields].some(
-          ([_, field]) => field.getActive() && field.getError()
+        [...form.internal.fields, ...form.internal.fieldArrays].some(
+          ([, fieldOrFieldArray]) =>
+            fieldOrFieldArray.getActive() && fieldOrFieldArray.getError()
         )
       );
 

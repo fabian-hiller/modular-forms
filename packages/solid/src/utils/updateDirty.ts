@@ -17,7 +17,7 @@ export function updateDirty<TFieldValues extends FieldValues>(
     form.internal.setDirty(
       dirty ||
         [...form.internal.fields, ...form.internal.fieldArrays].some(
-          ([_, field]) => field.getActive() && field.getDirty()
+          ([, field]) => field.getActive() && field.getDirty()
         )
     );
   });

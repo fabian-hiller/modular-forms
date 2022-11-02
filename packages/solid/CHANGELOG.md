@@ -7,6 +7,7 @@ All notable changes to the library will be documented in this file.
 - Add `clearResponse`, `hasField` and `hasFieldArray` method
 - Improve and refactor `getValues`, `reset` and `validate` method
 - Add missing export of `setError` and `setValue` method
+- Fix invalid state of form (field arrays were not considered before)
 
 ## v0.3.0 (October 30, 2022)
 

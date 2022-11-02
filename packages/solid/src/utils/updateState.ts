@@ -17,18 +17,18 @@ export function updateState<TFieldValues extends FieldValues>(
   // Ignores tracking of reactive dependencies
   untrack(() => {
     // Check each field and field array and update state if necessary
-    for (const [_, field] of [
+    for (const [, fieldOrFieldArray] of [
       ...form.internal.fields,
       ...form.internal.fieldArrays,
     ]) {
-      if (field.getActive()) {
-        if (field.getTouched()) {
+      if (fieldOrFieldArray.getActive()) {
+        if (fieldOrFieldArray.getTouched()) {
           touched = true;
         }
-        if (field.getDirty()) {
+        if (fieldOrFieldArray.getDirty()) {
           dirty = true;
         }
-        if (field.getError()) {
+        if (fieldOrFieldArray.getError()) {
           invalid = true;
         }
       }
