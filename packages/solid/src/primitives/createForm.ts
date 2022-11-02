@@ -36,8 +36,9 @@ export function createForm<TFieldValues extends FieldValues>(
   const fields = new Map<string, FieldStore<TFieldValues>>();
   const fieldArrays = new Map<string, FieldArrayStore>();
 
-  // Create field names and element signal
+  // Create field names, field array names and element signal
   const [getFieldNames, setFieldNames] = createSignal<string[]>([]);
+  const [getFieldArrayNames, setFieldArrayNames] = createSignal<string[]>([]);
   const [getElement, setElement] = createSignal<HTMLFormElement>();
 
   // Create submit count, submitting, submited and validating signal
@@ -65,6 +66,8 @@ export function createForm<TFieldValues extends FieldValues>(
       fieldArrays,
       getFieldNames,
       setFieldNames,
+      getFieldArrayNames,
+      setFieldArrayNames,
       setElement,
       setSubmitCount,
       setSubmitting,

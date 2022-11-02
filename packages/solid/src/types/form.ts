@@ -36,6 +36,8 @@ export type FormState<TFieldValues extends FieldValues> = {
     fieldArrays: Map<string, FieldArrayStore>; // TODO: Replace string
     getFieldNames: Accessor<string[]>; // TODO: Replace string
     setFieldNames: Setter<string[]>; // TODO: Replace string
+    getFieldArrayNames: Accessor<string[]>; // TODO: Replace string
+    setFieldArrayNames: Setter<string[]>; // TODO: Replace string
     setElement: Setter<HTMLFormElement>;
     setSubmitCount: Setter<number>;
     setSubmitting: Setter<boolean>;
