@@ -7,7 +7,6 @@ export * from './getFieldValues';
 export * from './getFilteredNames';
 export * from './getInitialItems';
 export * from './getInitialValue';
-export * from './getNames';
 export * from './getOptions';
 export * from './getPathValue';
 export * from './getUniqueId';

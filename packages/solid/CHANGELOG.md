@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Add `clearResponse`, `hasField` and `hasFieldArray` method
+- Improve and refactor `getValues`, `reset` and `validate` method
 - Add missing export of `setError` and `setValue` method
 
 ## v0.3.0 (October 30, 2022)

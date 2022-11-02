@@ -1,7 +1,6 @@
 import { batch, untrack } from 'solid-js';
 import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
 import {
-  getNames,
   getField,
   getOptions,
   getUniqueId,
@@ -38,11 +37,8 @@ export async function validate<
     | ValidateOptions,
   arg3?: ValidateOptions
 ): Promise<boolean> {
-  // Create list with name of each field to be validated
-  const names = getNames(form, arg2);
-
   // Filter names between field and field arrays
-  const [fieldNames, fieldArrayNames] = getFilteredNames(form, names);
+  const [fieldNames, fieldArrayNames] = getFilteredNames(form, arg2);
 
   // Destructure options and set default values
   const { shouldActive = true, shouldFocus = true } = getOptions(arg2, arg3);

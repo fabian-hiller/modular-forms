@@ -5,12 +5,7 @@ import {
   FieldValues,
   FormState,
 } from '../types';
-import {
-  getNames,
-  getOptions,
-  getFilteredNames,
-  getFieldValues,
-} from '../utils';
+import { getOptions, getFilteredNames, getFieldValues } from '../utils';
 
 type ValuesOptions<TTypeValidated> = Partial<{
   shouldActive: boolean;
@@ -39,11 +34,8 @@ export function getValues<
   arg2?: (TFieldName | TFieldArrayName)[] | ValuesOptions<TTypeValidated>,
   arg3?: ValuesOptions<TTypeValidated>
 ): TTypeValidated extends true ? TFieldValues : DeepPartial<TFieldValues> {
-  // Create list with field and field array names
-  const names = getNames(form, arg2);
-
   // Get filtered field names to get value from
-  const [fieldNames] = getFilteredNames(form, names);
+  const [fieldNames] = getFilteredNames(form, arg2);
 
   // Destructure options and set default values
   const {
@@ -52,6 +44,12 @@ export function getValues<
     shouldDirty = false,
     shouldValid = false,
   } = getOptions(arg2, arg3);
+
+  // If no name is specified, get field names to set a listener and be notified
+  // when there is a change when used within an effect
+  if (typeof arg2 !== 'string' && !Array.isArray(arg2)) {
+    form.internal.getFieldNames();
+  }
 
   // Return object that contains values of fields
   return getFieldValues(form, fieldNames, {

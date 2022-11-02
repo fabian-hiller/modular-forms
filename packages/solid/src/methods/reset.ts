@@ -8,7 +8,6 @@ import {
   FormState,
 } from '../types';
 import {
-  getNames,
   getField,
   getInitialItems,
   getInitialValue,
@@ -56,24 +55,14 @@ export function reset<
     | ResetOptions<TFieldValues, TFieldName>,
   arg3?: ResetOptions<TFieldValues, TFieldName>
 ): void {
-  // Create list with field and field array names
-  const names = getNames(form, arg2);
-
   // Filter names between field and field arrays
-  let [fieldNames, fieldArrayNames] = getFilteredNames(form, names);
+  let [fieldNames, fieldArrayNames] = getFilteredNames(form, arg2);
 
   // Check if only a single field should be reset
   const resetSingleField = typeof arg2 === 'string' && fieldNames.length === 1;
 
   // Check if entire form shoukd be reset
   const resetEntireForm = !resetSingleField && !Array.isArray(arg2);
-
-  // Get all field array names when entire form is reset
-  if (resetEntireForm) {
-    fieldArrayNames = [...form.internal.fieldArrays].map(
-      ([name]) => name
-    ) as TFieldArrayName[];
-  }
 
   // Destructure options and set default values
   const {
