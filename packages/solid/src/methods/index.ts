@@ -10,6 +10,8 @@ export * from './move';
 export * from './remove';
 export * from './replace';
 export * from './reset';
+export * from './setError';
 export * from './setResponse';
+export * from './setValue';
 export * from './swap';
 export * from './validate';
