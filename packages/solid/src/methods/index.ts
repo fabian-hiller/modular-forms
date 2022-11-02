@@ -1,4 +1,5 @@
 export * from './clearError';
+export * from './clearResponse';
 export * from './focus';
 export * from './getArrayValues';
 export * from './getError';
