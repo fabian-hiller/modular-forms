@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.4.0 (November 02, 2022)
 
 - Add `clearResponse`, `hasField` and `hasFieldArray` method
 - Improve and refactor `getValues`, `reset` and `validate` method
