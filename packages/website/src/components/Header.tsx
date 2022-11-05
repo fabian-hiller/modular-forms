@@ -49,7 +49,7 @@ export function Header() {
         {/* Website logo */}
         <div class="lg:w-56">
           <A
-            class="inline-flex items-center p-4 font-medium md:text-lg lg:text-xl"
+            class="inline-flex items-center p-4 font-medium transition-colors hover:text-slate-900 dark:hover:text-slate-200 md:text-lg lg:text-xl"
             href="/"
             onClick={() => setMenuOpen(false)}
           >
@@ -75,7 +75,7 @@ export function Header() {
           >
             {({ label, href }) => (
               <A
-                class="px-8 py-3 text-lg hover:text-slate-900 dark:hover:text-slate-200 lg:px-3 lg:text-[17px] lg:font-medium"
+                class="px-8 py-3 text-lg transition-colors hover:text-slate-900 dark:hover:text-slate-200 lg:px-3 lg:text-[17px] lg:font-medium"
                 activeClass="text-slate-900 dark:text-slate-200"
                 href={href}
                 onClick={() => setMenuOpen(false)}
@@ -98,7 +98,7 @@ export function Header() {
             role="separator"
           />
           <a
-            class="p-4 hover:text-slate-900 dark:hover:text-slate-200"
+            class="p-4 transition-colors hover:text-slate-900 dark:hover:text-slate-200"
             href="https://github.com/fabian-hiller/modular-forms"
             target="_blank"
             rel="noreferrer"
