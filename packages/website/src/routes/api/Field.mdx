@@ -49,7 +49,7 @@ export const properties = {
     type: {
       type: 'custom',
       name: 'ModularForm',
-      href: 'modularform',
+      href: '/api/ModularForm',
     },
   },
   initialValue: {
@@ -57,7 +57,7 @@ export const properties = {
       {
         type: 'custom',
         name: 'ModularValue',
-        href: 'modularvalue',
+        href: '/api/ModularValue',
       },
       'undefined',
     ],
@@ -72,7 +72,7 @@ export const properties = {
             type: {
               type: 'custom',
               name: 'ModularValue',
-              href: 'modularvalue',
+              href: '/api/ModularValue',
             },
           },
         ],
@@ -95,7 +95,7 @@ export const properties = {
               type: {
                 type: 'custom',
                 name: 'ModularValue',
-                href: 'modularvalue',
+                href: '/api/ModularValue',
               },
             },
           ],
@@ -126,7 +126,11 @@ export const properties = {
       params: [
         {
           name: 'field',
-          type: { type: 'custom', name: 'ModularField', href: 'modularfield' },
+          type: {
+            type: 'custom',
+            name: 'ModularField',
+            href: '/api/ModularField',
+          },
         },
       ],
       return: { type: 'custom', name: 'JSX.Element' },

@@ -24,7 +24,7 @@ const validate = value(requirement, error);
 
 export const properties = {
   requirement: {
-    type: { type: 'custom', name: 'ModularValue', href: 'modularvalue' },
+    type: { type: 'custom', name: 'ModularValue', href: '/api/ModularValue' },
   },
   validate: {
     type: {
@@ -33,7 +33,7 @@ export const properties = {
         {
           name: 'value',
           type: [
-            { type: 'custom', name: 'ModularValue', href: 'modularvalue' },
+            { type: 'custom', name: 'ModularValue', href: '/api/ModularValue' },
             'undefined',
           ],
         },
