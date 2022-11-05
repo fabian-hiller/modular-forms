@@ -59,7 +59,7 @@ export function DocsLayout(props: DocsLayoutProps) {
 
       <div class="relative flex-1 py-12 md:py-20 lg:w-px lg:py-32 lg:pl-9">
         {/* Navigation buttons */}
-        <div class="hidden lg:absolute lg:right-0 lg:flex lg:space-x-6">
+        <div class="hidden px-8 lg:absolute lg:right-0 lg:flex lg:space-x-6 lg:px-10">
           <NavButtons prevPage={getPrevPage()} nextPage={getNextPage()} />
         </div>
 
