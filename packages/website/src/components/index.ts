@@ -9,6 +9,7 @@ export * from './FormFooter';
 export * from './FormHeader';
 export * from './Head';
 export * from './Header';
+export * from './IconButton';
 export * from './Navigation';
 export * from './Property';
 export * from './Select';
