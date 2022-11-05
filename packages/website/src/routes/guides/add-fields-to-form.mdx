@@ -11,6 +11,8 @@ import { Description, Title } from '~/components';
 
 To add a field to your form, you use the <A href="/api/Field">`Field`</A> component. It is similar to the `For` component from Solid. It has a readable API and accepts a render function as a child.
 
+Due to the modular design of the library, you must always pass your form containing state as a property. This results in a readable API and enables auto-completion when using TypeScript.
+
 ```tsx
 import { createForm, Form, Field } from '@modular-forms/solid';
 import { loginUser } from '../api';
