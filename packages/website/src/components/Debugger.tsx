@@ -21,7 +21,7 @@ export function Debugger(props: DebuggerProps) {
     <div class="space-y-9 px-8 py-9 lg:mx-8 lg:max-h-[60vh] lg:w-72 lg:overflow-y-auto lg:overscroll-contain lg:rounded-3xl lg:border-2 lg:border-slate-200 lg:p-10 lg:dark:border-slate-800">
       <div class="space-y-6">
         <h4 class="text-lg font-medium text-slate-900 dark:text-slate-200">
-          Form State
+          Form state
         </h4>
         <ul class="space-y-5">
           <For
@@ -76,7 +76,7 @@ export function Debugger(props: DebuggerProps) {
       </div>
       <div class="space-y-6">
         <h4 class="text-lg font-medium text-slate-900 dark:text-slate-200">
-          Field Values
+          Field values
         </h4>
         <Show
           when={Object.keys(values() || {}).length}

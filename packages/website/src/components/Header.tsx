@@ -69,7 +69,7 @@ export function Header() {
           <For
             each={[
               { label: 'Guides', href: '/guides' },
-              { label: 'API Reference', href: '/api' },
+              { label: 'API reference', href: '/api' },
               { label: 'Playground', href: '/playground' },
             ]}
           >

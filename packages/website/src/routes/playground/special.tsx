@@ -71,7 +71,7 @@ export default function SpecialPage() {
           </Field>
 
           <label class="block px-8 font-medium md:text-lg lg:mb-5 lg:px-10 lg:text-xl">
-            Checkbox Array
+            Checkbox array
           </label>
 
           <div class="mx-8 flex flex-wrap gap-6 rounded-2xl border-2 border-slate-200 p-6 dark:border-slate-800 lg:gap-10 lg:p-10">
@@ -105,7 +105,7 @@ export default function SpecialPage() {
                 {...field.props}
                 checked={field.value}
                 error={field.error}
-                label="Checkbox Boolean"
+                label="Checkbox boolean"
               />
             )}
           </Field>
@@ -121,7 +121,7 @@ export default function SpecialPage() {
                   { label: 'Option 3', value: 'option_3' },
                 ]}
                 error={field.error}
-                label="Select Array"
+                label="Select array"
                 multiple
               />
             )}
@@ -138,7 +138,7 @@ export default function SpecialPage() {
                   { label: 'Option 3', value: 'option_3' },
                 ]}
                 error={field.error}
-                label="Select String"
+                label="Select string"
               />
             )}
           </Field>
@@ -149,7 +149,7 @@ export default function SpecialPage() {
                 {...field.props}
                 value={field.value}
                 error={field.error}
-                label="File List"
+                label="File list"
                 multiple
               />
             )}
@@ -161,7 +161,7 @@ export default function SpecialPage() {
                 {...field.props}
                 value={field.value}
                 error={field.error}
-                label="File Item"
+                label="File item"
               />
             )}
           </Field>
