@@ -3,6 +3,7 @@ import { A, useLocation } from 'solid-start';
 
 type NavigationProps = {
   items: NavItemProps[];
+  lowerCase?: boolean;
 };
 
 /**
@@ -13,7 +14,9 @@ export function Navigation(props: NavigationProps) {
   return (
     <nav class="px-8 py-9 lg:w-60 lg:py-0 2xl:w-72">
       <ul class="space-y-9 lg:space-y-12">
-        <For each={props.items}>{(item) => <NavItem {...item} />}</For>
+        <For each={props.items}>
+          {(item) => <NavItem {...item} lowerCase={props.lowerCase} />}
+        </For>
       </ul>
     </nav>
   );
@@ -22,6 +25,7 @@ export function Navigation(props: NavigationProps) {
 export type NavItemProps = {
   heading: string;
   items: string[];
+  lowerCase?: boolean;
 };
 
 /**
@@ -70,7 +74,10 @@ function NavItem(props: NavItemProps) {
                   class="relative -left-0.5 block border-l-2 border-l-transparent pl-4 hover:border-l-slate-400 hover:dark:border-l-slate-600"
                   inactiveClass="hover:text-slate-800 dark:hover:text-slate-300"
                   activeClass="text-sky-600 dark:text-sky-400"
-                  href={item.toLowerCase().replace(/ /g, '-')}
+                  href={(props.lowerCase ? item.toLowerCase() : item).replace(
+                    / /g,
+                    '-'
+                  )}
                   end
                 >
                   {item}

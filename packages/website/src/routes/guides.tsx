@@ -32,6 +32,7 @@ export default function GuidesLayout() {
           items: ['TypeScript', 'FAQ'],
         },
       ]}
+      lowerCase
     />
   );
 }
