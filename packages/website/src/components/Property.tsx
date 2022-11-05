@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+import { A } from 'solid-start';
 
 type SingleTypeOrValue =
   | 'string'
@@ -175,7 +176,7 @@ export function Property(props: PropertyProps) {
                   {Array.isArray(type.return) && ')'}
                 </span>
               ) : (
-                <Dynamic component={type.href ? 'a' : 'span'} href={type.href}>
+                <Dynamic component={type.href ? A : 'span'} href={type.href}>
                   <span class="text-sky-600 dark:text-sky-400">
                     {type.name}
                   </span>
