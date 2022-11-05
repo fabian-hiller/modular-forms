@@ -16,7 +16,7 @@ export function ActionButton(props: ActionButtonProps) {
   return (
     <UnstyledButton
       class={clsx(
-        'relative flex cursor-pointer items-center justify-center rounded-2xl px-5 py-2.5 font-medium no-underline transition-colors md:text-lg lg:rounded-2xl lg:px-6 lg:py-3 lg:text-xl',
+        'relative flex items-center justify-center rounded-2xl px-5 py-2.5 font-medium transition-colors md:text-lg lg:rounded-2xl lg:px-6 lg:py-3 lg:text-xl',
         props.variant === 'primary' &&
           'bg-sky-600 text-white hover:bg-sky-600/80 dark:bg-sky-400 dark:text-gray-900 dark:hover:bg-sky-400/80',
         props.variant === 'secondary' &&
@@ -25,27 +25,8 @@ export function ActionButton(props: ActionButtonProps) {
       {...props}
     >
       {(renderProps) => (
-        <Show when={props.type !== 'link'} fallback={props.label}>
-          <div
-            class={clsx(
-              'duration-200',
-              renderProps.loading
-                ? 'invisible translate-x-5 opacity-0'
-                : 'delay-300'
-            )}
-          >
-            {props.label}
-          </div>
-          <div
-            class={clsx(
-              'absolute duration-200',
-              renderProps.loading
-                ? 'delay-300'
-                : 'invisible -translate-x-5 opacity-0'
-            )}
-          >
-            <Spinner label={`${props.label} is loading`} />
-          </div>
+        <Show when={renderProps.loading} fallback={props.label}>
+          <Spinner label={`${props.label} is loading`} />
         </Show>
       )}
     </UnstyledButton>
