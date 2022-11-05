@@ -7,6 +7,7 @@ import { AngleUpIcon } from '~/icons';
 
 type SideBarProps = {
   children: JSX.Element;
+  buttons?: JSX.Element;
 };
 
 /**
@@ -39,7 +40,7 @@ export function SideBar(props: SideBarProps) {
         getOpen() ? 'z-40' : 'z-20'
       )}
     >
-      {/* Sheet content */}
+      {/* Content */}
       <div
         class={clsx(
           'flex h-full items-center justify-end border-t-2 border-t-slate-200 backdrop-blur duration-200 dark:border-t-slate-800 lg:items-start lg:border-none',
@@ -49,7 +50,7 @@ export function SideBar(props: SideBarProps) {
         )}
         id="side-bar"
       >
-        {/* Sheet children */}
+        {/* Children */}
         <div
           class={clsx(
             'absolute bottom-full max-h-[60vh] w-full origin-bottom translate-y-0.5 overflow-auto overscroll-contain border-t-2 border-t-slate-200 bg-white duration-200 dark:border-t-slate-800 dark:bg-gray-900 lg:static lg:max-h-full lg:w-auto lg:translate-y-0 lg:border-none lg:py-32',
@@ -59,7 +60,12 @@ export function SideBar(props: SideBarProps) {
           {props.children}
         </div>
 
-        {/* Toggle button */}
+        {/* Buttons */}
+        {props.buttons && (
+          <div class="mr-4 flex space-x-6 lg:hidden">{props.buttons}</div>
+        )}
+
+        {/* Toggle */}
         <button
           class="p-4 hover:text-slate-900 dark:hover:text-slate-200 lg:hidden"
           onClick={() => setOpen((open) => !open)}
