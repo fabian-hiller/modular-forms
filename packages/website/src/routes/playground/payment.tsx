@@ -8,8 +8,7 @@ import {
   required,
 } from '@modular-forms/solid';
 import { Match, onMount, Switch } from 'solid-js';
-import { Title } from 'solid-start';
-import { FormFooter, FormHeader, TextInput } from '~/components';
+import { FormFooter, FormHeader, TextInput, Title } from '~/components';
 import { Select } from '~/components/Select';
 import { useForm } from '~/contexts';
 
@@ -34,7 +33,7 @@ export default function PaymentPage() {
 
   return (
     <>
-      <Title>Payment Playground | Modular Forms</Title>
+      <Title>Payment form</Title>
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"

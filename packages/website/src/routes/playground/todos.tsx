@@ -12,8 +12,7 @@ import {
 } from '@modular-forms/solid';
 import clsx from 'clsx';
 import { For, onMount } from 'solid-js';
-import { Title } from 'solid-start';
-import { FormHeader, FormFooter, TextInput } from '~/components';
+import { FormHeader, FormFooter, TextInput, Title } from '~/components';
 import { InputError } from '~/components/InputError';
 import { useForm } from '~/contexts';
 
@@ -42,7 +41,7 @@ export default function TodosPage() {
 
   return (
     <>
-      <Title>Todos Playground | Modular Forms</Title>
+      <Title>Todo form</Title>
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"

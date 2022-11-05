@@ -7,8 +7,7 @@ import {
   required,
 } from '@modular-forms/solid';
 import { onMount } from 'solid-js';
-import { Title } from 'solid-start';
-import { FormFooter, FormHeader, TextInput } from '~/components';
+import { FormFooter, FormHeader, TextInput, Title } from '~/components';
 import { useForm } from '~/contexts';
 
 type LoginForm = {
@@ -25,7 +24,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Title>Login Playground | Modular Forms</Title>
+      <Title>Login form</Title>
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"

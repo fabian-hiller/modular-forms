@@ -1,6 +1,5 @@
 import { createForm, Field, Form } from '@modular-forms/solid';
 import { For, onMount } from 'solid-js';
-import { Title } from 'solid-start';
 import {
   FormHeader,
   FormFooter,
@@ -9,6 +8,7 @@ import {
   FileInput,
   Slider,
   Select,
+  Title,
 } from '~/components';
 import { useForm } from '~/contexts';
 
@@ -38,7 +38,7 @@ export default function SpecialPage() {
 
   return (
     <>
-      <Title>Special Playground | Modular Forms</Title>
+      <Title>Special form</Title>
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"
