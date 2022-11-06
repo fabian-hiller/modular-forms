@@ -27,12 +27,15 @@ It is recommended to execute the `handleSubmit` method directly in the `onSubmit
 - `form` <Property {...properties.form} />
 - `submitAction` <Property {...properties.submitAction} />
 - `options` <Property {...properties.options} />
+  - `keepResponse` <Property {...properties.keepResponse} />
   - `shouldActive` <Property {...properties.shouldActive} />
   - `shouldTouched` <Property {...properties.shouldTouched} />
   - `shouldDirty` <Property {...properties.shouldDirty} />
   - `shouldFocus` <Property {...properties.shouldFocus} />
 
 ### Explanation
+
+Before executing the `submitAction` function, the `response` of the `form` is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
 Errors thrown by the `submitAction` function are made available via the `response` property of the <A href="/api/ModularForm">`ModularForm`</A> object to display them to your user.
 
@@ -76,6 +79,10 @@ export const properties = {
   options: {
     type: 'object',
     defaultValue: { type: 'object', entries: [] },
+  },
+  keepResponse: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
   },
   shouldActive: {
     type: 'boolean',

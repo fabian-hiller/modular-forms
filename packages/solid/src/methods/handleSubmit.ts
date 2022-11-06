@@ -4,6 +4,7 @@ import { getValues } from './getValues';
 import { validate } from './validate';
 
 type SubmitOptions = Partial<{
+  keepResponse: boolean;
   shouldActive: boolean;
   shouldTouched: boolean;
   shouldDirty: boolean;
@@ -29,14 +30,20 @@ export function handleSubmit<TFieldValues extends FieldValues>(
 
     // Destructure options and set default values
     const {
+      keepResponse = false,
       shouldActive = true,
       shouldTouched = false,
       shouldDirty = false,
       shouldFocus = true,
     } = options;
 
-    // Increase submit count and set submitted and submitting to "true"
     batch(() => {
+      // Reset response if it is not to be kept
+      if (!keepResponse) {
+        form.internal.setResponse({});
+      }
+
+      // Increase submit count and set submitted and submitting to "true"
       form.internal.setSubmitCount((submitCount) => submitCount + 1);
       form.internal.setSubmitted(true);
       form.internal.setSubmitting(true);

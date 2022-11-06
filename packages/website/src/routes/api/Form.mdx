@@ -15,6 +15,7 @@ HTML form element that simplifies form submission and disables the browser's def
 <Form
   of={…}
   onSubmit={…}
+  keepResponse={…}
   shouldActive={…}
   shouldTouched={…}
   shouldDirty={…}
@@ -28,6 +29,7 @@ HTML form element that simplifies form submission and disables the browser's def
 
 - `of` <Property {...properties.of} />
 - `onSubmit` <Property {...properties.onSubmit} />
+- `keepResponse` <Property {...properties.keepResponse} />
 - `shouldActive` <Property {...properties.shouldActive} />
 - `shouldTouched` <Property {...properties.shouldTouched} />
 - `shouldDirty` <Property {...properties.shouldDirty} />
@@ -37,6 +39,8 @@ HTML form element that simplifies form submission and disables the browser's def
 > Besides the specified properties, you can pass any other property of an HTML form element.
 
 ### Explanation
+
+Before executing the `onSubmit` function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
 Errors thrown by the `onSubmit` function are made available via the `response` property of the <A href="/api/ModularForm">`ModularForm`</A> object to display them to your user.
 
@@ -70,6 +74,10 @@ export const properties = {
       ],
       return: ['void', { type: 'custom', name: 'Promise', generics: ['void'] }],
     },
+  },
+  keepResponse: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
   },
   shouldActive: {
     type: 'boolean',

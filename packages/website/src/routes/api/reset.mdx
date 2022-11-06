@@ -30,6 +30,7 @@ reset(form, name, options);
 - `options` <Property {...properties.options} />
   - `initialValues` <Property {...properties.initialValues} />
   - `initialValue` <Property {...properties.initialValue} />
+  - `keepResponse` <Property {...properties.keepResponse} />
   - `keepSubmitCount` <Property {...properties.keepSubmitCount} />
   - `keepSubmitted` <Property {...properties.keepSubmitted} />
   - `keepValues` <Property {...properties.keepValues} />
@@ -48,9 +49,9 @@ When you reset several fields, you can specify `initialValues` that get shallow 
 
 When you reset a single field, you can specify a new `initialValue` that override the initial value you may set in the `initialValues` property of the <A href="/api/createForm">`createForm`</A> primitive.
 
-By default, the reactive `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepSubmitCount` and/or `keepSubmitted` to `true` or `false`.
+By default, the reactive `response`, `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepResponse`, `keepSubmitCount` and/or `keepSubmitted` to `true`.
 
-By default, the value, error, touched and dirty state of each field and field array are reset. To change this behavior you can set `keepValues`, `keepDirtyValues`, `keepErrors`, `keepErrors` and/or `keepDirty` to `true`.
+By default, the `value`, `error`, `touched` and `dirty` state of each field and field array are reset. To change this behavior you can set `keepValues`, `keepDirtyValues`, `keepErrors`, `keepErrors` and/or `keepDirty` to `true`.
 
 export const properties = {
   form: {
@@ -96,19 +97,17 @@ export const properties = {
       'undefined',
     ],
   },
+  keepResponse: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
   keepSubmitCount: {
     type: 'boolean',
-    defaultValue: [
-      { type: 'boolean', value: true },
-      { type: 'boolean', value: false },
-    ],
+    defaultValue: [{ type: 'boolean', value: false }],
   },
   keepSubmitted: {
     type: 'boolean',
-    defaultValue: [
-      { type: 'boolean', value: true },
-      { type: 'boolean', value: false },
-    ],
+    defaultValue: [{ type: 'boolean', value: false }],
   },
   keepValues: {
     type: 'boolean',

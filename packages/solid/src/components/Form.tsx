@@ -8,6 +8,7 @@ type FormProps<TFieldValues extends FieldValues> = Omit<
 > & {
   of: FormState<TFieldValues>;
   onSubmit: (values: TFieldValues, event: Event) => void | Promise<void>;
+  keepResponse?: boolean;
   shouldActive?: boolean;
   shouldTouched?: boolean;
   shouldDirty?: boolean;
@@ -26,7 +27,13 @@ export function Form<TFieldValues extends FieldValues>(
   const [local, options, others] = splitProps(
     props,
     ['of', 'onSubmit', 'children'],
-    ['shouldActive', 'shouldTouched', 'shouldDirty', 'shouldFocus']
+    [
+      'keepResponse',
+      'shouldActive',
+      'shouldTouched',
+      'shouldDirty',
+      'shouldFocus',
+    ]
   );
 
   // Return HTML form element and include handleSubmit in onSubmit

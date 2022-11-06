@@ -24,6 +24,7 @@ type ResetOptions<
 > = Partial<{
   initialValue: [FieldPathValue<TFieldValues, TFieldName>];
   initialValues: DeepPartial<TFieldValues>;
+  keepResponse: boolean;
   keepSubmitCount: boolean;
   keepSubmitted: boolean;
   keepValues: boolean;
@@ -68,8 +69,9 @@ export function reset<
   const {
     initialValue,
     initialValues,
-    keepSubmitCount = resetSingleField,
-    keepSubmitted = resetSingleField,
+    keepResponse = false,
+    keepSubmitCount = false,
+    keepSubmitted = false,
     keepValues = false,
     keepDirtyValues = false,
     keepErrors = false,
@@ -165,6 +167,11 @@ export function reset<
 
     // Reset form state if necessary
     if (resetEntireForm) {
+      // Reset response if it is not to be kept
+      if (!keepResponse) {
+        form.internal.setResponse({});
+      }
+
       // Reset form if values should not be kept
       if (!keepValues) {
         form.element?.reset();

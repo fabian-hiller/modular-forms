@@ -2,6 +2,13 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Reset form response at `handleSubmit` and `reset` method
+  - Add `keepResponse` property to `Form` component
+  - Add `keepResponse` option to `handleSubmit` and `reset` method
+  - Refactor `reset` method
+
 ## v0.4.0 (November 02, 2022)
 
 - Add `clearResponse`, `hasField` and `hasFieldArray` method
