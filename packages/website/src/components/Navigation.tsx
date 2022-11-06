@@ -44,7 +44,7 @@ function NavItem(props: NavItemProps) {
     // Get active list element by pathname and href
     const activeElement = [...getListElement()!.children].find((e) =>
       (e.children[0] as HTMLAnchorElement).href.endsWith(useLocation().pathname)
-    ) as HTMLLIElement;
+    ) as HTMLLIElement | undefined;
 
     // Update indicator style to active element or reset it to undefined
     setIndicatorStyle(

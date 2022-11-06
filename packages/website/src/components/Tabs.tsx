@@ -12,9 +12,11 @@ type TabsProps = {
  * between them.
  */
 export function Tabs(props: TabsProps) {
-  // Create active element and indicator style signal
-  const [getActiveElement, setActiveElement] =
-    createSignal<HTMLAnchorElement>();
+  // Use loaction
+  const loaction = useLocation();
+
+  // Create navigation element and indicator style signal
+  const [getNavElement, setNavElement] = createSignal<HTMLElement>();
   const [getIndicatorStyle, setIndicatorStyle] = createSignal<{
     left: string;
     width: string;
@@ -23,11 +25,22 @@ export function Tabs(props: TabsProps) {
   /**
    * Updates the indicator style position.
    */
-  const updateIndicatorStyle = () =>
-    setIndicatorStyle({
-      left: `${getActiveElement()?.offsetLeft || 0}px`,
-      width: `${getActiveElement()?.offsetWidth || 0}px`,
-    });
+  const updateIndicatorStyle = () => {
+    // Get active navigation element by pathname and href
+    const activeElement = [...getNavElement()!.children].find((e) =>
+      (e as HTMLAnchorElement).href.endsWith(loaction.pathname)
+    ) as HTMLAnchorElement | undefined;
+
+    // Update indicator style to active element or reset it to undefined
+    setIndicatorStyle(
+      activeElement
+        ? {
+            left: `${activeElement.offsetLeft || 0}px`,
+            width: `${activeElement.offsetWidth || 0}px`,
+          }
+        : undefined
+    );
+  };
 
   // Update indicator style when active element changes
   createEffect(updateIndicatorStyle);
@@ -40,7 +53,7 @@ export function Tabs(props: TabsProps) {
   return (
     <div class="scrollbar-none flex overflow-x-auto px-8">
       <div class="relative flex-1 border-b-2 border-b-slate-200 dark:border-b-slate-800">
-        <nav class="flex space-x-8 lg:space-x-14">
+        <nav class="flex space-x-8 lg:space-x-14" ref={setNavElement}>
           <For each={props.items}>
             {(item) => (
               <A
@@ -48,10 +61,6 @@ export function Tabs(props: TabsProps) {
                 inactiveClass="hover:text-slate-900 dark:hover:text-slate-200"
                 activeClass="text-sky-600 dark:text-sky-400"
                 href={item.toLowerCase().replace(/ /g, '-')}
-                ref={(element) =>
-                  element.href.endsWith(useLocation().pathname) &&
-                  setActiveElement(element)
-                }
               >
                 {item}
               </A>
