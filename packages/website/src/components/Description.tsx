@@ -14,9 +14,9 @@ export function Description(props: DescriptionProps) {
     <Meta
       name="description"
       content={
-        typeof props.children === 'string'
-          ? props.children
-          : props.children().innerText.replace(/\n/g, ' ')
+        typeof props.children === 'function'
+          ? props.children()?.innerText?.replace(/\n/g, ' ') || ''
+          : props.children
       }
     />
   );
