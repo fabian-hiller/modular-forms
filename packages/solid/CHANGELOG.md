@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.5.0 (November 06, 2022)
 
 - Reset form response at `handleSubmit` and `reset` method
   - Add `keepResponse` property to `Form` component
