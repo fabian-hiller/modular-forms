@@ -24,7 +24,7 @@ type TextInputProps = {
  * displayed in or around the field to communicate the entry requirements.
  */
 export function TextInput(props: TextInputProps) {
-  const [_, inputProps] = splitProps(props, [
+  const [, inputProps] = splitProps(props, [
     'class',
     'value',
     'label',

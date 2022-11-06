@@ -25,7 +25,7 @@ type FileInputProps = {
  */
 export function FileInput(props: FileInputProps) {
   // Split input element props
-  const [_, inputProps] = splitProps(props, [
+  const [, inputProps] = splitProps(props, [
     'class',
     'value',
     'label',

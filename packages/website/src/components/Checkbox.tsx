@@ -22,7 +22,7 @@ type CheckboxProps = {
  * checkbox describes the selection option.
  */
 export function Checkbox(props: CheckboxProps) {
-  const [_, inputProps] = splitProps(props, [
+  const [, inputProps] = splitProps(props, [
     'class',
     'value',
     'label',

@@ -90,7 +90,7 @@ import { JSX, splitProps } from 'solid-js';
 type TextInputProps = { … };
 
 export function TextInput(props: TextInputProps) {
-  const [_, inputProps] = splitProps(props, ['value', 'label', 'error']);
+  const [, inputProps] = splitProps(props, ['value', 'label', 'error']);
 }
 ```
 
@@ -102,7 +102,7 @@ import { JSX, splitProps } from 'solid-js';
 type TextInputProps = { … };
 
 export function TextInput(props: TextInputProps) {
-  const [_, inputProps] = splitProps(props, ['value', 'label', 'error']);
+  const [, inputProps] = splitProps(props, ['value', 'label', 'error']);
   return (
     <div>
       {props.label && (
@@ -145,7 +145,7 @@ type TextInputProps = {
 };
 
 export function TextInput(props: TextInputProps) {
-  const [_, inputProps] = splitProps(props, ['value', 'label', 'error']);
+  const [, inputProps] = splitProps(props, ['value', 'label', 'error']);
   return (
     <div>
       {props.label && (

@@ -28,7 +28,7 @@ type SelectProps = {
  */
 export function Select(props: SelectProps) {
   // Split select element props
-  const [_, selectProps] = splitProps(props, [
+  const [, selectProps] = splitProps(props, [
     'class',
     'value',
     'options',

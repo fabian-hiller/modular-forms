@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { JSX, splitProps } from 'solid-js';
 
 export function LogoIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
-  const [_, others] = splitProps(props, ['class']);
+  const [, others] = splitProps(props, ['class']);
   return (
     <svg
       class={clsx('animate-logo', props.class)}

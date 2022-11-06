@@ -25,7 +25,7 @@ type SliderProps = {
  * entry requirements.
  */
 export function Slider(props: SliderProps) {
-  const [_, inputProps] = splitProps(props, [
+  const [, inputProps] = splitProps(props, [
     'class',
     'value',
     'label',
