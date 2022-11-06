@@ -8,6 +8,7 @@ All notable changes to the library will be documented in this file.
   - Add `keepResponse` property to `Form` component
   - Add `keepResponse` option to `handleSubmit` and `reset` method
   - Refactor `reset` method
+- Add `keepItems` and `keepDirtyItems` option to `reset` method
 
 ## v0.4.0 (November 02, 2022)
 

@@ -35,6 +35,8 @@ reset(form, name, options);
   - `keepSubmitted` <Property {...properties.keepSubmitted} />
   - `keepValues` <Property {...properties.keepValues} />
   - `keepDirtyValues` <Property {...properties.keepDirtyValues} />
+  - `keepItems` <Property {...properties.keepItems} />
+  - `keepDirtyItems` <Property {...properties.keepDirtyItems} />
   - `keepErrors` <Property {...properties.keepErrors} />
   - `keepTouched` <Property {...properties.keepTouched} />
   - `keepDirty` <Property {...properties.keepDirty} />
@@ -51,7 +53,7 @@ When you reset a single field, you can specify a new `initialValue` that overrid
 
 By default, the reactive `response`, `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepResponse`, `keepSubmitCount` and/or `keepSubmitted` to `true`.
 
-By default, the `value`, `error`, `touched` and `dirty` state of each field and field array are reset. To change this behavior you can set `keepValues`, `keepDirtyValues`, `keepErrors`, `keepErrors` and/or `keepDirty` to `true`.
+By default, the `value`, `items`, `error`, `touched` and `dirty` state of each field and field array are reset. To change this behavior you can set `keepValues`, `keepDirtyValues`, `keepItems`, `keepDirtyItems`, `keepErrors`, `keepTouched` and/or `keepDirty` to `true`.
 
 export const properties = {
   form: {
@@ -114,6 +116,14 @@ export const properties = {
     defaultValue: { type: 'boolean', value: false },
   },
   keepDirtyValues: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepItems: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepDirtyItems: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
   },

@@ -29,6 +29,8 @@ type ResetOptions<
   keepSubmitted: boolean;
   keepValues: boolean;
   keepDirtyValues: boolean;
+  keepItems: boolean;
+  keepDirtyItems: boolean;
   keepErrors: boolean;
   keepTouched: boolean;
   keepDirty: boolean;
@@ -74,6 +76,8 @@ export function reset<
     keepSubmitted = false,
     keepValues = false,
     keepDirtyValues = false,
+    keepItems = false,
+    keepDirtyItems = false,
     keepErrors = false,
     keepTouched = false,
     keepDirty = false,
@@ -139,11 +143,11 @@ export function reset<
       // Get specified field array
       const fieldArray = getFieldArray(form, name);
 
-      // Check if dirty value should be kept
-      const keepDirtyValue = keepDirtyValues && fieldArray.getDirty();
+      // Check if current dirty items should be kept
+      const keepCurrentDirtyItems = keepDirtyItems && fieldArray.getDirty();
 
       // Reset initial items and items if it is not to be kept
-      if (!keepValues && !keepDirtyValue) {
+      if (!keepItems && !keepCurrentDirtyItems) {
         const initialItems = getInitialItems(form, name);
         fieldArray.setInitialItems(initialItems);
         fieldArray.setItems(initialItems);
@@ -155,7 +159,7 @@ export function reset<
       }
 
       // Reset dirty if it is not to be kept
-      if (!keepDirty && !keepValues && !keepDirtyValue) {
+      if (!keepDirty && !keepItems && !keepCurrentDirtyItems) {
         fieldArray.setDirty(false);
       }
 
