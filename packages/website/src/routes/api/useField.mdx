@@ -44,8 +44,8 @@ export const properties = {
   form: {
     type: {
       type: 'custom',
-      name: 'ModularForm',
-      href: '/api/ModularForm',
+      name: 'FormState',
+      href: '/api/FormState',
     },
   },
   options: {
@@ -56,8 +56,8 @@ export const properties = {
     type: [
       {
         type: 'custom',
-        name: 'ModularValue',
-        href: '/api/ModularValue',
+        name: 'FieldValue',
+        href: '/api/FieldValue',
       },
       'undefined',
     ],
@@ -71,8 +71,8 @@ export const properties = {
             name: 'value',
             type: {
               type: 'custom',
-              name: 'ModularValue',
-              href: '/api/ModularValue',
+              name: 'FieldValue',
+              href: '/api/FieldValue',
             },
           },
         ],
@@ -94,8 +94,8 @@ export const properties = {
               name: 'value',
               type: {
                 type: 'custom',
-                name: 'ModularValue',
-                href: '/api/ModularValue',
+                name: 'FieldValue',
+                href: '/api/FieldValue',
               },
             },
           ],
@@ -121,6 +121,6 @@ export const properties = {
     defaultValue: { type: 'boolean', value: true },
   },
   field: {
-    type: { type: 'custom', name: 'ModularField', href: '/api/ModularField' },
+    type: { type: 'custom', name: 'FieldState', href: '/api/FieldState' },
   },
 };

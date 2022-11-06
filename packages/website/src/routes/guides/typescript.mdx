@@ -11,10 +11,10 @@ import { Description, Title } from '~/components';
 
 Since the library is written in TypeScript and we put a lot of emphasis on the development experience, you can expect maximum TypeScript support.
 
-For example, to pass your form to another component via props, you can use the <A href="/api/ModularForm">`ModularForm`</A> type to get type safety.
+For example, to pass your form to another component via props, you can use the <A href="/api/FormState">`FormState`</A> type to get type safety. Most of the types you can import can be found in our <A href="/api">API reference</A>.
 
 ```tsx
-import { createForm, ModularForm } from '@modular-forms/solid';
+import { createForm, FormState } from '@modular-forms/solid';
 
 type LoginForm = {
   email: string;
@@ -27,7 +27,7 @@ export function LoginPage() {
 }
 
 type FormContentProps {
-  loginForm: ModularForm<LoginForm>;
+  loginForm: FormState<LoginForm>;
 }
 
 function FormContent(props: FormContentProps) {
@@ -44,5 +44,3 @@ function FormContent(props: FormContentProps) {
   );
 }
 ```
-
-All other types you can import can be found in our <A href="/api">API reference</A>. Please let us know if you need more types from us.

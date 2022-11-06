@@ -1,15 +1,15 @@
 import { Description, Property, Title } from '~/components';
 
-<Title>ModularField</Title>
+<Title>FieldState</Title>
 <Description>Type that defines the state of a form field.</Description>
 
-# ModularField
+# FieldState
 
 Type that defines the state of a form field.
 
 ## Definition
 
-- `ModularField` <Property type="object" />
+- `FieldState` <Property type="object" />
   - `props` <Property type="object" />
     - `name` <Property type="string" />
     - `ref` <Property {...properties.ref} />
@@ -40,11 +40,11 @@ export const properties = {
       params: [
         {
           name: 'element',
-          type: [
-            { type: 'custom', name: 'HTMLInputElement' },
-            { type: 'custom', name: 'HTMLSelectElement' },
-            { type: 'custom', name: 'HTMLTextAreaElement' },
-          ],
+          type: {
+            type: 'custom',
+            name: 'FieldElement',
+            href: '/api/FieldElement',
+          },
         },
       ],
       return: 'void',
@@ -98,8 +98,8 @@ export const properties = {
   value: {
     type: {
       type: 'custom',
-      name: 'ModularValue',
-      href: '/api/ModularValue',
+      name: 'FieldValue',
+      href: '/api/FieldValue',
     },
   },
 };

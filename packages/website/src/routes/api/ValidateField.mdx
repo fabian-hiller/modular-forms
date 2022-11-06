@@ -1,0 +1,33 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>ValidateField</Title>
+<Description>Type that defines the validation function of a field.</Description>
+
+# ValidateField
+
+Type that defines the validation function of a field.
+
+## Definition
+
+- `ValidateField` <Property {...properties.ValidateField} />
+
+export const properties = {
+  ValidateField: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: [
+            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
+            'undefined',
+          ],
+        },
+      ],
+      return: [
+        'string',
+        { type: 'custom', name: 'Promise', generics: ['string'] },
+      ],
+    },
+  },
+};

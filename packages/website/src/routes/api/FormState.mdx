@@ -4,13 +4,13 @@ import { Description, Property, Title } from '~/components';
 <Title>TypeScript</Title>
 <Description>Type that defines the state of a form.</Description>
 
-# ModularForm
+# FormState
 
 Type that defines the state of a form.
 
 ## Definition
 
-- `ModularForm` <Property type="object" />
+- `FormState` <Property type="object" />
   - `element` <Property {...properties.element} />
   - `submitCount` <Property type="number" />
   - `submitting` <Property type="boolean" />
@@ -19,9 +19,7 @@ Type that defines the state of a form.
   - `touched` <Property type="boolean" />
   - `dirty` <Property type="boolean" />
   - `invalid` <Property type="boolean" />
-  - `response` <Property type="object" />
-    - `status` <Property {...properties.status} />
-    - `message` <Property type={['string', 'undefined']} />
+  - `response` <Property {...properties.response} />
 
 > The object also contains a key named `internal` which provides API's that we need internally in the library. You should not access it. Instead, use the form, field and array methods we provide you.
 
@@ -29,18 +27,13 @@ Type that defines the state of a form.
 
 The state properties of the form are reactive and can be used, for example, in the JSX area or Solid's `createEffect` primitive.
 
-If you use the <A href="/api/Form">`Form`</A> component or the <A href="/api/handleSubmit">`handleSubmit`</A> method to submit your form, errors that are thrown are made accessible via the `response` object. In conjunction with the <A href="/api/setResponse">`setResponse`</A> method, you can also use `response` to display other feedback to your user.
+If you use the <A href="/api/Form">`Form`</A> component or the <A href="/api/handleSubmit">`handleSubmit`</A> method to submit your form, errors that are thrown are made accessible via the `response` object. In conjunction with the <A href="/api/setResponse">`setResponse`</A> method, you can also use `response` to display custom feedback to your user.
 
 export const properties = {
   element: {
     type: [{ type: 'custom', name: 'HTMLFormElement' }, 'undefined'],
   },
-  status: {
-    type: [
-      { type: 'string', value: 'info' },
-      { type: 'string', value: 'error' },
-      { type: 'string', value: 'success' },
-      'undefined',
-    ],
+  response: {
+    type: { type: 'custom', name: 'Response', href: '/api/Response' },
   },
 };

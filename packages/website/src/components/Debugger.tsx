@@ -1,14 +1,14 @@
 import {
   getValues,
-  ModularValue,
-  ModularValues,
-  ModularForm,
+  FieldValue,
+  FieldValues,
+  FormState,
 } from '@modular-forms/solid';
 import clsx from 'clsx';
 import { createMemo, For, Show } from 'solid-js';
 
 type DebuggerProps = {
-  of: ModularForm<any> | undefined;
+  of: FormState<any> | undefined;
 };
 
 /**
@@ -82,7 +82,7 @@ export function Debugger(props: DebuggerProps) {
           when={Object.keys(values() || {}).length}
           fallback={<p>Wait for input...</p>}
         >
-          <FieldValues values={values()} />
+          <FieldValueList values={values()} />
         </Show>
       </div>
     </div>
@@ -91,13 +91,13 @@ export function Debugger(props: DebuggerProps) {
 
 type FieldValuesProps = {
   class?: string;
-  values: ModularValue[] | ModularValues | ModularValues[];
+  values: FieldValue[] | FieldValues | FieldValues[];
 };
 
 /**
  * Recusive component that displays individual form values.
  */
-function FieldValues(props: FieldValuesProps) {
+function FieldValueList(props: FieldValuesProps) {
   return (
     <ul class={clsx('space-y-5', props.class)}>
       <For each={Object.entries(props.values)}>
@@ -136,7 +136,7 @@ function FieldValues(props: FieldValuesProps) {
                   : String(value)}
               </span>
             ) : (
-              <FieldValues class="ml-2 mt-3" values={value} />
+              <FieldValueList class="ml-2 mt-3" values={value} />
             )}
           </li>
         )}

@@ -1,4 +1,4 @@
-import { ModularForm } from '@modular-forms/solid';
+import { FormState } from '@modular-forms/solid';
 import {
   Accessor,
   createContext,
@@ -8,7 +8,7 @@ import {
   useContext,
 } from 'solid-js';
 
-type Form = ModularForm<any> | undefined;
+type Form = FormState<any> | undefined;
 
 // Create form context
 const FormContext = createContext<{ get: Accessor<Form>; set: Setter<Form> }>();

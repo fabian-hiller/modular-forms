@@ -64,11 +64,15 @@ export default function ApiLayout() {
         {
           heading: 'Types',
           items: [
-            'ModularField',
-            'ModularFieldArray',
-            'ModularForm',
-            'ModularValue',
-            'ModularValues',
+            'FieldArrayState',
+            'FieldElement',
+            'FieldState',
+            'FieldValue',
+            'FieldValues',
+            'FormState',
+            'Response',
+            'ValidateField',
+            'ValidateFieldArray',
           ],
         },
       ]}

@@ -1,40 +1,40 @@
 import { A } from 'solid-start';
 import { Description, Property, Title } from '~/components';
 
-<Title>ModularValues</Title>
+<Title>FieldValues</Title>
 <Description>Type that defines the field values of a form.</Description>
 
-# ModularValues
+# FieldValues
 
 Type that defines the field values of a form.
 
 ## Definition
 
-- `ModularValues` <Property {...properties.ModularValues} />
+- `FieldValues` <Property {...properties.FieldValues} />
 
 > When defining your field values, make sure that the individual values are compatible with the respective input element. You can learn more about this <A href="/guides/special-inputs">here</A>.
 
 export const properties = {
-  ModularValues: {
+  FieldValues: {
     type: {
       type: 'object',
       entries: [
         {
           key: { name: 'name', type: 'string' },
           value: [
-            { type: 'custom', name: 'ModularValue', href: '/api/ModularValue' },
+            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
             {
               type: 'array',
               item: {
                 type: 'custom',
-                name: 'ModularValue',
-                href: '/api/ModularValue',
+                name: 'FieldValue',
+                href: '/api/FieldValue',
               },
             },
-            { type: 'custom', name: 'ModularValues' },
+            { type: 'custom', name: 'FieldValues' },
             {
               type: 'array',
-              item: { type: 'custom', name: 'ModularValues' },
+              item: { type: 'custom', name: 'FieldValues' },
             },
           ],
         },

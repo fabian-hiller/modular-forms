@@ -1,0 +1,32 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>ValidateFieldArray</Title>
+<Description>
+  Type that defines the validation function of a field array.
+</Description>
+
+# ValidateFieldArray
+
+Type that defines the validation function of a field array.
+
+## Definition
+
+- `ValidateFieldArray` <Property {...properties.ValidateFieldArray} />
+
+export const properties = {
+  ValidateFieldArray: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'items',
+          type: { type: 'array', item: 'number' },
+        },
+      ],
+      return: [
+        'string',
+        { type: 'custom', name: 'Promise', generics: ['string'] },
+      ],
+    },
+  },
+};

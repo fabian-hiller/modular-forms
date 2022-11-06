@@ -37,7 +37,7 @@ It is recommended to execute the `handleSubmit` method directly in the `onSubmit
 
 Before executing the `submitAction` function, the `response` of the `form` is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
-Errors thrown by the `submitAction` function are made available via the `response` property of the <A href="/api/ModularForm">`ModularForm`</A> object to display them to your user.
+Errors thrown by the `submitAction` function are made available via the `response` property of the <A href="/api/FormState">`FormState`</A> object to display them to your user.
 
 By default, the `submitAction` function provides only the values of active fields via the `values` parameter. To change this behavior you can set the `shouldActive` property to `false`.
 
@@ -55,8 +55,8 @@ export const properties = {
   form: {
     type: {
       type: 'custom',
-      name: 'ModularForm',
-      href: '/api/ModularForm',
+      name: 'FormState',
+      href: '/api/FormState',
     },
   },
   submitAction: {
@@ -67,8 +67,8 @@ export const properties = {
           name: 'values',
           type: {
             type: 'custom',
-            name: 'ModularValues',
-            href: '/api/ModularValues',
+            name: 'FieldValues',
+            href: '/api/FieldValues',
           },
         },
         { name: 'event', type: { type: 'custom', name: 'Event' } },

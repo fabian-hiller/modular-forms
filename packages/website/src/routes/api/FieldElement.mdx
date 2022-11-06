@@ -1,0 +1,31 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>FieldElement</Title>
+<Description>Type that defines the HTML element of a field.</Description>
+
+# FieldElement
+
+Type that defines the HTML element of a field.
+
+## Definition
+
+- `FieldElement` <Property {...properties.FieldElement} />
+
+export const properties = {
+  FieldElement: {
+    type: [
+      {
+        type: 'custom',
+        name: 'HTMLInputElement',
+      },
+      {
+        type: 'custom',
+        name: 'HTMLSelectElement',
+      },
+      {
+        type: 'custom',
+        name: 'HTMLTextAreaElement',
+      },
+    ],
+  },
+};

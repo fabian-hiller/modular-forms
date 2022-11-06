@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Rename TypeScript types and export more of them
+
 ## v0.5.0 (November 06, 2022)
 
 - Reset form response at `handleSubmit` and `reset` method

@@ -1,0 +1,27 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>Response</Title>
+<Description>Type that defines the response of a form.</Description>
+
+# Response
+
+Type that defines the response of a form.
+
+## Definition
+
+- `Response` <Property {...properties.Response} />
+  - `status` <Property {...properties.status} />
+  - `message` <Property type="string" />
+
+export const properties = {
+  Response: {
+    type: ['object', { type: 'object', entries: [] }],
+  },
+  status: {
+    type: [
+      { type: 'string', value: 'info' },
+      { type: 'string', value: 'error' },
+      { type: 'string', value: 'success' },
+    ],
+  },
+};

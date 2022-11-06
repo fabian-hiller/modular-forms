@@ -38,7 +38,7 @@ Use `validateOn` to define the validation strategy that will be applied before t
 
 export const properties = {
   Values: {
-    type: { type: 'custom', name: 'ModularValues', href: '/api/ModularValues' },
+    type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
   },
   options: {
     type: 'object',
@@ -49,7 +49,7 @@ export const properties = {
       type: 'custom',
       name: 'DeepPartial',
       generics: [
-        { type: 'custom', name: 'ModularValues', href: '/api/ModularValues' },
+        { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
       ],
     },
     defaultValue: { type: 'object', entries: [] },
@@ -71,6 +71,6 @@ export const properties = {
     defaultValue: { type: 'string', value: 'input' },
   },
   form: {
-    type: { type: 'custom', name: 'ModularForm', href: '/api/ModularForm' },
+    type: { type: 'custom', name: 'FormState', href: '/api/FormState' },
   },
 };

@@ -1,8 +1,8 @@
-import { ModularForm, reset } from '@modular-forms/solid';
+import { FormState, reset } from '@modular-forms/solid';
 import { ActionButton } from './ActionButton';
 
 type FormHeaderProps = {
-  of: ModularForm<any>;
+  of: FormState<any>;
   heading: string;
 };
 

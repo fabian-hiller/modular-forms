@@ -42,7 +42,7 @@ HTML form element that simplifies form submission and disables the browser's def
 
 Before executing the `onSubmit` function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
-Errors thrown by the `onSubmit` function are made available via the `response` property of the <A href="/api/ModularForm">`ModularForm`</A> object to display them to your user.
+Errors thrown by the `onSubmit` function are made available via the `response` property of the <A href="/api/FormState">`FormState`</A> object to display them to your user.
 
 By default, the `onSubmit` function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
 
@@ -54,8 +54,8 @@ export const properties = {
   of: {
     type: {
       type: 'custom',
-      name: 'ModularForm',
-      href: '/api/ModularForm',
+      name: 'FormState',
+      href: '/api/FormState',
     },
   },
   onSubmit: {
@@ -66,8 +66,8 @@ export const properties = {
           name: 'values',
           type: {
             type: 'custom',
-            name: 'ModularValues',
-            href: '/api/ModularValues',
+            name: 'FieldValues',
+            href: '/api/FieldValues',
           },
         },
         { name: 'event', type: { type: 'custom', name: 'Event' } },
