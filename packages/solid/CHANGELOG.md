@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.6.0 (November 06, 2022)
 
 - Rename TypeScript types and export more of them
 - Fix typo that causes bugs when using field arrays
