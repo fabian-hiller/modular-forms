@@ -70,7 +70,7 @@ export function getFieldArray<
     form.internal.fieldArrays.set(name, fieldArray as any);
 
     // Add name of field array to field array names
-    form.internal.setFieldNames((fieldArrayNames) => [
+    form.internal.setFieldArrayNames((fieldArrayNames) => [
       ...fieldArrayNames,
       name,
     ]);
