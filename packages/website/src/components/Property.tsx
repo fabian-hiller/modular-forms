@@ -70,7 +70,7 @@ export function Property(props: PropertyProps) {
     <code
       class={clsx(
         'bg-transparent p-0 text-slate-600 dark:bg-transparent dark:text-slate-400',
-        props.padding !== 'none' && 'px-2'
+        !props.padding && 'px-2'
       )}
     >
       <For each={Array.isArray(props.type) ? props.type : [props.type]}>

@@ -1,7 +1,7 @@
 import { makeEventListener } from '@solid-primitives/event-listener';
 import { isClient } from '@solid-primitives/utils';
 import clsx from 'clsx';
-import { createEffect, createSignal, JSX, on } from 'solid-js';
+import { createEffect, createSignal, JSX, on, onMount } from 'solid-js';
 
 type ExpandableProps = {
   class?: string;
@@ -13,10 +13,14 @@ type ExpandableProps = {
  * Wrapper component to vertically expand or collapse content.
  */
 export function Expandable(props: ExpandableProps) {
-  // Create element, element height and frozen children signal
+  // Create painted, element, element height and frozen children signal
+  const [getPainted, setPainted] = createSignal(false);
   const [getElement, setElement] = createSignal<HTMLDivElement>();
   const [getElementHeight, setElementHeight] = createSignal<number>(0);
   const [getFrozenChildren, setFrozenChildren] = createSignal<JSX.Element>();
+
+  // Set painted to true after DOM has had time to paint
+  onMount(() => setTimeout(() => setPainted(true)));
 
   // Freeze children while element collapses to prevent UI from jumping
   createEffect(
@@ -39,9 +43,8 @@ export function Expandable(props: ExpandableProps) {
   /**
    * Handles the expandable element height.
    */
-  const handleElementHeight = () => {
+  const handleElementHeight = () =>
     setElementHeight(props.expanded ? getElement()!.scrollHeight : 0);
-  };
 
   // Expand or collapse content when expanded prop change
   createEffect(on(() => props.expanded, handleElementHeight));
@@ -54,7 +57,8 @@ export function Expandable(props: ExpandableProps) {
   return (
     <div
       class={clsx(
-        'h-0 origin-top duration-200',
+        'h-0 origin-top',
+        getPainted() && 'duration-200',
         !props.expanded && 'invisible -translate-y-2 scale-y-75 opacity-0',
         props.class
       )}

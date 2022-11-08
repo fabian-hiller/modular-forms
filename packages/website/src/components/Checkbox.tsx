@@ -30,7 +30,7 @@ export function Checkbox(props: CheckboxProps) {
     'padding',
   ]);
   return (
-    <div class={clsx(props.padding !== 'none' && 'px-8 lg:px-10', props.class)}>
+    <div class={clsx(!props.padding && 'px-8 lg:px-10', props.class)}>
       <label class="flex select-none space-x-4 font-medium md:text-lg lg:text-xl">
         <input
           {...inputProps}

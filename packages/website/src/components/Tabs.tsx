@@ -31,6 +31,9 @@ export function Tabs(props: TabsProps) {
       (e as HTMLAnchorElement).href.endsWith(loaction.pathname)
     ) as HTMLAnchorElement | undefined;
 
+    // Scroll active element into view
+    activeElement?.scrollIntoView({ inline: 'center' });
+
     // Update indicator style to active element or reset it to undefined
     setIndicatorStyle(
       activeElement
@@ -51,7 +54,7 @@ export function Tabs(props: TabsProps) {
   }
 
   return (
-    <div class="scrollbar-none flex overflow-x-auto px-8">
+    <div class="scrollbar-none flex scroll-px-8 overflow-x-auto scroll-smooth px-8">
       <div class="relative flex-1 border-b-2 border-b-slate-200 dark:border-b-slate-800">
         <nav class="flex space-x-8 lg:space-x-14" ref={setNavElement}>
           <For each={props.items}>

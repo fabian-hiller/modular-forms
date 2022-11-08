@@ -1,9 +1,11 @@
+import clsx from 'clsx';
 import { Show } from 'solid-js';
 
 type InputLabelProps = {
   name: string;
   label?: string;
   required?: boolean;
+  margin?: 'none';
 };
 
 /**
@@ -13,7 +15,10 @@ export function InputLabel(props: InputLabelProps) {
   return (
     <Show when={props.label}>
       <label
-        class="mb-4 inline-block font-medium md:text-lg lg:mb-5 lg:text-xl"
+        class={clsx(
+          'inline-block font-medium md:text-lg lg:text-xl',
+          !props.margin && 'mb-4 lg:mb-5'
+        )}
         for={props.name}
       >
         {props.label}{' '}
