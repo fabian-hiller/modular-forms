@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `shouldFocus` option to `setValue` method
+
 ## v0.7.0 (November 08, 2022)
 
 - Add `validateIfNecessary` util and refactor code

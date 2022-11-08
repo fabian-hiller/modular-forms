@@ -6,6 +6,7 @@ type ValueOptions = Partial<{
   shouldTouched: boolean;
   shouldDirty: boolean;
   shouldValidate: boolean;
+  shouldFocus: boolean;
 }>;
 
 /**
@@ -30,6 +31,7 @@ export function setValue<
     shouldTouched = true,
     shouldDirty = true,
     shouldValidate = true,
+    shouldFocus = true,
   } = options;
 
   // Ignores tracking of reactive dependencies
@@ -57,7 +59,7 @@ export function setValue<
       if (shouldValidate) {
         validateIfNecessary(form, name, {
           on: 'input',
-          shouldFocus: true,
+          shouldFocus,
         });
       }
     });
