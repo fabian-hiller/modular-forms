@@ -4,16 +4,23 @@ import {
   FieldArray,
   Form,
   insert,
+  maxLength,
   move,
   remove,
   replace,
   required,
   swap,
 } from '@modular-forms/solid';
-import clsx from 'clsx';
 import { For, onMount } from 'solid-js';
-import { FormHeader, FormFooter, TextInput, Title } from '~/components';
-import { InputError } from '~/components/InputError';
+import {
+  FormHeader,
+  FormFooter,
+  TextInput,
+  Title,
+  ColorButton,
+  InputLabel,
+  InputError,
+} from '~/components';
 import { useForm } from '~/contexts';
 
 type TodoForm = {
@@ -26,9 +33,15 @@ type TodoForm = {
 
 const initialValues = {
   todos: [
-    { label: '3 cucumbers' },
-    { label: '5 Tomatoes' },
-    { label: '1 Peppers' },
+    {
+      label: '3 cucumbers',
+      deadline: new Date(Date.now() + 864e5).toISOString().split('T')[0],
+    },
+    {
+      label: '5 Tomatoes',
+      deadline: new Date(Date.now() + 1728e5).toISOString().split('T')[0],
+    },
+    {},
   ],
 };
 
@@ -49,6 +62,7 @@ export default function TodosPage() {
         onSubmit={(values) => alert(JSON.stringify(values, null, 4))}
       >
         <FormHeader of={todoForm} heading="Todo form" />
+
         <div class="space-y-8 md:space-y-10 lg:space-y-12">
           <Field
             of={todoForm}
@@ -68,81 +82,88 @@ export default function TodosPage() {
             )}
           </Field>
 
-          <FieldArray of={todoForm} name="todos">
+          <FieldArray
+            of={todoForm}
+            name="todos"
+            validate={[
+              required('Please add at least one todo.'),
+              maxLength(4, 'You can add a maximum of 4 todos.'),
+            ]}
+          >
             {(fieldArray) => (
-              <div class="space-y-4" id={fieldArray.name}>
+              <div class="space-y-5 px-8 lg:px-10" id={fieldArray.name}>
+                <InputLabel
+                  name={fieldArray.name}
+                  label="Todos"
+                  margin="none"
+                  required
+                />
+
                 <div>
-                  <label
-                    class="block px-8 font-medium md:text-lg lg:px-10 lg:text-xl"
-                    for={fieldArray.name}
-                  >
-                    Todos
-                  </label>
+                  <div class="space-y-5">
+                    <For each={fieldArray.items}>
+                      {(_, index) => (
+                        <div class="flex flex-wrap gap-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700">
+                          <Field
+                            of={todoForm}
+                            name={`todos.${index()}.label`}
+                            validate={required('Please enter a label.')}
+                          >
+                            {(field) => (
+                              <TextInput
+                                {...field.props}
+                                class="w-full md:w-auto md:flex-1"
+                                value={field.value}
+                                error={field.error}
+                                type="text"
+                                placeholder="Enter task"
+                                padding="none"
+                                required
+                              />
+                            )}
+                          </Field>
+
+                          <Field
+                            of={todoForm}
+                            name={`todos.${index()}.deadline`}
+                            validate={required('Please enter a deadline.')}
+                          >
+                            {(field) => (
+                              <TextInput
+                                {...field.props}
+                                class="flex-1"
+                                type="date"
+                                value={field.value}
+                                error={field.error}
+                                padding="none"
+                                required
+                              />
+                            )}
+                          </Field>
+
+                          <ColorButton
+                            color="red"
+                            label="Delete"
+                            width="auto"
+                            onClick={() =>
+                              remove(todoForm, 'todos', { at: index() })
+                            }
+                          />
+                        </div>
+                      )}
+                    </For>
+                  </div>
                   <InputError name={fieldArray.name} error={fieldArray.error} />
                 </div>
 
-                <For each={fieldArray.items}>
-                  {(item, index) => (
-                    <div
-                      class="flex flex-wrap gap-4 px-8 lg:px-10"
-                      date-item={item}
-                    >
-                      <Field
-                        of={todoForm}
-                        name={`todos.${index()}.label`}
-                        validate={required('Please enter a label.')}
-                      >
-                        {(field) => (
-                          <TextInput
-                            {...field.props}
-                            class="w-full md:w-auto md:flex-1"
-                            value={field.value}
-                            error={field.error}
-                            type="text"
-                            placeholder="Enter task"
-                            padding="none"
-                            required
-                          />
-                        )}
-                      </Field>
-
-                      <Field
-                        of={todoForm}
-                        name={`todos.${index()}.deadline`}
-                        validate={required('Please enter a deadline.')}
-                      >
-                        {(field) => (
-                          <TextInput
-                            {...field.props}
-                            class="flex-1"
-                            type="date"
-                            value={field.value}
-                            error={field.error}
-                            padding="none"
-                            required
-                          />
-                        )}
-                      </Field>
-
-                      <Button
-                        class="border-red-600/10 text-red-600 hover:bg-red-600/10 dark:border-red-400/10 dark:text-red-400 dark:hover:bg-red-400/10"
-                        label="Delete"
-                        onClick={() =>
-                          remove(todoForm, 'todos', { at: index() })
-                        }
-                      />
-                    </div>
-                  )}
-                </For>
-
-                <div class="flex flex-wrap gap-4 px-8 lg:px-10">
-                  <Button
-                    class="border-emerald-600/10 text-emerald-600 hover:bg-emerald-600/10 dark:border-emerald-400/10 dark:text-emerald-400 dark:hover:bg-emerald-400/10"
+                <div class="flex flex-wrap gap-5">
+                  <ColorButton
+                    color="green"
                     label="Add new"
                     onClick={() => insert(todoForm, 'todos')}
                   />
-                  <Button
-                    class="border-yellow-600/10 text-yellow-600 hover:bg-yellow-600/10 dark:border-amber-300/10 dark:text-amber-300 dark:hover:bg-amber-300/10"
+                  <ColorButton
+                    color="yellow"
                     label="Move first to end"
                     onClick={() =>
                       move(todoForm, 'todos', {
@@ -151,13 +172,13 @@ export default function TodosPage() {
                       })
                     }
                   />
-                  <Button
-                    class="border-purple-600/10 text-purple-600 hover:bg-purple-600/10 dark:border-purple-400/10 dark:text-purple-400 dark:hover:bg-purple-400/10"
+                  <ColorButton
+                    color="purple"
                     label="Swap first two"
                     onClick={() => swap(todoForm, 'todos', { at: 0, and: 1 })}
                   />
-                  <Button
-                    class="border-sky-600/10 text-sky-600 hover:bg-sky-600/10 dark:border-sky-400/10 dark:text-sky-400 dark:hover:bg-sky-400/10"
+                  <ColorButton
+                    color="blue"
                     label="Replace first"
                     onClick={() => replace(todoForm, 'todos', { at: 0 })}
                   />
@@ -166,29 +187,9 @@ export default function TodosPage() {
             )}
           </FieldArray>
         </div>
+
         <FormFooter of={todoForm} />
       </Form>
     </>
-  );
-}
-
-type ButtonProps = {
-  class: string;
-  label: string;
-  onClick: () => void;
-};
-
-function Button(props: ButtonProps) {
-  return (
-    <button
-      class={clsx(
-        'h-14 rounded-2xl border-2 px-5 font-medium md:h-16 md:text-lg lg:h-[70px] lg:px-6 lg:text-xl',
-        props.class
-      )}
-      type="button"
-      onClick={props.onClick}
-    >
-      {props.label}
-    </button>
   );
 }
