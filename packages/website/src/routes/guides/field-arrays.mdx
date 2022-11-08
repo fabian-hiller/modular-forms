@@ -34,7 +34,7 @@ As with nested fields, you use dot notation for the name of each field. It is im
 <FieldArray of={todoForm} name="todos">
   {(fieldArray) => (
     <For each={fieldArray.items}>
-      {(item, index) => (
+      {(_, index) => (
         <div>
           <Field of={todoForm} name={`todos.${index()}.label`}>
             {(field) => <input {...field.props} type="text" />}
@@ -58,3 +58,26 @@ move(todoForm, 'todos', { from: 0, to: 2 });
 ```
 
 For more details on the other methods, see the <A href="/api">API Reference</A>.
+
+If you need to nest multiple field arrays, dot notation can get complicated when specifying a field name. To solve this problem, you can use the name of the field array dynamically.
+
+```tsx
+<FieldArray of={todoForm} name="todos">
+  {(fieldArray) => (
+    <For each={fieldArray.items}>
+      {(_, index) => (
+        <div>
+          <Field of={todoForm} name={`${fieldArray.name}.${index()}.label`}>
+            {(field) => <input {...field.props} type="text" />}
+          </Field>
+          <Field of={todoForm} name={`${fieldArray.name}.${index()}.deadline`}>
+            {(field) => <input {...field.props} type="date" />}
+          </Field>
+        </div>
+      )}
+    </For>
+  )}
+</FieldArray>
+```
+
+You can nest field arrays as deeply as you like. You will also find a suitable example of this on our <A href="/playground/nested">playground</A>.
