@@ -6,6 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Add `validateIfNecessary` util and refactor code
 - Fix missing validation at `insert` and `remove` method
+- Add support for field arrays to `required` validation
 
 ## v0.6.0 (November 06, 2022)
 

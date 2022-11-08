@@ -9,7 +9,10 @@ import { FieldValue } from '../types';
  */
 export function required<TFieldValue extends FieldValue>(
   error: string
-): (value: TFieldValue) => string {
-  return (value: TFieldValue) =>
-    (value instanceof FileList && !value.length) || !value ? error : '';
+): (value: TFieldValue | number[]) => string {
+  return (value: TFieldValue | number[]) =>
+    !value ||
+    ((value instanceof FileList || Array.isArray(value)) && !value.length)
+      ? error
+      : '';
 }
