@@ -6,6 +6,11 @@
     transition: none !important;
   }
 
+  /* Reset appearance */
+  [type='date'] {
+    @apply flex appearance-none items-center justify-start;
+  }
+
   /* Typography */
   article :is(h1, h2, h3, h4) {
     @apply font-medium leading-normal text-slate-900 dark:text-slate-200 md:leading-normal lg:leading-normal;
