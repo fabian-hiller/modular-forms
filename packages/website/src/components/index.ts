@@ -11,6 +11,8 @@ export * from './FormHeader';
 export * from './Head';
 export * from './Header';
 export * from './IconButton';
+export * from './InputError';
+export * from './InputLabel';
 export * from './Navigation';
 export * from './Property';
 export * from './Select';
