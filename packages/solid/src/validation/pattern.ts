@@ -9,7 +9,7 @@
 export function pattern(
   requirement: RegExp,
   error: string
-): (fieldValue: string | null | undefined) => string {
-  return (fieldValue: string | null | undefined) =>
-    !requirement.test(fieldValue || '') ? error : '';
+): (value: string | null | undefined) => string {
+  return (value: string | null | undefined) =>
+    !requirement.test(value || '') ? error : '';
 }

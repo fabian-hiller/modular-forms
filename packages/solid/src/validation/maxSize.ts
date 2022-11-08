@@ -9,12 +9,12 @@
 export function maxSize(
   requirement: number,
   error: string
-): (fieldValue: File | FileList | null | undefined) => string {
-  return (fieldValue: File | FileList | null | undefined) =>
-    !!fieldValue &&
-    (fieldValue instanceof FileList
-      ? [...fieldValue].some((file) => file.size > requirement)
-      : fieldValue.size > requirement)
+): (value: File | FileList | null | undefined) => string {
+  return (value: File | FileList | null | undefined) =>
+    !!value &&
+    (value instanceof FileList
+      ? [...value].some((file) => file.size > requirement)
+      : value.size > requirement)
       ? error
       : '';
 }

@@ -9,7 +9,7 @@
 export function minRange(
   requirement: string,
   error: string
-): (fieldValue: string | null | undefined) => string {
-  return (fieldValue: string | null | undefined) =>
-    fieldValue || '' < requirement ? error : '';
+): (value: string | null | undefined) => string {
+  return (value: string | null | undefined) =>
+    value || '' < requirement ? error : '';
 }

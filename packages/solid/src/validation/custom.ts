@@ -11,9 +11,9 @@ import { FieldValue } from '../types';
 export function custom<TFieldValue extends FieldValue>(
   requirement: (value: TFieldValue | undefined) => boolean | Promise<boolean>,
   error: string
-): (fieldValue: TFieldValue) => Promise<string> {
-  return async (fieldValue: TFieldValue) => {
-    const result = await requirement(fieldValue);
+): (value: TFieldValue) => Promise<string> {
+  return async (value: TFieldValue) => {
+    const result = await requirement(value);
     return !result ? error : '';
   };
 }

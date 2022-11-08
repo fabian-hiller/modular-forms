@@ -9,7 +9,7 @@
 export function maxLength(
   requirement: number,
   error: string
-): (fieldValue: string | string[] | number[] | null | undefined) => string {
-  return (fieldValue: string | string[] | number[] | null | undefined) =>
-    (fieldValue?.length || 0) > requirement ? error : '';
+): (value: string | string[] | number[] | null | undefined) => string {
+  return (value: string | string[] | number[] | null | undefined) =>
+    (value?.length || 0) > requirement ? error : '';
 }

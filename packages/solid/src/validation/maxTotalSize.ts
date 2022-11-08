@@ -9,10 +9,9 @@
 export function maxTotalSize(
   requirement: number,
   error: string
-): (fieldValue: FileList | null | undefined) => string {
-  return (fieldValue: FileList | null | undefined) =>
-    [...(fieldValue || [])].reduce((size, file) => size + file.size, 0) >
-    requirement
+): (value: FileList | null | undefined) => string {
+  return (value: FileList | null | undefined) =>
+    [...(value || [])].reduce((size, file) => size + file.size, 0) > requirement
       ? error
       : '';
 }

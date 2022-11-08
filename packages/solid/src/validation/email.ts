@@ -7,10 +7,10 @@
  */
 export function email(
   error: string
-): (fieldValue: string | null | undefined) => string {
-  return (fieldValue: string | null | undefined) =>
+): (value: string | null | undefined) => string {
+  return (value: string | null | undefined) =>
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
-      fieldValue || ''
+      value || ''
     )
       ? error
       : '';

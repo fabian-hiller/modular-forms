@@ -7,10 +7,10 @@
  */
 export function url(
   error: string
-): (fieldValue: string | null | undefined) => string {
-  return (fieldValue: string | null | undefined) => {
+): (value: string | null | undefined) => string {
+  return (value: string | null | undefined) => {
     try {
-      new URL(fieldValue || '');
+      new URL(value || '');
       return '';
     } catch (_) {
       return error;

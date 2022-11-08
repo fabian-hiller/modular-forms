@@ -9,7 +9,7 @@
 export function minFiles(
   requirement: number,
   error: string
-): (fieldValue: FileList | null | undefined) => string {
-  return (fieldValue: FileList | null | undefined) =>
-    (fieldValue?.length || 0) < requirement ? error : '';
+): (value: FileList | null | undefined) => string {
+  return (value: FileList | null | undefined) =>
+    (value?.length || 0) < requirement ? error : '';
 }

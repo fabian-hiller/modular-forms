@@ -9,14 +9,14 @@
 export function mimeType(
   requirement: string | string[],
   error: string
-): (fieldValue: File | FileList | null | undefined) => string {
+): (value: File | FileList | null | undefined) => string {
   const mimeTypes =
     typeof requirement === 'string' ? [requirement] : requirement;
-  return (fieldValue: File | FileList | null | undefined) =>
-    !!fieldValue &&
-    (fieldValue instanceof FileList
-      ? [...fieldValue].some((file) => !mimeTypes.includes(file.type))
-      : !mimeTypes.includes(fieldValue.type))
+  return (value: File | FileList | null | undefined) =>
+    !!value &&
+    (value instanceof FileList
+      ? [...value].some((file) => !mimeTypes.includes(file.type))
+      : !mimeTypes.includes(value.type))
       ? error
       : '';
 }

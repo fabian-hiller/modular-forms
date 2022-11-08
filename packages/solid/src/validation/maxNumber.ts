@@ -9,7 +9,7 @@
 export function maxNumber(
   requirement: number,
   error: string
-): (fieldValue: number | null | undefined) => string {
-  return (fieldValue: number | null | undefined) =>
-    (fieldValue || 0) > requirement ? error : '';
+): (value: number | null | undefined) => string {
+  return (value: number | null | undefined) =>
+    (value || 0) > requirement ? error : '';
 }

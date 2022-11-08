@@ -11,6 +11,6 @@ import { FieldValue } from '../types';
 export function value<TFieldValue extends FieldValue>(
   requirement: FieldValue,
   error: string
-): (fieldValue: TFieldValue) => string {
-  return (fieldValue: TFieldValue) => (fieldValue !== requirement ? error : '');
+): (value: TFieldValue) => string {
+  return (value: TFieldValue) => (value !== requirement ? error : '');
 }
