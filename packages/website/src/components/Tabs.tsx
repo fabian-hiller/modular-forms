@@ -31,9 +31,6 @@ export function Tabs(props: TabsProps) {
       (e as HTMLAnchorElement).href.endsWith(loaction.pathname)
     ) as HTMLAnchorElement | undefined;
 
-    // Scroll active element into view
-    activeElement?.scrollIntoView({ inline: 'center' });
-
     // Update indicator style to active element or reset it to undefined
     setIndicatorStyle(
       activeElement
@@ -64,6 +61,12 @@ export function Tabs(props: TabsProps) {
                 inactiveClass="hover:text-slate-900 dark:hover:text-slate-200"
                 activeClass="text-sky-600 dark:text-sky-400"
                 href={item.toLowerCase().replace(/ /g, '-')}
+                onClick={(event) =>
+                  event.currentTarget.scrollIntoView({
+                    block: 'nearest',
+                    inline: 'center',
+                  })
+                }
               >
                 {item}
               </A>
