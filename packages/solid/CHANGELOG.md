@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.8.0 (November 08, 2022)
 
 - Add `shouldFocus` option to `setValue` method
 
