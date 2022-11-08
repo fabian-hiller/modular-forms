@@ -3,11 +3,13 @@ import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
 import {
   getField,
   getFieldArray,
-  getFieldIndex,
+  getPathIndex,
   getFieldState,
   setFieldState,
   updateFieldArrayDirty,
   validateIfNecessary,
+  getFieldArrayState,
+  setFieldArrayState,
 } from '../utils';
 
 type RemoveOptions = {
@@ -45,16 +47,20 @@ export function remove<
 
       // Continue if specified index is valid
       if (index >= 0 && index <= lastIndex) {
+        // Create filter name function
+        const filterName = (value: string) =>
+          value.startsWith(`${name}.`) && getPathIndex(name, value) >= index;
+
         // Get each field name that follows the given index
         (form.internal.getFieldNames() as TFieldName[])
-          .filter(
-            (fieldName) =>
-              fieldName.startsWith(name) &&
-              getFieldIndex(name, fieldName) >= index
-          )
+          .filter(filterName)
+          .sort()
           .forEach((fieldName) => {
+            // Get specified field
+            const field = getField(form, fieldName);
+
             // Get index of current field
-            const fieldIndex = getFieldIndex(name, fieldName);
+            const fieldIndex = getPathIndex(name, fieldName);
 
             // Set state of previous field to current field
             if (fieldIndex > index) {
@@ -66,23 +72,64 @@ export function remove<
                     `${name}.${fieldIndex - 1}`
                   ) as TFieldName
                 ),
-                getFieldState(getField(form, fieldName))
+                getFieldState(field)
               );
             }
 
-            // Instead of deleting, reset state of every field of last field
-            // array item, so that field cannot be initialized with incorrect
-            // initial values
-            if (fieldIndex === lastIndex) {
-              setFieldState(getField(form, fieldName), {
-                elements: [],
-                initialInput: undefined,
-                input: undefined,
-                error: '',
-                dirty: false,
-                touched: false,
-              });
+            // Reset current field, because due to nested field arrays, this
+            // field may not exist in the following array item
+            setFieldState(field, {
+              elements: [],
+              initialInput: undefined,
+              input: undefined,
+              error: '',
+              dirty: false,
+              touched: false,
+            });
+
+            // We do not delete fields of the last field array item from
+            // internal map so that newly added fields are not initialized
+            // with wrong initial values
+          });
+
+        // Get each field array name that follows the given index
+        (form.internal.getFieldArrayNames() as TFieldArrayName[])
+          .filter(filterName)
+          .sort()
+          .forEach((fieldArrayName) => {
+            // Get specified field array
+            const fieldArray = getFieldArray(form, fieldArrayName);
+
+            // Get index of current field array
+            const fieldArrayIndex = getPathIndex(name, fieldArrayName);
+
+            // Set state of previous field array to current field array
+            if (fieldArrayIndex > index) {
+              setFieldArrayState(
+                getFieldArray(
+                  form,
+                  fieldArrayName.replace(
+                    `${name}.${fieldArrayIndex}`,
+                    `${name}.${fieldArrayIndex - 1}`
+                  ) as TFieldArrayName
+                ),
+                getFieldArrayState(fieldArray)
+              );
             }
+
+            // Reset current field array, because due to nested field arrays,
+            // this field array may not exist in the following array item
+            setFieldArrayState(fieldArray, {
+              initialItems: [],
+              items: [],
+              error: '',
+              dirty: false,
+              touched: false,
+            });
+
+            // We do not delete field arrays of the last field array item from
+            // internal map so that newly added field arrays are not
+            // initialized with wrong initial values
           });
 
         // Delete item from field array

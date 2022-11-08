@@ -8,12 +8,13 @@ import {
   FormState,
 } from '../types';
 import {
-  getFieldIndex,
+  getPathIndex,
   getFieldArray,
   getPathValue,
   setFieldState,
   getField,
   getUniqueId,
+  setFieldArrayState,
 } from '../utils';
 
 type ReplaceOptions<
@@ -59,17 +60,18 @@ export function replace<
 
       // Continue if specified index is valid
       if (index >= 0 && index <= lastIndex) {
+        // Create filter name function
+        const filterName = (value: string) =>
+          value.startsWith(`${name}.`) && getPathIndex(name, value) === index;
+
+        // Get each field name of the specified index
         (form.internal.getFieldNames() as TFieldName[])
-          .filter(
-            (fieldName) =>
-              fieldName.startsWith(name) &&
-              getFieldIndex(name, fieldName) === index
-          )
+          .filter(filterName)
           .forEach((fieldName) => {
             // Get initial input
             const initialInput = getPathValue(
               fieldName.replace(
-                `${name}.${getFieldIndex(name, fieldName)}.`,
+                new RegExp(`${name}\.${getPathIndex(name, fieldName)}\.?`),
                 ''
               ),
               value
@@ -80,6 +82,33 @@ export function replace<
               elements: [],
               initialInput,
               input: initialInput,
+              error: '',
+              dirty: false,
+              touched: false,
+            });
+          });
+
+        // Get each field array name of the specified index
+        (form.internal.getFieldArrayNames() as TFieldArrayName[])
+          .filter(filterName)
+          .forEach((fieldArrayName) => {
+            // Get initial items
+            const initialItems = (
+              getPathValue(
+                fieldArrayName.replace(
+                  new RegExp(
+                    `${name}\.${getPathIndex(name, fieldArrayName)}\.?`
+                  ),
+                  ''
+                ),
+                value
+              ) || []
+            ).map(() => getUniqueId());
+
+            // Replace state of field array
+            setFieldArrayState(getFieldArray(form, fieldArrayName), {
+              initialItems,
+              items: initialItems,
               error: '',
               dirty: false,
               touched: false,

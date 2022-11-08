@@ -7,5 +7,7 @@
  * @returns The value or undefined
  */
 export function getPathValue(path: string, object: any): any {
-  return path.split('.').reduce((value, key) => value?.[key], object);
+  return path && object
+    ? path.split('.').reduce((value, key) => value?.[key], object)
+    : object;
 }

@@ -44,3 +44,14 @@ export type FieldArrayState<
   touched: boolean;
   dirty: boolean;
 };
+
+/**
+ * Value type of the internal raw field array state.
+ */
+export type RawFieldArrayState = {
+  initialItems: number[];
+  items: number[];
+  error: string;
+  touched: boolean;
+  dirty: boolean;
+};

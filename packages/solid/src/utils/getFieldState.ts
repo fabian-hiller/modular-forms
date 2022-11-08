@@ -4,7 +4,7 @@ import { FieldPath, FieldStore, FieldValues, RawFieldState } from '../types';
 /**
  * Returns the state of the field.
  *
- * @param field The name of the field to get the state from.
+ * @param field The field to get the state from.
  *
  * @returns The state of the field.
  */

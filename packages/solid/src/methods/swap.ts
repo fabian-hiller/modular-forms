@@ -4,12 +4,16 @@ import {
   FieldPath,
   FieldValues,
   FormState,
+  RawFieldArrayState,
   RawFieldState,
 } from '../types';
 import {
   getField,
   getFieldArray,
+  getFieldArrayState,
   getFieldState,
+  getPathIndex,
+  setFieldArrayState,
   setFieldState,
   updateFieldArrayDirty,
 } from '../utils';
@@ -57,19 +61,30 @@ export function swap<
         index1 !== index2
       ) {
         // Create prefix for each index
-        const index1Prefix = `${name}.${index1}.`;
-        const index2Prefix = `${name}.${index2}.`;
+        const index1Prefix = `${name}.${index1}`;
+        const index2Prefix = `${name}.${index2}`;
 
-        // Create field state map
-        const fieldStateMap = new Map<string, RawFieldState>();
+        // Create field and field array state map
+        const fieldStateMap = new Map<TFieldName, RawFieldState>();
+        const fieldArrayStateMap = new Map<
+          TFieldArrayName,
+          RawFieldArrayState
+        >();
+
+        // Create filter name function
+        const filterName = (value: string) =>
+          value.startsWith(`${name}.`) &&
+          [index1, index2].includes(getPathIndex(name, value));
+
+        // Create swap index function
+        const swapIndex = (value: string) =>
+          value.startsWith(index1Prefix)
+            ? value.replace(index1Prefix, index2Prefix)
+            : value.replace(index2Prefix, index1Prefix);
 
         // Swap each required field
         (form.internal.getFieldNames() as TFieldName[])
-          .filter(
-            (fieldName) =>
-              fieldName.startsWith(index1Prefix) ||
-              fieldName.startsWith(index2Prefix)
-          )
+          .filter(filterName)
           .forEach((fieldName) => {
             // Get specified field
             const field = getField(form, fieldName);
@@ -77,20 +92,57 @@ export function swap<
             // Add state of field to map
             fieldStateMap.set(fieldName, getFieldState(field));
 
-            // Create swap name of field
-            const swapFieldName = (
-              fieldName.startsWith(index1Prefix)
-                ? fieldName.replace(index1Prefix, index2Prefix)
-                : fieldName.replace(index2Prefix, index1Prefix)
-            ) as FieldPath<TFieldValues>;
-
-            // Set state of field to field to be swapped with
-            setFieldState(
-              field,
-              fieldStateMap.get(swapFieldName) ||
-                getFieldState(getField(form, swapFieldName))
-            );
+            // Reset current field, because due to nested field arrays, this
+            // field may not exist in the following array item
+            setFieldState(field, {
+              elements: [],
+              initialInput: undefined,
+              input: undefined,
+              error: '',
+              dirty: false,
+              touched: false,
+            });
           });
+
+        // Finally swap state of fields
+        fieldStateMap.forEach((fieldState, fieldName) => {
+          setFieldState(
+            getField(form, swapIndex(fieldName) as TFieldName),
+            fieldState
+          );
+        });
+
+        // Swap each required field array
+        (form.internal.getFieldArrayNames() as TFieldArrayName[])
+          .filter(filterName)
+          .forEach((fieldArrayName) => {
+            // Get specified field array
+            const fieldArray = getFieldArray(form, fieldArrayName);
+
+            // Add state of field array to map
+            fieldArrayStateMap.set(
+              fieldArrayName,
+              getFieldArrayState(fieldArray)
+            );
+
+            // Reset current field array, because due to nested field arrays,
+            // this field array may not exist in the following array item
+            setFieldArrayState(fieldArray, {
+              initialItems: [],
+              items: [],
+              error: '',
+              dirty: false,
+              touched: false,
+            });
+          });
+
+        // Finally swap state of field arrays
+        fieldArrayStateMap.forEach((fieldArrayState, fieldArrayName) => {
+          setFieldArrayState(
+            getFieldArray(form, swapIndex(fieldArrayName) as TFieldArrayName),
+            fieldArrayState
+          );
+        });
 
         // Swap items of field array
         fieldArray.setItems((prevItems) => {

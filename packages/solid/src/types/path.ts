@@ -60,13 +60,11 @@ export type FieldPathValue<
 /**
  * Returns a path of a type that leads to a field array.
  */
-type ArrayPath<K extends string | number, V> = V extends string[]
-  ? `${K}`
-  : V extends FieldValue
-  ? never
-  : V extends FieldValue[] | FieldValues[]
-  ? `${K}`
-  : `${K}.${ArrayPaths<V>}`;
+type ArrayPath<K extends string | number, V> = V extends Array<any>
+  ? `${K}` | `${K}.${ArrayPaths<V>}`
+  : V extends FieldValues
+  ? `${K}.${ArrayPaths<V>}`
+  : never;
 
 /**
  * Returns all paths of a type that lead to a field array.

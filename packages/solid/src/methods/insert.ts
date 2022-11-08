@@ -10,13 +10,15 @@ import {
 import {
   getField,
   getFieldArray,
-  getFieldIndex,
+  getPathIndex,
   getFieldState,
   getPathValue,
   getUniqueId,
   getValuePaths,
   setFieldState,
   validateIfNecessary,
+  setFieldArrayState,
+  getFieldArrayState,
 } from '../utils';
 
 type InsertOptions<
@@ -66,11 +68,17 @@ export function insert<
         if (index === arrayLength) {
           if (value !== undefined) {
             getValuePaths(value).forEach((path) => {
+              // Get initial input
               const initialInput = getPathValue(path, value);
+
+              // Since we only reset state of affected fields when removing an
+              // array item and do not delete fields from internal map, as they
+              // could otherwise be initialized with incorrect initial values,
+              // state of fields must be set to specified initial value here
               setFieldState(
                 getField(
                   form,
-                  `${name}.${index}${path && `.${path}`}` as TFieldName
+                  `${name}.${index}${path ? `.${path}` : ''}` as TFieldName
                 ),
                 {
                   elements: [],
@@ -84,23 +92,28 @@ export function insert<
             });
           }
 
-          // Otherwise, move fields of items that come after new item one index
-          // further and add new item by changing state of fields at specified
-          // index
+          // Otherwise, move fields and field arrays of items that come after
+          // new item one index further and add new item by changing state of
+          // fields and field arrays at specified index
         } else {
+          // Create filter name function
+          const filterName = (value: string) =>
+            value.startsWith(`${name}.`) && getPathIndex(name, value) >= index;
+
           // Get each field name that follows the given index
           (form.internal.getFieldNames() as TFieldName[])
-            .filter(
-              (fieldName) =>
-                fieldName.startsWith(name) &&
-                getFieldIndex(name, fieldName) >= index
-            )
+            .filter(filterName)
+            // Sort and reverse array so that loop starts with last index
+            .sort()
             .reverse()
             .forEach((fieldName) => {
-              // Get index of current field
-              const fieldIndex = getFieldIndex(name, fieldName);
+              // Get specified field
+              const field = getField(form, fieldName);
 
-              // Set state of previous field to current field
+              // Get index of current field
+              const fieldIndex = getPathIndex(name, fieldName);
+
+              // Set state of current field to next field
               setFieldState(
                 getField(
                   form,
@@ -109,19 +122,68 @@ export function insert<
                     `${name}.${fieldIndex + 1}`
                   ) as TFieldName
                 ),
-                getFieldState(getField(form, fieldName))
+                getFieldState(field)
               );
 
               // Reset state of every field of inserted field array item
               if (fieldIndex === index) {
                 const initialInput = getPathValue(
-                  fieldName.replace(`${name}.${fieldIndex}.`, ''),
+                  fieldName.replace(
+                    new RegExp(`${name}\.${fieldIndex}\.?`),
+                    ''
+                  ),
                   value
                 );
-                setFieldState(getField(form, fieldName), {
+                setFieldState(field, {
                   elements: [],
                   initialInput,
                   input: initialInput,
+                  error: '',
+                  dirty: false,
+                  touched: false,
+                });
+              }
+            });
+
+          // Get each field array name that follows the given index
+          (form.internal.getFieldArrayNames() as TFieldArrayName[])
+            .filter(filterName)
+            // Sort and reverse array so that loop starts with last index
+            .sort()
+            .reverse()
+            .forEach((fieldArrayName) => {
+              // Get specified field array
+              const fieldArray = getFieldArray(form, fieldArrayName);
+
+              // Get index of current field array
+              const fieldArrayIndex = getPathIndex(name, fieldArrayName);
+
+              // Set state of current field array to next field array
+              setFieldArrayState(
+                getFieldArray(
+                  form,
+                  fieldArrayName.replace(
+                    `${name}.${fieldArrayIndex}`,
+                    `${name}.${fieldArrayIndex + 1}`
+                  ) as TFieldArrayName
+                ),
+                getFieldArrayState(fieldArray)
+              );
+
+              // Reset state of every field array of inserted field array item
+              if (fieldArrayIndex === index) {
+                const initialItems = (
+                  getPathValue(
+                    fieldArrayName.replace(
+                      new RegExp(`${name}\.${fieldArrayIndex}\.?`),
+                      ''
+                    ),
+                    value
+                  ) || []
+                ).map(() => getUniqueId());
+                setFieldArrayState(fieldArray, {
+                  initialItems,
+                  items: initialItems,
                   error: '',
                   dirty: false,
                   touched: false,
