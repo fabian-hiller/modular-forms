@@ -16,6 +16,7 @@ import {
   getUniqueId,
   getValuePaths,
   setFieldState,
+  validateIfNecessary,
 } from '../utils';
 
 type InsertOptions<
@@ -143,6 +144,9 @@ export function insert<
         // Set dirty at field array and form to true
         fieldArray.setDirty(true);
         form.internal.setDirty(true);
+
+        // Validate field array items if necessary
+        validateIfNecessary(form, name, { on: 'input' });
       }
     });
   });
