@@ -19,3 +19,4 @@ export * from './updateFieldDirty';
 export * from './updateFieldInput';
 export * from './updateFieldArrayDirty';
 export * from './updateState';
+export * from './validateIfNecessary';

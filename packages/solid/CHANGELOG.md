@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `validateIfNecessary` util and refactor code
+
 ## v0.6.0 (November 06, 2022)
 
 - Rename TypeScript types and export more of them

@@ -1,7 +1,6 @@
 import { batch, untrack } from 'solid-js';
 import { FieldPath, FieldPathValue, FieldValues, FormState } from '../types';
-import { getField, updateFieldDirty } from '../utils';
-import { validate } from './validate';
+import { getField, updateFieldDirty, validateIfNecessary } from '../utils';
 
 type ValueOptions = Partial<{
   shouldTouched: boolean;
@@ -54,13 +53,12 @@ export function setValue<
         updateFieldDirty(form, field);
       }
 
-      // Validate if set to "true"
-      if (
-        shouldValidate &&
-        ((!form.submitted && form.internal.validateOn === 'input') ||
-          (form.submitted && form.internal.revalidateOn === 'input'))
-      ) {
-        validate(form, name);
+      // Validate if set to "true" and necessary
+      if (shouldValidate) {
+        validateIfNecessary(form, name, {
+          on: 'input',
+          shouldFocus: true,
+        });
       }
     });
   });

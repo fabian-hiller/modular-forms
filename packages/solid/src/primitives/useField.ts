@@ -1,4 +1,4 @@
-import { reset, validate as validateField } from '../methods';
+import { reset } from '../methods';
 import {
   getElementInput,
   getField,
@@ -8,6 +8,7 @@ import {
   updateFieldDirty,
   updateFieldInput,
   updateState,
+  validateIfNecessary,
 } from '../utils';
 import {
   FieldState,
@@ -77,9 +78,10 @@ export function useField<
       updateFieldDirty(form, field);
     }
 
-    // Mark field as active and update form state if necessary
+    // Mark field as active, valdiate it and update form state if necessary
     if (!untrack(field.getActive)) {
       field.setActive(true);
+      validateIfNecessary(form, name, { on: 'input' });
       updateState(form);
     }
   });
@@ -148,13 +150,8 @@ export function useField<
         );
       },
       onChange() {
-        // Validate value if specified
-        if (
-          (!form.submitted && form.internal.validateOn === 'change') ||
-          (form.submitted && form.internal.revalidateOn === 'change')
-        ) {
-          validateField(form, name);
-        }
+        // Validate value if necessary
+        validateIfNecessary(form, name, { on: 'change' });
       },
       onBlur(event) {
         // Destructure current target

@@ -1,5 +1,4 @@
 import { batch } from 'solid-js';
-import { validate } from '../methods';
 import {
   FieldPath,
   FieldPathValue,
@@ -8,6 +7,7 @@ import {
   FormState,
 } from '../types';
 import { updateFieldDirty } from './updateFieldDirty';
+import { validateIfNecessary } from './validateIfNecessary';
 
 /**
  * Updates the input state of a field.
@@ -36,12 +36,7 @@ export function updateFieldInput<
     // Update dirty state
     updateFieldDirty(form, field);
 
-    // Validate value if specified
-    if (
-      (!form.submitted && form.internal.validateOn === 'input') ||
-      (form.submitted && form.internal.revalidateOn === 'input')
-    ) {
-      validate(form, name);
-    }
+    // Validate value if necessary
+    validateIfNecessary(form, name, { on: 'input' });
   });
 }
