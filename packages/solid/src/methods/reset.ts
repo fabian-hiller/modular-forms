@@ -176,11 +176,6 @@ export function reset<
         form.internal.setResponse({});
       }
 
-      // Reset form if values should not be kept
-      if (!keepValues) {
-        form.element?.reset();
-      }
-
       // Reset submit count if it is not to be kept
       if (!keepSubmitCount) {
         form.internal.setSubmitCount(0);

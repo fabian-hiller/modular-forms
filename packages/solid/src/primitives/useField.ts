@@ -131,7 +131,8 @@ export function useField<
           createEffect(() => {
             if (
               field.getInitialInput() === undefined &&
-              untrack(field.getInput) === undefined
+              untrack(field.getInput) === undefined &&
+              element.type !== 'file'
             ) {
               const input = getElementInput(element, field);
               field.setInitialInput(() => input);
