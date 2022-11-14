@@ -24,9 +24,13 @@ type PaymentForm = {
   };
 };
 
+const initialValues = {
+  owner: 'John Doe',
+};
+
 export default function PaymentPage() {
   // Create payment form
-  const paymentForm = createForm<PaymentForm>();
+  const paymentForm = createForm<PaymentForm>({ initialValues });
 
   // Set payment form in form context
   onMount(() => useForm().set(paymentForm));
