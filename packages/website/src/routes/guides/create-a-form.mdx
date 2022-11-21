@@ -13,6 +13,8 @@ Like Solid, the library consists of primitives and components. To create a form 
 
 If you use TypeScript, you can additionally define the fields and their values and pass the type as a generic. You also have the option to pass initial values to the form. See the <A href="/api/createForm">API reference</A> for more details.
 
+> > It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href="https://github.com/fabian-hiller/modular-forms/issues/2#issuecomment-1321178563" target="_blank" rel="noreferrer">here</a>.
+
 ```tsx
 import { createForm } from '@modular-forms/solid';
 
