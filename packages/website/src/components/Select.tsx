@@ -8,9 +8,9 @@ type SelectProps = {
   ref: (element: HTMLSelectElement) => void;
   name: string;
   value: string | string[] | undefined;
-  onInput: JSX.EventHandlerUnion<HTMLSelectElement, InputEvent>;
-  onChange: JSX.EventHandlerUnion<HTMLSelectElement, Event>;
-  onBlur: JSX.EventHandlerUnion<HTMLSelectElement, FocusEvent>;
+  onInput: JSX.EventHandler<HTMLSelectElement, InputEvent>;
+  onChange: JSX.EventHandler<HTMLSelectElement, Event>;
+  onBlur: JSX.EventHandler<HTMLSelectElement, FocusEvent>;
   options: { label: string; value: string }[];
   multiple?: boolean;
   size?: string | number;

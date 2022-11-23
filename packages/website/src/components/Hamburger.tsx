@@ -3,7 +3,7 @@ import { For, JSX } from 'solid-js';
 
 type HamburgerProps = {
   active: boolean;
-  onClick: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent>;
+  onClick: JSX.EventHandler<HTMLButtonElement, MouseEvent>;
 };
 
 /**

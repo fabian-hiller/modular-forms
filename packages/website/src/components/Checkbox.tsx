@@ -7,9 +7,9 @@ type CheckboxProps = {
   name: string;
   value?: string;
   checked?: boolean;
-  onInput: JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;
-  onChange: JSX.EventHandlerUnion<HTMLInputElement, Event>;
-  onBlur: JSX.EventHandlerUnion<HTMLInputElement, FocusEvent>;
+  onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
+  onChange: JSX.EventHandler<HTMLInputElement, Event>;
+  onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>;
   required?: boolean;
   class?: string;
   label: string;

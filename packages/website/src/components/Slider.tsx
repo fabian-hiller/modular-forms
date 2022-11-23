@@ -7,9 +7,9 @@ type SliderProps = {
   ref: (element: HTMLInputElement) => void;
   name: string;
   value?: number;
-  onInput: JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;
-  onChange: JSX.EventHandlerUnion<HTMLInputElement, Event>;
-  onBlur: JSX.EventHandlerUnion<HTMLInputElement, FocusEvent>;
+  onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
+  onChange: JSX.EventHandler<HTMLInputElement, Event>;
+  onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>;
   min?: number;
   max?: number;
   step?: number;
