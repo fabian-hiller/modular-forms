@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.8.2 (November 23, 2022)
 
 - Change type of field props event handlers
 - Improve compatibility with components libraries
