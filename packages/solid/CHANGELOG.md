@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Change type of field props event handlers
+- Improve compatibility with components libraries
+
 ## v0.8.1 (November 14, 2022)
 
 - Fix bug when form is reset

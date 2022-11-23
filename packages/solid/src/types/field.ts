@@ -72,9 +72,9 @@ export type FieldState<
   props: {
     name: TFieldName;
     ref: (element: FieldElement) => void;
-    onInput: JSX.EventHandlerUnion<FieldElement, InputEvent>;
-    onChange: JSX.EventHandlerUnion<FieldElement, Event>;
-    onBlur: JSX.EventHandlerUnion<FieldElement, FocusEvent>;
+    onInput: JSX.EventHandler<FieldElement, InputEvent>;
+    onChange: JSX.EventHandler<FieldElement, Event>;
+    onBlur: JSX.EventHandler<FieldElement, FocusEvent>;
   };
   name: TFieldName;
   value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
