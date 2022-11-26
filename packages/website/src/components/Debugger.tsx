@@ -6,6 +6,7 @@ import {
 } from '@modular-forms/solid';
 import clsx from 'clsx';
 import { createMemo, For, Show } from 'solid-js';
+import { useLocation } from 'solid-start';
 
 type DebuggerProps = {
   of: FormState<any> | undefined;
@@ -16,9 +17,42 @@ type DebuggerProps = {
  * development.
  */
 export function Debugger(props: DebuggerProps) {
+  // Use location
+  const location = useLocation();
+
+  // Get values of form
   const values = createMemo(() => props.of && getValues(props.of));
+
   return (
     <div class="space-y-9 px-8 py-9 lg:mx-8 lg:max-h-[60vh] lg:w-72 lg:overflow-y-auto lg:overscroll-contain lg:rounded-3xl lg:border-2 lg:border-slate-200 lg:p-10 lg:dark:border-slate-800">
+      <div class="space-y-6">
+        <h3 class="text-xl font-medium text-slate-900 dark:text-slate-200">
+          Debugger
+        </h3>
+        <p>
+          See code on{' '}
+          <a
+            class="text-sky-600 dark:text-sky-400"
+            href={`https://github.com/fabian-hiller/modular-forms/blob/main/packages/website/src/routes${location.pathname}.tsx`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>{' '}
+          or{' '}
+          <a
+            class="text-sky-600 dark:text-sky-400"
+            href={`https://stackblitz.com/edit/modular-forms-playground?file=src/routes/${location.pathname
+              .split('/')
+              .pop()}.tsx`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Stackblitz
+          </a>
+          .
+        </p>
+      </div>
       <div class="space-y-6">
         <h4 class="text-lg font-medium text-slate-900 dark:text-slate-200">
           Form state
