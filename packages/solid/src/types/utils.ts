@@ -3,14 +3,14 @@ import { FieldValue } from './field';
 /**
  * Checks if an array type is a tuple type.
  */
-export type IsTuple<T extends Array<any>> = number extends T['length']
+export type IsTuple<T extends any[]> = number extends T['length']
   ? false
   : true;
 
 /**
  * Returns its own keys for a tuple type.
  */
-export type TupleKeys<T extends Array<any>> = Exclude<keyof T, keyof any[]>;
+export type TupleKeys<T extends any[]> = Exclude<keyof T, keyof any[]>;
 
 /**
  * Can be used to index an array or tuple type.

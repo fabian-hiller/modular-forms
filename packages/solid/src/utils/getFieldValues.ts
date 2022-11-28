@@ -27,7 +27,7 @@ export function getFieldValues<
   form: FormState<TFieldValues>,
   names: TFieldName[],
   options: FieldValuesOptions<TInitialValue>
-): TInitialValue extends [] ? Array<any> : Record<string, any> {
+): TInitialValue extends [] ? any[] : { [key: string]: any } {
   // Destructure options
   const {
     initialValue,
@@ -77,7 +77,5 @@ export function getFieldValues<
 
     // Return modified values object
     return values;
-  }, initialValue) as TInitialValue extends []
-    ? Array<any>
-    : Record<string, any>;
+  }, initialValue) as TInitialValue extends [] ? any[] : { [key: string]: any };
 }

@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Try to fix circular reference type error
+
 ## v0.8.2 (November 23, 2022)
 
 - Change type of field props event handlers

@@ -21,7 +21,7 @@ type ReplaceOptions<
   TFieldValues extends FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
-    Array<unknown>
+    unknown[]
 > = {
   at: number;
   value?: DeepPartial<TFieldArrayValues[number]>;
@@ -39,7 +39,7 @@ export function replace<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
-    Array<unknown>
+    unknown[]
 >(
   form: FormState<TFieldValues>,
   name: TFieldArrayName,
