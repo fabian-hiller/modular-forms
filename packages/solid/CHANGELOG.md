@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.8.4 (November 29, 2022)
 
 - Fix circular reference type error of issue #4
 
