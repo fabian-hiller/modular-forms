@@ -16,7 +16,7 @@ export function getFilteredNames<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TOptions extends { [key: string]: any }
+  TOptions extends Record<string, any>
 >(
   form: FormState<TFieldValues>,
   arg2?:

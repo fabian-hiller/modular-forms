@@ -6,14 +6,14 @@ import { ArrayKey, IsTuple, TupleKeys } from './utils';
  */
 type ValuePath<K extends string | number, V> = V extends string[]
   ? `${K}` | `${K}.${ValuePaths<V>}`
-  : V extends FieldValue
+  : V extends FieldValue | Blob
   ? `${K}`
   : `${K}.${ValuePaths<V>}`;
 
 /**
  * Returns all paths of a type that lead to a field value.
  */
-type ValuePaths<T> = T extends (infer V)[]
+type ValuePaths<T> = T extends Array<infer V>
   ? IsTuple<T> extends true
     ? {
         [K in TupleKeys<T>]-?: ValuePath<K & string, T[K]>;
@@ -41,7 +41,7 @@ type PathValue<
       ? PathValue<T[K], R>
       : never
     : K extends `${ArrayKey}`
-    ? T extends (infer V)[]
+    ? T extends Array<infer V>
       ? PathValue<V, R & ValuePaths<V>>
       : never
     : never
@@ -60,7 +60,7 @@ export type FieldPathValue<
 /**
  * Returns a path of a type that leads to a field array.
  */
-type ArrayPath<K extends string | number, V> = V extends any[]
+type ArrayPath<K extends string | number, V> = V extends Array<any>
   ? `${K}` | `${K}.${ArrayPaths<V>}`
   : V extends FieldValues
   ? `${K}.${ArrayPaths<V>}`
@@ -69,7 +69,7 @@ type ArrayPath<K extends string | number, V> = V extends any[]
 /**
  * Returns all paths of a type that lead to a field array.
  */
-type ArrayPaths<T> = T extends (infer V)[]
+type ArrayPaths<T> = T extends Array<infer V>
   ? IsTuple<T> extends true
     ? {
         [K in TupleKeys<T>]-?: ArrayPath<K & string, T[K]>;

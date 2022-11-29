@@ -25,7 +25,7 @@ type InsertOptions<
   TFieldValues extends FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
-    unknown[]
+    Array<unknown>
 > = Partial<{
   at: number;
   value: DeepPartial<TFieldArrayValues[number]>;
@@ -43,7 +43,7 @@ export function insert<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
-    unknown[]
+    Array<unknown>
 >(
   form: FormState<TFieldValues>,
   name: TFieldArrayName,
