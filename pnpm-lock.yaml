@@ -7,13 +7,13 @@ importers:
       '@types/node': ^18.11.9
       prettier: ^2.7.1
       prettier-plugin-tailwindcss: ^0.1.13
-      typescript: ^4.8.4
+      typescript: ^4.9.3
       vite: ^3.2.3
     devDependencies:
       '@types/node': 18.11.9
       prettier: 2.7.1
       prettier-plugin-tailwindcss: 0.1.13_prettier@2.7.1
-      typescript: 4.8.4
+      typescript: 4.9.3
       vite: 3.2.3_@types+node@18.11.9
 
   packages/solid:
@@ -21,12 +21,12 @@ importers:
       prettier: ^2.7.1
       solid-js: ^1.6.2
       tsup: ^6.4.0
-      typescript: ^4.8.4
+      typescript: ^4.9.3
     devDependencies:
       prettier: 2.7.1
       solid-js: 1.6.2
-      tsup: 6.4.0_typescript@4.8.4
-      typescript: 4.8.4
+      tsup: 6.4.0_typescript@4.9.3
+      typescript: 4.9.3
 
   packages/website:
     specifiers:
@@ -49,7 +49,7 @@ importers:
       solid-start-netlify: ^0.2.5
       solid-start-node: ^0.2.5
       tailwindcss: ^3.2.4
-      typescript: ^4.8.4
+      typescript: ^4.9.3
       undici: ^5.12.0
       vite: ^3.2.3
     dependencies:
@@ -74,7 +74,7 @@ importers:
       solid-start-netlify: 0.2.5_solid-start@0.2.5
       solid-start-node: 0.2.5_rxbhrb4427hjahsmgrpq7rcjqq
       tailwindcss: 3.2.4_postcss@8.4.19
-      typescript: 4.8.4
+      typescript: 4.9.3
       vite: 3.2.3
 
 packages:
@@ -5458,7 +5458,7 @@ packages:
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
 
-  /tsup/6.4.0_typescript@4.8.4:
+  /tsup/6.4.0_typescript@4.9.3:
     resolution: {integrity: sha512-4OlbqIK/SF+cJp0mMqPM2pKULvgj/1S2Gm3I1aFoFGIryUOyIqPZBoqKkqVQT6uFtWJ5AHftIv0riXKfHox1zQ==}
     engines: {node: '>=14'}
     hasBin: true
@@ -5488,7 +5488,7 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.27.0
       tree-kill: 1.2.2
-      typescript: 4.8.4
+      typescript: 4.9.3
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -5510,8 +5510,8 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typescript/4.8.4:
-    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
