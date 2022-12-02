@@ -1,5 +1,3 @@
-import { FieldValue } from '../types';
-
 /**
  * Creates a validation function that checks the value of an input for equality.
  *
@@ -8,9 +6,10 @@ import { FieldValue } from '../types';
  *
  * @returns A validation function.
  */
-export function value<TFieldValue extends FieldValue>(
-  requirement: FieldValue,
+export function value(
+  requirement: string | number,
   error: string
-): (value: TFieldValue) => string {
-  return (value: TFieldValue) => (value !== requirement ? error : '');
+): (value: string | number | null | undefined) => string {
+  return (value: string | number | null | undefined) =>
+    value !== requirement ? error : '';
 }
