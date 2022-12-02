@@ -11,7 +11,8 @@ export function minTotalSize(
   error: string
 ): (value: FileList | null | undefined) => string {
   return (value: FileList | null | undefined) =>
-    [...(value || [])].reduce((size, file) => size + file.size, 0) < requirement
+    value?.length &&
+    [...value].reduce((size, file) => size + file.size, 0) < requirement
       ? error
       : '';
 }

@@ -9,8 +9,9 @@ export function email(
   error: string
 ): (value: string | null | undefined) => string {
   return (value: string | null | undefined) =>
+    value &&
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
-      value || ''
+      value
     )
       ? error
       : '';

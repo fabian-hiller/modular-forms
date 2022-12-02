@@ -11,7 +11,7 @@ export function required<TFieldValue extends FieldValue>(
   error: string
 ): (value: TFieldValue | number[]) => string {
   return (value: TFieldValue | number[]) =>
-    !value ||
+    (!value && value !== 0) ||
     ((value instanceof FileList || Array.isArray(value)) && !value.length)
       ? error
       : '';

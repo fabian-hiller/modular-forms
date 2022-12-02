@@ -11,5 +11,5 @@ export function pattern(
   error: string
 ): (value: string | null | undefined) => string {
   return (value: string | null | undefined) =>
-    !requirement.test(value || '') ? error : '';
+    value && !requirement.test(value) ? error : '';
 }

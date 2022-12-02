@@ -11,7 +11,7 @@ export function maxSize(
   error: string
 ): (value: File | FileList | null | undefined) => string {
   return (value: File | FileList | null | undefined) =>
-    !!value &&
+    value &&
     (value instanceof FileList
       ? [...value].some((file) => file.size > requirement)
       : value.size > requirement)

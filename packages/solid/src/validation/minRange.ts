@@ -11,5 +11,5 @@ export function minRange(
   error: string
 ): (value: string | null | undefined) => string {
   return (value: string | null | undefined) =>
-    value || '' < requirement ? error : '';
+    value && value < requirement ? error : '';
 }

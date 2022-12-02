@@ -11,5 +11,5 @@ export function maxLength(
   error: string
 ): (value: string | string[] | number[] | null | undefined) => string {
   return (value: string | string[] | number[] | null | undefined) =>
-    (value?.length || 0) > requirement ? error : '';
+    value?.length && value.length > requirement ? error : '';
 }

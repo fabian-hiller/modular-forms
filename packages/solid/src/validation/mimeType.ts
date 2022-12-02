@@ -10,10 +10,9 @@ export function mimeType(
   requirement: string | string[],
   error: string
 ): (value: File | FileList | null | undefined) => string {
-  const mimeTypes =
-    typeof requirement === 'string' ? [requirement] : requirement;
+  const mimeTypes = Array.isArray(requirement) ? requirement : [requirement];
   return (value: File | FileList | null | undefined) =>
-    !!value &&
+    value &&
     (value instanceof FileList
       ? [...value].some((file) => !mimeTypes.includes(file.type))
       : !mimeTypes.includes(value.type))

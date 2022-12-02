@@ -10,7 +10,7 @@ export function url(
 ): (value: string | null | undefined) => string {
   return (value: string | null | undefined) => {
     try {
-      new URL(value || '');
+      value && new URL(value);
       return '';
     } catch (_) {
       return error;

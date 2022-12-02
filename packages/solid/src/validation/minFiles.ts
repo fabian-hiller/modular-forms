@@ -11,5 +11,5 @@ export function minFiles(
   error: string
 ): (value: FileList | null | undefined) => string {
   return (value: FileList | null | undefined) =>
-    (value?.length || 0) < requirement ? error : '';
+    value?.length && value.length < requirement ? error : '';
 }

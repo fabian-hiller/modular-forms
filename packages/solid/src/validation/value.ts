@@ -11,5 +11,5 @@ export function value(
   error: string
 ): (value: string | number | null | undefined) => string {
   return (value: string | number | null | undefined) =>
-    value !== requirement ? error : '';
+    (value || value === 0) && value !== requirement ? error : '';
 }

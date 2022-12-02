@@ -11,5 +11,5 @@ export function minNumber(
   error: string
 ): (value: number | null | undefined) => string {
   return (value: number | null | undefined) =>
-    (value || 0) < requirement ? error : '';
+    (value || value === 0) && value < requirement ? error : '';
 }
