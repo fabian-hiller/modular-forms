@@ -1,4 +1,4 @@
-import { FieldValue } from '../types';
+import { FieldValue, Maybe } from '../types';
 
 /**
  * Creates a custom validation function.
@@ -9,10 +9,10 @@ import { FieldValue } from '../types';
  * @returns A validation function.
  */
 export function custom<TFieldValue extends FieldValue>(
-  requirement: (value: TFieldValue | undefined) => boolean | Promise<boolean>,
+  requirement: (value: Maybe<TFieldValue>) => boolean | Promise<boolean>,
   error: string
-): (value: TFieldValue) => Promise<string> {
-  return async (value: TFieldValue) =>
+): (value: Maybe<TFieldValue>) => Promise<string> {
+  return async (value: Maybe<TFieldValue>) =>
     (value instanceof FileList || Array.isArray(value)
       ? value.length
       : value || value === 0) && !(await requirement(value))
