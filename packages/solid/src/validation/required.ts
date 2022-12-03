@@ -1,4 +1,4 @@
-import { FieldValue } from '../types';
+import { FieldValue, Maybe } from '../types';
 
 /**
  * Creates a validation function that checks the existence of an input.
@@ -9,8 +9,8 @@ import { FieldValue } from '../types';
  */
 export function required<TFieldValue extends FieldValue>(
   error: string
-): (value: TFieldValue | number[]) => string {
-  return (value: TFieldValue | number[]) =>
+): (value: Maybe<TFieldValue> | number[]) => string {
+  return (value: Maybe<TFieldValue> | number[]) =>
     (!value && value !== 0) ||
     ((value instanceof FileList || Array.isArray(value)) && !value.length)
       ? error

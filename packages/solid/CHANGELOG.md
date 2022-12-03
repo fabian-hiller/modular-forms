@@ -6,7 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Add support for scheme validation with Zod
 - Add support for validation of optional fields (issue #5)
-- Change type of `custom` and `value` validation function
+- Change type of `custom`, `required` and `value` validation function
 
 ## v0.8.4 (November 29, 2022)
 
