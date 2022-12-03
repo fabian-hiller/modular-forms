@@ -9,13 +9,23 @@ import { Description, Title } from '~/components';
 
 # Validate your fields
 
-To keep the bundle size small, validation is optional and modular. If your form requires validation, just import the validation functions you need.
+During the development of Modular Forms, we paid special attention to input validation. It is one of the core functionalities of the library. You can use our internal validation functions or optionally a schema library such as <a href="https://github.com/colinhacks/zod" target="_blank" rel="noreferrer">Zod</a>.
 
-Another advantage is that you can define the validation next to your fields via the `validate` property and not globally like Formik and other libraries do. Thus, things are together that belong together. This has a big impact on the DX.
+To keep the bundle size small, validation is optional and modular. If your form requires validation, just import the validation functions you need. Another advantage is that you can define the validation globally for the whole form or fine-granularly for each field individually. You can even combine the both methods.
 
-In the following example we first use `required` to make the input mandatory and then `email` to check the formatting and `minLength` to check the number of characters.
+## Validation functions
 
-> Note that if you do not add `required`, the input will only be validated if a value is present. In this case an empty string or list will not cause an error.
+With our internal validation functions you can reduce your bundle size to a minimum and also achieve unprecedented performance. You can validate almost anything with one line of code. Be it an email, URL, or the MIME type of a file.
+
+With our validation functions you define the validation next to your fields via the `validate` property. Thus, things are together that belong together. This has a big impact on the DX.
+
+### Login form example
+
+In the following example we first use <A href="/api/required">`required`</A> to make the input mandatory and then <A href="/api/email">`email`</A> to check the formatting and <A href="/api/minLength">`minLength`</A> to check the number of characters.
+
+> Note that if you do not add <A href="/api/required">`required`</A>, the input will only be validated if a value is present. In this case an empty string or list will not cause an error.
+
+Also you have the possibility to set your own error message and access the current error via the render function of the <A href="/api/Field">`Field`</A> component. An overview of all validation functions can be found in our <A href="/api">API reference</A>.
 
 ```tsx
 import {
@@ -48,7 +58,7 @@ export default function App() {
       >
         {(field) => (
           <>
-            <input {...field.props} type="email" />
+            <input {...field.props} type="email" required />
             {field.error && <div>{field.error}</div>}
           </>
         )}
@@ -63,7 +73,7 @@ export default function App() {
       >
         {(field) => (
           <>
-            <input {...field.props} type="password" />
+            <input {...field.props} type="password" required />
             {field.error && <div>{field.error}</div>}
           </>
         )}
@@ -74,6 +84,55 @@ export default function App() {
 }
 ```
 
-You can validate almost anything with one line of code. Also you have the possibility to set your own error message and access the current error via the render function of the <A href="/api/Field">`Field`</A> component. An overview of all validation functions can be found in our <A href="/api">API reference</A>.
+By default, the first validation is done when the form is submitted for the first time and from there on, a revalidation is triggered after each user input. You can change this behavior using the `validateOn` and `revalidateOn` option of the <A href="/api/createForm">`createForm`</A> primitive.
 
-> If you're wondering why we don't use a Yup or Zod scheme for validation, take a look at the <A href="/guides/faq">FAQ</A>. We may add optional support in the future.
+## Schema validation
+
+For maximum flexibility, you can also use your familiar schema library for form validation. We currently offer adapters for <a href="https://github.com/colinhacks/zod" target="_blank" rel="noreferrer">Zod</a>. Please create an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a> if you want us to add more adapters.
+
+Use <A href="/api/zodForm">`zodForm`</A> to define the validation for the whole form and <A href="/api/zodField">`zodField`</A> for a single field. Below is the same login form as in the example above. Instead of our validation functions, Zod is used now.
+
+```tsx
+import { createForm, Form, Field, zodForm } from '@modular-forms/solid';
+import { z } from 'zod';
+import { loginUser } from '../api';
+
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please enter your email.')
+    .email('The email address is badly formatted.'),
+  password: z
+    .string()
+    .min(1, 'Please enter your password.')
+    .min(8, 'You password must have 8 characters or more.'),
+});
+
+export default function App() {
+  const loginForm = createForm<z.infer<typeof schema>>({
+    validate: zodForm(schema),
+  });
+
+  return (
+    <Form of={loginForm} onSubmit={loginUser}>
+      <Field of={loginForm} name="email">
+        {(field) => (
+          <>
+            <input {...field.props} type="email" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <Field of={loginForm} name="password">
+        {(field) => (
+          <>
+            <input {...field.props} type="password" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```

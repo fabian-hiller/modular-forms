@@ -1,6 +1,7 @@
 import { Accessor, Setter } from 'solid-js';
 import { FieldStore, FieldValues } from './field';
 import { FieldArrayStore } from './fieldArray';
+import { FieldArrayPath, FieldPath } from './path';
 import { DeepPartial } from './utils';
 
 /**
@@ -24,6 +25,20 @@ export type Response =
 export type ValidationMode = 'input' | 'change' | 'submit';
 
 /**
+ * Value type of the form errors.
+ */
+export type FormErrors<TFieldValues extends FieldValues> = {
+  [name in FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>]?: string;
+};
+
+/**
+ * Function type to validate a form.
+ */
+export type ValidateForm<TFieldValues extends FieldValues> = (
+  values: DeepPartial<TFieldValues>
+) => FormErrors<TFieldValues> | Promise<FormErrors<TFieldValues>>;
+
+/**
  * Value type of the external and internal form state.
  */
 export type FormState<TFieldValues extends FieldValues> = {
@@ -32,6 +47,7 @@ export type FormState<TFieldValues extends FieldValues> = {
     initialValues: DeepPartial<TFieldValues> | {};
     validateOn: ValidationMode;
     revalidateOn: ValidationMode;
+    validate: ValidateForm<TFieldValues> | undefined;
     fields: Map<string, FieldStore<TFieldValues>>; // TODO: Replace string
     fieldArrays: Map<string, FieldArrayStore>; // TODO: Replace string
     getFieldNames: Accessor<string[]>; // TODO: Replace string

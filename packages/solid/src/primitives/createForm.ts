@@ -6,6 +6,7 @@ import {
   FieldValues,
   FormState,
   Response,
+  ValidateForm,
   ValidationMode,
 } from '../types';
 
@@ -13,6 +14,7 @@ type FormOptions<TFieldValues extends FieldValues> = Partial<{
   initialValues: DeepPartial<TFieldValues>;
   validateOn: ValidationMode;
   revalidateOn: ValidationMode;
+  validate: ValidateForm<TFieldValues>;
 }>;
 
 /**
@@ -30,6 +32,7 @@ export function createForm<TFieldValues extends FieldValues>(
     initialValues = {},
     validateOn = 'submit',
     revalidateOn = 'input',
+    validate,
   } = options;
 
   // Create map of fields and field arrays
@@ -62,6 +65,7 @@ export function createForm<TFieldValues extends FieldValues>(
       initialValues,
       validateOn,
       revalidateOn,
+      validate,
       fields,
       fieldArrays,
       getFieldNames,

@@ -1,5 +1,12 @@
 import { batch, untrack } from 'solid-js';
-import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
+import {
+  DeepPartial,
+  FieldArrayPath,
+  FieldPath,
+  FieldValues,
+  FormErrors,
+  FormState,
+} from '../types';
 import {
   getField,
   getOptions,
@@ -8,6 +15,7 @@ import {
   getFieldArray,
 } from '../utils';
 import { focus } from './focus';
+import { getValues } from './getValues';
 
 type ValidateOptions = Partial<{
   shouldActive: boolean;
@@ -57,70 +65,95 @@ export async function validate<
   await batch(async () => {
     // Ignores tracking of reactive dependencies
     await untrack(async () => {
-      // Validate each field in list
-      await Promise.all(
-        fieldNames.map(async (name) => {
-          // Get specified field
-          const field = getField(form, name);
+      // Run form validation function
+      const formErrors: FormErrors<TFieldValues> = form.internal.validate
+        ? await form.internal.validate(
+            getValues(form, { shouldActive }) as DeepPartial<TFieldValues>
+          )
+        : {};
 
-          // Continue if field corresponds to filter options
-          if (!shouldActive || field.getActive()) {
-            // Create error variable
-            let error = '';
+      const [errorFields] = await Promise.all([
+        // Validate each field in list
+        Promise.all(
+          fieldNames.map(async (name) => {
+            // Get specified field
+            const field = getField(form, name);
 
-            // Run each validation functions
-            for (const validation of field.validate) {
-              error = await validation(field.getInput());
+            // Continue if field corresponds to filter options
+            if (!shouldActive || field.getActive()) {
+              // Create local error variable
+              let localError: string | undefined;
 
-              // Break loop if an error occurs
-              if (error) {
-                // Set valid to "false" if it is still "true"
-                if (valid) {
-                  valid = false;
+              // Run each field validation functions
+              for (const validation of field.validate) {
+                localError = await validation(field.getInput());
 
-                  // Focus first field with an error if specified
-                  if (shouldFocus) {
-                    focus(form, name);
-                  }
+                // Break loop if an error occurred
+                if (localError) {
+                  break;
                 }
-
-                break;
               }
-            }
 
-            // Update error state of field
-            field.setError(error);
-          }
-        })
-      );
+              // Create field error from local and global error
+              const fieldError = localError || formErrors[name] || '';
 
-      // Validate each field array in list
-      await Promise.all(
-        fieldArrayNames.map(async (name) => {
-          // Get specified field array
-          const fieldArray = getFieldArray(form, name);
-
-          // Continue if field array corresponds to filter options
-          if (!shouldActive || fieldArray.getActive()) {
-            // Create error variable
-            let error = '';
-
-            // Run each validation functions
-            for (const validation of fieldArray.validate) {
-              error = await validation(fieldArray.getItems());
-
-              // Break loop and valid to "false" if an error occurs
-              if (error) {
+              // Set valid to "false" if an error occurred
+              if (fieldError) {
                 valid = false;
-                break;
               }
-            }
 
-            // Update error state of field
-            fieldArray.setError(error);
-          }
-        })
-      );
+              // Update error state of field
+              field.setError(fieldError);
+
+              // Return name if field has an error
+              return fieldError ? name : null;
+            }
+          })
+        ),
+
+        // Validate each field array in list
+        Promise.all(
+          fieldArrayNames.map(async (name) => {
+            // Get specified field array
+            const fieldArray = getFieldArray(form, name);
+
+            // Continue if field array corresponds to filter options
+            if (!shouldActive || fieldArray.getActive()) {
+              // Create local error variable
+              let localError = '';
+
+              // Run each field array validation functions
+              for (const validation of fieldArray.validate) {
+                localError = await validation(fieldArray.getItems());
+
+                // Break loop and if an error occurred
+                if (localError) {
+                  break;
+                }
+              }
+
+              // Create field array error from local and global error
+              const fieldArrayError = localError || formErrors[name] || '';
+
+              // Set valid to "false" if an error occurred
+              if (fieldArrayError) {
+                valid = false;
+              }
+
+              // Update error state of field
+              fieldArray.setError(fieldArrayError);
+            }
+          })
+        ),
+      ]);
+
+      // Focus first field with an error if specified
+      if (shouldFocus) {
+        const name = errorFields.find((name) => name);
+        if (name) {
+          focus(form, name);
+        }
+      }
 
       // Update invalid state of form
       form.internal.setInvalid(

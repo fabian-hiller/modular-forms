@@ -62,6 +62,10 @@ export default function ApiLayout() {
           ],
         },
         {
+          heading: 'Adapters',
+          items: ['zodField', 'zodForm'],
+        },
+        {
           heading: 'Types',
           items: [
             'FieldArrayState',
@@ -69,6 +73,7 @@ export default function ApiLayout() {
             'FieldState',
             'FieldValue',
             'FieldValues',
+            'FormErrors',
             'FormState',
             'Response',
             'ValidateField',

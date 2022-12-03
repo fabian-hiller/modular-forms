@@ -1,0 +1,25 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>FormErrors</Title>
+<Description>Type that defines the errors of a form.</Description>
+
+# FormErrors
+
+Type that defines the errors of a form.
+
+## Definition
+
+- `FormErrors` <Property {...properties.FormErrors} />
+
+### Explanation
+
+`FormErrors` is an object that contains an entry for each field or field array with an error. The key of an entry is the name of a field or a field array and the value is the error message.
+
+export const properties = {
+  FormErrors: {
+    type: {
+      type: 'object',
+      entries: [{ key: { name: 'name', type: 'string' }, value: 'string' }],
+    },
+  },
+};

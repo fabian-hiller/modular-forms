@@ -29,6 +29,7 @@ If you use TypeScript, you should define your field values. This way the library
   - `initialValues` <Property {...properties.initialValues} />
   - `validateOn` <Property {...properties.validateOn} />
   - `revalidateOn` <Property {...properties.revalidateOn} />
+  - `validate` <Property {...properties.validate} />
 
 ### Explanation
 
@@ -71,6 +72,33 @@ export const properties = {
       { type: 'string', value: 'submit' },
     ],
     defaultValue: { type: 'string', value: 'input' },
+  },
+  validate: {
+    type: [
+      {
+        type: 'function',
+        params: [
+          {
+            name: 'values',
+            type: {
+              type: 'custom',
+              name: 'DeepPartial',
+              generics: [
+                {
+                  type: 'custom',
+                  name: 'FieldValues',
+                  href: '/api/FieldValues',
+                },
+              ],
+            },
+          },
+        ],
+        return: [
+          { type: 'custom', name: 'FormErrors', href: '/api/FormErrors' },
+        ],
+      },
+      'undefined',
+    ],
   },
   form: {
     type: { type: 'custom', name: 'FormState', href: '/api/FormState' },
