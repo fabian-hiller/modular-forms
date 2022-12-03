@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.9.0 (December 03, 2022)
 
 - Add support for scheme validation with Zod
 - Add support for validation of optional fields (issue #5)
