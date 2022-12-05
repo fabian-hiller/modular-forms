@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Change `Response` type to be more flexible and easier to use (issue #6)
+
 ## v0.9.0 (December 03, 2022)
 
 - Add support for scheme validation with Zod

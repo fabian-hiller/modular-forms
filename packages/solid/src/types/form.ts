@@ -12,12 +12,10 @@ type ResponseStatus = 'info' | 'error' | 'success';
 /**
  * Value type of the form response.
  */
-export type Response =
-  | {
-      status: ResponseStatus;
-      message: string;
-    }
-  | {};
+export type Response = Partial<{
+  status: ResponseStatus;
+  message: string;
+}>;
 
 /**
  * Value type of the validation mode.
