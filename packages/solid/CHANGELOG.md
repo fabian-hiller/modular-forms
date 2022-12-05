@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.9.1 (December 05, 2022)
 
 - Change `Response` type to be more flexible and easier to use (issue #6)
 
