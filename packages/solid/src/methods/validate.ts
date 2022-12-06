@@ -23,7 +23,7 @@ type ValidateOptions = Partial<{
 }>;
 
 /**
- * Validates the entire form, several fields and field arrays or a singel field
+ * Validates the entire form, several fields and field arrays or a single field
  * or field array.
  *
  * @param form The form to be validated.
