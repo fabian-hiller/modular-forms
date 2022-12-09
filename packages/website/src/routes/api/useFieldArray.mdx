@@ -2,17 +2,19 @@ import { A } from 'solid-start';
 import { Description, Property, Title } from '~/components';
 
 <Title>useFieldArray</Title>
-<Description>Returns the reactive state of a form field array.</Description>
+<Description>
+  Sets up a form field array and returns its reactive state.
+</Description>
 
 # useFieldArray
 
-Returns the reactive state of a form field array.
+Sets up a form field array and returns its reactive state.
 
 ```ts
 const fieldArray = useFieldArray(form, name, options);
 ```
 
-> The `useFieldArray` primitive is used internally in the <A href="/api/FieldArray">`FieldArray`</A> component. It's better to use the <A href="/api/FieldArray">`FieldArray`</A> component and only if there is a good reason to switch to the `useFieldArray` primitive.
+> The `useFieldArray` primitive is used internally in the <A href="/api/FieldArray">`FieldArray`</A> component. It's better to use the <A href="/api/FieldArray">`FieldArray`</A> component and only if there is a good reason to switch to the `useFieldArray` primitive. For example, to retrieve only the reactive `error` of the field array, you should use the <A href="/api/getError">`getError`</A> method instead.
 
 ## Parameters
 

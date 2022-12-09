@@ -35,7 +35,7 @@ type FieldOptions<
 }>;
 
 /**
- * Returns the reactive properties and state of a form field.
+ * Sets up a form field and returns its reactive properties and state.
  *
  * @param form The form to which the field is connected.
  * @param name The name of the form field.

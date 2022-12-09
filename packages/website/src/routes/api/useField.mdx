@@ -3,18 +3,18 @@ import { Description, Property, Title } from '~/components';
 
 <Title>useField</Title>
 <Description>
-  Returns the reactive properties and state of a form field.
+  Sets up a form field and returns its reactive properties and state.
 </Description>
 
 # useField
 
-Returns the reactive properties and state of a form field.
+Sets up a form field and returns its reactive properties and state.
 
 ```ts
 const field = useField(form, name, options);
 ```
 
-> The `useField` primitive is used internally in the <A href="/api/Field">`Field`</A> component. It's better to use the <A href="/api/Field">`Field`</A> component and only if there is a good reason to switch to the `useField` primitive.
+> The `useField` primitive is used internally in the <A href="/api/Field">`Field`</A> component. It's better to use the <A href="/api/Field">`Field`</A> component and only if there is a good reason to switch to the `useField` primitive. For example, to retrieve only the reactive `value` or `error` of the field, you should use the <A href="/api/getValue">`getValue`</A> or <A href="/api/getError">`getError`</A> method instead.
 
 ## Parameters
 

@@ -16,7 +16,7 @@ type FieldArrayOptions = Partial<{
 }>;
 
 /**
- * Returns the reactive state of a form field array.
+ * Sets up a form field array and returns its reactive state.
  *
  * @param form The form to which the field array is connected.
  * @param name The name of the form field array.

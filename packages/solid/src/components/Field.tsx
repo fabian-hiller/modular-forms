@@ -26,8 +26,8 @@ type FieldProps<
 };
 
 /**
- * Wrapper component that provides the reactive properties and state of a form
- * field.
+ * Wrapper component that sets up a form field and provides its reactive
+ * properties and state.
  */
 export function Field<
   TFieldValues extends FieldValues,

@@ -23,8 +23,8 @@ type FieldArrayProps<
 };
 
 /**
- * Wrapper component that provides the reactive properties and state of a form
- * field array.
+ * Wrapper component that sets up a form field array and provides its reactive
+ * state.
  */
 export function FieldArray<
   TFieldValues extends FieldValues,
