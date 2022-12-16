@@ -132,6 +132,7 @@ export function useField<
             if (
               field.getInitialInput() === undefined &&
               untrack(field.getInput) === undefined &&
+              element.type !== 'radio' &&
               element.type !== 'file'
             ) {
               const input = getElementInput(element, field);
