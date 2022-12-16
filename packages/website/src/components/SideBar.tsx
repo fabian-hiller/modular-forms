@@ -34,9 +34,9 @@ export function SideBar(props: SideBarProps) {
   }
 
   return (
-    <div
+    <aside
       class={clsx(
-        'sticky bottom-0 z-10 h-14 md:h-16 lg:top-[70px] lg:h-auto lg:max-h-[calc(100vh-70px)]',
+        'sticky bottom-0 h-14 md:h-16 lg:top-[70px] lg:h-auto lg:max-h-[calc(100vh-70px)]',
         getOpen() ? 'z-40' : 'z-20'
       )}
     >
@@ -90,6 +90,6 @@ export function SideBar(props: SideBarProps) {
         )}
         onClick={() => setOpen(false)}
       />
-    </div>
+    </aside>
   );
 }

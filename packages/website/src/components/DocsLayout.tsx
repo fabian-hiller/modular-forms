@@ -47,7 +47,7 @@ export function DocsLayout(props: DocsLayoutProps) {
   const getNextPage = createMemo(() => getNavItems()[getNavIndex() + 1]);
 
   return (
-    <main class="flex w-full max-w-screen-xl flex-1 flex-col-reverse self-center lg:flex-row">
+    <div class="flex w-full max-w-screen-xl flex-1 flex-col-reverse self-center lg:flex-row">
       {/* Side bar navigation */}
       <SideBar
         buttons={
@@ -57,7 +57,7 @@ export function DocsLayout(props: DocsLayoutProps) {
         <Navigation {...props} />
       </SideBar>
 
-      <div class="relative flex-1 py-12 md:py-20 lg:w-px lg:py-32 lg:pl-9">
+      <main class="relative flex-1 py-12 md:py-20 lg:w-px lg:py-32 lg:pl-9">
         {/* Navigation buttons */}
         <div class="hidden px-8 lg:absolute lg:right-0 lg:flex lg:space-x-6 lg:px-10">
           <NavButtons prevPage={getPrevPage()} nextPage={getNextPage()} />
@@ -95,8 +95,8 @@ export function DocsLayout(props: DocsLayoutProps) {
             )}
           </Show>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
 
