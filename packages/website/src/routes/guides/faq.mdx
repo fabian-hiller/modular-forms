@@ -1,11 +1,18 @@
+import { A } from 'solid-start';
 import { Description, Title } from '~/components';
 
 <Title>FAQ</Title>
 <Description>
-  Here follows an overview of frequently asked questions in the future. Please
-  fill out an issue to ask us anything. We're looking forward to your message.
+  Below you will find an overview of frequently asked questions. Please fill out
+  an issue to ask us anything. We're looking forward to your message.
 </Description>
 
 # FAQ
 
-Here follows an overview of frequently asked questions in the future. Please fill out an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a> to ask us anything. We're looking forward to your message.
+Below you will find an overview of frequently asked questions. Please fill out an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a> to ask us anything. We're looking forward to your message.
+
+## Can we remove the `of` prop from the <A href="/api/Field">`Field`</A> component?
+
+Technically it is possible, e.g. with the context API, to remove the `of` property from the <A href="/api/Field">`Field`</A> component. However, this would have the disadvantage that the type safety is lost and also the auto-completion in the editor no longer works, since this information comes from the return value of the <A href="/api/createForm">`createForm`</A> primitive.
+
+As the name implies, this is a modular library, which means that only the code you use ends up in your bundle. This reduces the bundle size to a minimum and provides better performance since the browser has to process less JavaScript. Of course, this has not only advantages. One tradeoff of this is that we have to pass the return value of <A href="/api/createForm">`createForm`</A> to the other primitives, components, and methods, since it contains the state and type information. I think it is worth it and in my eyes it improves the readability of the code.
