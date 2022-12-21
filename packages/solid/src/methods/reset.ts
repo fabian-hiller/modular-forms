@@ -120,6 +120,13 @@ export function reset<
       // Reset input if it is not to be kept
       if (!keepValues && !keepDirtyValue) {
         field.setInput(() => initialInput);
+
+        // Reset file inputs manually, as they can't be controlled
+        field.getElements().forEach((element) => {
+          if (element.type === 'file') {
+            element.value = '';
+          }
+        });
       }
 
       // Reset touched if it is not to be kept

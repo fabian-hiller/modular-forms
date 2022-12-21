@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Reset file inputs at `reset` method manually (issue #11)
+
 ## v0.9.2 (December 16, 2022)
 
 - Fix initial value of radio inputs
