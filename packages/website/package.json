@@ -21,25 +21,25 @@
     "@solid-primitives/storage": "^1.3.3",
     "@solid-primitives/utils": "^4.0.0",
     "@solidjs/meta": "^0.28.2",
-    "@solidjs/router": "^0.5.0",
+    "@solidjs/router": "^0.6.0",
     "clsx": "^1.2.1",
-    "solid-js": "^1.6.2",
+    "solid-js": "^1.6.6",
     "solid-mdx": "^0.0.6",
-    "solid-start": "^0.2.5",
-    "undici": "^5.12.0"
+    "solid-start": "^0.2.8",
+    "undici": "^5.14.0"
   },
   "devDependencies": {
     "@mapbox/rehype-prism": "^0.8.0",
-    "@mdx-js/rollup": "^2.1.5",
+    "@mdx-js/rollup": "^2.2.1",
     "@types/mapbox__rehype-prism": "^0.8.0",
     "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.19",
-    "rollup": "2.79.1",
-    "solid-start-netlify": "^0.2.5",
-    "solid-start-node": "^0.2.5",
+    "postcss": "^8.4.20",
+    "rollup": "3.7.5",
+    "solid-start-netlify": "^0.2.8",
+    "solid-start-node": "^0.2.8",
     "tailwindcss": "^3.2.4",
-    "typescript": "^4.9.3",
-    "vite": "^3.2.3"
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3"
   },
   "engines": {
     "node": ">=14"

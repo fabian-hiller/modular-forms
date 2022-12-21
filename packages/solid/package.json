@@ -44,11 +44,10 @@
     "publish": "npm publish"
   },
   "devDependencies": {
-    "prettier": "^2.7.1",
-    "solid-js": "^1.6.2",
-    "tsup": "^6.4.0",
-    "typescript": "^4.9.3",
-    "zod": "^3.19.1"
+    "solid-js": "^1.6.6",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.4",
+    "zod": "^3.20.2"
   },
   "peerDependencies": {
     "solid-js": "^1.3.1"
