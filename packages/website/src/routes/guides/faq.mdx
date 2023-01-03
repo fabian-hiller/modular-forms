@@ -11,6 +11,10 @@ import { Description, Title } from '~/components';
 
 Below you will find an overview of frequently asked questions. Please fill out an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a> to ask us anything. We're looking forward to your message.
 
+## Does it work with SolidStart?
+
+Yes, Modular Forms works with <a href="https://start.solidjs.com" target="_blank" rel="noreferrer">SolidStart</a>. This website is proof of that! Currently, we are also working on integrating SolidStart's actions so that forms can be submitted and validated even when JavaScript is disabled or not sent to the browser. This is expected to be implemented in the next few weeks.
+
 ## Can we remove the `of` prop from the <A href="/api/Field">`Field`</A> component?
 
 Technically it is possible, e.g. with the context API, to remove the `of` property from the <A href="/api/Field">`Field`</A> component. However, this would have the disadvantage that the type safety is lost and also the auto-completion in the editor no longer works, since this information comes from the return value of the <A href="/api/createForm">`createForm`</A> primitive.
