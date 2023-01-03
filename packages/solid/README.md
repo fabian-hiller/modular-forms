@@ -14,6 +14,7 @@ Modular Forms is a JavaScript library that is build on top of [SolidJS](https://
 - No dependencies – except for SolidJS
 - Excellent editor support through TypeScript
 - Supports all native HTML form fields
+- It's headless – you define the visual
 
 ## 💥 Motivation
 
