@@ -15,6 +15,8 @@ Below you will find an overview of frequently asked questions. Please fill out a
 
 Yes, Modular Forms works with <a href="https://start.solidjs.com" target="_blank" rel="noreferrer">SolidStart</a>. This website is proof of that! Currently, we are also working on integrating SolidStart's actions so that forms can be submitted and validated even when JavaScript is disabled or not sent to the browser. This is expected to be implemented in the next few weeks.
 
+> Currently, it seems that the implementation is more difficult than expected. You can find the latest information <a href="https://github.com/fabian-hiller/modular-forms/issues/3" target="_blank" rel="noreferrer">here</a> on GitHub.
+
 ## Does the bundle size really start at 2.5 KB?
 
 Yes, this information should be about right. If you use <a href="https://bundlephobia.com" target="_blank" rel="noreferrer">Bundlephobia</a> to check the bundle size of npm packages, you may have noticed that Modular Forms displays a `BuildError`. This is because the library uses JSX and Bundlephobia can't handle it. However, as a library author, I prefer to keep the JSX. It makes the delivered code more concise. I prefer the transpilation to be done in the final build step of the end user.
