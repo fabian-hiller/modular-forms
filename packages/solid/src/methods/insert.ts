@@ -207,8 +207,9 @@ export function insert<
         fieldArray.setDirty(true);
         form.internal.setDirty(true);
 
-        // Validate field array items if necessary
-        validateIfNecessary(form, name, { on: 'input' });
+        // Validate field array with delay if necessary to allow new fields to
+        // be mounted beforehand
+        setTimeout(() => validateIfNecessary(form, name, { on: 'input' }));
       }
     });
   });

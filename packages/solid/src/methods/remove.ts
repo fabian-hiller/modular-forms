@@ -146,7 +146,7 @@ export function remove<
         // Update dirty state at field array and form
         updateFieldArrayDirty(form, fieldArray);
 
-        // Validate field array items if necessary
+        // Validate field array if necessary
         validateIfNecessary(form, name, { on: 'input' });
       }
     });

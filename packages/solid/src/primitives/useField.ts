@@ -78,10 +78,9 @@ export function useField<
       updateFieldDirty(form, field);
     }
 
-    // Mark field as active, valdiate it and update form state if necessary
+    // Mark field as active and update form state if necessary
     if (!untrack(field.getActive)) {
       field.setActive(true);
-      validateIfNecessary(form, name, { on: 'input' });
       updateState(form);
     }
   });
