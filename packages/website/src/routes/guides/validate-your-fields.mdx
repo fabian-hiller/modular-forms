@@ -109,7 +109,7 @@ const schema = z.object({
 });
 
 export default function App() {
-  const loginForm = createForm<z.infer<typeof schema>>({
+  const loginForm = createForm<z.input<typeof schema>>({
     validate: zodForm(schema),
   });
 

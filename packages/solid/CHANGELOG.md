@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix type at `zodForm` and `zodField` adapter (issue #17)
+
 ## v0.9.4 (January 07, 2023)
 
 - Fix initial validation when `validateOn` is set to `'input'` (issue #15)

@@ -9,7 +9,7 @@ import { FieldValue, Maybe } from '../types';
  * @returns A validation function.
  */
 export function zodField<TFieldValue extends FieldValue>(
-  schema: ZodType<TFieldValue>
+  schema: ZodType<any, any, TFieldValue>
 ): (value: Maybe<TFieldValue>) => string {
   return (value: Maybe<TFieldValue>) => {
     const result = schema.safeParse(value);

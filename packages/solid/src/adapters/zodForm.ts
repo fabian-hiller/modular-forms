@@ -15,7 +15,7 @@ import {
  * @returns A validation function.
  */
 export function zodForm<TFieldValues extends FieldValues>(
-  schema: ZodType<TFieldValues>
+  schema: ZodType<any, any, TFieldValues>
 ): (values: DeepPartial<TFieldValues>) => FormErrors<TFieldValues> {
   return (values: DeepPartial<TFieldValues>) => {
     const result = schema.safeParse(values);
