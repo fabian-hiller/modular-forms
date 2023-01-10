@@ -19,9 +19,7 @@ Yes, Modular Forms works with <a href="https://start.solidjs.com" target="_blank
 
 ## Does the bundle size really start at 2.5 KB?
 
-Yes, this information should be about right. If you use <a href="https://bundlephobia.com" target="_blank" rel="noreferrer">Bundlephobia</a> to check the bundle size of npm packages, you may have noticed that Modular Forms displays a `BuildError`. This is because the library uses JSX and Bundlephobia can't handle it. However, as a library author, I prefer to keep the JSX. It makes the delivered code more concise. I prefer the transpilation to be done in the final build step of the end user.
-
-The <A href="/playground">playground</A> on this website uses almost the entire functionality of Modular Forms through the various examples, coming to a bundle size of 4.7 KB. This can be checked using the network tab of your browser's development tools. The affected JavaScript file has the approximate name `form-9371fc6d.js`. The hash at the end of the filename may consist of other digits in your case.
+Yes, this information should be about right. The <A href="/playground">playground</A> on this website uses almost the entire functionality of Modular Forms through the various examples, coming to a bundle size of 4.7 KB. However, the size also depends on how much your bundler divides the library into small chunks.
 
 ## Can we remove the `of` prop from the <A href="/api/Field">`Field`</A> component?
 
