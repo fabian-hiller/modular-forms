@@ -30,7 +30,7 @@ export type Response = Partial<{
 /**
  * Value type of the validation mode.
  */
-export type ValidationMode = 'input' | 'change' | 'submit';
+export type ValidationMode = 'touched' | 'input' | 'change' | 'blur' | 'submit';
 
 /**
  * Value type of the form errors.

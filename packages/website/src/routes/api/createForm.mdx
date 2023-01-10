@@ -33,7 +33,7 @@ If you use TypeScript, you should define your field values. This way the library
 
 ### Explanation
 
-Use `validateOn` to define the validation strategy that will be applied before the form is submitted, and `revalidateOn` to define the one that will be applied afterwards.
+With `validateOn` and `revalidateOn` you can define your validation strategy. `validateOn` defines the time of the first validation and `revalidateOn` defines when the validation is performed again. If you set `validateOn` to `'submit'`, you set the validation strategy at the form level. In this case `revalidateOn` is applied whenever the form has already been submitted once. For all other values it refers to a single field. In this case `revalidateOn` is applied if an error has already occurred.
 
 ## Return
 
@@ -59,16 +59,20 @@ export const properties = {
   },
   validateOn: {
     type: [
+      { type: 'string', value: 'touched' },
       { type: 'string', value: 'input' },
       { type: 'string', value: 'change' },
+      { type: 'string', value: 'blur' },
       { type: 'string', value: 'submit' },
     ],
     defaultValue: { type: 'string', value: 'submit' },
   },
   revalidateOn: {
     type: [
+      { type: 'string', value: 'touched' },
       { type: 'string', value: 'input' },
       { type: 'string', value: 'change' },
+      { type: 'string', value: 'blur' },
       { type: 'string', value: 'submit' },
     ],
     defaultValue: { type: 'string', value: 'input' },

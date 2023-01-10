@@ -152,28 +152,32 @@ export function useField<
       },
       onChange() {
         // Validate value if necessary
-        validateIfNecessary(form, name, { on: 'change' });
+        validateIfNecessary(form, field, name, { on: ['change'] });
       },
       onBlur(event) {
-        // Destructure current target
-        const { type, value } = event.currentTarget;
+        // Sync state updates and prevent unnecessary recalculation
+        batch(() => {
+          // Destructure current target
+          const { type, value } = event.currentTarget;
 
-        // Set input to "NaN" if type is "number" and value is emtpy
-        if (type === 'number' && value === '') {
-          updateFieldInput(
-            form,
-            field,
-            name,
-            NaN as FieldPathValue<TFieldValues, TFieldName>
-          );
+          // Set input to "NaN" if type is "number" and value is emtpy
+          if (type === 'number' && value === '') {
+            updateFieldInput(
+              form,
+              field,
+              name,
+              NaN as FieldPathValue<TFieldValues, TFieldName>
+            );
 
-          // Otheriwse, just update touched state
-        } else {
-          batch(() => {
+            // Otheriwse, just update touched state
+          } else {
             field.setTouched(true);
             form.internal.setTouched(true);
-          });
-        }
+          }
+
+          // Validate value if necessary
+          validateIfNecessary(form, field, name, { on: ['touched', 'blur'] });
+        });
       },
     },
     name,

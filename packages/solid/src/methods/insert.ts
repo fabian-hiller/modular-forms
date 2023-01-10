@@ -209,7 +209,11 @@ export function insert<
 
         // Validate field array with delay if necessary to allow new fields to
         // be mounted beforehand
-        setTimeout(() => validateIfNecessary(form, name, { on: 'input' }));
+        setTimeout(() =>
+          validateIfNecessary(form, fieldArray, name, {
+            on: ['touched', 'input'],
+          })
+        );
       }
     });
   });

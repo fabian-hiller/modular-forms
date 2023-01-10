@@ -6,6 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Improve type of submit event at `Form` and `handleSubmit` (issue #18)
 - Change build step from tsup to Rollup and update exports (issue #16)
+- Change validation strategy and add `'touched'` and `'blur'` mode (issue #14)
 
 ## v0.9.5 (January 07, 2023)
 

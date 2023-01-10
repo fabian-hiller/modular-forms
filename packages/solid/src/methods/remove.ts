@@ -147,7 +147,9 @@ export function remove<
         updateFieldArrayDirty(form, fieldArray);
 
         // Validate field array if necessary
-        validateIfNecessary(form, name, { on: 'input' });
+        validateIfNecessary(form, fieldArray, name, {
+          on: ['touched', 'input'],
+        });
       }
     });
   });

@@ -2,14 +2,16 @@ import { untrack } from 'solid-js';
 import { validate } from '../methods';
 import {
   FieldArrayPath,
+  FieldArrayStore,
   FieldPath,
+  FieldStore,
   FieldValues,
   FormState,
   ValidationMode,
 } from '../types';
 
 type ValidateOptions = {
-  on: ValidationMode;
+  on: Exclude<ValidationMode, 'submit'>[];
   shouldFocus?: boolean;
 };
 
@@ -25,18 +27,26 @@ export function validateIfNecessary<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,
+  field: FieldStore<TFieldValues, TFieldName> | FieldArrayStore,
   name: TFieldName | TFieldArrayName,
   options: ValidateOptions
 ): void {
   // Ignores tracking of reactive dependencies
   untrack(() => {
     // Destructure options
-    const { on: mode, shouldFocus = false } = options;
+    const { on: modes, shouldFocus = false } = options;
 
     // Validate only if validation mode matches
     if (
-      (!form.submitted && form.internal.validateOn === mode) ||
-      (form.submitted && form.internal.revalidateOn === mode)
+      (modes as string[]).includes(
+        (
+          form.internal.validateOn === 'submit'
+            ? form.submitted
+            : field.getError()
+        )
+          ? form.internal.revalidateOn
+          : form.internal.validateOn
+      )
     ) {
       validate(form, name, { shouldFocus });
     }

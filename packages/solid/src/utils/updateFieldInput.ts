@@ -37,6 +37,6 @@ export function updateFieldInput<
     updateFieldDirty(form, field);
 
     // Validate value if necessary
-    validateIfNecessary(form, name, { on: 'input' });
+    validateIfNecessary(form, field, name, { on: ['touched', 'input'] });
   });
 }

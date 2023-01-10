@@ -57,8 +57,8 @@ export function setValue<
 
       // Validate if set to "true" and necessary
       if (shouldValidate) {
-        validateIfNecessary(form, name, {
-          on: 'input',
+        validateIfNecessary(form, field, name, {
+          on: ['touched', 'input'],
           shouldFocus,
         });
       }
