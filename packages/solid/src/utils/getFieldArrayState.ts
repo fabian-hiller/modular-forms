@@ -8,12 +8,14 @@ import { FieldArrayStore, RawFieldArrayState } from '../types';
  *
  * @returns The state of the field array.
  */
-export function getFieldArrayState(field: FieldArrayStore): RawFieldArrayState {
+export function getFieldArrayState(
+  fieldArray: FieldArrayStore
+): RawFieldArrayState {
   return untrack(() => ({
-    initialItems: field.getInitialItems(),
-    items: field.getItems(),
-    error: field.getError(),
-    touched: field.getTouched(),
-    dirty: field.getDirty(),
+    initialItems: fieldArray.getInitialItems(),
+    items: fieldArray.getItems(),
+    error: fieldArray.getError(),
+    touched: fieldArray.getTouched(),
+    dirty: fieldArray.getDirty(),
   }));
 }
