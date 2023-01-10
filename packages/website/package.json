@@ -23,9 +23,9 @@
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.6.0",
     "clsx": "^1.2.1",
-    "solid-js": "^1.6.6",
+    "solid-js": "^1.6.8",
     "solid-mdx": "^0.0.6",
-    "solid-start": "^0.2.8",
+    "solid-start": "^0.2.11",
     "undici": "^5.14.0"
   },
   "devDependencies": {
@@ -33,13 +33,13 @@
     "@mdx-js/rollup": "^2.2.1",
     "@types/mapbox__rehype-prism": "^0.8.0",
     "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.20",
-    "rollup": "3.7.5",
-    "solid-start-netlify": "^0.2.8",
-    "solid-start-node": "^0.2.8",
+    "postcss": "^8.4.21",
+    "rollup": "3.9.1",
+    "solid-start-netlify": "^0.2.11",
+    "solid-start-node": "^0.2.11",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4",
-    "vite": "^4.0.3"
+    "vite": "^4.0.4"
   },
   "engines": {
     "node": ">=14"

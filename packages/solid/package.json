@@ -50,9 +50,9 @@
     "publish": "npm publish"
   },
   "devDependencies": {
-    "rollup": "3.7.5",
+    "rollup": "3.9.1",
     "rollup-preset-solid": "^2.0.1",
-    "solid-js": "^1.6.6",
+    "solid-js": "^1.6.8",
     "typescript": "^4.9.4",
     "zod": "^3.20.2"
   },
