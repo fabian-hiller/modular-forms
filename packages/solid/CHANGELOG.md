@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.10.0 (January 10, 2023)
 
 - Improve type of submit event at `Form` and `handleSubmit` (issue #18)
 - Change build step from tsup to Rollup and update exports (issue #16)
