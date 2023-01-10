@@ -1,5 +1,5 @@
 import { batch } from 'solid-js';
-import { FieldValues, FormState } from '../types';
+import { FieldValues, FormState, SubmitEvent } from '../types';
 import { getValues } from './getValues';
 import { validate } from './validate';
 
@@ -21,10 +21,13 @@ type SubmitOptions = Partial<{
  */
 export function handleSubmit<TFieldValues extends FieldValues>(
   form: FormState<TFieldValues>,
-  submitAction: (values: TFieldValues, event: Event) => void | Promise<void>,
+  submitAction: (
+    values: TFieldValues,
+    event: SubmitEvent
+  ) => void | Promise<void>,
   options: SubmitOptions = {}
-): (event: Event) => Promise<void> {
-  return async (event: Event) => {
+): (event: SubmitEvent) => Promise<void> {
+  return async (event: SubmitEvent) => {
     // Prevent default behavior of browser
     event.preventDefault();
 

@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Improve type of submit event at `Form` and `handleSubmit` (issue #18)
+
 ## v0.9.5 (January 07, 2023)
 
 - Fix type at `zodForm` and `zodField` adapter (issue #17)

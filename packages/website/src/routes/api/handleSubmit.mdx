@@ -71,7 +71,7 @@ export const properties = {
             href: '/api/FieldValues',
           },
         },
-        { name: 'event', type: { type: 'custom', name: 'Event' } },
+        { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
       ],
       return: ['void', { type: 'custom', name: 'Promise', generics: ['void'] }],
     },
@@ -103,7 +103,9 @@ export const properties = {
   onSubmit: {
     type: {
       type: 'function',
-      params: [{ name: 'event', type: { type: 'custom', name: 'Event' } }],
+      params: [
+        { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
+      ],
       return: { type: 'custom', name: 'Promise', generics: ['void'] },
     },
   },

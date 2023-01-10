@@ -5,6 +5,16 @@ import { FieldArrayPath, FieldPath } from './path';
 import { DeepPartial } from './utils';
 
 /**
+ * Value type of the submit event object.
+ */
+export type SubmitEvent = Event & {
+  submitter: HTMLElement;
+} & {
+  currentTarget: HTMLFormElement;
+  target: Element;
+};
+
+/**
  * Value type of the response status.
  */
 type ResponseStatus = 'info' | 'error' | 'success';
