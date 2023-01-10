@@ -37,7 +37,7 @@ export function SideBar(props: SideBarProps) {
     <aside
       class={clsx(
         'sticky bottom-0 h-14 md:h-16 lg:top-[70px] lg:h-auto lg:max-h-[calc(100vh-70px)]',
-        getOpen() ? 'z-40' : 'z-20'
+        getOpen() ? 'z-30' : 'z-10'
       )}
     >
       {/* Content */}
