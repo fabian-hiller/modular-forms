@@ -6,7 +6,7 @@ export default function GuidesLayout() {
       items={[
         {
           heading: 'Get started',
-          items: ['Introduction', 'Installation'],
+          items: ['Introduction', 'Philosophy', 'Installation'],
         },
         {
           heading: 'Main concepts',
