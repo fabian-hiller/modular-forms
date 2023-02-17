@@ -28,7 +28,7 @@ const field = useField(form, name, options);
 
 ### Explanation
 
-The `initialValue` you define directly at a field has the highest specificity and overrides the initial values you set at <A href="/api/createForm">`createForm`</A> and <A href="/api/reset">`reset`</A> when `useField` is executed.
+The `initialValue` you define directly at a field has the highest specificity and overrides the initial values you set at <A href="/api/createForm">`createForm`</A> and <A href="/api/reset">`reset`</A> when `useField` is executed. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
 
 For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
 
@@ -55,9 +55,14 @@ export const properties = {
   initialValue: {
     type: [
       {
-        type: 'custom',
-        name: 'FieldValue',
-        href: '/api/FieldValue',
+        type: 'tuple',
+        items: [
+          {
+            type: 'custom',
+            name: 'FieldValue',
+            href: '/api/FieldValue',
+          },
+        ],
       },
       'undefined',
     ],

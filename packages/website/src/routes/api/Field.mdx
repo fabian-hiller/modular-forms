@@ -36,7 +36,7 @@ Wrapper component that sets up a form field and provides its reactive properties
 
 ### Explanation
 
-The `initialValue` you define directly at a field has the highest specificity and overrides initial values you set at <A href="/api/createForm">`createForm`</A> and <A href="/api/reset">`reset`</A>. If the `initialValue` is reactive, changing the value will update the initial value of the field.
+The `initialValue` you define directly at a field has the highest specificity and overrides initial values you set at <A href="/api/createForm">`createForm`</A> and <A href="/api/reset">`reset`</A>. If the `initialValue` is reactive, changing the value will update the initial value of the field. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
 
 For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
 
@@ -55,9 +55,14 @@ export const properties = {
   initialValue: {
     type: [
       {
-        type: 'custom',
-        name: 'FieldValue',
-        href: '/api/FieldValue',
+        type: 'tuple',
+        items: [
+          {
+            type: 'custom',
+            name: 'FieldValue',
+            href: '/api/FieldValue',
+          },
+        ],
       },
       'undefined',
     ],

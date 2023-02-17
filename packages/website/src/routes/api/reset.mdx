@@ -49,7 +49,7 @@ When you reset the entire form, you can specify new `initialValues` that overrid
 
 When you reset several fields, you can specify `initialValues` that get shallow merged into the `initialValues` you may specified in the <A href="/api/createForm">`createForm`</A> primitive.
 
-When you reset a single field, you can specify a new `initialValue` that override the initial value you may set in the `initialValues` property of the <A href="/api/createForm">`createForm`</A> primitive.
+When you reset a single field, you can specify a new `initialValue` that override the initial value you may set in the `initialValues` property of the <A href="/api/createForm">`createForm`</A> primitive. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
 
 By default, the reactive `response`, `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepResponse`, `keepSubmitCount` and/or `keepSubmitted` to `true`.
 
@@ -92,9 +92,14 @@ export const properties = {
   initialValue: {
     type: [
       {
-        type: 'custom',
-        name: 'FieldValue',
-        href: '/api/FieldValue',
+        type: 'tuple',
+        items: [
+          {
+            type: 'custom',
+            name: 'FieldValue',
+            href: '/api/FieldValue',
+          },
+        ],
       },
       'undefined',
     ],
