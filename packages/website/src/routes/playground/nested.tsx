@@ -30,7 +30,7 @@ const initialValues = {
   items: [
     {
       label: 'Item 1',
-      options: ['Option 1'],
+      options: ['Option 1', 'Option 2'],
     },
     {
       label: 'Item 2',
