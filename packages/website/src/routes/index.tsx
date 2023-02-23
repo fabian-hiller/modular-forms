@@ -18,7 +18,11 @@ export default function HomePage() {
         </h1>
         <p class="px-4 text-center text-lg md:text-xl lg:text-3xl">
           The modular form library for SolidJS
+          <span class="mt-3 block text-slate-500 md:mt-4 md:text-lg lg:mt-6 lg:text-2xl">
+            Soon also available for Qwik!
+          </span>
         </p>
+
         <ButtonGroup class="justify-center">
           <ActionButton
             variant="primary"
