@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { createSignal, For } from 'solid-js';
 import { A } from 'solid-start';
 import { GitHubIcon, LogoIcon } from '~/icons';
+import { FrameworkToggle } from './FrameworkToggle';
 import { Hamburger } from './Hamburger';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -47,14 +48,14 @@ export function Header() {
         )}
       >
         {/* Website logo */}
-        <div class="lg:w-56">
+        <div class="overflow-hidden lg:w-56">
           <A
-            class="inline-flex items-center p-4 font-medium transition-colors hover:text-slate-900 dark:hover:text-slate-200 md:text-lg lg:text-xl"
+            class="inline-flex w-full items-center p-4 font-medium transition-colors hover:text-slate-900 dark:hover:text-slate-200 md:text-lg lg:w-auto lg:text-xl"
             href="/"
             onClick={() => setMenuOpen(false)}
           >
-            <LogoIcon class="mr-2 h-5 md:h-[23px] lg:h-[26px]" />
-            Modular Forms
+            <LogoIcon class="mr-2 h-5 shrink-0 md:h-[23px] lg:h-[26px]" />
+            <div class="truncate">Modular Forms</div>
           </A>
         </div>
 
@@ -97,6 +98,7 @@ export function Header() {
             class="hidden lg:mx-4 lg:block lg:h-5 lg:w-0.5 lg:rounded-full lg:bg-slate-200 lg:dark:bg-slate-800"
             role="separator"
           />
+          <FrameworkToggle />
           <a
             class="p-4 transition-colors hover:text-slate-900 dark:hover:text-slate-200"
             href="https://github.com/fabian-hiller/modular-forms"
