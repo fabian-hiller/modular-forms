@@ -1,5 +1,5 @@
 import { Accessor } from 'solid-js';
-import { Meta } from 'solid-start';
+// import { Meta } from 'solid-start';
 
 type DescriptionProps = {
   children: string | Accessor<HTMLElement>;
@@ -10,14 +10,16 @@ type DescriptionProps = {
  * snippets, for example.
  */
 export function Description(props: DescriptionProps) {
-  return (
-    <Meta
-      name="description"
-      content={
-        typeof props.children === 'function'
-          ? props.children()?.innerText?.replace(/\n/g, ' ') || ''
-          : props.children
-      }
-    />
-  );
+  // TODO: Enable <Meta /> again once issue #28 of @solidjs/meta is fixed
+  return <></>;
+  // return (
+  //   <Meta
+  //     name="description"
+  //     content={
+  //       typeof props.children === 'function'
+  //         ? props.children()?.innerText?.replace(/\n/g, ' ') || ''
+  //         : props.children
+  //     }
+  //   />
+  // );
 }
