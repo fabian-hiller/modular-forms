@@ -69,7 +69,7 @@ export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(() => ({
 }));
 ```
 
-This is followed by the <A href="/api/useForm">`useForm`</A> hook, to which you then pass your loader. The hook returns a tuble containing the store of the form in the first place and the <A href="/api/Form">`Form`</A>, <A href="/api/Field">`Field`</A> and <A href="/api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
+This is followed by the <A href="/api/useForm">`useForm`</A> hook, to which you then pass your loader. The hook returns a tuple containing the store of the form in the first place and the <A href="/api/Form">`Form`</A>, <A href="/api/Field">`Field`</A> and <A href="/api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
 
 ```tsx
 import { component$ } from "@builder.io/qwik";
@@ -87,7 +87,7 @@ export default component$(() => {
 }
 ```
 
-The tuble allows you to freely name the individual return values. This can be useful, for example, if a single page contains multiple forms. The returned <A href="/api/Form">`Form`</A>, <A href="/api/Field">`Field`</A> and <A href="/api/FieldArray">`FieldArray`</A> component are already connected with the store of your form. Also, if you are using TypeScript, they are aware of your fields and their data types, which gives you the benefit of type safety and autocompletion.
+The tuple allows you to freely name the individual return values. This can be useful, for example, if a single page contains multiple forms. The returned <A href="/api/Form">`Form`</A>, <A href="/api/Field">`Field`</A> and <A href="/api/FieldArray">`FieldArray`</A> component are already connected with the store of your form. Also, if you are using TypeScript, they are aware of your fields and their data types, which gives you the benefit of type safety and autocompletion.
 
 In the JSX part of your component you start with the <A href="/api/Form">`Form`</A> component. It encloses the fields of your form and through its properties you can define what happens when the form is submitted. More on this later.
 
