@@ -10,6 +10,10 @@
     "url": "https://github.com/fabian-hiller/modular-forms"
   },
   "private": true,
+  "scripts": {
+    "stackblitz.playground.qwik": "pnpm install && cd packages/qwik && pnpm build && cd ../../playgrounds/qwik && pnpm dev",
+    "stackblitz.playground.solid": "pnpm install && cd packages/solid && pnpm build && cd ../../playgrounds/solid && pnpm dev"
+  },
   "devDependencies": {
     "@types/node": "^18.13.0",
     "prettier": "^2.8.4",
