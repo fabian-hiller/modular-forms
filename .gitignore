@@ -4,17 +4,23 @@ node_modules
 # Production
 dist
 build
+server
 
 # Backups
 backups
 
 # Services
+.vscode
 .solid
 .netlify
 netlify
 
 # Others
 stats.html
+logs
+*.log
+.cache
+temp
 
 # Local env files
 .env*.local
