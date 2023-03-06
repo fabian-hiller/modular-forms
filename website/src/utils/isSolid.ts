@@ -1,4 +1,4 @@
-import { useFramework } from '~/contexts';
+import { getFramework } from './getFramework';
 
 /**
  * Returns whether SolidJS is currently selected as framework.
@@ -6,6 +6,5 @@ import { useFramework } from '~/contexts';
  * @returns Whether SolidJS is selected.
  */
 export function isSolid() {
-  const [getFramework] = useFramework();
   return getFramework() === 'solid';
 }

@@ -1,4 +1,4 @@
-import { useFramework } from '~/contexts';
+import { getFramework } from './getFramework';
 
 /**
  * Returns whether Qwik is currently selected as framework.
@@ -6,6 +6,5 @@ import { useFramework } from '~/contexts';
  * @returns Whether Qwik is selected.
  */
 export function isQwik() {
-  const [getFramework] = useFramework();
   return getFramework() === 'qwik';
 }
