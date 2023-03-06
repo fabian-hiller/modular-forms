@@ -101,7 +101,7 @@ export function Header() {
           <FrameworkToggle />
           <a
             class="p-4 transition-colors hover:text-slate-900 dark:hover:text-slate-200"
-            href="https://github.com/fabian-hiller/modular-forms"
+            href={import.meta.env.VITE_GITHUB_URL}
             target="_blank"
             rel="noreferrer"
           >

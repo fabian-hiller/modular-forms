@@ -51,7 +51,11 @@ export function DocsLayout(props: DocsLayoutProps) {
       {/* Side bar navigation */}
       <SideBar
         buttons={
-          <NavButtons prevPage={getPrevPage()} nextPage={getNextPage()} />
+          <NavButtons
+            pageIndex={getNavIndex()}
+            prevPage={getPrevPage()}
+            nextPage={getNextPage()}
+          />
         }
       >
         <Navigation {...props} />
@@ -60,7 +64,11 @@ export function DocsLayout(props: DocsLayoutProps) {
       <main class="relative flex-1 py-12 md:py-20 lg:w-px lg:py-32 lg:pl-9">
         {/* Navigation buttons */}
         <div class="hidden px-8 lg:absolute lg:right-0 lg:flex lg:space-x-6 lg:px-10">
-          <NavButtons prevPage={getPrevPage()} nextPage={getNextPage()} />
+          <NavButtons
+            pageIndex={getNavIndex()}
+            prevPage={getPrevPage()}
+            nextPage={getNextPage()}
+          />
         </div>
 
         {/* Article */}
@@ -73,26 +81,26 @@ export function DocsLayout(props: DocsLayoutProps) {
           <IconButton
             variant="secondary"
             type="link"
-            href={`https://github.com/fabian-hiller/modular-forms/blob/main/packages/website/src/routes${location.pathname}.mdx`}
+            href={`${
+              import.meta.env.VITE_GITHUB_WEBSITE_URL
+            }/src/routes/(layout)${location.pathname}.mdx`}
             target="_blank"
             label="Edit page"
             icon={PenIcon}
           />
 
           {/* Next page button */}
-          <Show when={getNextPage()} keyed>
-            {(nextPage) => (
-              <div class="hidden lg:block">
-                <IconButton
-                  variant="secondary"
-                  type="link"
-                  href={nextPage}
-                  label="Next page"
-                  icon={ArrowRightIcon}
-                  align="right"
-                />
-              </div>
-            )}
+          <Show when={getNavIndex() !== -1 && getNextPage()}>
+            <div class="hidden lg:block">
+              <IconButton
+                variant="secondary"
+                type="link"
+                href={getNextPage()}
+                label="Next page"
+                icon={ArrowRightIcon}
+                align="right"
+              />
+            </div>
           </Show>
         </div>
       </main>
@@ -101,6 +109,7 @@ export function DocsLayout(props: DocsLayoutProps) {
 }
 
 type NavButtonsProps = {
+  pageIndex: number;
   prevPage?: string;
   nextPage?: string;
 };
@@ -110,7 +119,7 @@ type NavButtonsProps = {
  */
 export function NavButtons(props: NavButtonsProps) {
   return (
-    <>
+    <Show when={props.pageIndex !== -1}>
       <Show when={props.prevPage} fallback={<div class="w-10" />}>
         <IconButton
           variant="secondary"
@@ -131,6 +140,6 @@ export function NavButtons(props: NavButtonsProps) {
           hideLabel
         />
       </Show>
-    </>
+    </Show>
   );
 }
