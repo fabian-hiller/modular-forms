@@ -1,6 +1,6 @@
 {
   "name": "modular-forms",
-  "description": "The modular form library for SolidJS",
+  "description": "The modular and type-safe form library for SolidJS and Qwik",
   "version": "0.0.0",
   "license": "MIT",
   "author": "Fabian Hiller",

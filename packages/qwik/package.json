@@ -1,0 +1,74 @@
+{
+  "name": "@modular-forms/qwik",
+  "description": "The modular and type-safe form library for Qwik",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Fabian Hiller",
+  "homepage": "https://modularforms.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabian-hiller/modular-forms"
+  },
+  "keywords": [
+    "modular-forms",
+    "form",
+    "forms",
+    "qwik",
+    "qwik-city",
+    "performance",
+    "bundle-size",
+    "form-validation",
+    "validation",
+    "typescript",
+    "type-safe"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "source": "./src/index.ts",
+  "types": "./dist/types/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "main": "./dist/cjs/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "qwik": "./dist/source/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "node": "./dist/cjs/index.js",
+      "browser": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "vite build --mode lib && tsc",
+    "format": "prettier --write .",
+    "format.check": "prettier --check .",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "publish": "npm publish"
+  },
+  "devDependencies": {
+    "@builder.io/qwik": "^0.20.1",
+    "@builder.io/qwik-city": "^0.5.2",
+    "@types/eslint": "^8.21.1",
+    "@types/node": "^18.14.2",
+    "@types/node-fetch": "^2.6.2",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "eslint-plugin-qwik": "^0.20.0",
+    "node-fetch": "^3.3.0",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.3",
+    "typescript": "^4.9.5",
+    "undici": "^5.20.0",
+    "vite": "^4.1.4",
+    "vite-tsconfig-paths": "^4.0.5",
+    "zod": "^3.20.6"
+  }
+}
