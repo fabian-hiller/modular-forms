@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>required</Title>
 <Description>
@@ -19,23 +20,53 @@ const validate = required(error);
 
 ## Return
 
-- `validate` <Property {...properties.validate} />
+- `validate` <Property {...properties[getFramework()]?.validate} />
 
 export const properties = {
-  validate: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'value',
-          type: [
-            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
-            { type: 'array', item: 'number' },
-            'undefined',
-          ],
-        },
-      ],
-      return: 'string',
+  solid: {
+    validate: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: [
+              { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
+              { type: 'array', item: 'number' },
+              'undefined',
+            ],
+          },
+        ],
+        return: 'string',
+      },
+    },
+  },
+  qwik: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'value',
+                type: [
+                  {
+                    type: 'custom',
+                    name: 'FieldValue',
+                    href: '/api/FieldValue',
+                  },
+                  { type: 'array', item: 'number' },
+                  'undefined',
+                ],
+              },
+            ],
+            return: 'string',
+          },
+        ],
+      },
     },
   },
 };

@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Special inputs</Title>
 <Description>
@@ -18,6 +18,8 @@ As listed in our features, the library supports all native HTML form fields. Thi
 
 A simple checkbox represents a boolean and is `true` when checked or `false` otherwise.
 
+<Solid block>
+
 ```tsx
 <Field of={specialForm} name="cookies">
   {(field) => (
@@ -29,7 +31,26 @@ A simple checkbox represents a boolean and is `true` when checked or `false` oth
 </Field>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name="cookies">
+  {(field, props) => (
+    <label>
+      <input {...props} type="checkbox" checked={field.value} />
+      Yes, I want cookies
+    </label>
+  )}
+</Field>
+```
+
+</Qwik>
+
 However, you can also use multiple checkboxes to represent an array of strings. For this you simply have to add the `value` attribute to the HTML `<input />` element.
+
+<Solid block>
 
 ```tsx
 <For
@@ -57,9 +78,41 @@ However, you can also use multiple checkboxes to represent an array of strings. 
 </For>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+{
+  [
+    { label: 'Bananas', value: 'bananas' },
+    { label: 'Apples', value: 'apples' },
+    { label: 'Grapes', value: 'grapes' },
+  ].map(({ label, value }) => (
+    <Field name="fruits" key={value}>
+      {(field, props) => (
+        <label>
+          <input
+            {...props}
+            type="checkbox"
+            value={value}
+            checked={field.value?.includes(value)}
+          />
+          {label}
+        </label>
+      )}
+    </Field>
+  ));
+}
+```
+
+</Qwik>
+
 ## Select
 
 An HTML `<select />` element allows you to select a string from a predefined list of options.
+
+<Solid block>
 
 ```tsx
 <Field of={specialForm} name="framework">
@@ -68,8 +121,8 @@ An HTML `<select />` element allows you to select a string from a predefined lis
       <For
         each={[
           { label: 'React', value: 'react' },
-          { label: 'Svelte', value: 'svelte' },
           { label: 'Solid', value: 'solid' },
+          { label: 'Qwik', value: 'qwik' },
         ]}
       >
         {({ label, value }) => (
@@ -83,7 +136,33 @@ An HTML `<select />` element allows you to select a string from a predefined lis
 </Field>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name="framework">
+  {(field, props) => (
+    <select {...props}>
+      {[
+        { label: 'React', value: 'react' },
+        { label: 'Solid', value: 'solid' },
+        { label: 'Qwik', value: 'qwik' },
+      ].map(({ label, value }) => (
+        <option value={value} selected={field.value === value} key={value}>
+          {label}
+        </option>
+      ))}
+    </select>
+  )}
+</Field>
+```
+
+</Qwik>
+
 However, if you set the `multiple` attribute, multiple options can be selected making the field represent an array of strings.
+
+<Solid block>
 
 ```tsx
 <Field of={specialForm} name="framework">
@@ -93,8 +172,8 @@ However, if you set the `multiple` attribute, multiple options can be selected m
       <For
         each={[
           { label: 'React', value: 'react' },
-          { label: 'Svelte', value: 'svelte' },
           { label: 'Solid', value: 'solid' },
+          { label: 'Qwik', value: 'qwik' },
         ]}
       >
         {({ label, value }) => (
@@ -107,6 +186,35 @@ However, if you set the `multiple` attribute, multiple options can be selected m
   )}
 </Field>
 ```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name="framework">
+  {(field, props) => (
+    // Set "multiple" to "true"
+    <select {...props} multiple>
+      {[
+        { label: 'React', value: 'react' },
+        { label: 'Solid', value: 'solid' },
+        { label: 'Qwik', value: 'qwik' },
+      ].map(({ label, value }) => (
+        <option
+          value={value}
+          selected={field.value?.includes(value)}
+          key={value}
+        >
+          {label}
+        </option>
+      ))}
+    </select>
+  )}
+</Field>
+```
+
+</Qwik>
 
 ## File
 

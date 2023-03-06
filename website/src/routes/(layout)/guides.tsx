@@ -1,4 +1,5 @@
 import { DocsLayout } from '~/components';
+import { isSolid } from '~/utils';
 
 export default function GuidesLayout() {
   return (
@@ -15,6 +16,7 @@ export default function GuidesLayout() {
             'Add fields to form',
             'Validate your fields',
             'Input components',
+            'Handle submission',
             'Form methods',
           ],
         },
@@ -29,7 +31,11 @@ export default function GuidesLayout() {
         },
         {
           heading: 'Others',
-          items: ['TypeScript', 'FAQ'],
+          items: [
+            'TypeScript',
+            isSolid() ? 'Kobalte' : undefined,
+            'FAQ',
+          ].filter((item) => item) as string[],
         },
       ]}
       lowerCase

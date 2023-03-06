@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>getError</Title>
 <Description>
@@ -15,7 +16,7 @@ const error = getError(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties.form} />
+- `form` <Property {...properties[getFramework()]?.form} />
 - `name` <Property type="string" />
 - `options` <Property {...properties.options} />
   - `shouldActive` <Property {...properties.shouldActive} />
@@ -35,13 +36,6 @@ If you want `undefined` to be returned when the field is not touched and/or not 
 - `error` <Property {...properties.error} />
 
 export const properties = {
-  form: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
   options: {
     type: 'object',
     defaultValue: { type: 'object', entries: [] },
@@ -60,5 +54,23 @@ export const properties = {
   },
   error: {
     type: ['string', 'undefined'],
+  },
+  solid: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+  },
+  qwik: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
   },
 };

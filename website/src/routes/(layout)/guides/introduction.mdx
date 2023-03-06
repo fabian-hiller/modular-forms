@@ -1,43 +1,48 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Introduction</Title>
 <Description>
-  Modular Forms is a JavaScript library that is build on top of SolidJS to
-  validate and handle various types of forms. It is type-safe, fast by default
-  and the bundle size is small due to a modular design.
+  Modular Forms is a JavaScript library that is build on top of SolidJS and Qwik
+  to validate and handle various types of forms. It is type-safe, fast by
+  default and the bundle size is small due to a modular design.
 </Description>
 
 # Introduction
 
-Modular Forms is a JavaScript library that is build on top of <a href="https://www.solidjs.com/" target="_blank" rel="noreferrer">SolidJS</a> to validate and handle various types of forms. It is type-safe, fast by default and the bundle size is small due to a modular design. Try it out in our <A href="/playground">playground</A>!
+Modular Forms is a JavaScript library that is build on top of <a href="https://www.solidjs.com/" target="_blank" rel="noreferrer">SolidJS</a> and <a href="https://qwik.builder.io/" target="_blank" rel="noreferrer">Qwik</a> to validate and handle various types of forms. It is type-safe, fast by default and the bundle size is small due to a modular design. Try it out in our <A href="/playground">playground</A>!
 
-## 🧪 Features
+> Currently the documentation for <Solid>SolidJS</Solid><Qwik>Qwik</Qwik> is displayed. Click on the icon in the upper right to change the framework.
 
-- Small bundle size starting at 2.5 KB
+## ✨ Highlights
+
+- Small bundle size starting at <Solid>2.5</Solid><Qwik>0</Qwik> KB
 - It's fast – DOM updates are fine-grained
 - Type safety with autocompletion in editor
 - Validate everything from emails to files
-- Readable API that is similar to SolidJS
+- <Solid>Readable API that is similar to SolidJS</Solid>
+  <Qwik>Minimal, readable and well thought out API</Qwik>
 - Modular design – only use what you need
-- No dependencies – except for SolidJS
+- No dependencies – except for <Solid>SolidJS</Solid><Qwik>Qwik</Qwik>
 - It's headless – you define the visual
 - Supports all native HTML form fields
 
-## 💥 Motivation
+## 🏔 Mission
 
-Since you're using SolidJS, I assume native performance, granular reactivity, and a small bundle size is important to you. Why should that not also count for your form library? Is there really a need to opt-in to a big and slow form library to meet all your needs?
+The mission of Modular Forms is to gather the latest available experience and knowledge to provide the best possible form library for JavaScript frameworks. We pay special attention to type safety, bundle size, performance and input validation. You can expect that every decision we make during development is well thought out and always takes these main features into account.
 
-I said no, and undertook an attempt to develop a modular form library that is as powerful as big libraries like Formik, React Hook Form and Felte, that is fast by default and takes only 2.5 KB (minified + gzipped) for a small and uncomplicated login form or up to 5 KB (minified + gzipped) for a complex and dynamic form. The result of this journey is this library called Modular Forms!
+## 🪐 Vission
 
-## ✏️ Feedback
-
-Find a bug or have an idea how to improve the library? Please fill out an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a>. Together we can make the library even better!
+At the time of the initial development of Modular Forms, there was no form library with comparable type safety, bundle size and performance. However, many of the ideas came from previous open source projects and only the development of the last few years has made a form library in this way possible. The vission of Modular Forms is to shape the future of the web together and to share our knowledge and experience with the open source community.
 
 ## 🙌🏼 Credits
 
-When creating Modular Forms, I took inspiration from <a href="https://react-hook-form.com/" target="_blank" rel="noreferrer">React Hook Form</a> and <a href="https://formik.org/" target="_blank" rel="noreferrer">Formik</a>. I also want to thank <a href="https://github.com/ryansolid" target="_blank" rel="noreferrer">Ryan Carniato</a> for his inspiring streams with exclusive and deep insights into different technologies and <a href="https://github.com/davedbase" target="_blank" rel="noreferrer">David Di Biase</a> for his help via Discord.
+When creating Modular Forms, I took inspiration from <a href="https://react-hook-form.com/" target="_blank" rel="noreferrer">React Hook Form</a> and <a href="https://formik.org/" target="_blank" rel="noreferrer">Formik</a>. I also want to thank <a href="https://twitter.com/RyanCarniato" target="_blank" rel="noreferrer">Ryan Carniato</a> for his inspiring streams with exclusive and deep insights into different technologies. Furthermore, I would like to thank <a href="https://twitter.com/davedbase" target="_blank" rel="noreferrer">David Di Biase</a>, <a href="https://twitter.com/mhevery" target="_blank" rel="noreferrer">Miško Hevery</a> and <a href="https://twitter.com/manucorporat" target="_blank" rel="noreferrer">Manu Martínez-Almeida</a> for the support I received during the initial development.
+
+## ✏️ Feedback
+
+Find a bug or have an idea how to improve the library? Please fill out an <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issue</a>. Together we can make the library even better!
 
 ## 🔑 License
 
-This project is licensed under the <a href="https://github.com/fabian-hiller/modular-forms/tree/main/LICENSE.md" target="_blank" rel="noreferrer">MIT License</a>.
+This project is available free of charge and licensed under the <a href={`${import.meta.env.VITE_GITHUB_URL}/tree/main/LICENSE.md`} target="\_blank" rel="noreferrer">MIT License</a>.

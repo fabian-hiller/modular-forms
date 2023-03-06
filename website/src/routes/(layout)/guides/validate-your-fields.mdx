@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Validate your fields</Title>
 <Description>
@@ -27,6 +27,8 @@ In the following example we first use <A href="/api/required">`required`</A> to 
 
 Also you have the possibility to set your own error message and access the current error via the render function of the <A href="/api/Field">`Field`</A> component. An overview of all validation functions can be found in our <A href="/api">API reference</A>.
 
+<Solid block>
+
 ```tsx
 import {
   createForm,
@@ -38,10 +40,7 @@ import {
 } from '@modular-forms/solid';
 import { loginUser } from '../api';
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
+type LoginForm = { … };
 
 export default function App() {
   const loginForm = createForm<LoginForm>();
@@ -84,13 +83,77 @@ export default function App() {
 }
 ```
 
-By default, the first validation is done when the form is submitted for the first time and from there on, a revalidation is triggered after each user input. You can change this behavior using the `validateOn` and `revalidateOn` option of the <A href="/api/createForm">`createForm`</A> primitive.
+</Solid>
+
+<Qwik block>
+
+```tsx
+import { component$ } from "@builder.io/qwik";
+import { routeLoader$ } from '@builder.io/qwik-city';
+import {
+  email,
+  type FormLoader,
+  minLength,
+  required,
+  useForm,
+} from "@modular-forms/qwik";
+
+type LoginForm = { … };
+
+export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+
+export default component$(() => {
+  const [loginForm, Form, Field] = useForm<LoginForm>({
+    loader: useFormLoader(),
+  });
+
+  return (
+    <Form>
+      <Field
+        name="email"
+        validate={[
+          required("Please enter your email."),
+          email("The email address is badly formatted."),
+        ]}
+      >
+        {(field, props) => (
+          <>
+            <input {...props} type="email" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <Field
+        name="password"
+        validate={[
+          required("Please enter your password."),
+          minLength(8, "You password must have 8 characters or more."),
+        ]}
+      >
+        {(field, props) => (
+          <>
+            <input {...props} type="password" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Qwik>
+
+By default, the first validation is done when the form is submitted for the first time and from there on, a revalidation is triggered after each user input. You can change this behavior using the `validateOn` and `revalidateOn` option of the <Solid><A href="/api/createForm">`createForm`</A> primitive</Solid><Qwik><A href="/api/useForm">`useForm`</A> hook</Qwik>.
 
 ## Schema validation
 
-For maximum flexibility, you can also use your familiar schema library for form validation. We currently offer adapters for <a href="https://github.com/colinhacks/zod" target="_blank" rel="noreferrer">Zod</a>. Please create an <a href="https://github.com/fabian-hiller/modular-forms/issues/new" target="_blank" rel="noreferrer">issue</a> if you want us to add more adapters.
+For maximum flexibility, you can also use your familiar schema library for form validation. We currently offer adapters for <a href="https://github.com/colinhacks/zod" target="_blank" rel="noreferrer">Zod</a>. Please create an <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issue</a> if you want us to add more adapters.
 
 Use <A href="/api/zodForm">`zodForm`</A> to define the validation for the whole form and <A href="/api/zodField">`zodField`</A> for a single field. Below is the same login form as in the example above. Instead of our validation functions, Zod is used now.
+
+<Solid block>
 
 ```tsx
 import { createForm, Form, Field, zodForm } from '@modular-forms/solid';
@@ -136,3 +199,60 @@ export default function App() {
   );
 }
 ```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+import { $, component$ } from "@builder.io/qwik";
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { type FormLoader, useForm, zodForm } from "@modular-forms/qwik";
+import { z } from 'zod';
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please enter your email.')
+    .email('The email address is badly formatted.'),
+  password: z
+    .string()
+    .min(1, 'Please enter your password.')
+    .min(8, 'You password must have 8 characters or more.'),
+});
+
+type LoginForm = z.input<typeof loginSchema>;
+
+export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+
+export default component$(() => {
+  const [loginForm, Form, Field] = useForm<LoginForm>({
+    loader: useFormLoader(),
+    validate: $(zodForm(loginSchema)),
+  });
+
+  return (
+    <Form>
+      <Field name="email">
+        {(field, props) => (
+          <>
+            <input {...props} type="email" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <Field name="password">
+        {(field, props) => (
+          <>
+            <input {...props} type="password" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Qwik>

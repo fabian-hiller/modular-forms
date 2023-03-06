@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>getArrayValues</Title>
 <Description>Returns the values of the specified field array.</Description>
@@ -13,7 +14,7 @@ const values = getArrayValues(form, names, options);
 
 ## Parameters
 
-- `form` <Property {...properties.form} />
+- `form` <Property {...properties[getFramework()]?.form} />
 - `name` <Property type="string" />
 - `options` <Property {...properties.options} />
   - `shouldActive` <Property {...properties.shouldActive} />
@@ -37,13 +38,6 @@ By default, the values of fields that are not touched, not dirty and not valid a
 - `values` <Property {...properties.values} />
 
 export const properties = {
-  form: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
   options: {
     type: 'object',
     defaultValue: { type: 'object', entries: [] },
@@ -87,5 +81,23 @@ export const properties = {
         ],
       },
     ],
+  },
+  solid: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+  },
+  qwik: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
   },
 };

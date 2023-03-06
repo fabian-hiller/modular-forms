@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>useFieldArray</Title>
 <Description>
@@ -7,6 +7,8 @@ import { Description, Property, Title } from '~/components';
 </Description>
 
 # useFieldArray
+
+<Solid block>
 
 Sets up a form field array and returns its reactive state.
 
@@ -36,6 +38,14 @@ By default, the state of an inactive field array is maintained. If you want a fi
 ## Return
 
 - `fieldArray` <Property {...properties.fieldArray} />
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
 
 export const properties = {
   form: {

@@ -1,15 +1,16 @@
 import { A } from 'solid-start';
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>Form</Title>
 <Description>
-  A wrapper component that handles the submission of a form and disables the
-  browser's default form validation.
+  Form element that takes care of validation and simplifies submission.
 </Description>
 
 # Form
 
-HTML form element that simplifies form submission and disables the browser's default form validation.
+Form element that takes care of validation and simplifies submission.
+
+<Solid block>
 
 ```tsx
 <Form
@@ -25,10 +26,33 @@ HTML form element that simplifies form submission and disables the browser's def
 </Form>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Form
+  of={…}
+  action={…}
+  onSubmit$={…}
+  keepResponse={…}
+  shouldActive={…}
+  shouldTouched={…}
+  shouldDirty={…}
+  shouldFocus={…}
+>
+  children
+</Form>
+```
+
+</Qwik>
+
 ## Properties
 
-- `of` <Property {...properties.of} />
-- `onSubmit` <Property {...properties.onSubmit} />
+<Solid block>
+
+- `of` <Property {...properties.solid.of} />
+- `onSubmit` <Property {...properties.solid.onSubmit} />
 - `keepResponse` <Property {...properties.keepResponse} />
 - `shouldActive` <Property {...properties.shouldActive} />
 - `shouldTouched` <Property {...properties.shouldTouched} />
@@ -36,45 +60,36 @@ HTML form element that simplifies form submission and disables the browser's def
 - `shouldFocus` <Property {...properties.shouldFocus} />
 - `children` <Property {...properties.children} />
 
+</Solid>
+
+<Qwik block>
+
+- `of` <Property {...properties.qwik.of} />
+- `onSubmit$` <Property {...properties.qwik.onSubmit$} />
+- `keepResponse` <Property {...properties.keepResponse} />
+- `shouldActive` <Property {...properties.shouldActive} />
+- `shouldTouched` <Property {...properties.shouldTouched} />
+- `shouldDirty` <Property {...properties.shouldDirty} />
+- `shouldFocus` <Property {...properties.shouldFocus} />
+- `children` <Property {...properties.children} />
+
+</Qwik>
+
 > Besides the specified properties, you can pass any other property of an HTML form element.
 
 ### Explanation
 
-Before executing the `onSubmit` function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
+Before executing the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
-Errors thrown by the `onSubmit` function are made available via the `response` property of the <A href="/api/FormState">`FormState`</A> object to display them to your user.
+Errors thrown by the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <Solid><A href="/api/FormState">`FormState`</A></Solid><Qwik><A href="/api/FormStore">`FormStore`</A></Qwik> object to display them to your user.
 
-By default, the `onSubmit` function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
+By default, the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
 
-By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the `onSubmit` function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
 
-`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the `onSubmit` function and can be combined with each other.
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
 
 export const properties = {
-  of: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
-  onSubmit: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'values',
-          type: {
-            type: 'custom',
-            name: 'FieldValues',
-            href: '/api/FieldValues',
-          },
-        },
-        { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
-      ],
-      return: ['void', { type: 'custom', name: 'Promise', generics: ['void'] }],
-    },
-  },
   keepResponse: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
@@ -97,5 +112,75 @@ export const properties = {
   },
   children: {
     type: { type: 'custom', name: 'JSX.Element' },
+  },
+  solid: {
+    of: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+    onSubmit: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'values',
+            type: {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '/api/FieldValues',
+            },
+          },
+          { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
+        ],
+        return: [
+          'void',
+          { type: 'custom', name: 'Promise', generics: ['void'] },
+        ],
+      },
+    },
+  },
+  qwik: {
+    of: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
+    onSubmit$: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'values',
+            type: {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '/api/FieldValues',
+            },
+          },
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'QwikSubmitEvent',
+              generics: [
+                {
+                  type: 'custom',
+                  name: 'HTMLFormElement',
+                },
+              ],
+            },
+          },
+        ],
+        return: [
+          'void',
+          { type: 'custom', name: 'Promise', generics: ['void'] },
+        ],
+      },
+    },
   },
 };

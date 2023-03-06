@@ -1,4 +1,5 @@
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Solid, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>getValues</Title>
 <Description>Returns the current values of the form fields.</Description>
@@ -17,7 +18,7 @@ const values = getValues(form, names, options);
 
 ## Parameters
 
-- `form` <Property {...properties.form} />
+- `form` <Property {...properties[getFramework()]?.form} />
 - `names` <Property {...properties.names} />
 - `options` <Property {...properties.options} />
   - `shouldActive` <Property {...properties.shouldActive} />
@@ -36,20 +37,17 @@ By default, the values of fields that are not touched, not dirty and not valid a
 
 `shouldActive`, `shouldTouched`, `shouldDirty` and `shouldValid` act like a kind of filter and can be combined with each other.
 
+<Solid block>
+
 `typeValidated` is intended for TypeScript users only. By default, the values are returned as `DeepPartial` because we have no way of knowing whether you actually used all the specified fields and whether your user's input is valid. If you are sure that the returned values match your type definition of the form values, for example because they have been previously validated, you can tell us to cast it to your type definition by setting `typeValidated` to `true`.
+
+</Solid>
 
 ## Return
 
-- `values` <Property {...properties.values} />
+- `values` <Property {...properties[getFramework()]?.values} />
 
 export const properties = {
-  form: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
   names: {
     type: {
       type: 'array',
@@ -80,24 +78,57 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
   },
-  values: {
-    type: [
-      {
+  solid: {
+    form: {
+      type: {
         type: 'custom',
-        name: 'FieldValues',
-        href: '/api/FieldValues',
+        name: 'FormState',
+        href: '/api/FormState',
       },
-      {
+    },
+    values: {
+      type: [
+        {
+          type: 'custom',
+          name: 'FieldValues',
+          href: '/api/FieldValues',
+        },
+        {
+          type: 'custom',
+          name: 'DeepPartial',
+          generics: [
+            {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '/api/FieldValues',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  qwik: {
+    form: {
+      type: {
         type: 'custom',
-        name: 'DeepPartial',
-        generics: [
-          {
-            type: 'custom',
-            name: 'FieldValues',
-            href: '/api/FieldValues',
-          },
-        ],
+        name: 'FormStore',
+        href: '/api/FormStore',
       },
-    ],
+    },
+    values: {
+      type: [
+        {
+          type: 'custom',
+          name: 'DeepPartial',
+          generics: [
+            {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '/api/FieldValues',
+            },
+          ],
+        },
+      ],
+    },
   },
 };

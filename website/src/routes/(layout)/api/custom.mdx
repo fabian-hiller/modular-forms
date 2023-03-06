@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>custom</Title>
 <Description>Creates a custom validation function.</Description>
@@ -13,45 +14,102 @@ const validate = custom(requirement, error);
 
 ## Parameters
 
-- `requirement` <Property {...properties.requirement} />
+- `requirement` <Property {...properties[getFramework()]?.requirement} />
 - `error` <Property type="string" />
 
 ## Return
 
-- `validate` <Property {...properties.validate} />
+- `validate` <Property {...properties[getFramework()]?.validate} />
 
 export const properties = {
-  requirement: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'value',
-          type: [
-            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
-            'undefined',
-          ],
-        },
-      ],
-      return: [
-        'boolean',
-        { type: 'custom', name: 'Promise', generics: ['boolean'] },
-      ],
+  solid: {
+    requirement: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: [
+              { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
+              'undefined',
+            ],
+          },
+        ],
+        return: [
+          'boolean',
+          { type: 'custom', name: 'Promise', generics: ['boolean'] },
+        ],
+      },
+    },
+    validate: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: [
+              { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
+              'undefined',
+            ],
+          },
+        ],
+        return: { type: 'custom', name: 'Promise', generics: ['string'] },
+      },
     },
   },
-  validate: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'value',
-          type: [
-            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
-            'undefined',
-          ],
-        },
-      ],
-      return: { type: 'custom', name: 'Promise', generics: ['string'] },
+  qwik: {
+    requirement: {
+      type: {
+        type: 'custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'value',
+                type: [
+                  {
+                    type: 'custom',
+                    name: 'FieldValue',
+                    href: '/api/FieldValue',
+                  },
+                  'undefined',
+                ],
+              },
+            ],
+            return: [
+              'boolean',
+              { type: 'custom', name: 'Promise', generics: ['boolean'] },
+            ],
+          },
+        ],
+      },
+    },
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'value',
+                type: [
+                  {
+                    type: 'custom',
+                    name: 'FieldValue',
+                    href: '/api/FieldValue',
+                  },
+                  'undefined',
+                ],
+              },
+            ],
+            return: { type: 'custom', name: 'Promise', generics: ['string'] },
+          },
+        ],
+      },
     },
   },
 };

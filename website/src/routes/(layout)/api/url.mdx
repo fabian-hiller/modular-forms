@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>url</Title>
 <Description>Creates a validation functions that validates a URL.</Description>
@@ -17,19 +18,41 @@ const validate = url(error);
 
 ## Return
 
-- `validate` <Property {...properties.validate} />
+- `validate` <Property {...properties[getFramework()]?.validate} />
 
 export const properties = {
-  validate: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'value',
-          type: ['string', 'null', 'undefined'],
-        },
-      ],
-      return: 'string',
+  solid: {
+    validate: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: ['string', 'null', 'undefined'],
+          },
+        ],
+        return: 'string',
+      },
+    },
+  },
+  qwik: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'value',
+                type: ['string', 'null', 'undefined'],
+              },
+            ],
+            return: 'string',
+          },
+        ],
+      },
     },
   },
 };

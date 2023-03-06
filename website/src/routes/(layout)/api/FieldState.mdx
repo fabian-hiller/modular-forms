@@ -1,9 +1,11 @@
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>FieldState</Title>
 <Description>Type that defines the state of a form field.</Description>
 
 # FieldState
+
+<Solid block>
 
 Type that defines the state of a form field.
 
@@ -32,6 +34,14 @@ The `props` should be spread into a HTML input, select or textarea element as sh
 ```
 
 The state properties of the field are reactive and can be used, for example, in the JSX area or Solid's `createEffect` primitive.
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
 
 export const properties = {
   ref: {

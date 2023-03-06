@@ -1,12 +1,15 @@
 import { DocsLayout } from '~/components';
+import { isQwik, isSolid } from '~/utils';
 
 export default function ApiLayout() {
   return (
     <DocsLayout
       items={[
         {
-          heading: 'Primitives',
-          items: ['createForm', 'useField', 'useFieldArray'],
+          heading: isSolid() ? 'Primitives' : 'Hooks',
+          items: isSolid()
+            ? ['createForm', 'useField', 'useFieldArray']
+            : ['useForm', 'useFormStore'],
         },
         {
           heading: 'Components',
@@ -22,7 +25,7 @@ export default function ApiLayout() {
             'getError',
             'getValue',
             'getValues',
-            'handleSubmit',
+            isSolid() ? 'handleSubmit' : undefined,
             'hasField',
             'hasFieldArray',
             'insert',
@@ -35,7 +38,7 @@ export default function ApiLayout() {
             'setValue',
             'swap',
             'validate',
-          ],
+          ].filter((item) => item) as string[],
         },
         {
           heading: 'Validation',
@@ -68,17 +71,18 @@ export default function ApiLayout() {
         {
           heading: 'Types',
           items: [
-            'FieldArrayState',
+            isSolid() ? 'FieldArrayState' : 'FieldArrayStore',
             'FieldElement',
-            'FieldState',
+            isQwik() ? 'FieldElementProps' : undefined,
+            isSolid() ? 'FieldState' : 'FieldStore',
             'FieldValue',
             'FieldValues',
             'FormErrors',
-            'FormState',
+            isSolid() ? 'FormState' : 'FormStore',
             'Response',
             'ValidateField',
             'ValidateFieldArray',
-          ],
+          ].filter((item) => item) as string[],
         },
       ]}
     />

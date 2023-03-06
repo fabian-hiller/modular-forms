@@ -1,5 +1,6 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>Input components</Title>
 <Description>
@@ -9,11 +10,13 @@ import { Description, Title } from '~/components';
 
 # Input components
 
-To make your code more readable, we recommend that you develop your own input components. There you can encapsulate logic to display error messages, for example.
+To make your code more readable, we recommend that you develop your own input components if you are not using a prebuilt UI library. There you can encapsulate logic to display error messages, for example.
 
-> If you're already a bit more experienced, you can use the input components we developed for our <A href="/playground">playground</A> as a starting point. You can find the code in our GitHub repository <a href="https://github.com/fabian-hiller/modular-forms/tree/main/packages/website/src/components" target="_blank" rel="noreferrer">here</a>.
+> If you're already a bit more experienced, you can use the input components we developed for our <A href="/playground">playground</A> as a starting point. You can find the code in our GitHub repository <a href={`${import.meta.env.VITE_GITHUB_URL}/tree/main/playgrounds/${getFramework()}/src/components`} target="\_blank" rel="noreferrer">here</a>.
 
 Currently, your fields might look something like this:
+
+<Solid block>
 
 ```tsx
 <Field
@@ -37,9 +40,35 @@ Currently, your fields might look something like this:
 </Field>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name="email" validate={…}>
+  {(field, props) => (
+    <div>
+      <label for={field.name}>Email</label>
+      <input
+        {...props}
+        id={field.name}
+        value={field.value}
+        type="email"
+        required
+      />
+      {field.error && <div>{field.error}</div>}
+    </div>
+  )}
+</Field>
+```
+
+</Qwik>
+
 If CSS and a few more functionalities are added here, the code quickly becomes confusing. In addition, you have to rewrite the same code for almost every form field.
 
 Our goal is to develop a `TextInput` component so that the code ends up looking like this:
+
+<Solid block>
 
 ```tsx
 <Field
@@ -60,27 +89,87 @@ Our goal is to develop a `TextInput` component so that the code ends up looking 
 </Field>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name="email" validate={…}>
+  {(field, props) => (
+    <TextInput
+      {...props}
+      type="email"
+      label="Email"
+      value={field.value}
+      error={field.error}
+      required
+    />
+  )}
+</Field>
+```
+
+</Qwik>
+
 ## Create an input component
 
 In the first step, you create a new file for the `TextInput` component and, if you use TypeScript, define its properties.
+
+<Solid block>
 
 ```tsx
 import { JSX } from 'solid-js';
 
 type TextInputProps = {
-  ref: (element: HTMLInputElement) => void;
-  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
   name: string;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  label?: string;
+  placeholder?: string;
   value: string | number | undefined;
+  error: string;
+  required?: boolean;
+  ref: (element: HTMLInputElement) => void;
   onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
   onChange: JSX.EventHandler<HTMLInputElement, Event>;
   onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>;
-  placeholder?: string;
-  required?: boolean;
-  label?: string;
-  error?: string;
 };
 ```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+import {
+  type PropFunction,
+  type QwikChangeEvent,
+  type QwikFocusEvent,
+} from '@builder.io/qwik';
+
+type TextInputProps = {
+  name: string;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  label?: string;
+  placeholder?: string;
+  value: string | number | undefined;
+  error: string;
+  required?: boolean;
+  ref: PropFunction<(element: Element) => void>;
+  onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
+  onChange$: PropFunction<
+    (
+      event: QwikChangeEvent<HTMLInputElement>,
+      element: HTMLInputElement
+    ) => void
+  >;
+  onBlur$: PropFunction<
+    (event: QwikFocusEvent<HTMLInputElement>, element: HTMLInputElement) => void
+  >;
+};
+```
+
+</Qwik>
+
+<Solid block>
 
 In the next step, add the component function to the file and use Solid's `splitProps` utility to separate the properties of the HTML `<input />` element from the rest.
 
@@ -94,7 +183,34 @@ export function TextInput(props: TextInputProps) {
 }
 ```
 
+</Solid>
+
+<Qwik block>
+
+In the next step, add the `component$` function to the file and destructure the properties of the HTML `<input />` element from the rest.
+
+```tsx
+import {
+  component$,
+  type PropFunction,
+  type QwikChangeEvent,
+  type QwikFocusEvent,
+} from '@builder.io/qwik';
+
+type TextInputProps = { … };
+
+export const TextInput = component$(
+  ({ label, error, ...props }: TextInputProps) => {
+    const { name, required } = props;
+  }
+);
+```
+
+</Qwik>
+
 After that, next you can add the JSX code to the return statement.
+
+<Solid block>
 
 ```tsx
 import { JSX, splitProps } from 'solid-js';
@@ -123,25 +239,72 @@ export function TextInput(props: TextInputProps) {
 }
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+import {
+  component$,
+  type PropFunction,
+  type QwikChangeEvent,
+  type QwikFocusEvent,
+} from '@builder.io/qwik';
+
+type TextInputProps = { … };
+
+export const TextInput = component$(
+  ({ label, error, ...props }: TextInputProps) => {
+    const { name, required } = props;
+    return (
+      <div>
+        {label && (
+          <label for={name}>
+            {label} {required && <span>*</span>}
+          </label>
+        )}
+        <input
+          {...props}
+          id={name}
+          aria-invalid={!!error}
+          aria-errormessage={`${name}-error`}
+        />
+        {props.error && <div id={`${name}-error`}>{error}</div>}
+      </div>
+    );
+  }
+);
+```
+
+</Qwik>
+
 You can now build on this code and add CSS, for example. You can also follow the procedure to create other components such as `Checkbox`, `Slider`, `Select` and `FileInput`.
 
+<Solid block>
+
+> Tip: To make things easier and speed up development, you can build your components on top of the UI toolkit <a href="https://kobalte.dev/" target="_blank" rel="noreferrer">Kobalte</a>. You can find a guide <A href="/guides/kobalte">here</A>.
+
+</Solid>
+
 Below is an overview of the entire code of the `TextInput` component.
+
+<Solid block>
 
 ```tsx
 import { JSX, splitProps } from 'solid-js';
 
 type TextInputProps = {
-  ref: (element: HTMLInputElement) => void;
-  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
   name: string;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  label?: string;
+  placeholder?: string;
   value: string | number | undefined;
+  error: string;
+  required?: boolean;
+  ref: (element: HTMLInputElement) => void;
   onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
   onChange: JSX.EventHandler<HTMLInputElement, Event>;
   onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>;
-  placeholder?: string;
-  required?: boolean;
-  label?: string;
-  error?: string;
 };
 
 export function TextInput(props: TextInputProps) {
@@ -165,3 +328,61 @@ export function TextInput(props: TextInputProps) {
   );
 }
 ```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+import {
+  component$,
+  type PropFunction,
+  type QwikChangeEvent,
+  type QwikFocusEvent,
+} from '@builder.io/qwik';
+
+type TextInputProps = {
+  name: string;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  label?: string;
+  placeholder?: string;
+  value: string | number | undefined;
+  error: string;
+  required?: boolean;
+  ref: PropFunction<(element: Element) => void>;
+  onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
+  onChange$: PropFunction<
+    (
+      event: QwikChangeEvent<HTMLInputElement>,
+      element: HTMLInputElement
+    ) => void
+  >;
+  onBlur$: PropFunction<
+    (event: QwikFocusEvent<HTMLInputElement>, element: HTMLInputElement) => void
+  >;
+};
+
+export const TextInput = component$(
+  ({ label, error, ...props }: TextInputProps) => {
+    const { name, required } = props;
+    return (
+      <div>
+        {label && (
+          <label for={name}>
+            {label} {required && <span>*</span>}
+          </label>
+        )}
+        <input
+          {...props}
+          id={name}
+          aria-invalid={!!error}
+          aria-errormessage={`${name}-error`}
+        />
+        {props.error && <div id={`${name}-error`}>{error}</div>}
+      </div>
+    );
+  }
+);
+```
+
+</Qwik>

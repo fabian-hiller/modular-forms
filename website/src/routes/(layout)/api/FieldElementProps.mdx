@@ -1,0 +1,161 @@
+import { A } from 'solid-start';
+import { Description, Property, Title } from '~/components';
+
+<Title>FieldElementProps</Title>
+<Description>Type that defines the element properties of a field.</Description>
+
+# FieldElementProps
+
+Type that defines the element properties of a field.
+
+## Definition
+
+- `FieldElementProps` <Property type="object" />
+
+  - `name` <Property type="string" />
+  - `autoFocus` <Property type="boolean" />
+  - `ref` <Property {...properties.ref} />
+  - `onInput$` <Property {...properties.onInput$} />
+  - `onChange$` <Property {...properties.onChange$} />
+  - `onBlur$` <Property {...properties.onBlur$} />
+
+### Explanation
+
+The properties must be passed to an HTML `<input />`, `<textarea />` or `<select />` element. It is intended to use the spread syntax for this.
+
+```tsx
+<input {...props} type="text" />
+```
+
+export const properties = {
+  ref: {
+    type: [
+      {
+        type: 'custom',
+        name: 'PropFunction',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'Element',
+                },
+              },
+            ],
+            return: 'void',
+          },
+        ],
+      },
+    ],
+  },
+  onInput$: {
+    type: [
+      {
+        type: 'custom',
+        name: 'PropFunction',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'event',
+                type: {
+                  type: 'custom',
+                  name: 'Event',
+                },
+              },
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '/api/FieldElement',
+                },
+              },
+            ],
+            return: 'void',
+          },
+        ],
+      },
+    ],
+  },
+  onChange$: {
+    type: [
+      {
+        type: 'custom',
+        name: 'PropFunction',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'event',
+                type: {
+                  type: 'custom',
+                  name: 'QwikChangeEvent',
+                  generics: [
+                    {
+                      type: 'custom',
+                      name: 'FieldElement',
+                      href: '/api/FieldElement',
+                    },
+                  ],
+                },
+              },
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '/api/FieldElement',
+                },
+              },
+            ],
+            return: 'void',
+          },
+        ],
+      },
+    ],
+  },
+  onBlur$: {
+    type: [
+      {
+        type: 'custom',
+        name: 'PropFunction',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'event',
+                type: {
+                  type: 'custom',
+                  name: 'QwikFocusEvent',
+                  generics: [
+                    {
+                      type: 'custom',
+                      name: 'FieldElement',
+                      href: '/api/FieldElement',
+                    },
+                  ],
+                },
+              },
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '/api/FieldElement',
+                },
+              },
+            ],
+            return: 'void',
+          },
+        ],
+      },
+    ],
+  },
+};

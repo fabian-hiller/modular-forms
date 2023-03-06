@@ -1,21 +1,47 @@
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Installation</Title>
 <Description>
-  You can add Modular Forms to your project via npm. After that you can import
-  it into any JavaScript or TypeScript file.
+  You can add Modular Forms to your project via npm, yarn or pnpm. After that
+  you can import it into any JavaScript or TypeScript file.
 </Description>
 
 # Installation
 
-You can add Modular Forms to your project via npm.
+You can add Modular Forms to your project via `npm`.
+
+> If you use `yarn` or `pnpm`, just replace the installation command at the beginning.
+
+<Solid block>
 
 ```bash
 npm install @modular-forms/solid
 ```
 
-After that you can import it into any JavaScript or TypeScript file as follows.
+</Solid>
+
+<Qwik block>
+
+```bash
+npm install @modular-forms/qwik
+```
+
+</Qwik>
+
+After that you can import it into any JavaScript or TypeScript file.
+
+<Solid block>
 
 ```ts
 import { … } from '@modular-forms/solid';
 ```
+
+</Solid>
+
+<Qwik block>
+
+```ts
+import { … } from '@modular-forms/qwik';
+```
+
+</Qwik>

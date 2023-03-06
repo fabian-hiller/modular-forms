@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>validate</Title>
 <Description>
@@ -23,7 +24,7 @@ validate(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties.form} />
+- `form` <Property {...properties[getFramework()]?.form} />
 - `names` <Property {...properties.names} />
 - `name` <Property type="string" />
 - `options` <Property {...properties.options} />
@@ -37,13 +38,6 @@ In addition to the names of the fields, you can also specify the name of a field
 By default, only the active fields are validated and the first field where an error occurs during the validation is focused. To change this behavior you can set `shouldActive` and/or `shouldFocus` to `false`.
 
 export const properties = {
-  form: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
   names: {
     type: {
       type: 'array',
@@ -61,5 +55,23 @@ export const properties = {
   shouldFocus: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
+  },
+  solid: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+  },
+  qwik: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
   },
 };

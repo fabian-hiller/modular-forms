@@ -1,0 +1,34 @@
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>FieldArrayStore</Title>
+<Description>Type that defines the state of a form field array.</Description>
+
+# FieldArrayStore
+
+<Qwik block>
+
+Type that defines the state of a form field array.
+
+## Definition
+
+- `FieldArrayStore` <Property type="object" />
+  - `name` <Property type="string" />
+  - `items` <Property type={{ type: 'array', item: 'number' }} />
+  - `error` <Property type="string" />
+  - `active` <Property type="boolean" />
+  - `touched` <Property type="boolean" />
+  - `dirty` <Property type="boolean" />
+
+### Explanation
+
+The `items` do not contain the value of the fields, but only a random unique number. You should pass this value in the loop to the first JSX element as `key` property.
+
+The state properties of the field array are reactive and can be used, for example, in the JSX area or the `useTask$` hook.
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>

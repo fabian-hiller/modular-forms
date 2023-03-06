@@ -1,15 +1,16 @@
 import { A } from 'solid-start';
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>Field</Title>
 <Description>
-  Wrapper component that sets up a form field and provides its reactive
-  properties and state.
+  Headless form field that provides reactive properties and state.
 </Description>
 
 # Field
 
-Wrapper component that sets up a form field and provides its reactive properties and state.
+Headless form field that provides reactive properties and state.
+
+<Solid block>
 
 ```tsx
 <Field
@@ -24,19 +25,56 @@ Wrapper component that sets up a form field and provides its reactive properties
 </Field>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field
+  of={…}
+  name={…}
+  validate={…}
+  keepActive={…}
+  keepState={…}
+>
+  children
+</Field>
+```
+
+</Qwik>
+
 ## Properties
 
-- `of` <Property {...properties.of} />
+<Solid block>
+
+- `of` <Property {...properties.solid.of} />
 - `name` <Property type="string" />
-- `initialValue` <Property {...properties.initialValue} />
+- `initialValue` <Property {...properties.solid.initialValue} />
 - `validate` <Property {...properties.validate} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
-- `children` <Property {...properties.children} />
+- `children` <Property {...properties.solid.children} />
+
+</Solid>
+
+<Qwik block>
+
+- `of` <Property {...properties.qwik.of} />
+- `name` <Property type="string" />
+- `validate` <Property {...properties.validate} />
+- `keepActive` <Property {...properties.keepActive} />
+- `keepState` <Property {...properties.keepState} />
+- `children` <Property {...properties.qwik.children} />
+
+</Qwik>
 
 ### Explanation
 
+<Solid block>
+
 The `initialValue` you define directly at a field has the highest specificity and overrides initial values you set at <A href="/api/createForm">`createForm`</A> and <A href="/api/reset">`reset`</A>. If the `initialValue` is reactive, changing the value will update the initial value of the field. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
+
+</Solid>
 
 For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
 
@@ -45,73 +83,19 @@ Fields automatically detect if they are still in use and update their status acc
 By default, the state of an inactive field is maintained. If you want a field to be reset when it becomes inactive, you can set `keepState` to `false`.
 
 export const properties = {
-  of: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
-  initialValue: {
-    type: [
-      {
-        type: 'tuple',
-        items: [
-          {
-            type: 'custom',
-            name: 'FieldValue',
-            href: '/api/FieldValue',
-          },
-        ],
-      },
-      'undefined',
-    ],
-  },
   validate: {
     type: [
       {
-        type: 'function',
-        params: [
-          {
-            name: 'value',
-            type: {
-              type: 'custom',
-              name: 'FieldValue',
-              href: '/api/FieldValue',
-            },
-          },
-        ],
-        return: [
-          'string',
-          {
-            type: 'custom',
-            name: 'Promise',
-            generics: ['string'],
-          },
-        ],
+        type: 'custom',
+        name: 'ValidateField',
+        href: '/api/ValidateField',
       },
       {
         type: 'array',
         item: {
-          type: 'function',
-          params: [
-            {
-              name: 'value',
-              type: {
-                type: 'custom',
-                name: 'FieldValue',
-                href: '/api/FieldValue',
-              },
-            },
-          ],
-          return: [
-            'string',
-            {
-              type: 'custom',
-              name: 'Promise',
-              generics: ['string'],
-            },
-          ],
+          type: 'custom',
+          name: 'ValidateField',
+          href: '/api/ValidateField',
         },
       },
       'undefined',
@@ -125,20 +109,77 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  children: {
-    type: {
-      type: 'function',
-      params: [
+  solid: {
+    of: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+    initialValue: {
+      type: [
         {
-          name: 'field',
-          type: {
-            type: 'custom',
-            name: 'FieldState',
-            href: '/api/FieldState',
-          },
+          type: 'tuple',
+          items: [
+            {
+              type: 'custom',
+              name: 'FieldValue',
+              href: '/api/FieldValue',
+            },
+          ],
         },
+        'undefined',
       ],
-      return: { type: 'custom', name: 'JSX.Element' },
+    },
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'field',
+            type: {
+              type: 'custom',
+              name: 'FieldState',
+              href: '/api/FieldState',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'JSX.Element' },
+      },
+    },
+  },
+  qwik: {
+    of: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'field',
+            type: {
+              type: 'custom',
+              name: 'FieldState',
+              href: '/api/FieldState',
+            },
+          },
+          {
+            name: 'props',
+            type: {
+              type: 'custom',
+              name: 'FieldElementProps',
+              href: '/api/FieldElementProps',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'JSX.Element' },
+      },
     },
   },
 };

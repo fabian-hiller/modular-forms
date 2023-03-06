@@ -62,7 +62,7 @@
   article pre {
     @apply overflow-x-auto rounded-2xl border-2 border-slate-200 p-5 leading-relaxed text-slate-700 dark:border-slate-800 dark:text-slate-300 md:text-lg md:leading-relaxed lg:rounded-3xl lg:border-[3px] lg:p-10 lg:text-xl lg:leading-relaxed;
   }
-  article :not(pre) code {
+  article :not(pre) > code {
     @apply rounded-lg bg-slate-100 py-1 px-2 text-slate-700 dark:bg-gray-800 dark:text-slate-300;
   }
   article p > code {
@@ -70,24 +70,24 @@
   }
 
   /* Horizontal spacing */
-  article > :is(h1, h2, h3, h4, p, blockquote) {
+  :is(article, div.framework) > :is(h1, h2, h3, h4, p, blockquote) {
     @apply mx-8 lg:mx-10;
   }
-  article > :is(ul, ol) {
+  :is(article, div.framework) > :is(ul, ol) {
     @apply ml-12 mr-8 lg:ml-14 lg:mr-10;
   }
-  article > pre {
+  :is(article, div.framework) > pre {
     @apply mx-3 lg:mx-10 2xl:mx-0;
   }
 
   /* Vertical spacing */
-  article > :is(h1, h2, h3, h4, p) + p {
+  :is(article, div.framework) > :is(h1, h2, h3, h4, p) + p {
     @apply mt-7 md:mt-9 lg:mt-11;
   }
-  article > * + * {
+  :is(article, div.framework) > * + * {
     @apply mt-10 md:mt-12 lg:mt-14;
   }
-  article > * + h2 {
+  :is(article, div.framework) > * + h2 {
     @apply mt-12 md:mt-14 lg:mt-16;
   }
 }

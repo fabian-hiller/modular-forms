@@ -1,10 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>handleSubmit</Title>
 <Description>Handles the submission of the form.</Description>
 
 # handleSubmit
+
+<Solid block>
 
 Handles the submission of the form.
 
@@ -50,6 +52,14 @@ By default, the returned `onSubmit` function validates only the values of active
 ## Return
 
 - `onSubmit` <Property {...properties.onSubmit} />
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
 
 export const properties = {
   form: {

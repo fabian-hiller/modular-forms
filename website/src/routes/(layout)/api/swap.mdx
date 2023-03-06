@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>swap</Title>
 <Description>Swaps two fields of a field array by their index.</Description>
@@ -13,9 +14,9 @@ swap(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties.form} />
+- `form` <Property {...properties[getFramework()]?.form} />
 - `name` <Property type="string" />
-- `options` <Property {...properties.options} />
+- `options` <Property type="object" />
   - `at` <Property type="number" />
   - `and` <Property type="number" />
 
@@ -24,15 +25,22 @@ swap(form, name, options);
 With `at` and `and` you define the indexes of the items to be swapped. The action is executed only if both indexes are valid.
 
 export const properties = {
-  form: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
+  solid: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
     },
   },
-  options: {
-    type: 'object',
-    defaultValue: { type: 'object', entries: [] },
+  qwik: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
   },
 };

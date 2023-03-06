@@ -1,19 +1,21 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Create a form</Title>
 <Description>
-  Like Solid, the library consists of primitives and components. To create a
-  form you use the primitive createForm.
+  To create a form, use the createForm primitive in Solid and the useForm hook
+  in Qwik. Both functions inizialize and return the state of the form.
 </Description>
 
 # Create a form
 
-Like Solid, the library consists of primitives and components. To create a form you use the primitive <A href="/api/createForm">`createForm`</A>.
+<Solid block>
+
+Like SolidJS, the library consists of primitives and components. To create a form you use the primitive <A href="/api/createForm">`createForm`</A>.
 
 If you use TypeScript, you can additionally define the fields and their values and pass the type as a generic. You also have the option to pass initial values to the form. See the <A href="/api/createForm">API reference</A> for more details.
 
-> > It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href="https://github.com/fabian-hiller/modular-forms/issues/2#issuecomment-1321178563" target="_blank" rel="noreferrer">here</a>.
+> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
 
 ```tsx
 import { createForm } from '@modular-forms/solid';
@@ -24,10 +26,7 @@ type LoginForm = {
 };
 
 export default function App() {
-  // Create login form
   const loginForm = createForm<LoginForm>();
-
-  return …;
 }
 ```
 
@@ -37,20 +36,77 @@ For the JSX part of your form, the library provides the <A href="/api/Form">`For
 
 ```tsx
 import { createForm, Form } from '@modular-forms/solid';
-import { loginUser } from '../api';
+
+type LoginForm = { … };
+
+export default function App() {
+  const loginForm = createForm<LoginForm>();
+
+  return <Form of={loginForm}>…</Form>;
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+In Qwik, a form starts with its initial values returned via `routeLoader$`. With this information we can initialize the store of your form and enable Qwik to reliably start rendering your website on the server. We also use the initial values later to check if the value of a field has changed.
+
+> It is recommended to use `type` instead of `interface` to define your form, as this currently requires an explicit index signature. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
+
+```tsx
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { type FormLoader } from '@modular-forms/qwik';
 
 type LoginForm = {
   email: string;
   password: string;
 };
 
-export default function App() {
-  const loginForm = createForm<LoginForm>();
+export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(() => ({
+  email: '',
+  password: '',
+}));
+```
 
-  return (
-    <Form of={loginForm} onSubmit={loginUser}>
-      …
-    </Form>
-  );
+This is followed by the <A href="/api/useForm">`useForm`</A> hook, to which you then pass your loader. The hook returns a tuble containing the store of the form in the first place and the <A href="/api/Form">`Form`</A>, <A href="/api/Field">`Field`</A> and <A href="/api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
+
+```tsx
+import { component$ } from "@builder.io/qwik";
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { type FormLoader, useForm } from '@modular-forms/qwik';
+
+type LoginForm = { … };
+
+export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+
+export default component$(() => {
+  const [loginForm, Form, Field, FieldArray] = useForm<LoginForm>({
+    loader: useFormLoader(),
+  });
 }
 ```
+
+The tuble allows you to freely name the individual return values. This can be useful, for example, if a single page contains multiple forms. The returned <A href="/api/Form">`Form`</A>, <A href="/api/Field">`Field`</A> and <A href="/api/FieldArray">`FieldArray`</A> component are already connected with the store of your form. Also, if you are using TypeScript, they are aware of your fields and their data types, which gives you the benefit of type safety and autocompletion.
+
+In the JSX part of your component you start with the <A href="/api/Form">`Form`</A> component. It encloses the fields of your form and through its properties you can define what happens when the form is submitted. More on this later.
+
+```tsx
+import { component$ } from "@builder.io/qwik";
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { type FormLoader, useForm } from '@modular-forms/qwik';
+
+type LoginForm = { … };
+
+export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+
+export default component$(() => {
+  const [loginForm, Form, Field, FieldArray] = useForm<LoginForm>({
+    loader: useFormLoader(),
+  });
+
+  return <Form>…</Form>;
+}
+```
+
+</Qwik>

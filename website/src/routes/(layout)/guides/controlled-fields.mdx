@@ -1,5 +1,6 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>Controlled fields</Title>
 <Description>
@@ -13,7 +14,9 @@ By default, all form fields are uncontrolled because that's the default behavior
 
 However, as soon as your forms become more complex, for example you set initial values or change the values of a form field via <A href="/api/setValue">`setValue`</A>, it becomes necessary that you control your fields yourself. For example, depending on which HTML form field you use, you may need to set the `value`, `checked`, or `selected` attributes.
 
-For a text input field you simply add the `value` attribute and pass the value of the field or in case of `undefined` or `null` an empty string.
+For a text input field you simply add the `value` attribute<Solid>{' '}and pass the value of the field or in case of `undefined` or `null` an empty string</Solid>:
+
+<Solid block>
 
 ```tsx
 <Field of={contactForm} name="firstName">
@@ -28,4 +31,16 @@ For a text input field you simply add the `value` attribute and pass the value o
 </Field>
 ```
 
-> The HTML `<input type="file" />` element is an exception because it cannot be controlled. However, you have the possibility to control the UI around it. For inspiration you can use the code of our <a href="https://github.com/fabian-hiller/modular-forms/blob/main/packages/website/src/components/FileInput.tsx" target="_blank" rel="noreferrer">`FileInput`</a> component from our <A href="/playground/special">playground</A>.
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name="firstName">
+  {(field, props) => <input {...props} type="text" value={field.value} />}
+</Field>
+```
+
+</Qwik>
+
+> The HTML `<input type="file" />` element is an exception because it cannot be controlled. However, you have the possibility to control the UI around it. For inspiration you can use the code of our <a href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${getFramework()}/src/components/FileInput.tsx`} target="\_blank" rel="noreferrer">`FileInput`</a> component from our <A href="/playground/special">playground</A>.

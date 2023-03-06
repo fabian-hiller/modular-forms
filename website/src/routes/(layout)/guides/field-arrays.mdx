@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Field arrays</Title>
 <Description>
@@ -26,9 +26,11 @@ type TodoForm = {
 };
 ```
 
-To dynamically generate the form fields for the todos, you use our <A href="/api/FieldArray">`FieldArray`</A> component in combination with the `For` component from Solid. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that the `For` component uses to detect when an item is added, moved, or removed.
+To dynamically generate the form fields for the todos, you use our <A href="/api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that the `For` component uses to detect when an item is added, moved, or removed.
 
-As with nested fields, you use dot notation for the name of each field. It is important that you use the index signal of the `For` component to specify the index, so that the fields are updated when the items are changed.
+As with nested fields, you use dot notation for the name of each field. It is important that you use the index <Solid>signal of the `For` component</Solid><Qwik>of the loop</Qwik> to specify the index of the field, so that they are updated when the items are changed.
+
+<Solid block>
 
 ```tsx
 <FieldArray of={todoForm} name="todos">
@@ -49,9 +51,32 @@ As with nested fields, you use dot notation for the name of each field. It is im
 </FieldArray>
 ```
 
+</Solid>
+
+<Qwik block>
+
+```tsx
+<FieldArray name="todos">
+  {(fieldArray) =>
+    fieldArray.items.map((item, index) => (
+      <div key={item}>
+        <Field name={`todos.${index)}.label`}>
+          {(field, props) => <input {...props} type="text" />}
+        </Field>
+        <Field name={`todos.${index}.deadline`}>
+          {(field, props) => <input {...props} type="date" />}
+        </Field>
+      </div>
+    ))
+  }
+</FieldArray>
+```
+
+</Qwik>
+
 As with fields, you can also validate field arrays with the `validate` attribute. For example, to limit the length of the array you can use the <A href="/api/maxLength">`maxLength`</A> function.
 
-Now you can use the <A href="/api/insert">`insert`</A>, <A href="/api/move">`move`</A>, <A href="/api/remove">`remove`</A>, <A href="/api/replace">`replace`</A> and <A href="/api/swap">`swap`</A> method to make changes to the field array. For example, to move the first item two positions back, use the <A href="/api/move">`move`</A> method. It will automatically take care of rearranging all the fields in between.
+Now you can use the <A href="/api/insert">`insert`</A>, <A href="/api/move">`move`</A>, <A href="/api/remove">`remove`</A>, <A href="/api/replace">`replace`</A> and <A href="/api/swap">`swap`</A> method to make changes to the field array. For example, to move the first item forward by two positions, use the <A href="/api/move">`move`</A> method. It will automatically take care of rearranging all the fields in between.
 
 ```ts
 move(todoForm, 'todos', { from: 0, to: 2 });
@@ -60,6 +85,8 @@ move(todoForm, 'todos', { from: 0, to: 2 });
 For more details on the other methods, see the <A href="/api">API Reference</A>.
 
 If you need to nest multiple field arrays, dot notation can get complicated when specifying a field name. To solve this problem, you can use the name of the field array dynamically.
+
+<Solid block>
 
 ```tsx
 <FieldArray of={todoForm} name="todos">
@@ -79,5 +106,28 @@ If you need to nest multiple field arrays, dot notation can get complicated when
   )}
 </FieldArray>
 ```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+<FieldArray name="todos">
+  {(fieldArray) =>
+    fieldArray.items.map((item, index) => (
+      <div key={item}>
+        <Field name={`${fieldArray.name}.${index)}.label`}>
+          {(field, props) => <input {...props} type="text" />}
+        </Field>
+        <Field name={`${fieldArray.name}.${index}.deadline`}>
+          {(field, props) => <input {...props} type="date" />}
+        </Field>
+      </div>
+    ))
+  }
+</FieldArray>
+```
+
+</Qwik>
 
 You can nest field arrays as deeply as you like. You will also find a suitable example of this on our <A href="/playground/nested">playground</A>.

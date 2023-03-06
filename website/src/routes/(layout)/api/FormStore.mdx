@@ -1,18 +1,18 @@
 import { A } from 'solid-start';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
-<Title>FormState</Title>
-<Description>Type that defines the state of a form.</Description>
+<Title>FormStore</Title>
+<Description>Type that defines the store of a form.</Description>
 
-# FormState
+# FormStore
 
-<Solid block>
+<Qwik block>
 
-Type that defines the state of a form.
+Type that defines the store of a form.
 
 ## Definition
 
-- `FormState` <Property type="object" />
+- `FormStore` <Property type="object" />
   - `element` <Property {...properties.element} />
   - `submitCount` <Property type="number" />
   - `submitting` <Property type="boolean" />
@@ -27,17 +27,17 @@ Type that defines the state of a form.
 
 ### Explanation
 
-The state properties of the form are reactive and can be used, for example, in the JSX area or Solid's `createEffect` primitive.
+The properties of the form are reactive and can be used, for example, in the JSX area or the `useTask$` hook.
 
-If you use the <A href="/api/Form">`Form`</A> component or the <A href="/api/handleSubmit">`handleSubmit`</A> method to submit your form, errors that are thrown are made accessible via the `response` object. In conjunction with the <A href="/api/setResponse">`setResponse`</A> method, you can also use `response` to display custom feedback to your user.
-
-</Solid>
-
-<Qwik block>
-
-> This page is exclusively for the SolidJS library of Modular Forms.
+Errors that occur when submitting the form are made accessible via the `response` object. In conjunction with the <A href="/api/setResponse">`setResponse`</A> method, you can also use `response` to display custom feedback to your user.
 
 </Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
 
 export const properties = {
   element: {

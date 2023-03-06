@@ -1,9 +1,11 @@
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>FieldArrayState</Title>
 <Description>Type that defines the state of a form field array.</Description>
 
 # FieldArrayState
+
+<Solid block>
 
 Type that defines the state of a form field array.
 
@@ -23,3 +25,11 @@ Type that defines the state of a form field array.
 The `items` do not contain the value of the fields, but only a random unique number. This allows the `For` component of SolidJS to detect when a field moves within the array.
 
 The state properties of the field array are reactive and can be used, for example, in the JSX area or Solid's `createEffect` primitive.
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>

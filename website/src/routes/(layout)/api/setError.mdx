@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>setError</Title>
 <Description>Sets the error of the specified field or field array.</Description>
@@ -13,7 +14,7 @@ setError(form, name, error, options);
 
 ## Parameters
 
-- `form` <Property {...properties.form} />
+- `form` <Property {...properties[getFramework()]?.form} />
 - `name` <Property type="string" />
 - `error` <Property type="string" />
 - `options` <Property {...properties.options} />
@@ -24,13 +25,6 @@ setError(form, name, error, options);
 If you have specified the name of a field, its HTML element is focused by default to make it easier for the user to respond to the error. To change this behavior, you can set `shouldFocus` to `false`.
 
 export const properties = {
-  form: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
   options: {
     type: 'object',
     defaultValue: { type: 'object', entries: [] },
@@ -38,5 +32,23 @@ export const properties = {
   shouldFocus: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
+  },
+  solid: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+  },
+  qwik: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
   },
 };

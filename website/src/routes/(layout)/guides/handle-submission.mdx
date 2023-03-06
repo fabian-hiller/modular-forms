@@ -1,0 +1,100 @@
+import { A } from 'solid-start';
+import { Description, Qwik, Solid, Title } from '~/components';
+
+<Title>Handle submission</Title>
+<Description>
+  Now your first form is almost ready. There is only one little thing missing
+  and that is the data processing when the form is submitted.
+</Description>
+
+# Handle submission
+
+Now your first form is almost ready. There is only one little thing missing and that is the data processing when the form is submitted.
+
+To make your form work even if JavaScript is disabled in your user's browser, we recommend using actions. Optionally, you can also perform the data processing on the client with <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> or use both in parallel.
+
+> The integration of actions is still under development. We expect to finish the integration in the coming weeks. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
+
+<Solid block>
+
+```tsx
+import { createForm, Form, SubmitEvent } from '@modular-forms/solid';
+import { createRouteAction } from 'solid-start';
+import { createServerAction$ } from 'solid-start/server';
+
+type LoginForm = { … };
+
+export default function App() {
+  const [serverAction, runServerAction] = createServerAction$(
+    async (formData: FormData) => {
+      // Runs on server
+    }
+  );
+
+  const [routeAction, runRouteAction] = createRouteAction(
+    async (formData: FormData) => {
+      // Runs on client or server
+    }
+  );
+
+  const loginForm = createForm<LoginForm>({
+    action: serverAction, // or "routeAction"
+  });
+
+  const handleSubmit = (values: LoginForm, event: SubmitEvent) => {
+    // Runs on client
+  };
+
+  return (
+    <Form
+      of={loginForm}
+      action={runServerAction} // or "runRouteAction"
+      onSubmit={handleSubmit}
+    >
+      …
+    </Form>
+  );
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+import { $, component$ } from "@builder.io/qwik";
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { type FormLoader } from '@modular-forms/qwik';
+
+type LoginForm = { … };
+
+export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+
+export const useFormAction = routeAction$<FormAction<LoginForm>>((values) => ({
+  // Runs on server
+}));
+
+export default component$(() => {
+  const formAction = useFormAction();
+  const [loginForm, Form, Field, FieldArray] = useForm<LoginForm>({
+    loader: useFormLoader(),
+    action: formAction,
+  });
+
+  const handleSubmit = $(
+    (values: LoginForm, event: QwikSubmitEvent<HTMLFormElement>) => {
+      // Runs on client
+    }
+  );
+
+  return (
+    <Form action={formAction} onSubmit$={handleSubmit}>
+      …
+    </Form>
+  );
+}
+```
+
+</Qwik>
+
+Note that Modular Forms validation takes place in the browser and can be manipulated by the user. Make sure that the values are validated again on the server before you save them to your database, for example.

@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>minSize</Title>
 <Description>
@@ -20,24 +21,51 @@ const validate = minSize(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties.validate} />
+- `validate` <Property {...properties[getFramework()]?.validate} />
 
 export const properties = {
-  validate: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'value',
-          type: [
-            { type: 'custom', name: 'File' },
-            { type: 'custom', name: 'FileList' },
-            'null',
-            'undefined',
-          ],
-        },
-      ],
-      return: 'string',
+  solid: {
+    validate: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: [
+              { type: 'custom', name: 'File' },
+              { type: 'custom', name: 'FileList' },
+              'null',
+              'undefined',
+            ],
+          },
+        ],
+        return: 'string',
+      },
+    },
+  },
+  qwik: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'value',
+                type: [
+                  { type: 'custom', name: 'File' },
+                  { type: 'custom', name: 'FileList' },
+                  'null',
+                  'undefined',
+                ],
+              },
+            ],
+            return: 'string',
+          },
+        ],
+      },
     },
   },
 };

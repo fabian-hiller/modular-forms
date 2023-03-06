@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Add fields to form</Title>
 <Description>
@@ -9,18 +9,17 @@ import { Description, Title } from '~/components';
 
 # Add fields to form
 
+<Solid block>
+
 To add a field to your form, you use the <A href="/api/Field">`Field`</A> component. It is similar to the `For` component from Solid. It has a readable API and accepts a render function as a child.
 
-Due to the modular design of the library, you must always pass your form containing state as a property. This results in a readable API and enables auto-completion when using TypeScript.
+Due to the modular design of the library, you must always pass your form containing state as a property. This results in a readable API and enables autocompletion when using TypeScript.
 
 ```tsx
 import { createForm, Form, Field } from '@modular-forms/solid';
 import { loginUser } from '../api';
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
+type LoginForm = { … };
 
 export default function App() {
   const loginForm = createForm<LoginForm>();
@@ -38,3 +37,45 @@ export default function App() {
   );
 }
 ```
+
+</Solid>
+
+<Qwik block>
+
+To add a field to your form, you use the <A href="/api/Field">`Field`</A> component. It has a mandatory property called `name` which you use to specify which field it is. If you use TypeScript, you don't have to type the name yourself thanks to autocompletion.
+
+As a child, you pass a function to the <A href="/api/Field">`Field`</A> component that returns JSX. You can use the first parameter of the function to access the current state of the field and the second parameter you have to pass to an HTML `<input />`, `<textarea />` or `<select />` element to connect it to your form.
+
+```tsx
+import { component$ } from "@builder.io/qwik";
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { type FormLoader, useForm } from '@modular-forms/qwik';
+
+type LoginForm = { … };
+
+export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+
+export default component$(() => {
+  const [loginForm, Form, Field] = useForm<LoginForm>({
+    loader: useFormLoader(),
+  });
+
+  return (
+    <Form>
+      <Field name="email">
+        {(field, props) => <input {...props} type="email" />}
+      </Field>
+      <Field name="password">
+        {(field, props) => <input {...props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Qwik>
+
+The <A href="/api/Field">`Field`</A> component does not render its own UI elements. It is headless and provides only the data layer of the field. This allows you to freely define your user interface. You can use HTML elements, custom components or an external UI library.
+
+This API design leads to an almost completely type-safe form. For example, if you change the name of a field, TypeScript will immediately alert you. Also, you can't mistype when adding an error message, because it is taken from the provided state of the field. More about this on the next page.

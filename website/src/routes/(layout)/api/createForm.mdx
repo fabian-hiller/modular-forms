@@ -1,4 +1,4 @@
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>createForm</Title>
 <Description>
@@ -6,6 +6,8 @@ import { Description, Property, Title } from '~/components';
 </Description>
 
 # createForm
+
+<Solid block>
 
 Creates the core of a modular form that contains its reactive state.
 
@@ -21,7 +23,7 @@ const form = createForm<Values>(options);
 
 If you use TypeScript, you should define your field values. This way the library knows exactly which fields your form has and what values they expect. It also allows autocompletion and TypeScript notifies you of typos.
 
-> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href="https://github.com/fabian-hiller/modular-forms/issues/2#issuecomment-1321178563" target="_blank" rel="noreferrer">here</a>.
+> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
 
 ## Parameter
 
@@ -38,6 +40,14 @@ With `validateOn` and `revalidateOn` you can define your validation strategy. `v
 ## Return
 
 - `form` <Property {...properties.form} />
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
 
 export const properties = {
   Values: {

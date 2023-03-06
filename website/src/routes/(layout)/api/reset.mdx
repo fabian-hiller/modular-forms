@@ -1,5 +1,6 @@
 import { A } from 'solid-start';
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>reset</Title>
 <Description>
@@ -24,7 +25,7 @@ reset(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties.form} />
+- `form` <Property {...properties[getFramework()]?.form} />
 - `names` <Property {...properties.names} />
 - `name` <Property type="string" />
 - `options` <Property {...properties.options} />
@@ -45,24 +46,21 @@ reset(form, name, options);
 
 In addition to the names of the fields, you can also specify the name of a field array under `names` or `name`. In this case, the field array and the fields and field arrays it contains will be reset.
 
-When you reset the entire form, you can specify new `initialValues` that override the `initialValues` you may specified in the <A href="/api/createForm">`createForm`</A> primitive.
+When you reset the entire form <Qwik>or several fields</Qwik>, you can specify new `initialValues` that override the <Solid>`initialValues`</Solid><Qwik>`loader`</Qwik> you <Solid>may</Solid> specified in the <Solid><A href="/api/createForm">`createForm`</A> primitive</Solid><Qwik><A href="/api/useForm">`useForm`</A> hook</Qwik>.
+
+<Solid block>
 
 When you reset several fields, you can specify `initialValues` that get shallow merged into the `initialValues` you may specified in the <A href="/api/createForm">`createForm`</A> primitive.
 
-When you reset a single field, you can specify a new `initialValue` that override the initial value you may set in the `initialValues` property of the <A href="/api/createForm">`createForm`</A> primitive. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
+</Solid>
+
+When you reset a single field, you can specify a new `initialValue` that override the initial value you <Solid>may</Solid> set in the <Solid>`initialValues`</Solid><Qwik>`loader`</Qwik> of the <Solid><A href="/api/createForm">`createForm`</A> primitive</Solid><Qwik><A href="/api/useForm">`useForm`</A> hook</Qwik>. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
 
 By default, the reactive `response`, `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepResponse`, `keepSubmitCount` and/or `keepSubmitted` to `true`.
 
 By default, the `value`, `items`, `error`, `touched` and `dirty` state of each field and field array are reset. To change this behavior you can set `keepValues`, `keepDirtyValues`, `keepItems`, `keepDirtyItems`, `keepErrors`, `keepTouched` and/or `keepDirty` to `true`.
 
 export const properties = {
-  form: {
-    type: {
-      type: 'custom',
-      name: 'FormState',
-      href: '/api/FormState',
-    },
-  },
   names: {
     type: {
       type: 'array',
@@ -143,5 +141,23 @@ export const properties = {
   keepDirty: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
+  },
+  solid: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+  },
+  qwik: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
   },
 };

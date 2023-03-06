@@ -1,0 +1,106 @@
+import { A } from 'solid-start';
+import { Description, Qwik, Solid, Title } from '~/components';
+
+<Title>Kobalte</Title>
+<Description></Description>
+
+# Kobalte
+
+<Solid block>
+
+As a SolidJS user, you can rely on <a href="https://kobalte.dev/" target="_blank" rel="noreferrer">Kobalte's</a> pre-built but unstyled components to create your own components faster and with great accessibility. In this guide I show a few code examples.
+
+The idea is that you can copy the code examples, add your own CSS and then use the components with Modular Forms to create your forms. Please let us know via the <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issues</a> if you run into any problems with the implementation or if any of the code samples are out of date.
+
+> To understand the code examples, it may help to read the guide about <A href="/guides/input-components">input components</A> beforehand.
+
+To get started, first add Kobalte to your project via `npm`, `yarn` or `pnpm`:
+
+```bash
+npm install @kobalte/core
+```
+
+## Text Field
+
+We start with the <a href="https://kobalte.dev/docs/core/components/text-field" target="_blank" rel="noreferrer">Text Field</a> from Kobalte. Add the file `TextField.tsx` to your components directory and copy the following code into it:
+
+```tsx
+import { TextField } from '@kobalte/core';
+import { type JSX, Show, splitProps } from 'solid-js';
+
+type TextFieldProps = {
+  name: string;
+  type?: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  label?: string;
+  placeholder?: string;
+  value: string | number | undefined;
+  error: string;
+  required?: boolean;
+  multiline?: boolean;
+  ref: (element: HTMLInputElement | HTMLTextAreaElement) => void;
+  onInput: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, InputEvent>;
+  onChange: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, Event>;
+  onBlur: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, FocusEvent>;
+};
+
+export function TextField(props: TextFieldProps) {
+  const [fieldProps] = splitProps(props, [
+    'placeholder',
+    'ref',
+    'onInput',
+    'onChange',
+    'onBlur',
+  ]);
+  return (
+    <TextField.Root
+      name={props.name}
+      value={props.value}
+      validationState={props.error ? 'invalid' : 'valid'}
+      isRequired={props.required}
+    >
+      <Show when={props.label}>
+        <TextField.Label>{props.label}</TextField.Label>
+      </Show>
+      <Show
+        when={props.multiline}
+        fallback={<TextField.Input {...fieldProps} type={props.type} />}
+      >
+        <TextField.TextArea {...fieldProps} autoResize />
+      </Show>
+      <TextField.ErrorMessage>{props.error}</TextField.ErrorMessage>
+    </TextField.Root>
+  );
+}
+```
+
+After adding your own styles, you can use the component together with Modular Forms as follows:
+
+```tsx
+<Field
+  of={loginForm}
+  name="email"
+  validate={…}
+>
+  {(field) => (
+    <TextField
+      {...field.props}
+      type="email"
+      label="Email"
+      placeholder="jane@example.com"
+      value={field.value}
+      error={field.error}
+      required
+    />
+  )}
+</Field>
+```
+
+> This guide is still work in progress. More code examples will follow in the future.
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>

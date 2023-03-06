@@ -1,0 +1,74 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>useForm</Title>
+<Description>
+  Creates and returns the store of the form as well as a linked Form, Field and
+  FieldArray component in a tuple.
+</Description>
+
+# useForm
+
+<Qwik block>
+
+Creates and returns the store of the form as well as a linked Form, Field and FieldArray component in a tuple.
+
+```ts
+const [form, Form, Field, FieldArray] = useForm<Values>(options);
+```
+
+> If you prefer to use the library as modular as possible, you can use the <A href="/api/useFormStore">`useFormStore`</A> hook instead.
+
+## Generic
+
+- `Values` <Property {...properties.Values} />
+
+### Explanation
+
+If you use TypeScript, you should define your field values. This way the library knows exactly which fields your form has and what values they expect. It also allows autocompletion and TypeScript notifies you of typos.
+
+> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
+
+## Parameter
+
+- `options` <Property {...properties.options} />
+
+## Return
+
+- `form` <Property {...properties.form} />
+- `Form` <Property {...properties.Form} />
+- `Field` <Property {...properties.Field} />
+- `FieldArray` <Property {...properties.FieldArray} />
+
+### Explanation
+
+Since the <A href="/api/Form">`Form`</A>, <A href="/api/Form">`Field`</A> and <A href="/api/Form">`FieldArray`</A> components are already linked to your form, you don't need to add the `of` property.
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
+  },
+  options: {
+    type: { type: 'custom', name: 'FormOptions', href: '/api/FormOptions' },
+  },
+  form: {
+    type: { type: 'custom', name: 'FormStore', href: '/api/FormStore' },
+  },
+  Form: {
+    type: { type: 'custom', name: 'Form', href: '/api/Form' },
+  },
+  Field: {
+    type: { type: 'custom', name: 'Field', href: '/api/Field' },
+  },
+  FieldArray: {
+    type: { type: 'custom', name: 'FieldArray', href: '/api/FieldArray' },
+  },
+};

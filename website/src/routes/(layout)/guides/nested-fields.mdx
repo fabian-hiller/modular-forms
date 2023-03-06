@@ -1,4 +1,4 @@
-import { Description, Title } from '~/components';
+import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Nested fields</Title>
 <Description>
@@ -23,10 +23,24 @@ type ContactForm = {
 };
 ```
 
-When creating a nested field, use dot notation for the name to refer to the field. If you're using TypeScript, your editor should be able to auto-complete the name for you.
+When creating a nested field, use dot notation for the name to refer to the field. If you're using TypeScript, your editor should be able to autocomplete the name for you.
+
+<Solid block>
 
 ```tsx
 <Field of={contactForm} name="name.first">
   {(field) => <input {...field.props} type="text" />}
 </Field>
 ```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name="name.first">
+  {(field, props) => <input {...props} type="text" />}
+</Field>
+```
+
+</Qwik>

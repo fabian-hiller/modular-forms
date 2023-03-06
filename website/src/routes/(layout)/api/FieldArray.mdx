@@ -1,14 +1,14 @@
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>FieldArray</Title>
 <Description>
-  Wrapper component that sets up a form field array and provides its reactive
-  state.
+  Headless field array that provides reactive properties and state.
 </Description>
 
 # FieldArray
 
-Wrapper component that sets up a form field array and provides its reactive state.
+Headless field array that provides reactive properties and state.
 
 ```tsx
 <FieldArray of={…} name={…} validate={…} keepActive={…} keepState={…}>
@@ -23,7 +23,7 @@ Wrapper component that sets up a form field array and provides its reactive stat
 - `validate` <Property {...properties.validate} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
-- `children` <Property {...properties.children} />
+- `children` <Property {...properties[getFramework()]?.children} />
 
 ### Explanation
 
@@ -44,46 +44,16 @@ export const properties = {
   validate: {
     type: [
       {
-        type: 'function',
-        params: [
-          {
-            name: 'items',
-            type: {
-              type: 'array',
-              item: 'number',
-            },
-          },
-        ],
-        return: [
-          'string',
-          {
-            type: 'custom',
-            name: 'Promise',
-            generics: ['string'],
-          },
-        ],
+        type: 'custom',
+        name: 'ValidateFieldArray',
+        href: '/api/ValidateFieldArray',
       },
       {
         type: 'array',
         item: {
-          type: 'function',
-          params: [
-            {
-              name: 'items',
-              type: {
-                type: 'array',
-                item: 'number',
-              },
-            },
-          ],
-          return: [
-            'string',
-            {
-              type: 'custom',
-              name: 'Promise',
-              generics: ['string'],
-            },
-          ],
+          type: 'custom',
+          name: 'ValidateFieldArray',
+          href: '/api/ValidateFieldArray',
         },
       },
       'undefined',
@@ -97,20 +67,40 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  children: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'fieldArray',
-          type: {
-            type: 'custom',
-            name: 'FieldArrayState',
-            href: '/api/FieldArrayState',
+  solid: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'fieldArray',
+            type: {
+              type: 'custom',
+              name: 'FieldArrayState',
+              href: '/api/FieldArrayState',
+            },
           },
-        },
-      ],
-      return: { type: 'custom', name: 'JSX.Element' },
+        ],
+        return: { type: 'custom', name: 'JSX.Element' },
+      },
+    },
+  },
+  qwik: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'fieldArray',
+            type: {
+              type: 'custom',
+              name: 'FieldArrayStore',
+              href: '/api/FieldArrayStore',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'JSX.Element' },
+      },
     },
   },
 };
