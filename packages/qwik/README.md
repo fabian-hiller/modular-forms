@@ -18,9 +18,9 @@ Modular Forms is a JavaScript library that is build on top of [Qwik](https://qwi
 
 The mission of Modular Forms is to gather the latest available experience and knowledge to provide the best possible form library for JavaScript frameworks. We pay special attention to type safety, bundle size, performance and input validation. You can expect that every decision we make during development is well thought out and always takes these main features into account.
 
-## 🪐 Vission
+## 🪐 Vision
 
-At the time of the initial development of Modular Forms, there was no form library with comparable type safety, bundle size and performance. However, many of the ideas came from previous open source projects and only the development of the last few years has made a form library in this way possible. The vission of Modular Forms is to shape the future of the web together and to share our knowledge and experience with the open source community.
+At the time of the initial development of Modular Forms, there was no form library with comparable type safety, bundle size and performance. However, many of the ideas came from previous open source projects and only the development of the last few years has made a form library in this way possible. The vision of Modular Forms is to shape the future of the web together and to share our knowledge and experience with the open source community.
 
 ## 🙌🏼 Credits
 
