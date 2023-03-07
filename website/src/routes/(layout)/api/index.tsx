@@ -1,10 +1,12 @@
-import { Navigate } from 'solid-start';
-import { redirect } from '~/utils';
+import { APIEvent, Navigate } from 'solid-start';
+import { frameworkCookie } from '~/cookies';
+import { isSolid, redirect } from '~/utils';
 
-export function GET() {
-  return redirect('createForm');
+export async function GET({ request }: APIEvent) {
+  const framework = await frameworkCookie.parse(request.headers.get('Cookie'));
+  return redirect(framework === 'qwik' ? 'useForm' : 'createForm');
 }
 
 export default function GuidesPage() {
-  return <Navigate href="createForm" />;
+  return <Navigate href={isSolid() ? 'createForm' : 'useForm'} />;
 }
