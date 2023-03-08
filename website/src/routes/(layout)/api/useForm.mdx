@@ -4,17 +4,17 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 <Title>useForm</Title>
 <Description>
   Creates and returns the store of the form as well as a linked Form, Field and
-  FieldArray component in a tuple.
+  FieldArray component.
 </Description>
 
 # useForm
 
 <Qwik block>
 
-Creates and returns the store of the form as well as a linked Form, Field and FieldArray component in a tuple.
+Creates and returns the store of the form as well as a linked Form, Field and FieldArray component.
 
 ```ts
-const [form, Form, Field, FieldArray] = useForm<Values>(options);
+const [form, { Form, Field, FieldArray }] = useForm<Values>(options);
 ```
 
 > If you prefer to use the library as modular as possible, you can use the <A href="/api/useFormStore">`useFormStore`</A> hook instead.

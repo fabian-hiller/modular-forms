@@ -103,7 +103,7 @@ type LoginForm = { … };
 export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
 
 export default component$(() => {
-  const [loginForm, Form, Field] = useForm<LoginForm>({
+  const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
   });
 
@@ -226,7 +226,7 @@ type LoginForm = z.input<typeof loginSchema>;
 export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
 
 export default component$(() => {
-  const [loginForm, Form, Field] = useForm<LoginForm>({
+  const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
     validate: $(zodForm(loginSchema)),
   });

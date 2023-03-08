@@ -76,7 +76,7 @@ export const useFormAction = routeAction$<FormAction<LoginForm>>((values) => ({
 
 export default component$(() => {
   const formAction = useFormAction();
-  const [loginForm, Form, Field, FieldArray] = useForm<LoginForm>({
+  const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
     action: formAction,
   });
@@ -96,5 +96,7 @@ export default component$(() => {
 ```
 
 </Qwik>
+
+While the form is being submitted, you can use `loginForm.submitting` to display a loading animation and disable the submit button. Furthermore, using the `shouldDirty` property of the <A href="/api/Form">`Form`</A> component, you have the option to have the form return only modified values. This reduces network traffic, for example if you only want to update values that have changed in your database.
 
 Note that Modular Forms validation takes place in the browser and can be manipulated by the user. Make sure that the values are validated again on the server before you save them to your database, for example.

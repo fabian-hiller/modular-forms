@@ -18,11 +18,11 @@ import { useFormStore } from './useFormStore';
 
 /**
  * Creates and returns the store of the form as well as a linked Form, Field
- * and FieldArray component in a tuple.
+ * and FieldArray component.
  *
  * @param options The form options.
  *
- * @returns The store and component tuple.
+ * @returns The store and linked components.
  */
 export function useForm<
   TFieldValues extends FieldValues,
@@ -32,46 +32,17 @@ export function useForm<
   options: FormOptions<TFieldValues>
 ): [
   FormStore<TFieldValues, TFieldName, TFieldArrayName>,
-  (
-    props: Omit<FormProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
-  ) => JSX.Element,
-  <
-    TFieldName extends FieldPath<TFieldValues>,
-    TFieldArrayName extends FieldArrayPath<TFieldValues>
-  >(
-    props: Omit<FieldProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
-  ) => JSX.Element,
-  <
-    TFieldName extends FieldPath<TFieldValues>,
-    TFieldArrayName extends FieldArrayPath<TFieldValues>
-  >(
-    props: Omit<
-      FieldArrayProps<TFieldValues, TFieldName, TFieldArrayName>,
-      'of'
-    >
-  ) => JSX.Element
-] {
-  // Use form store
-  const form = useFormStore(options);
-
-  return [
-    // Form store
-    form,
-
-    // Form component
-    (props: Omit<FormProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>) =>
-      Form({ of: form, ...props }),
-
-    // Field component
-    <
+  {
+    Form: (
+      props: Omit<FormProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
+    ) => JSX.Element;
+    Field: <
       TFieldName extends FieldPath<TFieldValues>,
       TFieldArrayName extends FieldArrayPath<TFieldValues>
     >(
       props: Omit<FieldProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
-    ) => Field({ of: form, ...props }),
-
-    // Field array component
-    <
+    ) => JSX.Element;
+    FieldArray: <
       TFieldName extends FieldPath<TFieldValues>,
       TFieldArrayName extends FieldArrayPath<TFieldValues>
     >(
@@ -79,6 +50,34 @@ export function useForm<
         FieldArrayProps<TFieldValues, TFieldName, TFieldArrayName>,
         'of'
       >
-    ) => FieldArray({ of: form, ...props }),
+    ) => JSX.Element;
+  }
+] {
+  // Use form store
+  const form = useFormStore(options);
+
+  // Return form store and linked components
+  return [
+    form,
+    {
+      Form: (
+        props: Omit<FormProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
+      ) => Form({ of: form, ...props }),
+      Field: <
+        TFieldName extends FieldPath<TFieldValues>,
+        TFieldArrayName extends FieldArrayPath<TFieldValues>
+      >(
+        props: Omit<FieldProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
+      ) => Field({ of: form, ...props }),
+      FieldArray: <
+        TFieldName extends FieldPath<TFieldValues>,
+        TFieldArrayName extends FieldArrayPath<TFieldValues>
+      >(
+        props: Omit<
+          FieldArrayProps<TFieldValues, TFieldName, TFieldArrayName>,
+          'of'
+        >
+      ) => FieldArray({ of: form, ...props }),
+    },
   ];
 }
