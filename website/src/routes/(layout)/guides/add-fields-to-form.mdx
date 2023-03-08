@@ -15,6 +15,20 @@ To add a field to your form, you use the <A href="/api/Field">`Field`</A> compon
 
 Due to the modular design of the library, you must always pass your form containing state as a property. This results in a readable API and enables autocompletion when using TypeScript.
 
+</Solid>
+
+<Qwik block>
+
+To add a field to your form, you use the <A href="/api/Field">`Field`</A> component. It has a mandatory property called `name` which you use to specify which field it is. If you use TypeScript, you don't have to type the name yourself thanks to autocompletion.
+
+As a child, you pass a function to the <A href="/api/Field">`Field`</A> component that returns JSX. You can use the first parameter of the function to access the current state of the field and the second parameter you have to pass to an HTML `<input />`, `<textarea />` or `<select />` element to connect it to your form.
+
+</Qwik>
+
+> Please let us know via <A href="/legal/imprint">email</A> or the <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issues</a> on GitHub if something is unclear or you have ideas on how we can further improve the API and documentation.
+
+<Solid block>
+
 ```tsx
 import { createForm, Form, Field } from '@modular-forms/solid';
 import { loginUser } from '../api';
@@ -41,10 +55,6 @@ export default function App() {
 </Solid>
 
 <Qwik block>
-
-To add a field to your form, you use the <A href="/api/Field">`Field`</A> component. It has a mandatory property called `name` which you use to specify which field it is. If you use TypeScript, you don't have to type the name yourself thanks to autocompletion.
-
-As a child, you pass a function to the <A href="/api/Field">`Field`</A> component that returns JSX. You can use the first parameter of the function to access the current state of the field and the second parameter you have to pass to an HTML `<input />`, `<textarea />` or `<select />` element to connect it to your form.
 
 ```tsx
 import { component$ } from "@builder.io/qwik";
