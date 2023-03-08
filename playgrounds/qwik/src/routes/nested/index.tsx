@@ -33,7 +33,7 @@ export const useFormLoader = routeLoader$<FormLoader<NestedForm>>(() => ({
 
 export default component$(() => {
   // Use nested form
-  const [nestedForm, Form, Field, FieldArray] = useForm<NestedForm>({
+  const [nestedForm, { Form, Field, FieldArray }] = useForm<NestedForm>({
     loader: useFormLoader(),
   });
 

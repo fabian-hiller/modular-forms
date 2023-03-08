@@ -47,7 +47,7 @@ export const useFormLoader = routeLoader$<FormLoader<SpecialForm>>(() => ({
 
 export default component$(() => {
   // Use special form
-  const [specialForm, Form, Field] = useForm<SpecialForm>({
+  const [specialForm, { Form, Field }] = useForm<SpecialForm>({
     loader: useFormLoader(),
   });
 

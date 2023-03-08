@@ -36,7 +36,7 @@ export const useFormLoader = routeLoader$<FormLoader<PaymentForm>>(() => ({
 
 export default component$(() => {
   // Use payment form
-  const [paymentForm, Form, Field] = useForm<PaymentForm>({
+  const [paymentForm, { Form, Field }] = useForm<PaymentForm>({
     loader: useFormLoader(),
   });
 

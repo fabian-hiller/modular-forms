@@ -21,7 +21,7 @@ export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(() => ({
 
 export default component$(() => {
   // Use login form
-  const [loginForm, Form, Field] = useForm<LoginForm>({
+  const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
   });
 

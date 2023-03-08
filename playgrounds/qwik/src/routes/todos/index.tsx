@@ -48,7 +48,7 @@ export const useFormLoader = routeLoader$<FormLoader<TodoForm>>(() => ({
 
 export default component$(() => {
   // Use todo form
-  const [todoForm, Form, Field, FieldArray] = useForm<TodoForm>({
+  const [todoForm, { Form, Field, FieldArray }] = useForm<TodoForm>({
     loader: useFormLoader(),
   });
 
