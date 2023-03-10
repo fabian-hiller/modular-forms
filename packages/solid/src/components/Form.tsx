@@ -2,12 +2,17 @@ import { JSX, splitProps } from 'solid-js';
 import { handleSubmit } from '../methods/handleSubmit';
 import { FieldValues, FormState, SubmitEvent } from '../types';
 
+export type FormSubmitHandler<TFieldValues extends FieldValues> = (
+  values: TFieldValues,
+  event: SubmitEvent
+) => void | Promise<void>;
+
 type FormProps<TFieldValues extends FieldValues> = Omit<
   JSX.FormHTMLAttributes<HTMLFormElement>,
   'onSubmit'
 > & {
   of: FormState<TFieldValues>;
-  onSubmit: (values: TFieldValues, event: SubmitEvent) => void | Promise<void>;
+  onSubmit: FormSubmitHandler<TFieldValues>;
   keepResponse?: boolean;
   shouldActive?: boolean;
   shouldTouched?: boolean;

@@ -9,16 +9,24 @@ import type {
   FieldArrayPath,
 } from '../types';
 
+export type FormSubmitHandler<TFieldValues extends FieldValues> = PropFunction<
+  (values: TFieldValues, event: QwikSubmitEvent<HTMLFormElement>) => unknown
+>;
+
+export type FormAction<TFieldValues extends FieldValues> = ActionStore<
+  any,
+  TFieldValues,
+  true
+>; // TODO: Improve generics
+
 export type FormProps<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = Omit<QwikJSX.IntrinsicElements['form'], 'action' | 'method'> & {
   of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
-  action?: ActionStore<any, TFieldValues, true>; // TODO: Improve generics
-  onSubmit$?: PropFunction<
-    (values: TFieldValues, event: QwikSubmitEvent<HTMLFormElement>) => unknown
-  >;
+  action?: FormAction<TFieldValues>;
+  onSubmit$?: FormSubmitHandler<TFieldValues>;
   keepResponse?: boolean;
   shouldActive?: boolean;
   shouldTouched?: boolean;
