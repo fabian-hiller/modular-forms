@@ -82,3 +82,9 @@ export type FormState<TFieldValues extends FieldValues> = {
   invalid: boolean;
   response: Response;
 };
+
+/* 
+  Extracts the field values from the form state.
+*/
+export type FormValues<TFormState extends FormState<any>> =
+  TFormState extends FormState<infer TFieldValues> ? TFieldValues : never;

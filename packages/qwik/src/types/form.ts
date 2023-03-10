@@ -100,3 +100,8 @@ export type FormStore<
   invalid: boolean;
   response: Response;
 };
+
+export type FormValues<TFormState extends FormStore<any, any, any>> =
+  TFormState extends FormStore<infer TFieldValues, any, any>
+    ? TFieldValues
+    : never;
