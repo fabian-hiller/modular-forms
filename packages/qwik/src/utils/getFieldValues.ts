@@ -58,29 +58,20 @@ export function getFieldValues<
       (!shouldDirty || field.dirty) &&
       (!shouldValid || !field.error)
     ) {
-      // Split name into path list to be able to add values of nested fields
+      // Split name into keys to be able to add values of nested fields
       (replacePrefix ? name.replace(replacePrefix, '') : name)
         .split('.')
-        .reduce<any>((object, key, index, pathList) => {
-          // Get current value of object
-          const currentValue = object[key];
-
-          // If current key is last key of path list, use value of field as
-          // next value
-          const nextValue =
-            index === pathList.length - 1
-              ? field.value
-              : // Otherwise use current value or an empty object or array
-              currentValue && typeof currentValue === 'object'
-              ? currentValue
-              : isNaN(+pathList[index + 1])
-              ? {}
-              : [];
-
-          // Add next value to object and return it
-          object[key] = nextValue;
-          return object[key];
-        }, values);
+        .reduce<any>(
+          (object, key, index, keys) =>
+            (object[key] =
+              index === keys.length - 1
+                ? // If it is last key, add value
+                  field.value
+                : // Otherwise return object or array
+                  (typeof object[key] === 'object' && object[key]) ||
+                  (isNaN(+keys[index + 1]) ? {} : [])),
+          values
+        );
     }
 
     // Return modified values object
