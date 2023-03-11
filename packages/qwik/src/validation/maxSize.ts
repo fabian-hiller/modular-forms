@@ -1,4 +1,12 @@
-import { $, type QRL } from '@builder.io/qwik';
+import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
+
+type Value =
+  | NoSerialize<Blob>
+  | NoSerialize<Blob[]>
+  | NoSerialize<File>
+  | NoSerialize<File[]>
+  | null
+  | undefined;
 
 /**
  * Creates a validation functions that validates the file size.
@@ -11,10 +19,10 @@ import { $, type QRL } from '@builder.io/qwik';
 export function maxSize(
   requirement: number,
   error: string
-): QRL<(value: File | FileList | null | undefined) => string> {
-  return $((value: File | FileList | null | undefined) =>
+): QRL<(value: Value) => string> {
+  return $((value: Value) =>
     value &&
-    (value instanceof FileList
+    (Array.isArray(value)
       ? [...value].some((file) => file.size > requirement)
       : value.size > requirement)
       ? error

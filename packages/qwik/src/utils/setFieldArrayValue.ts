@@ -48,8 +48,7 @@ export function setFieldArrayValue<
         !value ||
         typeof value !== 'object' ||
         Array.isArray(value) ||
-        value instanceof File ||
-        value instanceof FileList
+        value instanceof Blob
       ) {
         setFieldStore(form, compoundPath as TFieldName, {
           startValue: value,

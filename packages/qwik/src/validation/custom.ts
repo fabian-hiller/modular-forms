@@ -14,9 +14,8 @@ export function custom<TFieldValue extends FieldValue>(
   error: string
 ): QRL<(value: Maybe<TFieldValue>) => Promise<string>> {
   return $(async (value: Maybe<TFieldValue>) =>
-    (value instanceof FileList || Array.isArray(value)
-      ? value.length
-      : value || value === 0) && !(await requirement(value))
+    (Array.isArray(value) ? value.length : value || value === 0) &&
+    !(await requirement(value))
       ? error
       : ''
   );

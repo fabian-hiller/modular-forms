@@ -1,5 +1,7 @@
 import { $, type QRL } from '@builder.io/qwik';
 
+type Value = string | number | null | undefined;
+
 /**
  * Creates a validation function that checks the value of an input for equality.
  *
@@ -11,8 +13,8 @@ import { $, type QRL } from '@builder.io/qwik';
 export function value(
   requirement: string | number,
   error: string
-): QRL<(value: string | number | null | undefined) => string> {
-  return $((value: string | number | null | undefined) =>
+): QRL<(value: Value) => string> {
+  return $((value: Value) =>
     (value || value === 0) && value !== requirement ? error : ''
   );
 }

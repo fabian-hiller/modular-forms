@@ -12,8 +12,7 @@ export function required<TFieldValue extends FieldValue>(
   error: string
 ): QRL<(value: Maybe<TFieldValue> | number[]) => string> {
   return $((value: Maybe<TFieldValue> | number[]) =>
-    (!value && value !== 0) ||
-    ((value instanceof FileList || Array.isArray(value)) && !value.length)
+    (!value && value !== 0) || (Array.isArray(value) && !value.length)
       ? error
       : ''
   );

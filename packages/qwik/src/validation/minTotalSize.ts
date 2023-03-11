@@ -1,4 +1,6 @@
-import { $, type QRL } from '@builder.io/qwik';
+import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
+
+type Value = NoSerialize<Blob[]> | NoSerialize<File[]> | null | undefined;
 
 /**
  * Creates a validation functions that validates total file size of a file list.
@@ -11,8 +13,8 @@ import { $, type QRL } from '@builder.io/qwik';
 export function minTotalSize(
   requirement: number,
   error: string
-): QRL<(value: FileList | null | undefined) => string> {
-  return $((value: FileList | null | undefined) =>
+): QRL<(value: Value) => string> {
+  return $((value: Value) =>
     value?.length &&
     [...value].reduce((size, file) => size + file.size, 0) < requirement
       ? error

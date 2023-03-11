@@ -1,5 +1,7 @@
 import { $, type QRL } from '@builder.io/qwik';
 
+type Value = number | null | undefined;
+
 /**
  * Creates a validation functions that validates a number.
  *
@@ -11,8 +13,8 @@ import { $, type QRL } from '@builder.io/qwik';
 export function maxNumber(
   requirement: number,
   error: string
-): QRL<(value: number | null | undefined) => string> {
-  return $((value: number | null | undefined) =>
+): QRL<(value: Value) => string> {
+  return $((value: Value) =>
     (value || value === 0) && value > requirement ? error : ''
   );
 }

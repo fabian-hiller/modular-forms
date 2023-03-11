@@ -1,4 +1,12 @@
-import { $, type QRL } from '@builder.io/qwik';
+import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
+
+type Value =
+  | NoSerialize<Blob>
+  | NoSerialize<Blob[]>
+  | NoSerialize<File>
+  | NoSerialize<File[]>
+  | null
+  | undefined;
 
 /**
  * Creates a validation functions that validates the file type.
@@ -11,11 +19,11 @@ import { $, type QRL } from '@builder.io/qwik';
 export function mimeType(
   requirement: string | string[],
   error: string
-): QRL<(value: File | FileList | null | undefined) => string> {
+): QRL<(value: Value) => string> {
   const mimeTypes = Array.isArray(requirement) ? requirement : [requirement];
-  return $((value: File | FileList | null | undefined) =>
+  return $((value: Value) =>
     value &&
-    (value instanceof FileList
+    (Array.isArray(value)
       ? [...value].some((file) => !mimeTypes.includes(file.type))
       : !mimeTypes.includes(value.type))
       ? error

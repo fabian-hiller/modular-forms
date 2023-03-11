@@ -1,5 +1,7 @@
 import { $, type QRL } from '@builder.io/qwik';
 
+type Value = string | null | undefined;
+
 /**
  * Creates a validation functions that validates a URL.
  *
@@ -7,10 +9,8 @@ import { $, type QRL } from '@builder.io/qwik';
  *
  * @returns A validation function.
  */
-export function url(
-  error: string
-): QRL<(value: string | null | undefined) => string> {
-  return $((value: string | null | undefined) => {
+export function url(error: string): QRL<(value: Value) => string> {
+  return $((value: Value) => {
     try {
       value && new URL(value);
       return '';

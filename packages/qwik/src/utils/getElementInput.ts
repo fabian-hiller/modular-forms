@@ -39,8 +39,8 @@ export function getElementInput<
           checked
       : type === 'file'
       ? multiple
-        ? // Return value as file list
-          noSerialize(files!)
+        ? // Return value as array of files
+          noSerialize([...files!])
         : // Return value as single file
           noSerialize(files![0])
       : options && multiple

@@ -1,5 +1,7 @@
 import { $, type QRL } from '@builder.io/qwik';
 
+type Value = string | null | undefined;
+
 /**
  * Creates a validation functions that validates the pattern of a string.
  *
@@ -11,8 +13,6 @@ import { $, type QRL } from '@builder.io/qwik';
 export function pattern(
   requirement: RegExp,
   error: string
-): QRL<(value: string | null | undefined) => string> {
-  return $((value: string | null | undefined) =>
-    value && !requirement.test(value) ? error : ''
-  );
+): QRL<(value: Value) => string> {
+  return $((value: Value) => (value && !requirement.test(value) ? error : ''));
 }

@@ -18,8 +18,10 @@ export type FieldValue =
   | boolean
   | null
   | undefined
+  | NoSerialize<Blob>
+  | NoSerialize<Blob[]>
   | NoSerialize<File>
-  | NoSerialize<FileList>;
+  | NoSerialize<File[]>;
 
 /**
  * Value type of the form fields.
