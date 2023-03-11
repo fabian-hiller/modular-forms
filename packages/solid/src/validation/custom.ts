@@ -1,4 +1,4 @@
-import { FieldValue, Maybe } from '../types';
+import { FieldValue, Maybe, MaybePromise } from '../types';
 
 /**
  * Creates a custom validation function.
@@ -9,7 +9,7 @@ import { FieldValue, Maybe } from '../types';
  * @returns A validation function.
  */
 export function custom<TFieldValue extends FieldValue>(
-  requirement: (value: Maybe<TFieldValue>) => boolean | Promise<boolean>,
+  requirement: (value: Maybe<TFieldValue>) => MaybePromise<boolean>,
   error: string
 ): (value: Maybe<TFieldValue>) => Promise<string> {
   return async (value: Maybe<TFieldValue>) =>

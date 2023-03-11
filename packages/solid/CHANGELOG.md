@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Rename type `Response` to `FormResponse`
+
 ## v0.10.0 (January 10, 2023)
 
 - Improve type of submit event at `Form` and `handleSubmit` (issue #18)

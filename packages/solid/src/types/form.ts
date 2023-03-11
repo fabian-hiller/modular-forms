@@ -2,7 +2,7 @@ import { Accessor, Setter } from 'solid-js';
 import { FieldStore, FieldValues } from './field';
 import { FieldArrayStore } from './fieldArray';
 import { FieldArrayPath, FieldPath } from './path';
-import { DeepPartial } from './utils';
+import { DeepPartial, MaybePromise } from './utils';
 
 /**
  * Value type of the submit event object.
@@ -30,7 +30,7 @@ type ResponseStatus = 'info' | 'error' | 'success';
 /**
  * Value type of the form response.
  */
-export type Response = Partial<{
+export type FormResponse = Partial<{
   status: ResponseStatus;
   message: string;
 }>;
@@ -52,7 +52,7 @@ export type FormErrors<TFieldValues extends FieldValues> = {
  */
 export type ValidateForm<TFieldValues extends FieldValues> = (
   values: DeepPartial<TFieldValues>
-) => FormErrors<TFieldValues> | Promise<FormErrors<TFieldValues>>;
+) => MaybePromise<FormErrors<TFieldValues>>;
 
 /**
  * Value type of the external and internal form state.
@@ -78,7 +78,7 @@ export type FormState<TFieldValues extends FieldValues> = {
     setTouched: Setter<boolean>;
     setDirty: Setter<boolean>;
     setInvalid: Setter<boolean>;
-    setResponse: Setter<Response>;
+    setResponse: Setter<FormResponse>;
   };
   element: HTMLFormElement | undefined;
   submitCount: number;
@@ -88,7 +88,7 @@ export type FormState<TFieldValues extends FieldValues> = {
   touched: boolean;
   dirty: boolean;
   invalid: boolean;
-  response: Response;
+  response: FormResponse;
 };
 
 /**

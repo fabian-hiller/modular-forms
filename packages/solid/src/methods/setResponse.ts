@@ -1,4 +1,4 @@
-import { FieldValues, FormState, Response } from '../types';
+import { FieldValues, FormResponse, FormState } from '../types';
 
 type ResponseOptions = Partial<{
   duration: number;
@@ -13,7 +13,7 @@ type ResponseOptions = Partial<{
  */
 export function setResponse<TFieldValues extends FieldValues>(
   form: FormState<TFieldValues>,
-  response: Response,
+  response: FormResponse,
   options: ResponseOptions = {}
 ): void {
   // Destructure options

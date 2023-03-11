@@ -7,7 +7,7 @@ import type {
 import type { FieldStore, FieldValue, FieldValues } from './field';
 import type { FieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath } from './path';
-import type { DeepPartial } from './utils';
+import type { DeepPartial, MaybePromise } from './utils';
 
 /**
  * Function type to handle the submission of the form.
@@ -28,7 +28,7 @@ export type FormErrors<TFieldValues extends FieldValues> = {
  */
 export type ValidateForm<TFieldValues extends FieldValues> = (
   values: DeepPartial<TFieldValues>
-) => FormErrors<TFieldValues> | Promise<FormErrors<TFieldValues>>;
+) => MaybePromise<FormErrors<TFieldValues>>;
 
 /**
  * Value type of the response status.
@@ -38,7 +38,7 @@ type ResponseStatus = 'info' | 'error' | 'success';
 /**
  * Value type of the form response.
  */
-export type Response = Partial<{
+export type FormResponse = Partial<{
   status: ResponseStatus;
   message: string;
 }>;
@@ -110,7 +110,7 @@ export type FormStore<
   touched: boolean;
   dirty: boolean;
   invalid: boolean;
-  response: Response;
+  response: FormResponse;
 };
 
 /**

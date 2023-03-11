@@ -1,5 +1,5 @@
 import { $, type QRL } from '@builder.io/qwik';
-import type { FieldValue, Maybe } from '../types';
+import type { FieldValue, Maybe, MaybePromise } from '../types';
 
 /**
  * Creates a custom validation function.
@@ -10,7 +10,7 @@ import type { FieldValue, Maybe } from '../types';
  * @returns A validation function.
  */
 export function custom<TFieldValue extends FieldValue>(
-  requirement: QRL<(value: Maybe<TFieldValue>) => boolean | Promise<boolean>>,
+  requirement: QRL<(value: Maybe<TFieldValue>) => MaybePromise<boolean>>,
   error: string
 ): QRL<(value: Maybe<TFieldValue>) => Promise<string>> {
   return $(async (value: Maybe<TFieldValue>) =>

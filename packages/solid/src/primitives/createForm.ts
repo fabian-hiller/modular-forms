@@ -4,8 +4,8 @@ import {
   FieldArrayStore,
   FieldStore,
   FieldValues,
+  FormResponse,
   FormState,
-  Response,
   ValidateForm,
   ValidationMode,
 } from '../types';
@@ -56,7 +56,7 @@ export function createForm<TFieldValues extends FieldValues>(
   const [getInvalid, setInvalid] = createSignal(false);
 
   // Create response signal
-  const [getResponse, setResponse] = createSignal<Response>({});
+  const [getResponse, setResponse] = createSignal<FormResponse>({});
 
   // Return form functions and state
   return {

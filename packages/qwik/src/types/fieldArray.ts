@@ -1,12 +1,13 @@
 import type { QRL } from '@builder.io/qwik';
 import type { FieldValues } from './field';
 import type { FieldArrayPath } from './path';
+import type { MaybePromise } from './utils';
 
 /**
  * Function type to validate a field array.
  */
 export type ValidateFieldArray<TFieldArrayItems> = QRL<
-  (items: TFieldArrayItems) => string | Promise<string>
+  (items: TFieldArrayItems) => MaybePromise<string>
 >;
 
 /**

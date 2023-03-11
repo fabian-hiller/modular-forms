@@ -1,13 +1,14 @@
 import { Accessor, Setter } from 'solid-js';
 import { FieldValues } from './field';
 import { FieldArrayPath } from './path';
+import { MaybePromise } from './utils';
 
 /**
  * Function type to validate a field array.
  */
 export type ValidateFieldArray<TFieldArrayItems> = (
   items: TFieldArrayItems
-) => string | Promise<string>;
+) => MaybePromise<string>;
 
 /**
  * Value type ot the internal field array store.

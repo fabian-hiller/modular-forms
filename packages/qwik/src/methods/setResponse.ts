@@ -2,8 +2,8 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormResponse,
   FormStore,
-  Response,
 } from '../types';
 
 type ResponseOptions = Partial<{
@@ -23,7 +23,7 @@ export function setResponse<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
-  response: Response,
+  response: FormResponse,
   options: ResponseOptions = {}
 ): void {
   // Destructure options

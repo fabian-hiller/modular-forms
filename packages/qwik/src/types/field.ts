@@ -6,6 +6,7 @@ import type {
   QwikFocusEvent,
 } from '@builder.io/qwik';
 import type { FieldPath, FieldPathValue } from './path';
+import type { MaybePromise } from './utils';
 
 /**
  * Value type of a field.
@@ -39,7 +40,7 @@ export type FieldElement =
  * Function type to validate a field.
  */
 export type ValidateField<TFieldValue> = QRL<
-  (value: TFieldValue | undefined) => string | Promise<string>
+  (value: TFieldValue | undefined) => MaybePromise<string>
 >;
 
 /**

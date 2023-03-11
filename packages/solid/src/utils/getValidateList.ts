@@ -1,3 +1,5 @@
+import { MaybePromise } from '../types';
+
 /**
  * Returns a list with validation functions.
  *
@@ -6,7 +8,7 @@
  * @returns A list with validation functions.
  */
 export function getValidateList<
-  TValidate extends (value: any) => string | Promise<string>
+  TValidate extends (value: any) => MaybePromise<string>
 >(validate: TValidate | TValidate[] | undefined): TValidate[] {
   return typeof validate === 'function' ? [validate] : validate || [];
 }

@@ -28,3 +28,8 @@ export type DeepPartial<T> = T extends FieldValue
  * Returns an optional type.
  */
 export type Maybe<T> = T | undefined;
+
+/**
+ * Returns an optional promise type.
+ */
+export type MaybePromise<T> = T | Promise<T>;

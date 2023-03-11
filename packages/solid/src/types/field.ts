@@ -1,6 +1,6 @@
 import { Accessor, JSX, Setter } from 'solid-js';
 import { FieldPath, FieldPathValue } from './path';
-import { Maybe } from './utils';
+import { Maybe, MaybePromise } from './utils';
 
 /**
  * Value type of a field.
@@ -35,7 +35,7 @@ export type FieldElement =
  */
 export type ValidateField<TFieldValue> = (
   value: TFieldValue | undefined
-) => string | Promise<string>;
+) => MaybePromise<string>;
 
 /**
  * Value type ot the internal field store.
