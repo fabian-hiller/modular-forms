@@ -1,18 +1,18 @@
 import type {
-  DeepPartial,
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
   FieldValues,
   FormStore,
+  InitialValues,
 } from '../types';
 import {
   getFieldArrayStore,
   getFieldStore,
   getOptions,
-  getPathValue,
   updateFormState,
   getFilteredNames,
+  getPathValue,
   getUniqueId,
 } from '../utils';
 
@@ -20,8 +20,8 @@ type ResetOptions<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>
 > = Partial<{
-  initialValue: [FieldPathValue<TFieldValues, TFieldName>];
-  initialValues: DeepPartial<TFieldValues>;
+  initialValue: FieldPathValue<TFieldValues, TFieldName>;
+  initialValues: InitialValues<TFieldValues>;
   keepResponse: boolean;
   keepSubmitCount: boolean;
   keepSubmitted: boolean;
@@ -64,6 +64,9 @@ export function reset<
   // Check if entire form shoukd be reset
   const resetEntireForm = !resetSingleField && !Array.isArray(arg2);
 
+  // Get options object
+  const options = getOptions(arg2, arg3);
+
   // Destructure options and set default values
   const {
     initialValue,
@@ -78,7 +81,7 @@ export function reset<
     keepErrors = false,
     keepTouched = false,
     keepDirty = false,
-  } = getOptions(arg2, arg3);
+  } = options;
 
   // Reset state of each field
   fieldNames.forEach((name) => {
@@ -86,10 +89,10 @@ export function reset<
     const field = getFieldStore(form, name);
 
     // Reset initial value if necessary
-    if (resetSingleField ? initialValue : initialValues) {
+    if (resetSingleField ? 'initialValue' in options : initialValues) {
       field.internal.initialValue = resetSingleField
-        ? initialValue![0]
-        : getPathValue(name, initialValues);
+        ? initialValue
+        : getPathValue(name, initialValues!);
     }
 
     // Check if dirty value should be kept
@@ -135,10 +138,8 @@ export function reset<
     // Reset initial items and items if it is not to be kept
     if (!keepItems && !keepCurrentDirtyItems) {
       if (initialValues) {
-        fieldArray.internal.initialItems = getPathValue(
-          name,
-          initialValues
-        ).map(() => getUniqueId());
+        fieldArray.internal.initialItems =
+          getPathValue(name, initialValues)?.map(() => getUniqueId()) || [];
       }
       fieldArray.internal.startItems = [...fieldArray.internal.initialItems];
       fieldArray.items = [...fieldArray.internal.initialItems];

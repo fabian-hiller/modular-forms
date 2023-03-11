@@ -6,7 +6,7 @@ import type {
   QwikFocusEvent,
 } from '@builder.io/qwik';
 import type { FieldPath, FieldPathValue } from './path';
-import type { MaybePromise } from './utils';
+import type { Maybe, MaybePromise } from './utils';
 
 /**
  * Value type of a field.
@@ -27,7 +27,7 @@ export type FieldValue =
  * Value type of the form fields.
  */
 export type FieldValues = {
-  [name: string]: FieldValue | FieldValue[] | FieldValues | FieldValues[];
+  [name: string]: FieldValue | FieldValues | (FieldValue | FieldValues)[];
 };
 
 /**
@@ -58,14 +58,14 @@ export type FieldStore<
   TFieldName extends FieldPath<TFieldValues>
 > = {
   internal: {
-    initialValue: FieldPathValue<TFieldValues, TFieldName>;
-    startValue: FieldPathValue<TFieldValues, TFieldName>;
+    initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+    startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
     validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
     elements: FieldElement[];
     consumers: number[];
   };
   name: TFieldName;
-  value: FieldPathValue<TFieldValues, TFieldName>;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   error: string;
   active: boolean;
   touched: boolean;
@@ -98,8 +98,8 @@ export type RawFieldState<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>
 > = {
-  startValue: FieldPathValue<TFieldValues, TFieldName>;
-  value: FieldPathValue<TFieldValues, TFieldName>;
+  startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   error: string;
   active: boolean;
   touched: boolean;

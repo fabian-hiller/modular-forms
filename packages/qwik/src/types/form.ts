@@ -7,7 +7,7 @@ import type {
 import type { FieldStore, FieldValue, FieldValues } from './field';
 import type { FieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath } from './path';
-import type { DeepPartial, MaybePromise } from './utils';
+import type { Maybe, MaybePromise } from './utils';
 
 /**
  * Function type to handle the submission of the form.
@@ -27,7 +27,7 @@ export type FormErrors<TFieldValues extends FieldValues> = {
  * Function type to validate a form.
  */
 export type ValidateForm<TFieldValues extends FieldValues> = (
-  values: DeepPartial<TFieldValues>
+  values: PartialValues<TFieldValues>
 ) => MaybePromise<FormErrors<TFieldValues>>;
 
 /**
@@ -69,17 +69,28 @@ export type FieldArraysStore<
 };
 
 /**
- * Returns deep partial field values.
+ * Value type of the initial field values.
  */
-export type FormLoader<T> = T extends FieldValue
-  ? T | undefined
-  : { [K in keyof T]: FormLoader<T[K]> };
+export type InitialValues<T> = T extends string[]
+  ? Maybe<T> | { [K in keyof T]: InitialValues<T[K]> }
+  : T extends FieldValue
+  ? Maybe<T>
+  : { [K in keyof T]: InitialValues<T[K]> };
+
+/**
+ * Value type of the partial field values.
+ */
+export type PartialValues<T> = T extends string[]
+  ? Maybe<T> | { [K in keyof T]?: PartialValues<T[K]> }
+  : T extends FieldValue
+  ? Maybe<T>
+  : { [K in keyof T]?: PartialValues<T[K]> };
 
 /**
  * Value type of the form options.
  */
 export type FormOptions<TFieldValues extends FieldValues> = {
-  loader: Signal<FormLoader<TFieldValues>>;
+  loader: Signal<InitialValues<TFieldValues>>;
   validate?: QRL<ValidateForm<TFieldValues>>;
   validateOn?: ValidationMode;
   revalidateOn?: ValidationMode;
@@ -100,7 +111,6 @@ export type FormStore<
     validators: number[];
     validateOn: ValidationMode;
     revalidateOn: ValidationMode;
-    autoFocus?: string;
   };
   element: HTMLFormElement | undefined;
   submitCount: number;

@@ -1,5 +1,5 @@
-import { $ } from '@builder.io/qwik';
-import type { QwikFocusEvent } from '@builder.io/qwik';
+import { $, type QwikFocusEvent } from '@builder.io/qwik';
+import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
   FieldArrayPath,
@@ -61,7 +61,7 @@ export function Field<
     <Lifecycle key={name} store={field} {...props}>
       {children(field, {
         name,
-        autoFocus: form.internal.autoFocus === name,
+        autoFocus: isServer && !!field.error,
         ref: $(() => {
           // TODO: Enable once issue #3219 is fixed
           // field.internal.elements.push(element as FieldElement);

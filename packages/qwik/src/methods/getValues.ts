@@ -1,9 +1,9 @@
 import type {
-  DeepPartial,
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormStore,
+  PartialValues,
 } from '../types';
 import { getFieldValues, getFilteredNames, getOptions } from '../utils';
 
@@ -31,7 +31,7 @@ export function getValues<
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
   arg2?: TFieldArrayName | (TFieldName | TFieldArrayName)[] | ValuesOptions,
   arg3?: ValuesOptions
-): DeepPartial<TFieldValues> {
+): PartialValues<TFieldValues> {
   // Destructure options and set default values
   const {
     shouldActive = true,
@@ -47,5 +47,5 @@ export function getValues<
     shouldTouched,
     shouldDirty,
     shouldValid,
-  }) as DeepPartial<TFieldValues>;
+  }) as PartialValues<TFieldValues>;
 }

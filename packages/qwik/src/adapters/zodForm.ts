@@ -1,10 +1,10 @@
 import type { ZodType } from 'zod';
 import type {
-  DeepPartial,
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormErrors,
+  PartialValues,
   ValidateForm,
 } from '../types';
 
@@ -18,7 +18,7 @@ import type {
 export function zodForm<TFieldValues extends FieldValues>(
   schema: ZodType<any, any, TFieldValues>
 ): ValidateForm<TFieldValues> {
-  return (values: DeepPartial<TFieldValues>) => {
+  return (values: PartialValues<TFieldValues>) => {
     const result = schema.safeParse(values);
     return result.success
       ? {}
