@@ -4,6 +4,7 @@ import {
   useBrowserVisibleTask$,
   type PublicProps,
   type JSXNode,
+  type QRL,
 } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
@@ -14,6 +15,7 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  MaybeArray,
   ValidateField,
   ValidateFieldArray,
 } from '../types';
@@ -25,9 +27,9 @@ type FieldProps<
   TFieldName extends FieldPath<TFieldValues>
 > = {
   store: FieldStore<TFieldValues, TFieldName>;
-  validate?:
-    | ValidateField<FieldPathValue<TFieldValues, TFieldName>>
-    | ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+  validate?: MaybeArray<
+    QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
+  >;
 };
 
 type FieldArrayProps<
@@ -35,7 +37,7 @@ type FieldArrayProps<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   store: FieldArrayStore<TFieldValues, TFieldArrayName>;
-  validate?: ValidateFieldArray<number[]> | ValidateFieldArray<number[]>[];
+  validate?: MaybeArray<QRL<ValidateFieldArray<number[]>>>;
 };
 
 type LifecycleProps<
@@ -86,8 +88,8 @@ export const Lifecycle: <
       store.internal.validate = (
         validate ? (Array.isArray(validate) ? validate : [validate]) : []
       ) as
-        | ValidateField<FieldPathValue<TFieldValues, TFieldName>>[]
-        | ValidateFieldArray<number[]>[];
+        | QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[]
+        | QRL<ValidateFieldArray<number[]>>[];
 
       // Create unique consumer ID
       const consumer = getUniqueId();

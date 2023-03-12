@@ -24,3 +24,8 @@ export type Maybe<T> = T | undefined;
  * Returns an optional promise type.
  */
 export type MaybePromise<T> = T | Promise<T>;
+
+/**
+ * Returns an optional array type.
+ */
+export type MaybeArray<T> = T | T[];

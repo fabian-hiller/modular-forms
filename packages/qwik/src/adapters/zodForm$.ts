@@ -1,3 +1,4 @@
+import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
 import type { ZodType } from 'zod';
 import type {
   FieldArrayPath,
@@ -15,11 +16,11 @@ import type {
  *
  * @returns A validation function.
  */
-export function zodForm<TFieldValues extends FieldValues>(
-  schema: ZodType<any, any, TFieldValues>
-): ValidateForm<TFieldValues> {
-  return (values: PartialValues<TFieldValues>) => {
-    const result = schema.safeParse(values);
+function zodFormQrl<TFieldValues extends FieldValues>(
+  schema: QRL<ZodType<any, any, TFieldValues>>
+): QRL<ValidateForm<TFieldValues>> {
+  return $(async (values: PartialValues<TFieldValues>) => {
+    const result = (await schema.resolve()).safeParse(values);
     return result.success
       ? {}
       : result.error.issues.reduce<FormErrors<TFieldValues>>(
@@ -34,5 +35,10 @@ export function zodForm<TFieldValues extends FieldValues>(
           },
           {}
         );
-  };
+  });
 }
+
+/**
+ * See {@link zodFormQrl}
+ */
+export const zodForm$ = implicit$FirstArg(zodFormQrl);

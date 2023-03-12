@@ -41,9 +41,9 @@ export type FieldElement =
 /**
  * Function type to validate a field.
  */
-export type ValidateField<TFieldValue> = QRL<
-  (value: TFieldValue | undefined) => MaybePromise<string>
->;
+export type ValidateField<TFieldValue> = (
+  value: TFieldValue | undefined
+) => MaybePromise<string>;
 
 /**
  * Value type ot the field store.
@@ -60,7 +60,7 @@ export type FieldStore<
   internal: {
     initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
     startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-    validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+    validate: QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[];
     elements: FieldElement[];
     consumers: number[];
   };

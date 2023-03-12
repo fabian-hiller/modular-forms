@@ -1,4 +1,4 @@
-import { $, type QwikFocusEvent } from '@builder.io/qwik';
+import { $, type QRL, type QwikFocusEvent } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
@@ -10,6 +10,7 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  MaybeArray,
   ValidateField,
 } from '../types';
 import {
@@ -31,9 +32,9 @@ export type FieldProps<
     store: FieldStore<TFieldValues, TFieldName>,
     props: FieldElementProps<TFieldValues, TFieldName>
   ) => JSX.Element;
-  validate?:
-    | ValidateField<FieldPathValue<TFieldValues, TFieldName>>
-    | ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+  validate?: MaybeArray<
+    QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
+  >;
   keepActive?: boolean;
   keepState?: boolean;
   key?: string | number;

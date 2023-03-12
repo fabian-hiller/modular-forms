@@ -6,9 +6,9 @@ import type { MaybePromise } from './utils';
 /**
  * Function type to validate a field array.
  */
-export type ValidateFieldArray<TFieldArrayItems> = QRL<
-  (items: TFieldArrayItems) => MaybePromise<string>
->;
+export type ValidateFieldArray<TFieldArrayItems> = (
+  items: TFieldArrayItems
+) => MaybePromise<string>;
 
 /**
  * Value type ot the internal field array store.
@@ -25,7 +25,7 @@ export type FieldArrayStore<
   internal: {
     initialItems: number[];
     startItems: number[];
-    validate: ValidateFieldArray<number[]>[];
+    validate: QRL<ValidateFieldArray<number[]>>[];
     consumers: number[];
   };
   name: TFieldArrayName;
