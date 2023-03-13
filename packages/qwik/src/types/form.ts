@@ -1,8 +1,20 @@
-import type { QRL, Signal } from '@builder.io/qwik';
+import type {
+  PropFunction,
+  QRL,
+  QwikSubmitEvent,
+  Signal,
+} from '@builder.io/qwik';
 import type { FieldStore, FieldValue, FieldValues } from './field';
 import type { FieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath } from './path';
 import type { DeepPartial } from './utils';
+
+/**
+ * Function type to handle the submission of the form.
+ */
+export type SubmitHandler<TFieldValues extends FieldValues> = PropFunction<
+  (values: TFieldValues, event: QwikSubmitEvent<HTMLFormElement>) => unknown
+>;
 
 /**
  * Value type of the form errors.
@@ -100,3 +112,11 @@ export type FormStore<
   invalid: boolean;
   response: Response;
 };
+
+/**
+ * Utility type to extract the field values from the form store.
+ */
+export type FormValues<TFormStore extends FormStore<any, any, any>> =
+  TFormStore extends FormStore<infer TFieldValues, any, any>
+    ? TFieldValues
+    : never;

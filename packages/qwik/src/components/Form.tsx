@@ -1,4 +1,4 @@
-import type { QwikSubmitEvent, QwikJSX, PropFunction } from '@builder.io/qwik';
+import type { QwikSubmitEvent, QwikJSX } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import { getValues, validate } from '../methods';
@@ -7,6 +7,7 @@ import type {
   FieldValues,
   FieldPath,
   FieldArrayPath,
+  SubmitHandler,
 } from '../types';
 
 export type FormProps<
@@ -16,9 +17,7 @@ export type FormProps<
 > = Omit<QwikJSX.IntrinsicElements['form'], 'action' | 'method'> & {
   of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
   action?: ActionStore<any, TFieldValues, true>; // TODO: Improve generics
-  onSubmit$?: PropFunction<
-    (values: TFieldValues, event: QwikSubmitEvent<HTMLFormElement>) => unknown
-  >;
+  onSubmit$?: SubmitHandler<TFieldValues>;
   keepResponse?: boolean;
   shouldActive?: boolean;
   shouldTouched?: boolean;
