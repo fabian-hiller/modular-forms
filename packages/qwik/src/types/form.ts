@@ -77,7 +77,7 @@ export type InitialValues<Value> = Value extends string[]
   ? Value
   : Value extends FieldValue
   ? Maybe<Value>
-  : { [Key in keyof Value]: InitialValues<Value[Key]> };
+  : { [Key in keyof Value]-?: InitialValues<Value[Key]> };
 
 /**
  * Value type of the partial field values.
