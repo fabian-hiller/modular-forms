@@ -15,6 +15,14 @@ export type SubmitEvent = Event & {
 };
 
 /**
+ * Function type to handle the submission of the form.
+ */
+export type SubmitHandler<TFieldValues extends FieldValues> = (
+  values: TFieldValues,
+  event: SubmitEvent
+) => void | Promise<void>;
+
+/**
  * Value type of the response status.
  */
 type ResponseStatus = 'info' | 'error' | 'success';
@@ -83,8 +91,8 @@ export type FormState<TFieldValues extends FieldValues> = {
   response: Response;
 };
 
-/* 
-  Extracts the field values from the form state.
-*/
+/**
+ * Utility type to extract the field values from the form state.
+ */
 export type FormValues<TFormState extends FormState<any>> =
   TFormState extends FormState<infer TFieldValues> ? TFieldValues : never;

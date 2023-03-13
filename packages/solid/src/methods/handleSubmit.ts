@@ -1,5 +1,5 @@
 import { batch } from 'solid-js';
-import { FieldValues, FormState, SubmitEvent } from '../types';
+import { FieldValues, FormState, SubmitEvent, SubmitHandler } from '../types';
 import { getValues } from './getValues';
 import { validate } from './validate';
 
@@ -21,10 +21,7 @@ type SubmitOptions = Partial<{
  */
 export function handleSubmit<TFieldValues extends FieldValues>(
   form: FormState<TFieldValues>,
-  submitAction: (
-    values: TFieldValues,
-    event: SubmitEvent
-  ) => void | Promise<void>,
+  submitAction: SubmitHandler<TFieldValues>,
   options: SubmitOptions = {}
 ): (event: SubmitEvent) => Promise<void> {
   return async (event: SubmitEvent) => {
