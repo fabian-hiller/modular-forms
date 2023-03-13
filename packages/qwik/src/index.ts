@@ -1,3 +1,4 @@
+export * from './actions';
 export * from './adapters';
 export * from './components';
 export * from './hooks';

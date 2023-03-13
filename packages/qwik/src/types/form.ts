@@ -1,12 +1,14 @@
 import type {
+  NoSerialize,
   PropFunction,
   QRL,
   QwikSubmitEvent,
   Signal,
 } from '@builder.io/qwik';
+import type { ActionStore } from '@builder.io/qwik-city';
 import type { FieldStore, FieldValue, FieldValues } from './field';
 import type { FieldArrayStore } from './fieldArray';
-import type { FieldArrayPath, FieldPath } from './path';
+import type { FieldArrayPath, FieldPath, TypeInfoPath } from './path';
 import type { Maybe, MaybePromise } from './utils';
 
 /**
@@ -71,26 +73,50 @@ export type FieldArraysStore<
 /**
  * Value type of the initial field values.
  */
-export type InitialValues<T> = T extends string[]
-  ? Maybe<T> | { [K in keyof T]: InitialValues<T[K]> }
-  : T extends FieldValue
-  ? Maybe<T>
-  : { [K in keyof T]: InitialValues<T[K]> };
+export type InitialValues<Value> = Value extends string[]
+  ? Value
+  : Value extends FieldValue
+  ? Maybe<Value>
+  : { [Key in keyof Value]: InitialValues<Value[Key]> };
 
 /**
  * Value type of the partial field values.
  */
-export type PartialValues<T> = T extends string[]
-  ? Maybe<T> | { [K in keyof T]?: PartialValues<T[K]> }
-  : T extends FieldValue
-  ? Maybe<T>
-  : { [K in keyof T]?: PartialValues<T[K]> };
+export type PartialValues<Value> = Value extends string[]
+  ? Value
+  : Value extends FieldValue
+  ? Maybe<Value>
+  : { [Key in keyof Value]?: PartialValues<Value[Key]> };
+
+/**
+ * Value type of the form data info.
+ */
+export type FormDataInfo<TFieldValues extends FieldValues> = Partial<{
+  arrays: TypeInfoPath<TFieldValues, any[]>[];
+  booleans: TypeInfoPath<TFieldValues, boolean>[];
+  files: TypeInfoPath<TFieldValues, NoSerialize<Blob> | NoSerialize<File>>[];
+  numbers: TypeInfoPath<TFieldValues, number>[];
+}>;
+
+/**
+ * Value type of the form action state.
+ */
+export type FormActionState<TFieldValues extends FieldValues> = {
+  values: PartialValues<TFieldValues>;
+  errors: FormErrors<TFieldValues>;
+  response: Maybe<FormResponse>;
+};
 
 /**
  * Value type of the form options.
  */
 export type FormOptions<TFieldValues extends FieldValues> = {
   loader: Signal<InitialValues<TFieldValues>>;
+  action?: ActionStore<
+    FormActionState<TFieldValues>,
+    PartialValues<TFieldValues>,
+    true
+  >;
   validate?: QRL<ValidateForm<TFieldValues>>;
   validateOn?: ValidationMode;
   revalidateOn?: ValidationMode;

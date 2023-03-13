@@ -4,24 +4,24 @@ import type { ArrayKey, IsTuple, TupleKeys } from './utils';
 /**
  * Returns a path of a type that leads to a field value.
  */
-type ValuePath<K extends string | number, V> = V extends string[]
-  ? `${K}` | `${K}.${ValuePaths<V>}`
-  : V extends FieldValue | Blob
-  ? `${K}`
-  : `${K}.${ValuePaths<V>}`;
+type ValuePath<Key extends string | number, Value> = Value extends string[]
+  ? `${Key}` | `${Key}.${ValuePaths<Value>}`
+  : Value extends FieldValue | Blob
+  ? `${Key}`
+  : `${Key}.${ValuePaths<Value>}`;
 
 /**
  * Returns all paths of a type that lead to a field value.
  */
-type ValuePaths<T> = T extends Array<infer V>
-  ? IsTuple<T> extends true
+type ValuePaths<Data> = Data extends Array<infer Child>
+  ? IsTuple<Data> extends true
     ? {
-        [K in TupleKeys<T>]-?: ValuePath<K & string, T[K]>;
-      }[TupleKeys<T>]
-    : ValuePath<ArrayKey, V>
+        [Key in TupleKeys<Data>]-?: ValuePath<Key & string, Data[Key]>;
+      }[TupleKeys<Data>]
+    : ValuePath<ArrayKey, Child>
   : {
-      [K in keyof T]-?: ValuePath<K & string, T[K]>;
-    }[keyof T];
+      [Key in keyof Data]-?: ValuePath<Key & string, Data[Key]>;
+    }[keyof Data];
 
 /**
  * See {@link ValuePaths}
@@ -33,20 +33,20 @@ export type FieldPath<TFieldValues extends FieldValues> =
  * Returns the value of a field value or array path of a type.
  */
 type PathValue<
-  T,
-  P extends ValuePaths<T> | ArrayPaths<T>
-> = P extends `${infer K}.${infer R}`
-  ? K extends keyof T
-    ? R extends ValuePaths<T[K]>
-      ? PathValue<T[K], R>
+  Data,
+  Path extends ValuePaths<Data> | ArrayPaths<Data>
+> = Path extends `${infer Key1}.${infer Key2}`
+  ? Key1 extends keyof Data
+    ? Key2 extends ValuePaths<Data[Key1]> | ArrayPaths<Data[Key1]>
+      ? PathValue<Data[Key1], Key2>
       : never
-    : K extends `${ArrayKey}`
-    ? T extends Array<infer V>
-      ? PathValue<V, R & ValuePaths<V>>
+    : Key1 extends `${ArrayKey}`
+    ? Data extends Array<infer Child>
+      ? PathValue<Child, Key2 & (ValuePaths<Child> | ArrayPaths<Child>)>
       : never
     : never
-  : P extends keyof T
-  ? T[P]
+  : Path extends keyof Data
+  ? Data[Path]
   : never;
 
 /**
@@ -60,24 +60,24 @@ export type FieldPathValue<
 /**
  * Returns a path of a type that leads to a field array.
  */
-type ArrayPath<K extends string | number, V> = V extends Array<any>
-  ? `${K}` | `${K}.${ArrayPaths<V>}`
-  : V extends FieldValues
-  ? `${K}.${ArrayPaths<V>}`
+type ArrayPath<Key extends string | number, Value> = Value extends Array<any>
+  ? `${Key}` | `${Key}.${ArrayPaths<Value>}`
+  : Value extends FieldValues
+  ? `${Key}.${ArrayPaths<Value>}`
   : never;
 
 /**
  * Returns all paths of a type that lead to a field array.
  */
-type ArrayPaths<T> = T extends Array<infer V>
-  ? IsTuple<T> extends true
+type ArrayPaths<Data> = Data extends Array<infer Child>
+  ? IsTuple<Data> extends true
     ? {
-        [K in TupleKeys<T>]-?: ArrayPath<K & string, T[K]>;
-      }[TupleKeys<T>]
-    : ArrayPath<ArrayKey, V>
+        [Key in TupleKeys<Data>]-?: ArrayPath<Key & string, Data[Key]>;
+      }[TupleKeys<Data>]
+    : ArrayPath<ArrayKey, Child>
   : {
-      [K in keyof T]-?: ArrayPath<K & string, T[K]>;
-    }[keyof T];
+      [Key in keyof Data]-?: ArrayPath<Key & string, Data[Key]>;
+    }[keyof Data];
 
 /**
  * See {@link ArrayPaths}
@@ -91,4 +91,42 @@ export type FieldArrayPath<TFieldValues extends FieldValues> =
 export type FieldArrayPathValue<
   TFieldValues extends FieldValues,
   TFieldArrayPath extends FieldArrayPath<TFieldValues>
-> = PathValue<TFieldValues, TFieldArrayPath> & Array<FieldValue | FieldValues>;
+> = PathValue<TFieldValues, TFieldArrayPath> & Array<unknown>;
+
+/**
+ * Returns a template path of a specified type.
+ */
+type TypeTemplatePath<
+  Key extends string | number,
+  Value,
+  Type
+> = Value extends Type
+  ? `${Key}` | `${Key}.${TypeTemplatePaths<Value, Type>}`
+  : Value extends FieldValues | (FieldValue | FieldValues)[]
+  ? `${Key extends number ? '$' : Key}.${TypeTemplatePaths<Value, Type>}`
+  : never;
+
+/**
+ * Returns all template paths of a specified type.
+ */
+type TypeTemplatePaths<Data, Type> = Data extends Array<infer Child>
+  ? IsTuple<Data> extends true
+    ? {
+        [Key in TupleKeys<Data>]-?: TypeTemplatePath<
+          Key & string,
+          Data[Key],
+          Type
+        >;
+      }[TupleKeys<Data>]
+    : TypeTemplatePath<ArrayKey, Child, Type>
+  : {
+      [Key in keyof Data]-?: TypeTemplatePath<Key & string, Data[Key], Type>;
+    }[keyof Data];
+
+/**
+ * See {@link TypePaths}
+ */
+export type TypeInfoPath<
+  TFieldValues extends FieldValues,
+  Type
+> = TypeTemplatePaths<TFieldValues, Type>;

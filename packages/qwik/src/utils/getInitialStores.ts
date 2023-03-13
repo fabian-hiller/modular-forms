@@ -1,17 +1,23 @@
+import type { Signal } from '@builder.io/qwik';
+import type { ActionStore } from '@builder.io/qwik-city';
 import type {
   FieldArrayPath,
   FieldArraysStore,
   FieldPath,
   FieldsStore,
   FieldValues,
-  FormLoader,
+  FormActionState,
+  InitialValues,
+  PartialValues,
 } from '../types';
+import { getPathValue } from './getPathValue';
 import { getUniqueId } from './getUniqueId';
 
 /**
  * Returns a tuple with the initial stores of the fields and field arrays.
  *
- * @param values The initial form values.
+ * @param loader The form loader.
+ * @param action The form action.
  *
  * @returns The initial stores tuple.
  */
@@ -20,11 +26,20 @@ export function getInitialStores<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  values: FormLoader<TFieldValues>
+  loader: Signal<InitialValues<TFieldValues>>,
+  action?: ActionStore<
+    FormActionState<TFieldValues>,
+    PartialValues<TFieldValues>,
+    true
+  >
 ): [
   FieldsStore<TFieldValues, TFieldName>,
   FieldArraysStore<TFieldValues, TFieldArrayName>
 ] {
+  // Create function to get error of field
+  const getError = (name: TFieldName | TFieldArrayName) =>
+    action?.value?.errors[name] || '';
+
   // Create recursive function to create initial stores
   const createInitialStores = (
     stores: [
@@ -49,8 +64,11 @@ export function getInitialStores<
             consumers: [],
           },
           name: compoundPath as TFieldName,
-          value,
-          error: '',
+          value:
+            (action?.value?.values &&
+              getPathValue(compoundPath as TFieldName, action.value.values)) ||
+            value,
+          error: getError(compoundPath as TFieldName),
           active: false,
           touched: false,
           dirty: false,
@@ -69,7 +87,7 @@ export function getInitialStores<
           },
           name: compoundPath as TFieldArrayName,
           items,
-          error: '',
+          error: getError(compoundPath as TFieldArrayName),
           active: false,
           touched: false,
           dirty: false,
@@ -86,7 +104,7 @@ export function getInitialStores<
     }, stores);
 
   // Create and return initial stores
-  return createInitialStores([{}, {}], values) as [
+  return createInitialStores([{}, {}], loader.value) as [
     FieldsStore<TFieldValues, TFieldName>,
     FieldArraysStore<TFieldValues, TFieldArrayName>
   ];

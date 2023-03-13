@@ -25,6 +25,7 @@ export function useFormStore<
   // Destructure options
   const {
     loader,
+    action,
     validate,
     validateOn = 'submit',
     revalidateOn = 'input',
@@ -33,7 +34,7 @@ export function useFormStore<
   // Create and return form store
   return useStore(
     () => {
-      const [fields, fieldArrays] = getInitialStores(loader.value);
+      const [fields, fieldArrays] = getInitialStores(loader, action);
       return {
         internal: {
           fields,

@@ -8,6 +8,7 @@ export * from './getFieldState';
 export * from './getFieldStore';
 export * from './getFieldValues';
 export * from './getFilteredNames';
+export * from './getFormDataValues';
 export * from './getInitialStores';
 export * from './getOptions';
 export * from './getPathIndex';

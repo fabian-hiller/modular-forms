@@ -39,8 +39,7 @@ export function insert<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
-    Array<unknown>
+  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
 >(
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,

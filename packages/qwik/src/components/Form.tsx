@@ -1,13 +1,15 @@
-import type { QwikSubmitEvent, QwikJSX } from '@builder.io/qwik';
+import type { QwikJSX } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
-import { getValues, validate } from '../methods';
+import { getValues, setError, validate } from '../methods';
 import type {
   FormStore,
   FieldValues,
   FieldPath,
   FieldArrayPath,
   SubmitHandler,
+  FormActionState,
+  PartialValues,
 } from '../types';
 
 export type FormProps<
@@ -16,7 +18,11 @@ export type FormProps<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = Omit<QwikJSX.IntrinsicElements['form'], 'action' | 'method'> & {
   of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
-  action?: ActionStore<any, TFieldValues, true>; // TODO: Improve generics
+  action?: ActionStore<
+    FormActionState<TFieldValues>,
+    PartialValues<TFieldValues>,
+    true
+  >;
   onSubmit$?: SubmitHandler<TFieldValues>;
   keepResponse?: boolean;
   shouldActive?: boolean;
@@ -41,11 +47,17 @@ export function Form<
   shouldTouched,
   shouldDirty,
   shouldFocus,
-  ...rest
+  ...formProps
 }: FormProps<TFieldValues, TFieldName, TFieldArrayName>): JSX.Element {
+  // Destructure form props
+  const { encType } = formProps;
+
+  // Create options object
+  const options = { shouldActive, shouldTouched, shouldDirty, shouldFocus };
+
   return (
     <form
-      {...rest}
+      {...formProps}
       method="post"
       action={action?.actionPath}
       preventdefault:submit
@@ -54,7 +66,7 @@ export function Form<
         // TODO: Enable once issue #3219 is fixed
         // form.element = element as HTMLFormElement;
       }}
-      onSubmit$={async (event: QwikSubmitEvent<HTMLFormElement>) => {
+      onSubmit$={async (event, element) => {
         // Reset response if it is not to be kept
         if (!keepResponse) {
           form.response = {};
@@ -67,21 +79,42 @@ export function Form<
 
         // Try to run submit actions if form is valid
         try {
-          if (await validate(form, { shouldActive, shouldFocus })) {
+          if (await validate(form, options)) {
             // Get current values of form
-            const values = getValues(form, {
-              shouldActive,
-              shouldTouched,
-              shouldDirty,
-            }) as TFieldValues;
+            const values = getValues(form, options);
 
             // Run submit actions of form
-            await Promise.all([
-              onSubmit$?.(values, event),
-              action?.run(values),
+            const [actionResult] = await Promise.all([
+              action?.run(
+                encType === 'multipart/form-data'
+                  ? new FormData(element)
+                  : values
+              ),
+              onSubmit$?.(values as TFieldValues, event),
             ]);
 
-            // TODO: Catch errors of "action"
+            // Destructure action result
+            const { errors, response } = actionResult?.value || {};
+
+            // Set errors of action if necessary
+            if (errors) {
+              (
+                Object.entries(errors) as [
+                  TFieldName | TFieldArrayName,
+                  string
+                ][]
+              ).forEach(([name, error]) =>
+                setError(form, name, error, {
+                  ...options,
+                  shouldFocus: false,
+                })
+              );
+            }
+
+            // Set response of action if necessary
+            if (response) {
+              form.response = response;
+            }
           }
 
           // If an error occurred, set error response

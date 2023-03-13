@@ -34,7 +34,10 @@ export function useForm<
   FormStore<TFieldValues, TFieldName, TFieldArrayName>,
   {
     Form: (
-      props: Omit<FormProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
+      props: Omit<
+        FormProps<TFieldValues, TFieldName, TFieldArrayName>,
+        'of' | 'action'
+      >
     ) => JSX.Element;
     Field: <
       TFieldName extends FieldPath<TFieldValues>,
@@ -61,8 +64,11 @@ export function useForm<
     form,
     {
       Form: (
-        props: Omit<FormProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
-      ) => Form({ of: form, ...props }),
+        props: Omit<
+          FormProps<TFieldValues, TFieldName, TFieldArrayName>,
+          'of' | 'action'
+        >
+      ) => Form({ of: form, action: options.action, ...props }),
       Field: <
         TFieldName extends FieldPath<TFieldValues>,
         TFieldArrayName extends FieldArrayPath<TFieldValues>
