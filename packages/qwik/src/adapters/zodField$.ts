@@ -9,7 +9,7 @@ import type { FieldValue, Maybe, ValidateField } from '../types';
  *
  * @returns A validation function.
  */
-function zodFieldQrl<TFieldValue extends FieldValue>(
+export function zodFieldQrl<TFieldValue extends FieldValue>(
   schema: QRL<ZodType<any, any, TFieldValue>>
 ): QRL<ValidateField<TFieldValue>> {
   return $(async (value: Maybe<TFieldValue>) => {

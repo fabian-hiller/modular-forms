@@ -16,7 +16,7 @@ import type {
  *
  * @returns A validation function.
  */
-function zodFormQrl<TFieldValues extends FieldValues>(
+export function zodFormQrl<TFieldValues extends FieldValues>(
   schema: QRL<ZodType<any, any, TFieldValues>>
 ): QRL<ValidateForm<TFieldValues>> {
   return $(async (values: PartialValues<TFieldValues>) => {
