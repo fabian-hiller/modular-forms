@@ -18,10 +18,11 @@ export function useFrozenText(
   const frozenText = useSignal<string>();
 
   // Freeze text specified delay
-  useTask$(({ track }) => {
+  useTask$(({ track, cleanup }) => {
     const nextText = track(() => text.value);
     if (isBrowser && !nextText) {
-      setTimeout(() => (frozenText.value = nextText), delay);
+      const timeout = setTimeout(() => (frozenText.value = nextText), delay);
+      cleanup(() => clearTimeout(timeout));
     } else {
       frozenText.value = nextText;
     }
