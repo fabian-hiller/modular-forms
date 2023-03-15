@@ -2,11 +2,11 @@ import {
   $,
   component$,
   Slot,
-  useBrowserVisibleTask$,
   useOnWindow,
   useSignal,
-} from "@builder.io/qwik";
-import clsx from "clsx";
+  useVisibleTask$,
+} from '@builder.io/qwik';
+import clsx from 'clsx';
 
 type ExpandableProps = {
   class?: string;
@@ -32,26 +32,26 @@ export const Expandable = component$(
     });
 
     // Expand or collapse content when expanded prop change
-    useBrowserVisibleTask$(({ track }) => {
+    useVisibleTask$(({ track }) => {
       track(() => expanded);
       updateElementHeight();
     });
 
     // Update element height when window size change
     useOnWindow(
-      "resize",
+      'resize',
       $(async () => {
-        element.value!.style.maxHeight = "0";
+        element.value!.style.maxHeight = '0';
         await updateElementHeight();
-        element.value!.style.maxHeight = "";
+        element.value!.style.maxHeight = '';
       })
     );
 
     return (
       <div
         class={clsx(
-          "h-0 origin-top duration-200",
-          !expanded && "invisible -translate-y-2 scale-y-75 opacity-0",
+          'origin-top duration-200',
+          !expanded && 'invisible h-0 -translate-y-2 scale-y-75 opacity-0',
           props.class
         )}
         id={id}

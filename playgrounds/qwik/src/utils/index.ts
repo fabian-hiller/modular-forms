@@ -1,1 +1,1 @@
-export * from "./disableTransitions";
+export * from './disableTransitions';

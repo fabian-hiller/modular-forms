@@ -1,8 +1,8 @@
 import { $, component$ } from '@builder.io/qwik';
 import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import {
-  type FormLoader,
   insert,
+  type InitialValues,
   move,
   remove,
   replace,
@@ -18,7 +18,7 @@ type NestedForm = {
   }[];
 };
 
-export const useFormLoader = routeLoader$<FormLoader<NestedForm>>(() => ({
+export const useFormLoader = routeLoader$<InitialValues<NestedForm>>(() => ({
   items: [
     {
       label: 'Item 1',

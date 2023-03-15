@@ -3,9 +3,9 @@ import {
   type PropFunction,
   type QwikChangeEvent,
   type QwikFocusEvent,
-} from "@builder.io/qwik";
-import clsx from "clsx";
-import { InputError } from "./InputError";
+} from '@builder.io/qwik';
+import clsx from 'clsx';
+import { InputError } from './InputError';
 
 type CheckboxProps = {
   ref: PropFunction<(element: Element) => void>;
@@ -36,7 +36,7 @@ export const Checkbox = component$(
   ({ label, error, ...props }: CheckboxProps) => {
     const { name, required } = props;
     return (
-      <div class={clsx("px-8 lg:px-10", props.class)}>
+      <div class={clsx('px-8 lg:px-10', props.class)}>
         <label class="flex select-none space-x-4 font-medium md:text-lg lg:text-xl">
           <input
             {...props}
@@ -46,7 +46,7 @@ export const Checkbox = component$(
             aria-invalid={!!error}
             aria-errormessage={`${name}-error`}
           />
-          <span>{label}</span>{" "}
+          <span>{label}</span>{' '}
           {required && (
             <span class="ml-1 text-red-600 dark:text-red-400">*</span>
           )}

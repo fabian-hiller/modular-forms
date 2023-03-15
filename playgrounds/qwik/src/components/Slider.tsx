@@ -3,10 +3,10 @@ import {
   type PropFunction,
   type QwikChangeEvent,
   type QwikFocusEvent,
-} from "@builder.io/qwik";
-import clsx from "clsx";
-import { InputError } from "./InputError";
-import { InputLabel } from "./InputLabel";
+} from '@builder.io/qwik';
+import clsx from 'clsx';
+import { InputError } from './InputError';
+import { InputLabel } from './InputLabel';
 
 type SliderProps = {
   ref: PropFunction<(element: Element) => void>;
@@ -39,7 +39,7 @@ type SliderProps = {
 export const Slider = component$(({ label, error, ...props }: SliderProps) => {
   const { name, required } = props;
   return (
-    <div class={clsx("px-8 lg:px-10", props.class)}>
+    <div class={clsx('px-8 lg:px-10', props.class)}>
       <InputLabel name={name} label={label} required={required} />
       <input
         {...props}

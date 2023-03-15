@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$ } from '@builder.io/qwik';
 
 /**
  * Spinner provide a visual cue that an action is being processed.

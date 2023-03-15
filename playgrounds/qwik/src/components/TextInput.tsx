@@ -3,14 +3,14 @@ import {
   type PropFunction,
   type QwikChangeEvent,
   type QwikFocusEvent,
-} from "@builder.io/qwik";
-import clsx from "clsx";
-import { InputError } from "./InputError";
-import { InputLabel } from "./InputLabel";
+} from '@builder.io/qwik';
+import clsx from 'clsx';
+import { InputError } from './InputError';
+import { InputLabel } from './InputLabel';
 
 type TextInputProps = {
   ref: PropFunction<(element: Element) => void>;
-  type: "text" | "email" | "tel" | "password" | "url" | "number" | "date";
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
   name: string;
   value: string | number | undefined;
   onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
@@ -38,15 +38,15 @@ export const TextInput = component$(
   ({ label, error, ...props }: TextInputProps) => {
     const { name, required } = props;
     return (
-      <div class={clsx("px-8 lg:px-10", props.class)}>
+      <div class={clsx('px-8 lg:px-10', props.class)}>
         <InputLabel name={name} label={label} required={required} />
         <input
           {...props}
           class={clsx(
-            "h-14 w-full rounded-2xl border-2 bg-white px-5 outline-none placeholder:text-slate-500 dark:bg-gray-900 md:h-16 md:text-lg lg:h-[70px] lg:px-6 lg:text-xl",
+            'h-14 w-full rounded-2xl border-2 bg-white px-5 outline-none placeholder:text-slate-500 dark:bg-gray-900 md:h-16 md:text-lg lg:h-[70px] lg:px-6 lg:text-xl',
             error
-              ? "border-red-600/50 dark:border-red-400/50"
-              : "border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50"
+              ? 'border-red-600/50 dark:border-red-400/50'
+              : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50'
           )}
           id={name}
           aria-invalid={!!error}

@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import {
-  type FormLoader,
+  type InitialValues,
   useForm,
   required,
   getValue,
@@ -22,7 +22,7 @@ type PaymentForm = {
   };
 };
 
-export const useFormLoader = routeLoader$<FormLoader<PaymentForm>>(() => ({
+export const useFormLoader = routeLoader$<InitialValues<PaymentForm>>(() => ({
   owner: 'John Doe',
   type: '',
   card: {

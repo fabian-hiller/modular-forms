@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import {
   email,
-  type FormLoader,
+  type InitialValues,
   minLength,
   required,
   useForm,
@@ -14,7 +14,7 @@ type LoginForm = {
   password: string;
 };
 
-export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(() => ({
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
   email: '',
   password: '',
 }));

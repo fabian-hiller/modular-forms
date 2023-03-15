@@ -1,15 +1,15 @@
 import { $, component$ } from '@builder.io/qwik';
 import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import {
-  type FormLoader,
-  useForm,
-  required,
+  insert,
+  type InitialValues,
   maxLength,
-  replace,
-  swap,
   move,
   remove,
-  insert,
+  replace,
+  required,
+  swap,
+  useForm,
 } from '@modular-forms/qwik';
 import {
   FormHeader,
@@ -28,7 +28,7 @@ type TodoForm = {
   }[];
 };
 
-export const useFormLoader = routeLoader$<FormLoader<TodoForm>>(() => ({
+export const useFormLoader = routeLoader$<InitialValues<TodoForm>>(() => ({
   heading: '',
   todos: [
     {

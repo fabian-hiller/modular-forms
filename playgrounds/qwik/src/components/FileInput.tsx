@@ -7,15 +7,15 @@ import {
   type PropFunction,
   type QwikChangeEvent,
   type QwikFocusEvent,
-} from "@builder.io/qwik";
-import clsx from "clsx";
-import { InputError } from "./InputError";
-import { InputLabel } from "./InputLabel";
+} from '@builder.io/qwik';
+import clsx from 'clsx';
+import { InputError } from './InputError';
+import { InputLabel } from './InputLabel';
 
 type FileInputProps = {
   ref: PropFunction<(element: Element) => void>;
   name: string;
-  value: NoSerialize<FileList> | NoSerialize<File> | null | undefined;
+  value: NoSerialize<File[]> | NoSerialize<File> | null | undefined;
   onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
   onChange$: PropFunction<
     (
@@ -48,28 +48,24 @@ export const FileInput = component$(
     useTask$(({ track }) => {
       track(() => value);
       files.value = noSerialize(
-        value && typeof value === "object"
-          ? "length" in value
-            ? Array.from(value)
-            : [value]
-          : []
+        value ? (Array.isArray(value) ? value : [value]) : []
       );
     });
 
     return (
-      <div class={clsx("px-8 lg:px-10", props.class)}>
+      <div class={clsx('px-8 lg:px-10', props.class)}>
         <InputLabel name={name} label={label} required={required} />
         <label
           class={clsx(
-            "relative flex min-h-[96px] w-full items-center justify-center rounded-2xl border-[3px] border-dashed border-slate-200 p-8 text-center focus-within:border-sky-600/50 hover:border-slate-300 dark:border-slate-800 dark:focus-within:border-sky-400/50 dark:hover:border-slate-700 md:min-h-[112px] md:text-lg lg:min-h-[128px] lg:p-10 lg:text-xl",
-            !files.value?.length && "text-slate-500"
+            'relative flex min-h-[96px] w-full items-center justify-center rounded-2xl border-[3px] border-dashed border-slate-200 p-8 text-center focus-within:border-sky-600/50 hover:border-slate-300 dark:border-slate-800 dark:focus-within:border-sky-400/50 dark:hover:border-slate-700 md:min-h-[112px] md:text-lg lg:min-h-[128px] lg:p-10 lg:text-xl',
+            !files.value?.length && 'text-slate-500'
           )}
         >
           {files.value?.length
-            ? `Selected file${multiple ? "s" : ""}: ${files.value
+            ? `Selected file${multiple ? 's' : ''}: ${files.value
                 .map(({ name }) => name)
-                .join(", ")}`
-            : `Click or drag and drop file${multiple ? "s" : ""}`}
+                .join(', ')}`
+            : `Click or drag and drop file${multiple ? 's' : ''}`}
           <input
             {...props}
             class="absolute h-full w-full cursor-pointer opacity-0"

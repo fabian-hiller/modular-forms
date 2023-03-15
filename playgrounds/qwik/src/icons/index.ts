@@ -1,1 +1,1 @@
-export * from "./AngleDownIcon";
+export * from './AngleDownIcon';

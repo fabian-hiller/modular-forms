@@ -1,6 +1,6 @@
 import { component$, type NoSerialize } from '@builder.io/qwik';
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
-import { type FormLoader, useForm } from '@modular-forms/qwik';
+import { type InitialValues, useForm } from '@modular-forms/qwik';
 import {
   FormHeader,
   TextInput,
@@ -23,12 +23,12 @@ type SpecialForm = {
     string: string;
   };
   file: {
-    list: NoSerialize<FileList>;
+    list: NoSerialize<File[]>;
     item: NoSerialize<File>;
   };
 };
 
-export const useFormLoader = routeLoader$<FormLoader<SpecialForm>>(() => ({
+export const useFormLoader = routeLoader$<InitialValues<SpecialForm>>(() => ({
   number: 0,
   range: 50,
   checkbox: {

@@ -1,11 +1,6 @@
-import {
-  $,
-  component$,
-  useBrowserVisibleTask$,
-  useSignal,
-} from "@builder.io/qwik";
-import { Link, useLocation } from "@builder.io/qwik-city";
-import clsx from "clsx";
+import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { Link, useLocation } from '@builder.io/qwik-city';
+import clsx from 'clsx';
 
 type TabsProps = {
   items: string[];
@@ -45,7 +40,7 @@ export const Tabs = component$((props: TabsProps) => {
   });
 
   // Update indicator style when active element changes
-  useBrowserVisibleTask$(({ track }) => {
+  useVisibleTask$(({ track }) => {
     track(() => loaction.url.pathname);
     updateIndicatorStyle();
   });
@@ -55,15 +50,15 @@ export const Tabs = component$((props: TabsProps) => {
       <div class="relative flex-1 border-b-2 border-b-slate-200 dark:border-b-slate-800">
         <nav class="flex space-x-8 lg:space-x-14" ref={navElement}>
           {props.items.map((item) => {
-            const href = `/${item.toLowerCase().replace(/ /g, "-")}/`;
+            const href = `/${item.toLowerCase().replace(/ /g, '-')}/`;
             return (
               <Link
                 key={href}
                 class={clsx(
-                  "block pb-4 lg:text-lg",
+                  'block pb-4 lg:text-lg',
                   href === loaction.url.pathname
-                    ? "text-sky-600 dark:text-sky-400"
-                    : "hover:text-slate-900 dark:hover:text-slate-200"
+                    ? 'text-sky-600 dark:text-sky-400'
+                    : 'hover:text-slate-900 dark:hover:text-slate-200'
                 )}
                 href={href}
                 // TODO: Enable once issue #3223 is fixed

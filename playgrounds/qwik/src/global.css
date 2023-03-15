@@ -9,6 +9,6 @@
 }
 
 /* Reset appearance */
-[type="date"] {
+[type='date'] {
   @apply flex appearance-none items-center justify-start;
 }

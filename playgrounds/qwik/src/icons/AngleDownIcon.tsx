@@ -1,4 +1,4 @@
-import { component$, type HTMLAttributes } from "@builder.io/qwik";
+import { component$, type HTMLAttributes } from '@builder.io/qwik';
 
 export const AngleDownIcon = component$(
   (props: HTMLAttributes<HTMLElement>) => (
