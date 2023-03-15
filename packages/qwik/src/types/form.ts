@@ -73,16 +73,22 @@ export type FieldArraysStore<
 /**
  * Value type of the initial field values.
  */
-export type InitialValues<Value> = Value extends string[]
+export type InitialValues<Value> = Value extends
+  | string[]
+  | NoSerialize<Blob[]>
+  | NoSerialize<File[]>
   ? Value
   : Value extends FieldValue
   ? Maybe<Value>
-  : { [Key in keyof Value]-?: InitialValues<Value[Key]> };
+  : { [Key in keyof Required<Value>]: InitialValues<Value[Key]> };
 
 /**
  * Value type of the partial field values.
  */
-export type PartialValues<Value> = Value extends string[]
+export type PartialValues<Value> = Value extends
+  | string[]
+  | NoSerialize<Blob[]>
+  | NoSerialize<File[]>
   ? Value
   : Value extends FieldValue
   ? Maybe<Value>
