@@ -14,6 +14,7 @@ export * from './getOptions';
 export * from './getPathIndex';
 export * from './getPathValue';
 export * from './getUniqueId';
+export * from './setErrorResponse';
 export * from './setFieldArrayStore';
 export * from './setFieldArrayValue';
 export * from './setFieldStore';

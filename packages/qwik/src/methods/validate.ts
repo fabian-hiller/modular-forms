@@ -12,6 +12,7 @@ import {
   getFilteredNames,
   getFieldArrayStore,
   updateFormInvalid,
+  setErrorResponse,
 } from '../utils';
 import { focus } from './focus';
 import { getValues } from './getValues';
@@ -57,13 +58,13 @@ export async function validate<
   // Set validating to "true"
   form.validating = true;
 
-  // Create valid variable
-  let valid = true;
-
   // Run form validation function
   const formErrors: FormErrors<TFieldValues> = form.internal.validate
     ? await form.internal.validate(getValues(form, { shouldActive }))
     : {};
+
+  // Create valid variable
+  let valid = !Object.keys(formErrors).length;
 
   const [errorFields] = await Promise.all([
     // Validate each field in list
@@ -139,6 +140,9 @@ export async function validate<
       })
     ),
   ]);
+
+  // Set error response if necessary
+  setErrorResponse(form, formErrors, { shouldActive });
 
   // Focus first field with an error if specified
   if (shouldFocus) {

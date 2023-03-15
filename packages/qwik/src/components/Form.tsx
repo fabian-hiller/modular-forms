@@ -11,6 +11,7 @@ import type {
   FormActionState,
   PartialValues,
 } from '../types';
+import { setErrorResponse } from '../utils';
 
 export type FormProps<
   TFieldValues extends FieldValues,
@@ -109,6 +110,7 @@ export function Form<
                   shouldFocus: false,
                 })
               );
+              setErrorResponse(form, errors, options);
             }
 
             // Set response of action if necessary

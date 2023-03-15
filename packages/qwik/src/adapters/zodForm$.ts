@@ -1,8 +1,6 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
 import type { ZodType } from 'zod';
 import type {
-  FieldArrayPath,
-  FieldPath,
   FieldValues,
   FormErrors,
   PartialValues,
@@ -23,18 +21,13 @@ export function zodFormQrl<TFieldValues extends FieldValues>(
     const result = (await schema.resolve()).safeParse(values);
     return result.success
       ? {}
-      : result.error.issues.reduce<FormErrors<TFieldValues>>(
-          (errors, error) => {
-            const path = error.path.join('.') as
-              | FieldPath<TFieldValues>
-              | FieldArrayPath<TFieldValues>;
-            if (!errors[path]) {
-              errors[path] = error.message;
-            }
-            return errors;
-          },
-          {}
-        );
+      : (result.error.issues.reduce<any>((errors, error) => {
+          const path = error.path.join('.');
+          if (!errors[path]) {
+            errors[path] = error.message;
+          }
+          return errors;
+        }, {}) as FormErrors<TFieldValues>);
   });
 }
 
