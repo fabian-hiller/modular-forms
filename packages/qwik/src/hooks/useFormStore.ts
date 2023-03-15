@@ -52,7 +52,7 @@ export function useFormStore<
         touched: false,
         dirty: false,
         invalid: false,
-        response: {},
+        response: action?.value?.response || {},
       };
     },
     { recursive: true }
