@@ -66,7 +66,7 @@ export function getInitialStores<
           name: compoundPath as TFieldName,
           value:
             (action?.value?.values &&
-              getPathValue(compoundPath as TFieldName, action.value.values)) ||
+              getPathValue(compoundPath as TFieldName, action.value.values)) ??
             value,
           error: getError(compoundPath as TFieldName),
           active: false,
