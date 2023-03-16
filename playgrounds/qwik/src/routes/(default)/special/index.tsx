@@ -1,4 +1,4 @@
-import { component$, type NoSerialize } from '@builder.io/qwik';
+import { component$, noSerialize, type NoSerialize } from '@builder.io/qwik';
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import { type InitialValues, useForm } from '@modular-forms/qwik';
 import {
@@ -40,7 +40,7 @@ export const useFormLoader = routeLoader$<InitialValues<SpecialForm>>(() => ({
     string: undefined,
   },
   file: {
-    list: undefined,
+    list: noSerialize([]),
     item: undefined,
   },
 }));
