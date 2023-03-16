@@ -2,11 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.11.0 (March 16, 2023)
 
-- Rename type `Response` to `FormResponse`
+- Rename `Response` type to `FormResponse`
 - Add `SubmitHandler` and `FormValues` type
-- Add export for `FormProps`, `FieldProps` and `FieldArrayProps` (issue #32)
+- Add export for `FormProps`, `FieldProps` and `FieldArrayProps` type (issue #32)
 
 ## v0.10.0 (January 10, 2023)
 
