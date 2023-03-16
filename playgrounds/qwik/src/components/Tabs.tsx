@@ -56,11 +56,11 @@ export const Tabs = component$((props: TabsProps) => {
                 key={href}
                 class={clsx(
                   'block pb-4 lg:text-lg',
-                  href === loaction.url.pathname
+                  loaction.url.pathname.endsWith(href)
                     ? 'text-sky-600 dark:text-sky-400'
                     : 'hover:text-slate-900 dark:hover:text-slate-200'
                 )}
-                href={href}
+                href={`..${href}`}
                 // TODO: Enable once issue #3223 is fixed
                 // onClick$={(_, element) =>
                 //   element.scrollIntoView({

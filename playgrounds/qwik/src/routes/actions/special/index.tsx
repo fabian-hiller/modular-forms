@@ -1,6 +1,16 @@
 import { component$, noSerialize, type NoSerialize } from '@builder.io/qwik';
-import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
-import { type InitialValues, useForm } from '@modular-forms/qwik';
+import {
+  type DocumentHead,
+  routeLoader$,
+  z,
+  globalAction$,
+} from '@builder.io/qwik-city';
+import {
+  type InitialValues,
+  useForm,
+  zodForm$,
+  formAction$,
+} from '@modular-forms/qwik';
 import {
   FormHeader,
   TextInput,
@@ -9,26 +19,35 @@ import {
   FileInput,
   FormFooter,
   Checkbox,
+  Response,
 } from '~/components';
 
-type SpecialForm = {
-  number: number;
-  range: number;
-  checkbox: {
-    array: string[];
-    boolean: boolean;
-  };
-  select: {
-    array: string[];
-    string?: string;
-  };
-  file: {
-    list: NoSerialize<File[]>;
-    item?: NoSerialize<File>;
-  };
-};
+const isBlob = (value: unknown) =>
+  !!value && typeof value === 'object' && 'size' in value && 'type' in value;
 
-export const useFormLoader = routeLoader$<InitialValues<SpecialForm>>(() => ({
+const isBlobArray = (value: unknown) =>
+  Array.isArray(value) && value.every(isBlob);
+
+const specialSchema = z.object({
+  number: z.number(),
+  range: z.number(),
+  checkbox: z.object({
+    array: z.array(z.string()),
+    boolean: z.boolean(),
+  }),
+  select: z.object({
+    array: z.array(z.string()),
+    string: z.string().optional(),
+  }),
+  file: z.object({
+    list: z.custom<NoSerialize<Blob[]>>(isBlobArray),
+    item: z.custom<NoSerialize<Blob>>(isBlob).optional(),
+  }),
+});
+
+type SpecialForm = z.input<typeof specialSchema>;
+
+const getInitFormValues = (): InitialValues<SpecialForm> => ({
   number: 0,
   range: 50,
   checkbox: {
@@ -43,21 +62,61 @@ export const useFormLoader = routeLoader$<InitialValues<SpecialForm>>(() => ({
     list: noSerialize([]),
     item: undefined,
   },
-}));
+});
+
+// Note: State is kept in local variable for demo purposes
+let specialFormValues: InitialValues<SpecialForm> = getInitFormValues();
+
+export const useFormLoader = routeLoader$<InitialValues<SpecialForm>>(
+  () => specialFormValues
+);
+
+export const useResetFormAction = globalAction$(() => {
+  specialFormValues = getInitFormValues();
+});
+
+export const useFormAction = formAction$<SpecialForm>(
+  (values) => {
+    // Runs on server
+    console.log(values);
+  },
+  {
+    validate: zodForm$(specialSchema),
+    arrays: ['checkbox.array', 'file.list', 'select.array'],
+    booleans: ['checkbox.boolean'],
+    files: ['file.item', 'file.list'],
+    numbers: ['number', 'range'],
+  }
+);
 
 export default component$(() => {
   // Use special form
   const [specialForm, { Form, Field }] = useForm<SpecialForm>({
     loader: useFormLoader(),
+    action: useFormAction(),
   });
 
+  // Use reset form action
+  const resetFormAction = useResetFormAction();
+
   return (
-    <Form
-      class="space-y-12 md:space-y-14 lg:space-y-16"
-      onSubmit$={(values) => console.log(values)}
-    >
-      <FormHeader of={specialForm} heading="Special form" />
-      <div class="space-y-8 md:space-y-10 lg:space-y-12">
+    <div class="space-y-12 md:space-y-14 lg:space-y-16">
+      <FormHeader
+        of={specialForm}
+        form="special-form"
+        heading="Special form"
+        resetAction={resetFormAction}
+      />
+
+      <Form
+        id="special-form"
+        class="space-y-8 md:space-y-10 lg:space-y-12"
+        encType="multipart/form-data"
+        onSubmit$={(values) => {
+          // Runs on client
+          console.log(values);
+        }}
+      >
         <Field name="number">
           {(field, props) => (
             <TextInput
@@ -172,9 +231,16 @@ export default component$(() => {
             />
           )}
         </Field>
-      </div>
-      <FormFooter of={specialForm} />
-    </Form>
+
+        <Response of={specialForm} />
+      </Form>
+
+      <FormFooter
+        of={specialForm}
+        form="special-form"
+        resetAction={resetFormAction}
+      />
+    </div>
   );
 });
 

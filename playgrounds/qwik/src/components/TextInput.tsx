@@ -28,6 +28,7 @@ type TextInputProps = {
   class?: string;
   label?: string;
   error?: string;
+  form?: string;
 };
 
 /**

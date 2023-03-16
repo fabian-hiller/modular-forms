@@ -76,7 +76,7 @@ export const Select = component$(
             aria-invalid={!!error}
             aria-errormessage={`${name}-error`}
           >
-            <option value="" hidden selected>
+            <option value="" disabled hidden selected={!value}>
               {placeholder}
             </option>
             {options.map(({ label, value }) => (

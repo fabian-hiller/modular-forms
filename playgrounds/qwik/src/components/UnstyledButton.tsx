@@ -1,4 +1,5 @@
 import {
+  $,
   component$,
   type PropFunction,
   Slot,
@@ -16,16 +17,14 @@ type LinkProps = {
 };
 
 type ButtonProps = {
-  type: 'button';
-  onClick$: PropFunction<() => unknown>;
-};
-
-type SubmitProps = {
-  type: 'submit';
+  type: 'button' | 'reset' | 'submit';
+  'preventdefault:click'?: boolean;
+  onClick$?: PropFunction<() => unknown>;
   loading?: boolean;
+  form?: string;
 };
 
-export type DefaultButtonProps = LinkProps | ButtonProps | SubmitProps;
+export type DefaultButtonProps = LinkProps | ButtonProps;
 
 type UnstyledButtonProps = DefaultButtonProps & {
   class?: string;
@@ -57,67 +56,46 @@ export const UnstyledButton = component$((props: UnstyledButtonProps) => {
       )}
 
       {/* Normal button */}
-      {props.type === 'button' && (
+      {props.type !== 'link' && (
         <button
-          type="button"
+          type={props.type}
           class={props.class}
+          form={props.form}
           disabled={loading.value}
           aria-label={props['aria-label']}
+          preventdefault:click={props['preventdefault:click']}
           // Start and stop loading if function is async
-          onClick$={async () => {
-            loading.value = true;
-            await props.onClick$();
-            loading.value = false;
-          }}
+          onClick$={
+            props.onClick$ &&
+            $(async () => {
+              loading.value = true;
+              await props.onClick$!();
+              loading.value = false;
+            })
+          }
         >
-          <ButtonContent loading={loading.value}>
+          <div
+            class={clsx(
+              'transition-[opacity,transform,visibility] duration-200',
+              loading.value || props.loading
+                ? 'invisible translate-x-5 opacity-0'
+                : 'visible delay-300'
+            )}
+          >
             <Slot />
-          </ButtonContent>
-        </button>
-      )}
-
-      {/* Submit button */}
-      {props.type === 'submit' && (
-        <button
-          type="submit"
-          class={props.class}
-          disabled={props.loading}
-          aria-label={props['aria-label']}
-        >
-          <ButtonContent loading={props.loading}>
-            <Slot />
-          </ButtonContent>
+          </div>
+          <div
+            class={clsx(
+              'absolute duration-200',
+              loading.value || props.loading
+                ? 'visible delay-300'
+                : 'invisible -translate-x-5 opacity-0'
+            )}
+          >
+            <Spinner />
+          </div>
         </button>
       )}
     </>
   );
 });
-
-type ContentProps = {
-  loading?: boolean;
-};
-
-/**
- * Content of the button that displays a loading animation when an action is
- * performed.
- */
-export const ButtonContent = component$(({ loading }: ContentProps) => (
-  <>
-    <div
-      class={clsx(
-        'transition-[opacity,transform,visibility] duration-200',
-        loading ? 'invisible translate-x-5 opacity-0' : 'visible delay-300'
-      )}
-    >
-      <Slot />
-    </div>
-    <div
-      class={clsx(
-        'absolute duration-200',
-        loading ? 'visible delay-300' : 'invisible -translate-x-5 opacity-0'
-      )}
-    >
-      <Spinner />
-    </div>
-  </>
-));

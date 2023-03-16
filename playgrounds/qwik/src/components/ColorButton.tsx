@@ -2,6 +2,7 @@ import { component$, type PropFunction } from '@builder.io/qwik';
 import clsx from 'clsx';
 
 type ColorButtonProps = {
+  type?: 'button' | 'submit';
   color: 'green' | 'yellow' | 'purple' | 'blue' | 'red';
   label: string;
   onClick$: PropFunction<() => void>;
@@ -13,7 +14,7 @@ type ColorButtonProps = {
  * playground.
  */
 export const ColorButton = component$(
-  ({ color, label, onClick$, width }: ColorButtonProps) => (
+  ({ type = 'button', color, label, onClick$, width }: ColorButtonProps) => (
     <button
       class={clsx(
         'h-14 rounded-2xl border-2 bg-white px-5 font-medium dark:bg-gray-900 md:h-16 md:text-lg lg:h-[70px] lg:px-6 lg:text-xl',
@@ -29,7 +30,8 @@ export const ColorButton = component$(
           'border-red-600/20 text-red-600 hover:bg-red-600/10 dark:border-red-400/20 dark:text-red-400 dark:hover:bg-red-400/10',
         width !== 'auto' && 'w-full md:w-auto'
       )}
-      type="button"
+      type={type}
+      preventdefault:click={type === 'submit'}
       onClick$={onClick$}
     >
       {label}

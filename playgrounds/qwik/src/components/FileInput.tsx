@@ -15,7 +15,13 @@ import { InputLabel } from './InputLabel';
 type FileInputProps = {
   ref: PropFunction<(element: Element) => void>;
   name: string;
-  value: NoSerialize<File[]> | NoSerialize<File> | null | undefined;
+  value:
+    | NoSerialize<Blob>
+    | NoSerialize<Blob[]>
+    | NoSerialize<File>
+    | NoSerialize<File[]>
+    | null
+    | undefined;
   onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
   onChange$: PropFunction<
     (
@@ -44,7 +50,7 @@ export const FileInput = component$(
     const { name, required, multiple } = props;
 
     // Create computed value of selected files
-    const files = useSignal<NoSerialize<File[]>>();
+    const files = useSignal<NoSerialize<Blob[]> | NoSerialize<File[]>>();
     useTask$(({ track }) => {
       track(() => value);
       files.value = noSerialize(
