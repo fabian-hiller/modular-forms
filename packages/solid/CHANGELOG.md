@@ -6,7 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Rename `Response` type to `FormResponse`
 - Add `SubmitHandler` and `FormValues` type
-- Add export for `FormProps`, `FieldProps` and `FieldArrayProps` type (issue #32)
+- Add export for `FormProps`, `FieldProps` and `FieldArrayProps` type (issue #23)
 
 ## v0.10.0 (January 10, 2023)
 
