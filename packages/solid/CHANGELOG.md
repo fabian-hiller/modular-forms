@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Rename type `Response` to `FormResponse`
+- Add `SubmitHandler` and `FormValues` type
 
 ## v0.10.0 (January 10, 2023)
 
