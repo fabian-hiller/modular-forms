@@ -2,7 +2,7 @@ import { JSX, splitProps } from 'solid-js';
 import { handleSubmit } from '../methods/handleSubmit';
 import { FieldValues, FormState, SubmitHandler } from '../types';
 
-type FormProps<TFieldValues extends FieldValues> = Omit<
+export type FormProps<TFieldValues extends FieldValues> = Omit<
   JSX.FormHTMLAttributes<HTMLFormElement>,
   'onSubmit'
 > & {

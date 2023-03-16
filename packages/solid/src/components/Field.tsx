@@ -10,7 +10,7 @@ import {
   ValidateField,
 } from '../types';
 
-type FieldProps<
+export type FieldProps<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>
 > = {

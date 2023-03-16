@@ -8,7 +8,7 @@ import {
   ValidateFieldArray,
 } from '../types';
 
-type FieldArrayProps<
+export type FieldArrayProps<
   TFieldValues extends FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
