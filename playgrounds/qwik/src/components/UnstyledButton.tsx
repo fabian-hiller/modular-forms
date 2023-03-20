@@ -44,12 +44,8 @@ export const UnstyledButton = component$((props: UnstyledButtonProps) => {
       {/* Link button */}
       {props.type === 'link' && (
         <Link
-          class={props.class}
-          href={props.href}
-          download={props.download}
-          target={props.target}
+          {...props}
           rel={props.target === '_blank' ? 'noreferrer' : undefined}
-          aria-label={props['aria-label']}
         >
           <Slot />
         </Link>
@@ -58,12 +54,8 @@ export const UnstyledButton = component$((props: UnstyledButtonProps) => {
       {/* Normal button */}
       {props.type !== 'link' && (
         <button
-          type={props.type}
-          class={props.class}
-          form={props.form}
-          disabled={loading.value}
-          aria-label={props['aria-label']}
-          preventdefault:click={props['preventdefault:click']}
+          {...props}
+          // disabled={loading.value || props.loading}
           // Start and stop loading if function is async
           onClick$={
             props.onClick$ &&

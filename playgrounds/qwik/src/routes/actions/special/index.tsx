@@ -232,7 +232,7 @@ export default component$(() => {
           )}
         </Field>
 
-        <Response of={specialForm} />
+        <Response class="pt-8 md:pt-10 lg:pt-12" of={specialForm} />
       </Form>
 
       <FormFooter

@@ -25,6 +25,7 @@ import {
   InputError,
   FormHeader,
   FormFooter,
+  Response,
 } from '~/components';
 
 const todoSchema = z.object({
@@ -289,6 +290,8 @@ export default component$(() => {
             />
           </ActionForm>
         </div>
+
+        <Response class="pt-8 md:pt-10 lg:pt-12" of={todoForm} />
       </div>
 
       <FormFooter
