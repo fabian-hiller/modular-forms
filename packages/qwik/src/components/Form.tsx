@@ -1,4 +1,4 @@
-import type { QwikJSX } from '@builder.io/qwik';
+import type { QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import { getValues, setError, validate } from '../methods';
@@ -17,7 +17,8 @@ export type FormProps<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = Omit<QwikJSX.IntrinsicElements['form'], 'action' | 'method'> & {
+> = {
+  // Custom props
   of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
   action?: ActionStore<
     FormActionState<TFieldValues>,
@@ -30,6 +31,14 @@ export type FormProps<
   shouldTouched?: boolean;
   shouldDirty?: boolean;
   shouldFocus?: boolean;
+
+  // HTML props
+  id?: string;
+  class?: string;
+  autoComplete?: 'on' | 'off';
+  encType?: 'application/x-www-form-urlencoded' | 'multipart/form-data';
+  name?: string;
+  children: any;
 };
 
 /**
@@ -48,6 +57,7 @@ export function Form<
   shouldTouched,
   shouldDirty,
   shouldFocus,
+  children,
   ...formProps
 }: FormProps<TFieldValues, TFieldName, TFieldArrayName>): JSX.Element {
   // Destructure form props
@@ -63,9 +73,8 @@ export function Form<
       action={action?.actionPath}
       preventdefault:submit
       noValidate
-      ref={() => {
-        // TODO: Enable once issue #3219 is fixed
-        // form.element = element as HTMLFormElement;
+      ref={(element: Element) => {
+        form.element = element as HTMLFormElement;
       }}
       onSubmit$={async (event, element) => {
         // Reset response if it is not to be kept
@@ -86,12 +95,18 @@ export function Form<
 
             // Run submit actions of form
             const [actionResult] = await Promise.all([
-              action?.run(
+              action?.submit(
                 encType === 'multipart/form-data'
                   ? new FormData(element)
                   : values
               ),
-              onSubmit$?.(values as TFieldValues, event),
+              // TODO: Remove comment below once we have a better solution for
+              // our `SubmitHandler` type
+              // eslint-disable-next-line qwik/valid-lexical-scope
+              onSubmit$?.(
+                values as TFieldValues,
+                event as QwikSubmitEvent<HTMLFormElement>
+              ),
             ]);
 
             // Destructure action result
@@ -131,6 +146,8 @@ export function Form<
           form.submitting = false;
         }
       }}
-    />
+    >
+      {children}
+    </form>
   );
 }

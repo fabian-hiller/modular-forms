@@ -1,6 +1,5 @@
 import type {
   NoSerialize,
-  PropFunction,
   QRL,
   QwikSubmitEvent,
   Signal,
@@ -9,13 +8,16 @@ import type { ActionStore } from '@builder.io/qwik-city';
 import type { FieldStore, FieldValue, FieldValues } from './field';
 import type { FieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath, TypeInfoPath } from './path';
-import type { Maybe, MaybePromise } from './utils';
+import type { Maybe, MaybePromise, MaybeQRL } from './utils';
 
 /**
  * Function type to handle the submission of the form.
  */
-export type SubmitHandler<TFieldValues extends FieldValues> = PropFunction<
-  (values: TFieldValues, event: QwikSubmitEvent<HTMLFormElement>) => unknown
+export type SubmitHandler<TFieldValues extends FieldValues> = MaybeQRL<
+  (
+    values: TFieldValues,
+    event: QwikSubmitEvent<HTMLFormElement>
+  ) => MaybePromise<unknown>
 >;
 
 /**

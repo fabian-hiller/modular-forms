@@ -1,7 +1,7 @@
 import {
   component$,
   Slot,
-  useBrowserVisibleTask$,
+  useVisibleTask$,
   type PublicProps,
   type JSXNode,
   type QRL,
@@ -64,7 +64,8 @@ export const Lifecycle: <
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   props: PublicProps<LifecycleProps<TFieldValues, TFieldName, TFieldArrayName>>,
-  key: string | null
+  key: string | null,
+  flags: number
 ) => JSXNode | null = component$(
   <
     TFieldValues extends FieldValues,
@@ -82,8 +83,8 @@ export const Lifecycle: <
     TFieldArrayName
   >): JSX.Element => {
     // Track active state of file
-    // TODO: Switch back to `useTask$` once issue #3178 and #3193 is fixed
-    useBrowserVisibleTask$(({ cleanup }) => {
+    // TODO: Switch back to `useTask$` once issue #3193 is fixed
+    useVisibleTask$(({ cleanup }) => {
       // Add validation functions
       store.internal.validate = (
         validate ? (Array.isArray(validate) ? validate : [validate]) : []

@@ -63,9 +63,8 @@ export function Field<
       {children(field, {
         name,
         autoFocus: isServer && !!field.error,
-        ref: $(() => {
-          // TODO: Enable once issue #3219 is fixed
-          // field.internal.elements.push(element as FieldElement);
+        ref: $((element: Element) => {
+          field.internal.elements.push(element as FieldElement);
         }),
         onInput$: $((_: Event, element: FieldElement) => {
           const field = getFieldStore(form, name);

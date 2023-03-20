@@ -1,3 +1,5 @@
+import type { QRL } from '@builder.io/qwik';
+
 /**
  * Checks if an array type is a tuple type.
  */
@@ -29,3 +31,8 @@ export type MaybePromise<T> = T | Promise<T>;
  * Returns an optional array type.
  */
 export type MaybeArray<T> = T | T[];
+
+/**
+ * Returns an optional QRL type.
+ */
+export type MaybeQRL<T> = T | QRL<T>;
