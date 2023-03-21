@@ -8,7 +8,7 @@ import type {
   FieldPath,
   FieldArrayPath,
   SubmitHandler,
-  FormActionState,
+  FormActionStore,
   PartialValues,
 } from '../types';
 import { setErrorResponse } from '../utils';
@@ -21,7 +21,7 @@ export type FormProps<
   // Custom props
   of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
   action?: ActionStore<
-    FormActionState<TFieldValues>,
+    FormActionStore<TFieldValues>,
     PartialValues<TFieldValues>,
     true
   >;

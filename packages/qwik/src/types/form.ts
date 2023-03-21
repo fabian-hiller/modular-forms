@@ -107,9 +107,9 @@ export type FormDataInfo<TFieldValues extends FieldValues> = Partial<{
 }>;
 
 /**
- * Value type of the form action state.
+ * Value type of the form action store.
  */
-export type FormActionState<TFieldValues extends FieldValues> = {
+export type FormActionStore<TFieldValues extends FieldValues> = {
   values: PartialValues<TFieldValues>;
   errors: FormErrors<TFieldValues>;
   response: Maybe<FormResponse>;
@@ -121,7 +121,7 @@ export type FormActionState<TFieldValues extends FieldValues> = {
 export type FormOptions<TFieldValues extends FieldValues> = {
   loader: Signal<InitialValues<TFieldValues>>;
   action?: ActionStore<
-    FormActionState<TFieldValues>,
+    FormActionStore<TFieldValues>,
     PartialValues<TFieldValues>,
     true
   >;

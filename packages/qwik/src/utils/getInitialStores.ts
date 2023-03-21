@@ -6,7 +6,7 @@ import type {
   FieldPath,
   FieldsStore,
   FieldValues,
-  FormActionState,
+  FormActionStore,
   InitialValues,
   PartialValues,
 } from '../types';
@@ -28,7 +28,7 @@ export function getInitialStores<
 >(
   loader: Signal<InitialValues<TFieldValues>>,
   action?: ActionStore<
-    FormActionState<TFieldValues>,
+    FormActionStore<TFieldValues>,
     PartialValues<TFieldValues>,
     true
   >
