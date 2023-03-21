@@ -59,11 +59,11 @@ export default function App() {
 ```tsx
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from '@builder.io/qwik-city';
-import { type FormLoader, useForm } from '@modular-forms/qwik';
+import { type InitialValues, useForm } from '@modular-forms/qwik';
 
 type LoginForm = { … };
 
-export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
 
 export default component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({

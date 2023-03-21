@@ -176,10 +176,14 @@ export function Property(props: PropertyProps) {
                   {Array.isArray(type.return) && ')'}
                 </span>
               ) : (
-                <Dynamic component={type.href ? A : 'span'} href={type.href}>
-                  <span class="text-sky-600 dark:text-sky-400">
+                <>
+                  <Dynamic
+                    class="text-sky-600 dark:text-sky-400"
+                    component={type.href ? A : 'span'}
+                    href={type.href}
+                  >
                     {type.name}
-                  </span>
+                  </Dynamic>
                   {type.generics && (
                     <>
                       {'<'}
@@ -194,7 +198,7 @@ export function Property(props: PropertyProps) {
                       {'>'}
                     </>
                   )}
-                </Dynamic>
+                </>
               ))}
           </>
         )}

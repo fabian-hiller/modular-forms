@@ -13,6 +13,8 @@ During the development of Modular Forms, we paid special attention to input vali
 
 To keep the bundle size small, validation is optional and modular. If your form requires validation, just import the validation functions you need. Another advantage is that you can define the validation globally for the whole form or fine-granularly for each field individually. You can even combine the both methods.
 
+> Note that the validation of Modular Forms, except for server actions, takes place in the browser and can be manipulated by the user. Make sure that the values are validated again on the server before you process them or store them in your database.
+
 ## Validation functions
 
 With our internal validation functions you can reduce your bundle size to a minimum and also achieve unprecedented performance. You can validate almost anything with one line of code. Be it an email, URL, or the MIME type of a file.
@@ -92,7 +94,7 @@ import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from '@builder.io/qwik-city';
 import {
   email,
-  type FormLoader,
+  type InitialValues,
   minLength,
   required,
   useForm,
@@ -100,7 +102,7 @@ import {
 
 type LoginForm = { … };
 
-export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
 
 export default component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
@@ -206,9 +208,8 @@ export default function App() {
 
 ```tsx
 import { $, component$ } from "@builder.io/qwik";
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { type FormLoader, useForm, zodForm } from "@modular-forms/qwik";
-import { z } from 'zod';
+import { routeLoader$, z } from '@builder.io/qwik-city';
+import { type InitialValues, useForm, zodForm$ } from "@modular-forms/qwik";
 
 const loginSchema = z.object({
   email: z
@@ -223,12 +224,12 @@ const loginSchema = z.object({
 
 type LoginForm = z.input<typeof loginSchema>;
 
-export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
 
 export default component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
-    validate: $(zodForm(loginSchema)),
+    validate: zodForm$(loginSchema),
   });
 
   return (

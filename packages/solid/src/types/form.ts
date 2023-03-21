@@ -20,7 +20,7 @@ export type SubmitEvent = Event & {
 export type SubmitHandler<TFieldValues extends FieldValues> = (
   values: TFieldValues,
   event: SubmitEvent
-) => MaybePromise<void>;
+) => MaybePromise<unknown>;
 
 /**
  * Value type of the response status.

@@ -13,12 +13,18 @@ Now your first form is almost ready. There is only one little thing missing and 
 
 To make your form work even if JavaScript is disabled in your user's browser, we recommend using actions. Optionally, you can also perform the data processing on the client with <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> or use both in parallel.
 
-> The integration of actions is still under development. We expect to finish the integration in the coming weeks. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
+<Qwik block>
+
+> You can find more about progressively enhanced forms in <A href="/guides/enhanced-forms">this</A> guide.
+
+</Qwik>
 
 <Solid block>
 
+> The integration of actions is still under development. We expect to finish the integration in the coming weeks. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
+
 ```tsx
-import { createForm, Form, SubmitEvent } from '@modular-forms/solid';
+import { createForm, Form, SubmitHandler } from '@modular-forms/solid';
 import { createRouteAction } from 'solid-start';
 import { createServerAction$ } from 'solid-start/server';
 
@@ -41,7 +47,7 @@ export default function App() {
     action: serverAction, // or "routeAction"
   });
 
-  const handleSubmit = (values: LoginForm, event: SubmitEvent) => {
+  const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
     // Runs on client
   };
 
@@ -63,32 +69,32 @@ export default function App() {
 
 ```tsx
 import { $, component$ } from "@builder.io/qwik";
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { type FormLoader } from '@modular-forms/qwik';
+import { routeLoader$, z } from '@builder.io/qwik-city';
+import { type InitialValues, formAction$, zodForm$ } from '@modular-forms/qwik';
 
-type LoginForm = { … };
+const loginSchema = z.object({ … });
 
-export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+type LoginForm = z.input<typeof loginSchema>;
 
-export const useFormAction = routeAction$<FormAction<LoginForm>>((values) => ({
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
+
+export const useFormAction = formAction$<LoginForm>((values) => {
   // Runs on server
-}));
+}, zodForm$(loginSchema));
 
 export default component$(() => {
-  const formAction = useFormAction();
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
-    action: formAction,
+    action: useFormAction(),
+    validate: zodForm$(loginSchema),
   });
 
-  const handleSubmit = $(
-    (values: LoginForm, event: QwikSubmitEvent<HTMLFormElement>) => {
-      // Runs on client
-    }
-  );
+  const handleSubmit: SubmitHandler<LoginForm> = $((values, event) => {
+    // Runs on client
+  });
 
   return (
-    <Form action={formAction} onSubmit$={handleSubmit}>
+    <Form onSubmit$={handleSubmit}>
       …
     </Form>
   );
@@ -99,4 +105,19 @@ export default component$(() => {
 
 While the form is being submitted, you can use `loginForm.submitting` to display a loading animation and disable the submit button. Furthermore, using the `shouldDirty` property of the <A href="/api/Form">`Form`</A> component, you have the option to have the form return only modified values. This reduces network traffic, for example if you only want to update values that have changed in your database.
 
-Note that Modular Forms validation takes place in the browser and can be manipulated by the user. Make sure that the values are validated again on the server before you save them to your database, for example.
+You can access errors thrown by your code in <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return the <A href="/api/FormResponse">`FormResponse`</A> object in form actions in case of an error.
+
+<Qwik block>
+
+```ts
+export const useFormAction = formAction$<LoginForm>((values) => {
+  if (error) {
+    return {
+      status: 'error',
+      message: 'Your error message!',
+    };
+  }
+});
+```
+
+</Qwik>

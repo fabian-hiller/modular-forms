@@ -1,18 +1,18 @@
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
-<Title>zodForm</Title>
+<Title>zodForm$</Title>
 <Description>
   Creates a validation functions that parses the Zod schema of a form.
 </Description>
 
-# zodForm
+# zodForm$
 
-<Solid block>
+<Qwik block>
 
 Creates a validation functions that parses the Zod schema of a form.
 
 ```ts
-const validate = zodForm(schema);
+const validate = zodForm$(schema);
 ```
 
 ## Parameters
@@ -23,13 +23,13 @@ const validate = zodForm(schema);
 
 - `validate` <Property {...properties.validate} />
 
-</Solid>
-
-<Qwik block>
-
-> This page is exclusively for the SolidJS library of Modular Forms.
-
 </Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
 
 export const properties = {
   schema: {
@@ -55,28 +55,34 @@ export const properties = {
   },
   validate: {
     type: {
-      type: 'function',
-      params: [
+      custom: 'custom',
+      name: 'QRL',
+      generics: [
         {
-          name: 'values',
-          type: {
-            type: 'custom',
-            name: 'DeepPartial',
-            generics: [
-              {
+          type: 'function',
+          params: [
+            {
+              name: 'values',
+              type: {
                 type: 'custom',
-                name: 'FieldValues',
-                href: '/api/FieldValues',
+                name: 'PartialValues',
+                generics: [
+                  {
+                    type: 'custom',
+                    name: 'FieldValues',
+                    href: '/api/FieldValues',
+                  },
+                ],
               },
-            ],
+            },
+          ],
+          return: {
+            type: 'custom',
+            name: 'FormErrors',
+            href: '/api/FormErrors',
           },
         },
       ],
-      return: {
-        type: 'custom',
-        name: 'FormErrors',
-        href: '/api/FormErrors',
-      },
     },
   },
 };

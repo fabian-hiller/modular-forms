@@ -58,10 +58,10 @@ import { useFormStore, Form, type FormStore, Field } from '@modular-forms/solid'
 
 type LoginForm = { … };
 
-export const useFormLoader = routeLoader$<FormLoader<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
 
 export default component$(() => {
-  const loginForm =  = useFormStore<LoginForm>({ loader: useFormLoader() });
+  const loginForm = useFormStore<LoginForm>({ loader: useFormLoader() });
   return <FormContent loginForm={loginForm} />
 }
 

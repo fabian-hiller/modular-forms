@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>ValidateField</Title>
 <Description>Type that defines the validation function of a field.</Description>
@@ -10,57 +9,25 @@ Type that defines the validation function of a field.
 
 ## Definition
 
-- `ValidateField` <Property {...properties[getFramework()]?.ValidateField} />
+- `ValidateField` <Property {...properties.ValidateField} />
 
 export const properties = {
-  solid: {
-    ValidateField: {
-      type: {
-        type: 'function',
-        params: [
-          {
-            name: 'value',
-            type: [
-              { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
-              'undefined',
-            ],
-          },
-        ],
-        return: [
-          'string',
-          { type: 'custom', name: 'Promise', generics: ['string'] },
-        ],
-      },
-    },
-  },
-  qwik: {
-    ValidateField: {
-      type: {
-        type: 'custom',
-        name: 'QRL',
-        generics: [
-          {
-            type: 'function',
-            params: [
-              {
-                name: 'value',
-                type: [
-                  {
-                    type: 'custom',
-                    name: 'FieldValue',
-                    href: '/api/FieldValue',
-                  },
-                  'undefined',
-                ],
-              },
-            ],
-            return: [
-              'string',
-              { type: 'custom', name: 'Promise', generics: ['string'] },
-            ],
-          },
-        ],
-      },
+  ValidateField: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: [
+            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
+            'undefined',
+          ],
+        },
+      ],
+      return: [
+        'string',
+        { type: 'custom', name: 'Promise', generics: ['string'] },
+      ],
     },
   },
 };

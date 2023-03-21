@@ -1,5 +1,5 @@
 import { DocsLayout } from '~/components';
-import { isSolid } from '~/utils';
+import { isQwik, isSolid } from '~/utils';
 
 export default function GuidesLayout() {
   return (
@@ -12,7 +12,8 @@ export default function GuidesLayout() {
         {
           heading: 'Main concepts',
           items: [
-            'Create a form',
+            'Define your form',
+            'Create your form',
             'Add fields to form',
             'Validate your fields',
             'Input components',
@@ -25,9 +26,10 @@ export default function GuidesLayout() {
           items: [
             'Controlled fields',
             'Special inputs',
+            isQwik() ? 'Enhanced forms' : undefined,
             'Nested fields',
             'Field arrays',
-          ],
+          ].filter((item) => item) as string[],
         },
         {
           heading: 'Others',

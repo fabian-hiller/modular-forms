@@ -1,18 +1,18 @@
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
-<Title>zodField</Title>
+<Title>zodField$</Title>
 <Description>
   Creates a validation functions that parses the Zod schema of a field.
 </Description>
 
-# zodField
+# zodField$
 
-<Solid block>
+<Qwik block>
 
 Creates a validation functions that parses the Zod schema of a field.
 
 ```ts
-const validate = zodField(schema);
+const validate = zodField$(schema);
 ```
 
 ## Parameters
@@ -23,13 +23,13 @@ const validate = zodField(schema);
 
 - `validate` <Property {...properties.validate} />
 
-</Solid>
-
-<Qwik block>
-
-> This page is exclusively for the SolidJS library of Modular Forms.
-
 </Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
 
 export const properties = {
   schema: {
@@ -55,17 +55,23 @@ export const properties = {
   },
   validate: {
     type: {
-      type: 'function',
-      params: [
+      type: 'custom',
+      name: 'QRL',
+      generics: [
         {
-          name: 'value',
-          type: [
-            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
-            'undefined',
+          type: 'function',
+          params: [
+            {
+              name: 'value',
+              type: [
+                { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
+                'undefined',
+              ],
+            },
           ],
+          return: 'string',
         },
       ],
-      return: 'string',
     },
   },
 };

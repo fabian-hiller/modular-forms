@@ -1,0 +1,114 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>formAction$</Title>
+<Description>
+  Creates an action for progressively enhanced forms that handles validation and
+  submission on the server.
+</Description>
+
+# formAction$
+
+<Qwik block>
+
+Creates an action for progressively enhanced forms that handles validation and submission on the server.
+
+```ts
+// Form action for simple forms
+formAction$(action, validate);
+
+// Form actions for complex forms
+formAction$(action, options);
+```
+
+## Parameters
+
+- `action` <Property {...properties.action} />
+- `validate` <Property {...properties.validate} />
+- `options` <Property {...properties.options} />
+  - `validate` <Property {...properties.validate} />
+  - `arrays` <Property {...properties.paths} />
+  - `booleans` <Property {...properties.paths} />
+  - `files` <Property {...properties.paths} />
+  - `numbers` <Property {...properties.paths} />
+
+### Explanation
+
+The `action` function is only executed if the form values have passed the validation. Since `validate` is executed on the server, the validation cannot be manipulated by the user. You can use the `action` function to process the form values and store them in a database, for example. Also you can manipulate the state of the form action via the return value or send a message to the client via the <A href="/api/FormResponse">`FormResponse`</A> object.
+
+Using `arrays`, `booleans`, `files` and `numbers` you can suplement information that is lost when submitting the form without JavaScript. You can find more about this <A href="/guides/enhanced-forms">here</A>.
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  action: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'values',
+          type: {
+            type: 'custom',
+            name: 'FieldValues',
+            href: '/api/FieldValues',
+          },
+        },
+        { name: 'event', type: { type: 'custom', name: 'RequestEventAction' } },
+      ],
+      return: {
+        type: 'custom',
+        name: 'MaybePromise',
+        generics: [
+          [
+            {
+              type: 'custom',
+              name: 'FormActionStore',
+              href: '/api/FormActionStore',
+            },
+            {
+              type: 'custom',
+              name: 'FormResponse',
+              href: '/api/FormResponse',
+            },
+            'void',
+          ],
+        ],
+      },
+    },
+  },
+  validate: {
+    type: [
+      {
+        type: 'Custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'custom',
+            name: 'ValidateForm',
+            href: '/api/ValidateForm',
+          },
+        ],
+      },
+      'undefined',
+    ],
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  paths: {
+    type: [
+      {
+        type: 'array',
+        item: 'string',
+      },
+      'undefined',
+    ],
+  },
+};

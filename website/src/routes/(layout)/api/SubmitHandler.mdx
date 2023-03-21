@@ -1,0 +1,88 @@
+import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
+
+<Title>SubmitHandler</Title>
+<Description>
+  Type that defines the submission handler function of the form.
+</Description>
+
+# SubmitHandler
+
+Type that defines the submission handler function of the form.
+
+## Definition
+
+- `SubmitHandler` <Property {...properties[getFramework()]?.SubmitHandler} />
+
+export const properties = {
+  solid: {
+    SubmitHandler: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'values',
+            type: {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '/api/FieldValues',
+            },
+          },
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'SubmitEvent',
+            },
+          },
+        ],
+        return: {
+          type: 'custom',
+          name: 'MaybePromise',
+          generics: ['unknown'],
+        },
+      },
+    },
+  },
+  qwik: {
+    SubmitHandler: {
+      type: {
+        type: 'custom',
+        name: 'MaybeQRL',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'values',
+                type: {
+                  type: 'custom',
+                  name: 'FieldValues',
+                  href: '/api/FieldValues',
+                },
+              },
+              {
+                name: 'event',
+                type: {
+                  type: 'custom',
+                  name: 'QwikSubmitEvent',
+                  generics: [
+                    {
+                      type: 'custom',
+                      name: 'HTMLFormElement',
+                    },
+                  ],
+                },
+              },
+            ],
+            return: {
+              type: 'custom',
+              name: 'MaybePromise',
+              generics: ['unknown'],
+            },
+          },
+        ],
+      },
+    },
+  },
+};

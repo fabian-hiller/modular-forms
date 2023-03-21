@@ -4,9 +4,9 @@ import { isSolid, redirect } from '~/utils';
 
 export async function GET({ request }: APIEvent) {
   const framework = await frameworkCookie.parse(request.headers.get('Cookie'));
-  return redirect(framework === 'qwik' ? 'useForm' : 'createForm');
+  return redirect(framework === 'qwik' ? 'formAction$' : 'createForm');
 }
 
 export default function GuidesPage() {
-  return <Navigate href={isSolid() ? 'createForm' : 'useForm'} />;
+  return <Navigate href={isSolid() ? 'createForm' : 'formAction$'} />;
 }

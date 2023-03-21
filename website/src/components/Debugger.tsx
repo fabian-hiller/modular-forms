@@ -37,7 +37,7 @@ export function Debugger(props: DebuggerProps) {
             href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${
               isSolid()
                 ? `solid/src/routes/${getPath()}.tsx`
-                : `qwik/src/routes/${getPath()}/index.tsx`
+                : `qwik/src/routes/(default)/${getPath()}/index.tsx`
             }`}
             target="_blank"
             rel="noreferrer"
