@@ -44,6 +44,9 @@
       }
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
     "lint": "npx tsc --noEmit",
