@@ -154,7 +154,7 @@ importers:
     specifiers:
       '@mapbox/rehype-prism': ^0.8.0
       '@mdx-js/rollup': ^2.3.0
-      '@modular-forms/solid': workspace:^0.11.0
+      '@modular-forms/solid': workspace:*
       '@solid-primitives/event-listener': ^2.2.8
       '@solid-primitives/storage': ^1.3.7
       '@solid-primitives/utils': ^5.5.0
@@ -6341,22 +6341,6 @@ packages:
       source-map: 0.7.4
       yargs: 17.6.0
 
-  /rollup-plugin-visualizer/5.9.0_rollup@3.20.0:
-    resolution: {integrity: sha512-bbDOv47+Bw4C/cgs0czZqfm8L82xOZssk4ayZjG40y9zbXclNk7YikrZTDao6p7+HDiGxrN0b65SgZiVm9k1Cg==}
-    engines: {node: '>=14'}
-    hasBin: true
-    peerDependencies:
-      rollup: 2.x || 3.x
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      open: 8.4.0
-      picomatch: 2.3.1
-      rollup: 3.20.0
-      source-map: 0.7.4
-      yargs: 17.6.0
-
   /rollup-preset-solid/2.0.1:
     resolution: {integrity: sha512-CPJn3SqADlIxhAW3jwZuAFRyZcz7HPeUAz4f+6BzulxHnK4v6tgoTbMvk8vEsfsvHwiTmX93KHIKdf79aTdVSA==}
     dependencies:
@@ -6384,15 +6368,6 @@ packages:
       rollup: '>=2.0.0'
     dependencies:
       rollup: 3.18.0
-      route-sort: 1.0.0
-
-  /rollup-route-manifest/1.0.0_rollup@3.20.0:
-    resolution: {integrity: sha512-3CmcMmCLAzJDUXiO3z6386/Pt8/k9xTZv8gIHyXI8hYGoAInnYdOsFXiGGzQRMy6TXR1jUZme2qbdwjH2nFMjg==}
-    engines: {node: '>=8'}
-    peerDependencies:
-      rollup: '>=2.0.0'
-    dependencies:
-      rollup: 3.20.0
       route-sort: 1.0.0
 
   /rollup/2.79.1:
@@ -6668,7 +6643,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.20.12
-      '@babel/generator': 7.21.1
+      '@babel/generator': 7.20.7
       '@babel/plugin-syntax-jsx': 7.18.6_@babel+core@7.20.12
       '@babel/preset-env': 7.20.2_@babel+core@7.20.12
       '@babel/preset-typescript': 7.18.6_@babel+core@7.20.12
@@ -6689,9 +6664,9 @@ packages:
       get-port: 6.1.2
       parse-multipart-data: 1.5.0
       picocolors: 1.0.0
-      rollup: 3.20.0
-      rollup-plugin-visualizer: 5.9.0_rollup@3.20.0
-      rollup-route-manifest: 1.0.0_rollup@3.20.0
+      rollup: 3.18.0
+      rollup-plugin-visualizer: 5.9.0_rollup@3.18.0
+      rollup-route-manifest: 1.0.0_rollup@3.18.0
       sade: 1.8.1
       set-cookie-parser: 2.5.1
       sirv: 2.0.2
@@ -6701,7 +6676,7 @@ packages:
       terser: 5.16.3
       undici: 5.21.0
       vite: 3.2.5
-      vite-plugin-inspect: 0.7.15_rollup@3.20.0+vite@3.2.5
+      vite-plugin-inspect: 0.7.15_rollup@3.18.0+vite@3.2.5
       vite-plugin-solid: 2.6.1_solid-js@1.6.15+vite@3.2.5
       wait-on: 6.0.1_debug@4.3.4
     transitivePeerDependencies:
@@ -7475,24 +7450,6 @@ packages:
     dependencies:
       '@antfu/utils': 0.7.2
       '@rollup/pluginutils': 5.0.2_rollup@3.18.0
-      debug: 4.3.4
-      fs-extra: 11.1.0
-      kolorist: 1.6.0
-      sirv: 2.0.2
-      ufo: 1.1.0
-      vite: 3.2.5
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-
-  /vite-plugin-inspect/0.7.15_rollup@3.20.0+vite@3.2.5:
-    resolution: {integrity: sha512-oxeZCljacA/slhGFbDNlBqdhDU9fgdHL84i7Nz7DnaAIE7DhTiW2djanw3d/BKuZtduKUY82vRUQ4iaG917t2A==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      vite: ^3.1.0 || ^4.0.0
-    dependencies:
-      '@antfu/utils': 0.7.2
-      '@rollup/pluginutils': 5.0.2_rollup@3.20.0
       debug: 4.3.4
       fs-extra: 11.1.0
       kolorist: 1.6.0
