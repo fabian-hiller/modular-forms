@@ -56,7 +56,6 @@ export function formActionQrl<TFieldValues extends FieldValues>(
         // Get form values from form or JSON data
         const values: PartialValues<TFieldValues> =
           type === 'application/x-www-form-urlencoded' ||
-          // TODO: Explain in docs when to use "multipart/form-data"
           type === 'multipart/form-data'
             ? getFormDataValues(await event.request.formData(), formDataInfo)
             : (jsonData as PartialValues<TFieldValues>);
@@ -89,12 +88,7 @@ export function formActionQrl<TFieldValues extends FieldValues>(
           } catch (error: any) {
             formActionState.response = {
               status: 'error',
-              // TODO: Implement custom form and field error class so that, for
-              // security reasons, we only return errors to client that were
-              // intentionally thrown or advise users in documents that they
-              // must intercept error messages for security-critical actions
-              // to avoid inadvertently passing private information to client
-              message: error?.message || 'An unknown error has occurred.',
+              message: 'An unknown error has occurred.',
             };
           }
         }
