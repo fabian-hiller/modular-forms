@@ -9,6 +9,7 @@ Modular Forms is a JavaScript library that is build on top of [Qwik](https://qwi
 - Type safety with autocompletion in editor
 - Validate everything from emails to files
 - Minimal, readable and well thought out API
+- Progressively enhanced forms with actions
 - Modular design – only use what you need
 - No dependencies – except for Qwik
 - It's headless – you define the visual
