@@ -105,16 +105,36 @@ export default component$(() => {
 
 While the form is being submitted, you can use `loginForm.submitting` to display a loading animation and disable the submit button. Furthermore, using the `shouldDirty` property of the <A href="/api/Form">`Form`</A> component, you have the option to have the form return only modified values. This reduces network traffic, for example if you only want to update values that have changed in your database.
 
-You can access errors thrown by your code in <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return the <A href="/api/FormResponse">`FormResponse`</A> object in form actions in case of an error.
-
 <Qwik block>
+
+You can access errors thrown by your code in <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return the <A href="/api/FormResponse">`FormResponse`</A> object in form actions in case of an error.
 
 ```ts
 export const useFormAction = formAction$<LoginForm>((values) => {
   if (error) {
     return {
       status: 'error',
-      message: 'Your error message!',
+      message: 'An error has occurred.',
+    };
+  }
+});
+```
+
+You also have the option to add an error message to individual fields. This can be important if you want to do special validations manually in `formAction$`.
+
+```ts
+export const useFormAction = formAction$<LoginForm>((values) => {
+  if (error) {
+    return {
+      // Field errors
+      errors: {
+        email: 'This email has been blacklisted.',
+      },
+      // Form response
+      response: {
+        status: 'error',
+        message: 'An error has occurred.',
+      },
     };
   }
 });
