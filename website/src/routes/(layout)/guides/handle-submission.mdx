@@ -107,6 +107,8 @@ While the form is being submitted, you can use `loginForm.submitting` to display
 
 <Qwik block>
 
+## Throw and display errors
+
 You can access errors thrown by your code in <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return the <A href="/api/FormResponse">`FormResponse`</A> object in form actions in case of an error.
 
 ```ts
