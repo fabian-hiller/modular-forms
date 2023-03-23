@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Change return type of first argument of `formAction$`
+- Add `custom$` validation function and deprecate `custom` (issue #32)
 
 ## v0.1.1 (March 22, 2023)
 

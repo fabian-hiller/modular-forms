@@ -1,4 +1,5 @@
 export * from './custom';
+export * from './custom$';
 export * from './email';
 export * from './maxFiles';
 export * from './maxLength';

@@ -33,12 +33,7 @@ type FormActionArg2<TFieldValues extends FieldValues> =
     });
 
 /**
- * Creates and returns the form action constructor.
- *
- * @param action The server action function.
- * @param arg2 Validation and/or form data info.
- *
- * @returns Form action constructor.
+ * See {@link formAction$}
  */
 export function formActionQrl<TFieldValues extends FieldValues>(
   action: QRL<FormActionFunc<TFieldValues>>,

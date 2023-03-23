@@ -50,7 +50,7 @@ export default function ApiLayout() {
           {
             heading: 'Validation',
             items: [
-              'custom',
+              isSolid() ? 'custom' : 'custom$',
               'email',
               'maxFiles',
               'maxLength',

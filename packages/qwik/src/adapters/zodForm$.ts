@@ -8,11 +8,7 @@ import type {
 } from '../types';
 
 /**
- * Creates a validation functions that parses the Zod schema of a form.
- *
- * @param schema A Zod schema.
- *
- * @returns A validation function.
+ * See {@link zodForm$}
  */
 export function zodFormQrl<TFieldValues extends FieldValues>(
   schema: QRL<ZodType<any, any, TFieldValues>>
@@ -32,6 +28,10 @@ export function zodFormQrl<TFieldValues extends FieldValues>(
 }
 
 /**
- * See {@link zodFormQrl}
+ * Creates a validation functions that parses the Zod schema of a form.
+ *
+ * @param schema A Zod schema.
+ *
+ * @returns A validation function.
  */
 export const zodForm$ = implicit$FirstArg(zodFormQrl);

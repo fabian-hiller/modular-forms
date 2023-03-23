@@ -3,11 +3,7 @@ import type { ZodType } from 'zod';
 import type { FieldValue, Maybe, ValidateField } from '../types';
 
 /**
- * Creates a validation functions that parses the Zod schema of a field.
- *
- * @param schema A Zod schema.
- *
- * @returns A validation function.
+ * See {@link zodField$}
  */
 export function zodFieldQrl<TFieldValue extends FieldValue>(
   schema: QRL<ZodType<any, any, TFieldValue>>
@@ -19,6 +15,10 @@ export function zodFieldQrl<TFieldValue extends FieldValue>(
 }
 
 /**
- * See {@link zodFieldQrl}
+ * Creates a validation functions that parses the Zod schema of a field.
+ *
+ * @param schema A Zod schema.
+ *
+ * @returns A validation function.
  */
 export const zodField$ = implicit$FirstArg(zodFieldQrl);
