@@ -31,6 +31,7 @@ export type FormProps<
   shouldTouched?: boolean;
   shouldDirty?: boolean;
   shouldFocus?: boolean;
+  reloadDocument?: boolean;
 
   // HTML props
   id?: string;
@@ -57,6 +58,7 @@ export function Form<
   shouldTouched,
   shouldDirty,
   shouldFocus,
+  reloadDocument,
   children,
   ...formProps
 }: FormProps<TFieldValues, TFieldName, TFieldArrayName>): JSX.Element {
@@ -71,7 +73,7 @@ export function Form<
       {...formProps}
       method="post"
       action={action?.actionPath}
-      preventdefault:submit
+      preventdefault:submit={!reloadDocument}
       noValidate
       ref={(element: Element) => {
         form.element = element as HTMLFormElement;
@@ -95,11 +97,13 @@ export function Form<
 
             // Run submit actions of form
             const [actionResult] = await Promise.all([
-              action?.submit(
-                encType === 'multipart/form-data'
-                  ? new FormData(element)
-                  : values
-              ),
+              !reloadDocument
+                ? action?.submit(
+                    encType === 'multipart/form-data'
+                      ? new FormData(element)
+                      : values
+                  )
+                : undefined,
               // TODO: Remove comment below once we have a better solution for
               // our `SubmitHandler` type
               // eslint-disable-next-line qwik/valid-lexical-scope

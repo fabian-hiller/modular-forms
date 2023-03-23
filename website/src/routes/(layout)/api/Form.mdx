@@ -40,6 +40,7 @@ Form element that takes care of validation and simplifies submission.
   shouldTouched={…}
   shouldDirty={…}
   shouldFocus={…}
+  reloadDocument={…}
 >
   children
 </Form>
@@ -71,6 +72,7 @@ Form element that takes care of validation and simplifies submission.
 - `shouldTouched` <Property {...properties.shouldTouched} />
 - `shouldDirty` <Property {...properties.shouldDirty} />
 - `shouldFocus` <Property {...properties.shouldFocus} />
+- `reloadDocument` <Property {...properties.reloadDocument} />
 - `children` <Property {...properties.children} />
 
 </Qwik>
@@ -88,6 +90,12 @@ By default, the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function valid
 By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
 
 `shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
+
+<Qwik block>
+
+If JavaScript is available, we prevent the page from being reloaded and send the data to the server via JavaScript. To change this, you can set `reloadDocument` to `true`.
+
+</Qwik>
 
 export const properties = {
   keepResponse: {
@@ -109,6 +117,10 @@ export const properties = {
   shouldFocus: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
+  },
+  reloadDocument: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
   },
   children: {
     type: { type: 'custom', name: 'JSX.Element' },

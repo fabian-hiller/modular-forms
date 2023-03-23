@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `reloadDocument` prop to `Form` component (issue #31)
+
 ## v0.2.0 (March 23, 2023)
 
 - Change return type of first argument of `formAction$`
