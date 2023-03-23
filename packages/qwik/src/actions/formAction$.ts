@@ -8,6 +8,7 @@ import type {
   FieldValues,
   FormActionStore,
   FormDataInfo,
+  FormErrors,
   FormResponse,
   MaybePromise,
   PartialValues,
@@ -15,10 +16,15 @@ import type {
 } from '../types';
 import { getFormDataValues } from '../utils';
 
+export type FormActionResult<TFieldValues extends FieldValues> =
+  FormResponse & {
+    errors?: FormErrors<TFieldValues>;
+  };
+
 type FormActionFunc<TFieldValues extends FieldValues> = (
   values: TFieldValues,
   event: RequestEventAction
-) => MaybePromise<FormActionStore<TFieldValues> | FormResponse | void>;
+) => MaybePromise<FormActionResult<TFieldValues> | void>;
 
 type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
@@ -64,7 +70,7 @@ export function formActionQrl<TFieldValues extends FieldValues>(
         const errors = validate ? await validate(values) : {};
 
         // Create form action store object
-        let formActionStore: FormActionStore<TFieldValues> = {
+        const formActionStore: FormActionStore<TFieldValues> = {
           values,
           errors,
           response: {},
@@ -76,11 +82,15 @@ export function formActionQrl<TFieldValues extends FieldValues>(
             const result = await action(values as TFieldValues, event);
 
             // Add result to form action store if necessary
-            if (result) {
-              if ('values' in result) {
-                formActionStore = result;
-              } else {
-                formActionStore.response = result;
+            if (result && typeof result === 'object') {
+              if ('errors' in result && result.errors) {
+                formActionStore.errors = result.errors;
+              }
+              if ('status' in result || 'message' in result) {
+                formActionStore.response = {
+                  status: result.status,
+                  message: result.message,
+                };
               }
             }
 

@@ -109,7 +109,7 @@ While the form is being submitted, you can use `loginForm.submitting` to display
 
 ## Throw and display errors
 
-You can access errors thrown by your code in <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return the <A href="/api/FormResponse">`FormResponse`</A> object in form actions in case of an error.
+You can access errors thrown by your code in `onSubmit$` via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return erros if any occur.
 
 ```ts
 export const useFormAction = formAction$<LoginForm>((values) => {
@@ -128,14 +128,8 @@ You also have the option to add an error message to individual fields. This can 
 export const useFormAction = formAction$<LoginForm>((values) => {
   if (error) {
     return {
-      // Field errors
       errors: {
         email: 'This email has been blacklisted.',
-      },
-      // Form response
-      response: {
-        status: 'error',
-        message: 'An error has occurred.',
       },
     };
   }

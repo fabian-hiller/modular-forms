@@ -112,7 +112,7 @@ export type FormDataInfo<TFieldValues extends FieldValues> = Partial<{
 export type FormActionStore<TFieldValues extends FieldValues> = {
   values: PartialValues<TFieldValues>;
   errors: FormErrors<TFieldValues>;
-  response: Maybe<FormResponse>;
+  response: FormResponse;
 };
 
 /**

@@ -109,11 +109,9 @@ export function Form<
               ),
             ]);
 
-            // Destructure action result
-            const { errors, response } = actionResult?.value || {};
-
-            // Set errors of action if necessary
-            if (errors) {
+            // Set form action result if necessary
+            if (actionResult?.value) {
+              const { errors, response } = actionResult.value;
               (
                 Object.entries(errors) as [
                   TFieldName | TFieldArrayName,
@@ -126,11 +124,9 @@ export function Form<
                 })
               );
               setErrorResponse(form, errors, options);
-            }
-
-            // Set response of action if necessary
-            if (response) {
-              form.response = response;
+              if (Object.keys(response).length) {
+                form.response = response;
+              }
             }
           }
 

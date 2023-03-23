@@ -86,6 +86,7 @@ export default function ApiLayout() {
               isSolid() ? 'FieldState' : 'FieldStore',
               'FieldValue',
               'FieldValues',
+              isQwik() ? 'FormActionResult' : undefined,
               isQwik() ? 'FormActionStore' : undefined,
               'FormErrors',
               'FormResponse',
