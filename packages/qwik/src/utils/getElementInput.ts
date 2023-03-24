@@ -21,14 +21,14 @@ export function getElementInput<
   element: FieldElement,
   field: FieldStore<TFieldValues, TFieldName>
 ): FieldPathValue<TFieldValues, TFieldName> {
-  const { checked, files, multiple, options, type, value } =
+  const { checked, files, multiple, options, type, value, valueAsNumber } =
     element as HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement;
-  let parsed: number;
   return (
     type === 'number' || type === 'range'
       ? // Return values as number
-        ((parsed = parseFloat(value)),
-        field.value === undefined || !isNaN(parsed) ? parsed : field.value)
+        field.value === undefined || !isNaN(valueAsNumber)
+        ? valueAsNumber
+        : field.value
       : type === 'checkbox'
       ? value && value !== 'on'
         ? // Return value as array of string
