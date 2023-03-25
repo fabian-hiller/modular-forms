@@ -65,7 +65,7 @@ export function formActionQrl<TFieldValues extends FieldValues>(
         const errors = validate ? await validate(values) : {};
 
         // Create form action store object
-        const formActionStore: FormActionStore<TFieldValues> = {
+        let formActionStore: FormActionStore<TFieldValues> = {
           values,
           errors,
           response: {},
@@ -78,15 +78,15 @@ export function formActionQrl<TFieldValues extends FieldValues>(
 
             // Add result to form action store if necessary
             if (result && typeof result === 'object') {
-              if ('errors' in result && result.errors) {
-                formActionStore.errors = result.errors;
-              }
-              if ('status' in result || 'message' in result) {
-                formActionStore.response = {
+              formActionStore = {
+                values,
+                errors: result.errors || {},
+                response: {
                   status: result.status,
                   message: result.message,
-                };
-              }
+                  data: result.data,
+                },
+              };
             }
 
             // If an error occurred, set error response

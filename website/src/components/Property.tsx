@@ -10,6 +10,8 @@ type SingleTypeOrValue =
   | 'null'
   | 'undefined'
   | 'void'
+  | 'any'
+  | 'unknown'
   | 'object'
   | 'array'
   | 'tuple'
@@ -87,7 +89,9 @@ export function Property(props: PropertyProps) {
                       type === 'boolean' ||
                       type === 'null' ||
                       type === 'undefined' ||
-                      type === 'void',
+                      type === 'void' ||
+                      type === 'any' ||
+                      type === 'unknown',
                     'capitalize text-sky-600 dark:text-sky-400':
                       type === 'object' ||
                       type === 'array' ||

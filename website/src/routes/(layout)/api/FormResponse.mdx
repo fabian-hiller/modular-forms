@@ -1,4 +1,4 @@
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>FormResponse</Title>
 <Description>Type that defines the response of a form.</Description>
@@ -9,9 +9,22 @@ Type that defines the response of a form.
 
 ## Definition
 
+<Solid block>
+
 - `FormResponse` <Property type="object" />
   - `status` <Property {...properties.status} />
   - `message` <Property {...properties.message} />
+
+</Solid>
+
+<Qwik block>
+
+- `FormResponse` <Property type="object" />
+  - `status` <Property {...properties.status} />
+  - `message` <Property {...properties.message} />
+  - `data` <Property {...properties.qwik.data} />
+
+</Qwik>
 
 export const properties = {
   status: {
@@ -24,5 +37,14 @@ export const properties = {
   },
   message: {
     type: ['string', 'undefined'],
+  },
+  qwik: {
+    data: {
+      type: {
+        type: 'custom',
+        name: 'Record',
+        generics: ['string', 'any'],
+      },
+    },
   },
 };

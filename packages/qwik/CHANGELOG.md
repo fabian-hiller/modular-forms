@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Extend parameter of `zodField$` and `zodForm$` to allow passing a function (issue #38)
+- Add `data` property to `FormResponse` type (issue #37)
 
 ## v0.3.1 (March 24, 2023)
 

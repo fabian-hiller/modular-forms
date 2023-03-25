@@ -45,6 +45,7 @@ type ResponseStatus = 'info' | 'error' | 'success';
 export type FormResponse = Partial<{
   status: ResponseStatus;
   message: string;
+  data: Record<string, any>;
 }>;
 
 /**
