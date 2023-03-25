@@ -11,6 +11,7 @@ export * from './getFilteredNames';
 export * from './getFormDataValues';
 export * from './getInitialStores';
 export * from './getOptions';
+export * from './getParsedZodSchema';
 export * from './getPathIndex';
 export * from './getPathValue';
 export * from './getUniqueId';

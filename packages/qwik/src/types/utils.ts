@@ -36,3 +36,8 @@ export type MaybeArray<T> = T | T[];
  * Returns an optional QRL type.
  */
 export type MaybeQRL<T> = T | QRL<T>;
+
+/**
+ * Returns an optional function type.
+ */
+export type MaybeFunction<T> = T | (() => T);

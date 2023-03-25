@@ -35,20 +35,26 @@ export const properties = {
   schema: {
     type: {
       type: 'custom',
-      name: 'ZodType',
+      name: 'MaybeFunction',
       generics: [
         {
           type: 'custom',
-          name: 'any',
-        },
-        {
-          type: 'custom',
-          name: 'any',
-        },
-        {
-          type: 'custom',
-          name: 'FieldValues',
-          href: '/api/FieldValues',
+          name: 'ZodType',
+          generics: [
+            {
+              type: 'custom',
+              name: 'any',
+            },
+            {
+              type: 'custom',
+              name: 'any',
+            },
+            {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '/api/FieldValues',
+            },
+          ],
         },
       ],
     },
