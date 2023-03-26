@@ -10,6 +10,7 @@ import type {
   SubmitHandler,
   FormActionStore,
   PartialValues,
+  Maybe,
 } from '../types';
 import { setErrorResponse } from '../utils';
 
@@ -20,25 +21,27 @@ export type FormProps<
 > = {
   // Custom props
   of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
-  action?: ActionStore<
-    FormActionStore<TFieldValues>,
-    PartialValues<TFieldValues>,
-    true
+  action?: Maybe<
+    ActionStore<
+      FormActionStore<TFieldValues>,
+      PartialValues<TFieldValues>,
+      true
+    >
   >;
-  onSubmit$?: SubmitHandler<TFieldValues>;
-  keepResponse?: boolean;
-  shouldActive?: boolean;
-  shouldTouched?: boolean;
-  shouldDirty?: boolean;
-  shouldFocus?: boolean;
-  reloadDocument?: boolean;
+  onSubmit$?: Maybe<SubmitHandler<TFieldValues>>;
+  keepResponse?: Maybe<boolean>;
+  shouldActive?: Maybe<boolean>;
+  shouldTouched?: Maybe<boolean>;
+  shouldDirty?: Maybe<boolean>;
+  shouldFocus?: Maybe<boolean>;
+  reloadDocument?: Maybe<boolean>;
 
   // HTML props
-  id?: string;
-  class?: string;
-  autoComplete?: 'on' | 'off';
-  encType?: 'application/x-www-form-urlencoded' | 'multipart/form-data';
-  name?: string;
+  id?: Maybe<string>;
+  class?: Maybe<string>;
+  autoComplete?: Maybe<'on' | 'off'>;
+  encType?: Maybe<'application/x-www-form-urlencoded' | 'multipart/form-data'>;
+  name?: Maybe<string>;
   children: any;
 };
 

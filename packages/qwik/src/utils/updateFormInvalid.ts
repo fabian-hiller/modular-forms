@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
 } from '../types';
 import { getFieldAndArrayStores } from './getFieldAndArrayStores';
 
@@ -18,7 +19,7 @@ export function updateFormInvalid<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
-  invalid?: boolean
+  invalid?: Maybe<boolean>
 ): void {
   form.invalid =
     invalid ||

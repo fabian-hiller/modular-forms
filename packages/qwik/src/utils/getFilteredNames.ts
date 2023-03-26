@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
 } from '../types';
 import { getFieldArrayNames } from './getFieldArrayNames';
 import { getFieldNames } from './getFieldNames';
@@ -25,11 +26,9 @@ export function getFilteredNames<
   TOptions extends Record<string, any>
 >(
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
-  arg2?:
-    | TFieldName
-    | TFieldArrayName
-    | (TFieldName | TFieldArrayName)[]
-    | TOptions
+  arg2?: Maybe<
+    TFieldName | TFieldArrayName | (TFieldName | TFieldArrayName)[] | TOptions
+  >
 ): [TFieldName[], TFieldArrayName[]] {
   // Get all field and field array names of form
   const allFieldNames = getFieldNames(form);

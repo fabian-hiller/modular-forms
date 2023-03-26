@@ -4,6 +4,7 @@ import type {
   FieldValues,
   FormErrors,
   FormStore,
+  Maybe,
 } from '../types';
 import {
   getFieldStore,
@@ -38,12 +39,13 @@ export async function validate<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
-  arg2?:
+  arg2?: Maybe<
     | TFieldName
     | TFieldArrayName
     | (TFieldName | TFieldArrayName)[]
-    | ValidateOptions,
-  arg3?: ValidateOptions
+    | ValidateOptions
+  >,
+  arg3?: Maybe<ValidateOptions>
 ): Promise<boolean> {
   // Filter names between field and field arrays
   const [fieldNames, fieldArrayNames] = getFilteredNames(form, arg2);

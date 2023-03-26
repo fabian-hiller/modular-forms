@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Improve types for optional properties and parameters
+
 ## v0.4.0 (March 25, 2023)
 
 - Extend parameter of `zodField$` and `zodForm$` to allow passing a function (issue #38)

@@ -8,6 +8,7 @@ import type {
   FieldArrayStore,
   ValidateFieldArray,
   MaybeArray,
+  Maybe,
 } from '../types';
 import { getFieldArrayStore } from '../utils';
 import { Lifecycle } from './Lifecycle';
@@ -22,9 +23,9 @@ export type FieldArrayProps<
   children: (
     store: FieldArrayStore<TFieldValues, TFieldArrayName>
   ) => JSX.Element;
-  validate?: MaybeArray<QRL<ValidateFieldArray<number[]>>>;
-  keepActive?: boolean;
-  keepState?: boolean;
+  validate?: Maybe<MaybeArray<QRL<ValidateFieldArray<number[]>>>>;
+  keepActive?: Maybe<boolean>;
+  keepState?: Maybe<boolean>;
 };
 
 /**

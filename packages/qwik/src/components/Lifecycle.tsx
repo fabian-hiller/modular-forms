@@ -15,6 +15,7 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  Maybe,
   MaybeArray,
   ValidateField,
   ValidateFieldArray,
@@ -27,8 +28,8 @@ type FieldProps<
   TFieldName extends FieldPath<TFieldValues>
 > = {
   store: FieldStore<TFieldValues, TFieldName>;
-  validate?: MaybeArray<
-    QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
+  validate?: Maybe<
+    MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
 };
 
@@ -37,7 +38,7 @@ type FieldArrayProps<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   store: FieldArrayStore<TFieldValues, TFieldArrayName>;
-  validate?: MaybeArray<QRL<ValidateFieldArray<number[]>>>;
+  validate?: Maybe<MaybeArray<QRL<ValidateFieldArray<number[]>>>>;
 };
 
 type LifecycleProps<
@@ -50,8 +51,8 @@ type LifecycleProps<
 ) & {
   key: string | number;
   of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
-  keepActive?: boolean;
-  keepState?: boolean;
+  keepActive?: Maybe<boolean>;
+  keepState?: Maybe<boolean>;
 };
 
 /**

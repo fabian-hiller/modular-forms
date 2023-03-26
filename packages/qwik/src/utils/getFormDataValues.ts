@@ -1,5 +1,5 @@
 import { noSerialize } from '@builder.io/qwik';
-import type { FieldValues, FormDataInfo, PartialValues } from '../types';
+import type { FieldValues, FormDataInfo, Maybe, PartialValues } from '../types';
 
 /**
  * Returns the values of a form data object. Information that is lost during
@@ -88,7 +88,10 @@ export function getFormDataValues<TFieldValues extends FieldValues>(
     // If path contains an array, add ever array path
     if (path.includes('.$.')) {
       // Create recusive function to find and add every array path
-      const addArrayPaths = (currentPath: string, parentPath?: string) => {
+      const addArrayPaths = (
+        currentPath: string,
+        parentPath?: Maybe<string>
+      ) => {
         const [präfixPath, ...suffixPaths] = currentPath.split('.$.');
         const suffixPath = suffixPaths.join('.$.');
         const arrayPath = parentPath

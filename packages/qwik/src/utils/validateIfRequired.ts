@@ -6,12 +6,13 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  Maybe,
   ValidationMode,
 } from '../types';
 
 type ValidateOptions = {
   on: Exclude<ValidationMode, 'submit'>[];
-  shouldFocus?: boolean;
+  shouldFocus?: Maybe<boolean>;
 };
 
 /**

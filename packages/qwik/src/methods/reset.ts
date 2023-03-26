@@ -5,6 +5,7 @@ import type {
   FieldValues,
   FormStore,
   InitialValues,
+  Maybe,
 } from '../types';
 import {
   getFieldArrayStore,
@@ -48,12 +49,13 @@ export function reset<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
-  arg2?:
+  arg2?: Maybe<
     | TFieldName
     | TFieldArrayName
     | (TFieldName | TFieldArrayName)[]
-    | ResetOptions<TFieldValues, TFieldName>,
-  arg3?: ResetOptions<TFieldValues, TFieldName>
+    | ResetOptions<TFieldValues, TFieldName>
+  >,
+  arg3?: Maybe<ResetOptions<TFieldValues, TFieldName>>
 ): void {
   // Filter names between field and field arrays
   const [fieldNames, fieldArrayNames] = getFilteredNames(form, arg2);

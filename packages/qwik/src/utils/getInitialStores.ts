@@ -8,6 +8,7 @@ import type {
   FieldValues,
   FormActionStore,
   InitialValues,
+  Maybe,
   PartialValues,
 } from '../types';
 import { getPathValue } from './getPathValue';
@@ -27,10 +28,12 @@ export function getInitialStores<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   loader: Signal<InitialValues<TFieldValues>>,
-  action?: ActionStore<
-    FormActionStore<TFieldValues>,
-    PartialValues<TFieldValues>,
-    true
+  action?: Maybe<
+    ActionStore<
+      FormActionStore<TFieldValues>,
+      PartialValues<TFieldValues>,
+      true
+    >
   >
 ): [
   FieldsStore<TFieldValues, TFieldName>,
@@ -47,7 +50,7 @@ export function getInitialStores<
       Partial<FieldArraysStore<TFieldValues, TFieldArrayName>>
     ],
     data: object,
-    prevPath?: string
+    prevPath?: Maybe<string>
   ) =>
     Object.entries(data).reduce((stores, [path, value]) => {
       // Create new compound path

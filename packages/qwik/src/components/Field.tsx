@@ -10,6 +10,7 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  Maybe,
   MaybeArray,
   ValidateField,
 } from '../types';
@@ -32,12 +33,12 @@ export type FieldProps<
     store: FieldStore<TFieldValues, TFieldName>,
     props: FieldElementProps<TFieldValues, TFieldName>
   ) => JSX.Element;
-  validate?: MaybeArray<
-    QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
+  validate?: Maybe<
+    MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
-  keepActive?: boolean;
-  keepState?: boolean;
-  key?: string | number;
+  keepActive?: Maybe<boolean>;
+  keepState?: Maybe<boolean>;
+  key?: Maybe<string | number>;
 };
 
 /**

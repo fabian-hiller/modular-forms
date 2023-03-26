@@ -4,6 +4,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
 } from '../types';
 import {
   getFieldArrayStore,
@@ -24,7 +25,7 @@ type InsertOptions<
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
 > = {
-  at?: number;
+  at?: Maybe<number>;
   value: TFieldArrayValues[number];
 };
 

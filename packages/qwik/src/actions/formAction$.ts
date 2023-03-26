@@ -10,6 +10,7 @@ import type {
   FormDataInfo,
   FormErrors,
   FormResponse,
+  Maybe,
   MaybePromise,
   PartialValues,
   ValidateForm,
@@ -18,7 +19,7 @@ import { getFormDataValues } from '../utils';
 
 export type FormActionResult<TFieldValues extends FieldValues> =
   FormResponse & {
-    errors?: FormErrors<TFieldValues>;
+    errors?: Maybe<FormErrors<TFieldValues>>;
   };
 
 type FormActionFunc<TFieldValues extends FieldValues> = (
@@ -29,7 +30,7 @@ type FormActionFunc<TFieldValues extends FieldValues> = (
 type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
-      validate?: QRL<ValidateForm<TFieldValues>>;
+      validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
     });
 
 /**
@@ -37,7 +38,7 @@ type FormActionArg2<TFieldValues extends FieldValues> =
  */
 export function formActionQrl<TFieldValues extends FieldValues>(
   action: QRL<FormActionFunc<TFieldValues>>,
-  arg2?: FormActionArg2<TFieldValues>
+  arg2?: Maybe<FormActionArg2<TFieldValues>>
 ): Action<FormActionStore<TFieldValues>, PartialValues<TFieldValues>, true> {
   return globalActionQrl(
     $(
@@ -116,6 +117,6 @@ export function formActionQrl<TFieldValues extends FieldValues>(
  */
 export const formAction$: <TFieldValues extends FieldValues>(
   actionQrl: FormActionFunc<TFieldValues>,
-  arg2?: FormActionArg2<TFieldValues>
+  arg2?: Maybe<FormActionArg2<TFieldValues>>
 ) => Action<FormActionStore<TFieldValues>, PartialValues<TFieldValues>, true> =
   implicit$FirstArg(formActionQrl);

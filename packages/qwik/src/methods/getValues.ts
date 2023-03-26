@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
   PartialValues,
 } from '../types';
 import { getFieldValues, getFilteredNames, getOptions } from '../utils';
@@ -29,8 +30,10 @@ export function getValues<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
-  arg2?: TFieldArrayName | (TFieldName | TFieldArrayName)[] | ValuesOptions,
-  arg3?: ValuesOptions
+  arg2?: Maybe<
+    TFieldArrayName | (TFieldName | TFieldArrayName)[] | ValuesOptions
+  >,
+  arg3?: Maybe<ValuesOptions>
 ): PartialValues<TFieldValues> {
   // Destructure options and set default values
   const {

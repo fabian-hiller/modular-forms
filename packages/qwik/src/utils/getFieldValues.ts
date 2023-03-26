@@ -3,12 +3,13 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
 } from '../types';
 import { getFieldStore } from './getFieldStore';
 
 type FieldValuesOptions<TInitialValue> = {
   initialValue: TInitialValue;
-  replacePrefix?: string;
+  replacePrefix?: Maybe<string>;
   shouldActive: boolean;
   shouldTouched: boolean;
   shouldDirty: boolean;

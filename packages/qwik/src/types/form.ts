@@ -24,7 +24,9 @@ export type SubmitHandler<TFieldValues extends FieldValues> = MaybeQRL<
  * Value type of the form errors.
  */
 export type FormErrors<TFieldValues extends FieldValues> = {
-  [name in FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>]?: string;
+  [name in
+    | FieldPath<TFieldValues>
+    | FieldArrayPath<TFieldValues>]?: Maybe<string>;
 } & { [name: string]: string };
 
 /**
@@ -121,14 +123,16 @@ export type FormActionStore<TFieldValues extends FieldValues> = {
  */
 export type FormOptions<TFieldValues extends FieldValues> = {
   loader: Signal<InitialValues<TFieldValues>>;
-  action?: ActionStore<
-    FormActionStore<TFieldValues>,
-    PartialValues<TFieldValues>,
-    true
+  action?: Maybe<
+    ActionStore<
+      FormActionStore<TFieldValues>,
+      PartialValues<TFieldValues>,
+      true
+    >
   >;
-  validate?: QRL<ValidateForm<TFieldValues>>;
-  validateOn?: ValidationMode;
-  revalidateOn?: ValidationMode;
+  validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
+  validateOn?: Maybe<ValidationMode>;
+  revalidateOn?: Maybe<ValidationMode>;
 };
 
 /**
