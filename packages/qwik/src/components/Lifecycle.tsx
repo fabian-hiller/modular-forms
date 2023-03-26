@@ -17,6 +17,7 @@ import type {
   FormStore,
   Maybe,
   MaybeArray,
+  ResponseData,
   ValidateField,
   ValidateFieldArray,
 } from '../types';
@@ -43,6 +44,7 @@ type FieldArrayProps<
 
 type LifecycleProps<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = (
@@ -50,7 +52,7 @@ type LifecycleProps<
   | FieldArrayProps<TFieldValues, TFieldArrayName>
 ) & {
   key: string | number;
-  of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
 };
@@ -61,15 +63,19 @@ type LifecycleProps<
  */
 export const Lifecycle: <
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  props: PublicProps<LifecycleProps<TFieldValues, TFieldName, TFieldArrayName>>,
+  props: PublicProps<
+    LifecycleProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
+  >,
   key: string | null,
   flags: number
 ) => JSXNode | null = component$(
   <
     TFieldValues extends FieldValues,
+    TResponseData extends ResponseData,
     TFieldName extends FieldPath<TFieldValues>,
     TFieldArrayName extends FieldArrayPath<TFieldValues>
   >({
@@ -80,6 +86,7 @@ export const Lifecycle: <
     keepState = true,
   }: LifecycleProps<
     TFieldValues,
+    TResponseData,
     TFieldName,
     TFieldArrayName
   >): JSX.Element => {

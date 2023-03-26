@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldArrayPath,
   FormStore,
+  ResponseData,
 } from '../types';
 
 /**
@@ -14,8 +15,11 @@ import type {
  */
 export function getFieldNames<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
->(form: FormStore<TFieldValues, TFieldName, TFieldArrayName>): TFieldName[] {
+>(
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
+): TFieldName[] {
   return Object.keys(form.internal.fields) as TFieldName[];
 }

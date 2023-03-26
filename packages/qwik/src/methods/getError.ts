@@ -6,6 +6,7 @@ import type {
   FieldValues,
   FormStore,
   Maybe,
+  ResponseData,
 } from '../types';
 import { getFieldStore, getFieldArrayStore } from '../utils';
 
@@ -25,10 +26,11 @@ type ErrorOptions = Partial<{
  */
 export function getError<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName | TFieldArrayName,
   options: ErrorOptions = {}
 ): string | undefined {

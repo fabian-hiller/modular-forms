@@ -5,6 +5,7 @@ import type {
   FormStore,
   Maybe,
   PartialValues,
+  ResponseData,
 } from '../types';
 import { getFieldValues, getFilteredNames, getOptions } from '../utils';
 
@@ -26,10 +27,11 @@ type ValuesOptions = Partial<{
  */
 export function getValues<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   arg2?: Maybe<
     TFieldArrayName | (TFieldName | TFieldArrayName)[] | ValuesOptions
   >,

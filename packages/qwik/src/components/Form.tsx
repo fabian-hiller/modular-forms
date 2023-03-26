@@ -11,19 +11,21 @@ import type {
   FormActionStore,
   PartialValues,
   Maybe,
+  ResponseData,
 } from '../types';
 import { setErrorResponse } from '../utils';
 
 export type FormProps<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   // Custom props
-  of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   action?: Maybe<
     ActionStore<
-      FormActionStore<TFieldValues>,
+      FormActionStore<TFieldValues, TResponseData>,
       PartialValues<TFieldValues>,
       true
     >
@@ -50,6 +52,7 @@ export type FormProps<
  */
 export function Form<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >({
@@ -64,7 +67,12 @@ export function Form<
   reloadDocument,
   children,
   ...formProps
-}: FormProps<TFieldValues, TFieldName, TFieldArrayName>): JSX.Element {
+}: FormProps<
+  TFieldValues,
+  TResponseData,
+  TFieldName,
+  TFieldArrayName
+>): JSX.Element {
   // Destructure form props
   const { encType } = formProps;
 

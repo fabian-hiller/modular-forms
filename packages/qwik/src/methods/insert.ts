@@ -5,6 +5,7 @@ import type {
   FieldValues,
   FormStore,
   Maybe,
+  ResponseData,
 } from '../types';
 import {
   getFieldArrayStore,
@@ -38,11 +39,12 @@ type InsertOptions<
  */
 export function insert<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
   options: InsertOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
 ): void {

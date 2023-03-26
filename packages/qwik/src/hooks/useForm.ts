@@ -13,6 +13,7 @@ import type {
   FieldValues,
   FormOptions,
   FormStore,
+  ResponseData,
 } from '../types';
 import { useFormStore } from './useFormStore';
 
@@ -26,16 +27,17 @@ import { useFormStore } from './useFormStore';
  */
 export function useForm<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData = undefined,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
 >(
-  options: FormOptions<TFieldValues>
+  options: FormOptions<TFieldValues, TResponseData>
 ): [
-  FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   {
     Form: (
       props: Omit<
-        FormProps<TFieldValues, TFieldName, TFieldArrayName>,
+        FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
         'of' | 'action'
       >
     ) => JSX.Element;
@@ -43,14 +45,22 @@ export function useForm<
       TFieldName extends FieldPath<TFieldValues>,
       TFieldArrayName extends FieldArrayPath<TFieldValues>
     >(
-      props: Omit<FieldProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
+      props: Omit<
+        FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+        'of'
+      >
     ) => JSX.Element;
     FieldArray: <
       TFieldName extends FieldPath<TFieldValues>,
       TFieldArrayName extends FieldArrayPath<TFieldValues>
     >(
       props: Omit<
-        FieldArrayProps<TFieldValues, TFieldName, TFieldArrayName>,
+        FieldArrayProps<
+          TFieldValues,
+          TResponseData,
+          TFieldName,
+          TFieldArrayName
+        >,
         'of'
       >
     ) => JSX.Element;
@@ -65,7 +75,7 @@ export function useForm<
     {
       Form: (
         props: Omit<
-          FormProps<TFieldValues, TFieldName, TFieldArrayName>,
+          FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
           'of' | 'action'
         >
       ) => Form({ of: form, action: options.action, ...props }),
@@ -73,14 +83,22 @@ export function useForm<
         TFieldName extends FieldPath<TFieldValues>,
         TFieldArrayName extends FieldArrayPath<TFieldValues>
       >(
-        props: Omit<FieldProps<TFieldValues, TFieldName, TFieldArrayName>, 'of'>
+        props: Omit<
+          FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+          'of'
+        >
       ) => Field({ of: form, ...props }),
       FieldArray: <
         TFieldName extends FieldPath<TFieldValues>,
         TFieldArrayName extends FieldArrayPath<TFieldValues>
       >(
         props: Omit<
-          FieldArrayProps<TFieldValues, TFieldName, TFieldArrayName>,
+          FieldArrayProps<
+            TFieldValues,
+            TResponseData,
+            TFieldName,
+            TFieldArrayName
+          >,
           'of'
         >
       ) => FieldArray({ of: form, ...props }),

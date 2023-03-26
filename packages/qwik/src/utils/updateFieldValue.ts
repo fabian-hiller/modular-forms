@@ -5,6 +5,7 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  ResponseData,
 } from '../types';
 import { updateFieldDirty } from './updateFieldDirty';
 import { validateIfRequired } from './validateIfRequired';
@@ -19,10 +20,11 @@ import { validateIfRequired } from './validateIfRequired';
  */
 export function updateFieldValue<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   field: FieldStore<TFieldValues, TFieldName>,
   name: TFieldName,
   value: FieldPathValue<TFieldValues, TFieldName>

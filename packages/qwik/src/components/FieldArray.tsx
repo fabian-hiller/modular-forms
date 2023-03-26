@@ -9,16 +9,18 @@ import type {
   ValidateFieldArray,
   MaybeArray,
   Maybe,
+  ResponseData,
 } from '../types';
 import { getFieldArrayStore } from '../utils';
 import { Lifecycle } from './Lifecycle';
 
 export type FieldArrayProps<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
-  of: FormStore<TFieldValues, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   name: TFieldArrayName;
   children: (
     store: FieldArrayStore<TFieldValues, TFieldArrayName>
@@ -33,13 +35,19 @@ export type FieldArrayProps<
  */
 export function FieldArray<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >({
   children,
   name,
   ...props
-}: FieldArrayProps<TFieldValues, TFieldName, TFieldArrayName>): JSX.Element {
+}: FieldArrayProps<
+  TFieldValues,
+  TResponseData,
+  TFieldName,
+  TFieldArrayName
+>): JSX.Element {
   // Destructure props
   const { of: form } = props;
 

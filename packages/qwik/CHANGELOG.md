@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Improve types for optional properties and parameters
+- Add generic to type `data` of `FormResponse` type (issue #37)
 
 ## v0.4.0 (March 25, 2023)
 

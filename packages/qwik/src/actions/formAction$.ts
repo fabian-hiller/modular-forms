@@ -13,19 +13,25 @@ import type {
   Maybe,
   MaybePromise,
   PartialValues,
+  ResponseData,
   ValidateForm,
 } from '../types';
 import { getFormDataValues } from '../utils';
 
-export type FormActionResult<TFieldValues extends FieldValues> =
-  FormResponse & {
-    errors?: Maybe<FormErrors<TFieldValues>>;
-  };
+export type FormActionResult<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData
+> = FormResponse<TResponseData> & {
+  errors?: Maybe<FormErrors<TFieldValues>>;
+};
 
-type FormActionFunc<TFieldValues extends FieldValues> = (
+type FormActionFunc<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData
+> = (
   values: TFieldValues,
   event: RequestEventAction
-) => MaybePromise<FormActionResult<TFieldValues> | void>;
+) => MaybePromise<FormActionResult<TFieldValues, TResponseData> | void>;
 
 type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
@@ -36,16 +42,23 @@ type FormActionArg2<TFieldValues extends FieldValues> =
 /**
  * See {@link formAction$}
  */
-export function formActionQrl<TFieldValues extends FieldValues>(
-  action: QRL<FormActionFunc<TFieldValues>>,
+export function formActionQrl<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData = undefined
+>(
+  action: QRL<FormActionFunc<TFieldValues, TResponseData>>,
   arg2?: Maybe<FormActionArg2<TFieldValues>>
-): Action<FormActionStore<TFieldValues>, PartialValues<TFieldValues>, true> {
+): Action<
+  FormActionStore<TFieldValues, TResponseData>,
+  PartialValues<TFieldValues>,
+  true
+> {
   return globalActionQrl(
     $(
       async (
         jsonData: unknown,
         event: RequestEventAction
-      ): Promise<FormActionStore<TFieldValues>> => {
+      ): Promise<FormActionStore<TFieldValues, TResponseData>> => {
         // Destructure validate function and form data info
         const { validate, ...formDataInfo } =
           typeof arg2 === 'object' ? arg2 : { validate: arg2 };
@@ -66,7 +79,7 @@ export function formActionQrl<TFieldValues extends FieldValues>(
         const errors = validate ? await validate(values) : {};
 
         // Create form action store object
-        let formActionStore: FormActionStore<TFieldValues> = {
+        let formActionStore: FormActionStore<TFieldValues, TResponseData> = {
           values,
           errors,
           response: {},
@@ -115,8 +128,14 @@ export function formActionQrl<TFieldValues extends FieldValues>(
  *
  * @returns Form action constructor.
  */
-export const formAction$: <TFieldValues extends FieldValues>(
-  actionQrl: FormActionFunc<TFieldValues>,
+export const formAction$: <
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData = undefined
+>(
+  actionQrl: FormActionFunc<TFieldValues, TResponseData>,
   arg2?: Maybe<FormActionArg2<TFieldValues>>
-) => Action<FormActionStore<TFieldValues>, PartialValues<TFieldValues>, true> =
-  implicit$FirstArg(formActionQrl);
+) => Action<
+  FormActionStore<TFieldValues, TResponseData>,
+  PartialValues<TFieldValues>,
+  true
+> = implicit$FirstArg(formActionQrl);

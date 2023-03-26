@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  ResponseData,
 } from '../types';
 
 /**
@@ -12,8 +13,11 @@ import type {
  */
 export function clearResponse<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
->(form: FormStore<TFieldValues, TFieldName, TFieldArrayName>): void {
+>(
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
+): void {
   form.response = {};
 }

@@ -5,6 +5,7 @@ import type {
   FormStore,
   RawFieldArrayState,
   RawFieldState,
+  ResponseData,
 } from '../types';
 import {
   getFieldArrayStore,
@@ -32,10 +33,11 @@ type SwapOptions = {
  */
 export function swap<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
   options: SwapOptions
 ): void {

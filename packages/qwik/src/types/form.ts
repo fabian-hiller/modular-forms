@@ -39,16 +39,23 @@ export type ValidateForm<TFieldValues extends FieldValues> = (
 /**
  * Value type of the response status.
  */
-type ResponseStatus = 'info' | 'error' | 'success';
+export type ResponseStatus = 'info' | 'error' | 'success';
+
+/**
+ * Value type of the response data.
+ */
+export type ResponseData = Maybe<Record<string, any> | Array<any>>;
 
 /**
  * Value type of the form response.
+ * TODO: Add = unknown
  */
-export type FormResponse = Partial<{
-  status: ResponseStatus;
-  message: string;
-  data: Record<string, any>;
-}>;
+export type FormResponse<TResponseData extends ResponseData = undefined> =
+  Partial<{
+    status: ResponseStatus;
+    message: string;
+    data: TResponseData;
+  }>;
 
 /**
  * Value type of the validation mode.
@@ -112,20 +119,26 @@ export type FormDataInfo<TFieldValues extends FieldValues> = Partial<{
 /**
  * Value type of the form action store.
  */
-export type FormActionStore<TFieldValues extends FieldValues> = {
+export type FormActionStore<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData
+> = {
   values: PartialValues<TFieldValues>;
   errors: FormErrors<TFieldValues>;
-  response: FormResponse;
+  response: FormResponse<TResponseData>;
 };
 
 /**
  * Value type of the form options.
  */
-export type FormOptions<TFieldValues extends FieldValues> = {
+export type FormOptions<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData
+> = {
   loader: Signal<InitialValues<TFieldValues>>;
   action?: Maybe<
     ActionStore<
-      FormActionStore<TFieldValues>,
+      FormActionStore<TFieldValues, TResponseData>,
       PartialValues<TFieldValues>,
       true
     >
@@ -140,6 +153,7 @@ export type FormOptions<TFieldValues extends FieldValues> = {
  */
 export type FormStore<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
@@ -159,13 +173,13 @@ export type FormStore<
   touched: boolean;
   dirty: boolean;
   invalid: boolean;
-  response: FormResponse;
+  response: FormResponse<TResponseData>;
 };
 
 /**
  * Utility type to extract the field values from the form store.
  */
-export type FormValues<TFormStore extends FormStore<any, any, any>> =
-  TFormStore extends FormStore<infer TFieldValues, any, any>
+export type FormValues<TFormStore extends FormStore<any, any, any, any>> =
+  TFormStore extends FormStore<infer TFieldValues, any, any, any>
     ? TFieldValues
     : never;

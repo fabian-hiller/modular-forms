@@ -15,11 +15,22 @@ Creates an action for progressively enhanced forms that handles validation and s
 
 ```ts
 // Form action for simple forms
-formAction$(action, validate);
+formAction$<Values, ResponseData>(action, validate);
 
 // Form actions for complex forms
-formAction$(action, options);
+formAction$<Values, ResponseData>(action, options);
 ```
+
+## Generics
+
+- `Values` <Property {...properties.Values} />
+- `ResponseData` <Property {...properties.ResponseData} />
+
+### Explanation
+
+If you use TypeScript, you should define your field values. This way the library knows exactly which fields your form has and what values they expect. It also allows autocompletion and TypeScript notifies you of typos.
+
+> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
 
 ## Parameters
 
@@ -47,6 +58,13 @@ Using `arrays`, `booleans`, `files` and `numbers` you can suplement information 
 </Solid>
 
 export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
+  },
+  ResponseData: {
+    type: { type: 'custom', name: 'ResponseData', href: '/api/ResponseData' },
+    defaultValue: 'undefined',
+  },
   action: {
     type: {
       type: 'function',

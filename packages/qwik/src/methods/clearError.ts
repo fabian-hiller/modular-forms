@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  ResponseData,
 } from '../types';
 import { setError } from './setError';
 
@@ -14,10 +15,11 @@ import { setError } from './setError';
  */
 export function clearError<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName | TFieldArrayName
 ): void {
   setError(form, name, '');

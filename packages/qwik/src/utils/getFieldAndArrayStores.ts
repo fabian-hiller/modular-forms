@@ -5,6 +5,7 @@ import type {
   FormStore,
   FieldStore,
   FieldArrayStore,
+  ResponseData,
 } from '../types';
 
 /**
@@ -16,10 +17,11 @@ import type {
  */
 export function getFieldAndArrayStores<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
 ): (
   | FieldStore<TFieldValues, TFieldName>
   | FieldArrayStore<TFieldValues, TFieldArrayName>

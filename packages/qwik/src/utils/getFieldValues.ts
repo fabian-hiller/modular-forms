@@ -4,6 +4,7 @@ import type {
   FieldValues,
   FormStore,
   Maybe,
+  ResponseData,
 } from '../types';
 import { getFieldStore } from './getFieldStore';
 
@@ -29,11 +30,12 @@ type FieldValuesOptions<TInitialValue> = {
  */
 export function getFieldValues<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TInitialValue extends [] | {}
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   names: TFieldName[],
   options: FieldValuesOptions<TInitialValue>
 ): TInitialValue extends [] ? Array<any> : Record<string, any> {

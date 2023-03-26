@@ -5,6 +5,7 @@ import type {
   FieldValues,
   FormOptions,
   FormStore,
+  ResponseData,
 } from '../types';
 import { getInitialStores } from '../utils';
 
@@ -17,11 +18,12 @@ import { getInitialStores } from '../utils';
  */
 export function useFormStore<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData = undefined,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
 >(
-  options: FormOptions<TFieldValues>
-): FormStore<TFieldValues, TFieldName, TFieldArrayName> {
+  options: FormOptions<TFieldValues, TResponseData>
+): FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName> {
   // Destructure options
   const {
     loader,

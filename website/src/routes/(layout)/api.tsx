@@ -91,6 +91,7 @@ export default function ApiLayout() {
               'FormErrors',
               'FormResponse',
               isSolid() ? 'FormState' : 'FormStore',
+              isQwik() ? 'ResponseData' : undefined,
               'SubmitHandler',
               'ValidateField',
               'ValidateFieldArray',

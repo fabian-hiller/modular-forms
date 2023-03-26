@@ -4,6 +4,7 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  ResponseData,
 } from '../types';
 import { updateFormDirty } from './updateFormDirty';
 
@@ -15,10 +16,11 @@ import { updateFormDirty } from './updateFormDirty';
  */
 export function updateFieldDirty<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   field: FieldStore<TFieldValues, TFieldName>
 ): void {
   // Get start value and value of field

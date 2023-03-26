@@ -5,6 +5,7 @@ import type {
   FieldValues,
   FormStore,
   PartialValues,
+  ResponseData,
 } from '../types';
 import { getFieldNames, getFieldValues } from '../utils';
 
@@ -26,11 +27,12 @@ type ArrayValuesOptions = Partial<{
  */
 export function getArrayValues<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValue extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
   options: ArrayValuesOptions = {}
 ): PartialValues<TFieldArrayValue> {

@@ -6,6 +6,7 @@ import type {
   FormStore,
   InitialValues,
   Maybe,
+  ResponseData,
 } from '../types';
 import {
   getFieldArrayStore,
@@ -45,10 +46,11 @@ type ResetOptions<
  */
 export function reset<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   arg2?: Maybe<
     | TFieldName
     | TFieldArrayName

@@ -10,12 +10,13 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 Creates and returns the store of the form.
 
 ```ts
-const form = useFormStore<Values>(options);
+const form = useFormStore<Values, ResponseData>(options);
 ```
 
-## Generic
+## Generics
 
 - `Values` <Property {...properties.Values} />
+- `ResponseData` <Property {...properties.ResponseData} />
 
 ### Explanation
 
@@ -42,6 +43,10 @@ If you use TypeScript, you should define your field values. This way the library
 export const properties = {
   Values: {
     type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
+  },
+  ResponseData: {
+    type: { type: 'custom', name: 'ResponseData', href: '/api/ResponseData' },
+    defaultValue: 'undefined',
   },
   options: {
     type: { type: 'custom', name: 'FormOptions', href: '/api/FormOptions' },

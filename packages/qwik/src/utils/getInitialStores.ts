@@ -10,6 +10,7 @@ import type {
   InitialValues,
   Maybe,
   PartialValues,
+  ResponseData,
 } from '../types';
 import { getPathValue } from './getPathValue';
 import { getUniqueId } from './getUniqueId';
@@ -24,13 +25,14 @@ import { getUniqueId } from './getUniqueId';
  */
 export function getInitialStores<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   loader: Signal<InitialValues<TFieldValues>>,
   action?: Maybe<
     ActionStore<
-      FormActionStore<TFieldValues>,
+      FormActionStore<TFieldValues, TResponseData>,
       PartialValues<TFieldValues>,
       true
     >

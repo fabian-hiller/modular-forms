@@ -5,6 +5,7 @@ import type {
   FieldValues,
   FormStore,
   Maybe,
+  ResponseData,
 } from '../types';
 import { getFieldArrayStore } from '../utils';
 
@@ -25,10 +26,11 @@ type FieldArrayOptions = Partial<{
  */
 export function hasFieldArray<
   TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName | string,
   options: FieldArrayOptions = {}
 ): boolean {

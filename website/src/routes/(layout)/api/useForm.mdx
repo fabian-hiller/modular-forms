@@ -14,14 +14,17 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 Creates and returns the store of the form as well as a linked Form, Field and FieldArray component.
 
 ```ts
-const [form, { Form, Field, FieldArray }] = useForm<Values>(options);
+const [form, { Form, Field, FieldArray }] = useForm<Values, ResponseData>(
+  options
+);
 ```
 
 > If you prefer to use the library as modular as possible, you can use the <A href="/api/useFormStore">`useFormStore`</A> hook instead.
 
-## Generic
+## Generics
 
 - `Values` <Property {...properties.Values} />
+- `ResponseData` <Property {...properties.ResponseData} />
 
 ### Explanation
 
@@ -55,6 +58,10 @@ Since the <A href="/api/Form">`Form`</A>, <A href="/api/Form">`Field`</A> and <A
 export const properties = {
   Values: {
     type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
+  },
+  ResponseData: {
+    type: { type: 'custom', name: 'ResponseData', href: '/api/ResponseData' },
+    defaultValue: 'undefined',
   },
   options: {
     type: { type: 'custom', name: 'FormOptions', href: '/api/FormOptions' },
