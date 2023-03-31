@@ -33,10 +33,10 @@ type CheckboxProps = {
  * checkbox describes the selection option.
  */
 export const Checkbox = component$(
-  ({ label, error, ...props }: CheckboxProps) => {
+  ({ label, error, class: className, ...props }: CheckboxProps) => {
     const { name, required } = props;
     return (
-      <div class={clsx('px-8 lg:px-10', props.class)}>
+      <div class={clsx('px-8 lg:px-10', className)}>
         <label class="flex select-none space-x-4 font-medium md:text-lg lg:text-xl">
           <input
             {...props}

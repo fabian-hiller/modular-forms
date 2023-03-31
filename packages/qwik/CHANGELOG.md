@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Upgrade Qwik and Qwik City to v1 release candidate (issue #45)
+
 ## v0.5.0 (March 26, 2023)
 
 - Improve types for optional properties and parameters

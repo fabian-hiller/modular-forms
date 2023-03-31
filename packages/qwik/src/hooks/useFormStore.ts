@@ -57,6 +57,6 @@ export function useFormStore<
         response: action?.value?.response || {},
       };
     },
-    { recursive: true }
+    { deep: true }
   );
 }

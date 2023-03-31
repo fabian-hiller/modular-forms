@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Expandable } from './Expandable';
 
 type ResponseProps = {
-  of: FormStore<any, any, any>;
+  of: FormStore<any, any, any, any>;
   class?: string;
 };
 
