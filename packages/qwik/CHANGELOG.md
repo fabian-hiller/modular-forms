@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.6.0 (March 31, 2023)
 
 - Upgrade Qwik and Qwik City to v1 release candidate (issue #45)
 
