@@ -10,14 +10,8 @@
     "url": "https://github.com/fabian-hiller/modular-forms"
   },
   "private": true,
-  "scripts": {
-    "stackblitz.playground.qwik": "pnpm install && cd packages/qwik && pnpm build && cd ../../playgrounds/qwik && pnpm dev",
-    "stackblitz.playground.solid": "pnpm install && cd packages/solid && pnpm build && cd ../../playgrounds/solid && pnpm dev"
-  },
   "devDependencies": {
-    "@types/node": "^18.15.3",
-    "prettier": "^2.8.4",
-    "prettier-plugin-tailwindcss": "^0.2.5",
-    "typescript": "4.9.5"
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.6"
   }
 }
