@@ -18,6 +18,7 @@ export function getFormDataValues<TFieldValues extends FieldValues>(
   const {
     arrays = [] as string[],
     booleans = [] as string[],
+    dates = [] as string[],
     files = [] as string[],
     numbers = [] as string[],
   } = formDataInfo;
@@ -31,14 +32,45 @@ export function getFormDataValues<TFieldValues extends FieldValues>(
       // Create template name
       const template = getTemplateName(name);
 
-      // Create get value function
+      // Create function to get date value
+      const getDate = () =>
+        // Date (yyyy-mm-dd)
+        /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])$/.test(value as string)
+          ? new Date(`${value}T00:00:00.000Z`)
+          : // Datetime (yyyy-mm-ddThh:mm)
+          /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])T(1\d|0[1-9]|2[0-3]):[0-5]\d$/.test(
+              value as string
+            )
+          ? new Date(`${value}:00.000Z`)
+          : // Week (yyyy-Www)
+          /^\d{4}-W(0[1-9]|[1-4]\d|5[0-3])$/.test(value as string)
+          ? (() => {
+              const [year, week] = (value as string).split('-W');
+              const date = new Date(`${year}-01-01T00:00:00.000Z`);
+              date.setUTCDate((+week - 1) * 7 + 1);
+              return date;
+            })()
+          : // Time (hh:mm)
+          /^(1\d|0[1-9]|2[0-3]):[0-5]\d$/.test(value as string)
+          ? new Date(`1970-01-01T${value}:00.000Z`)
+          : // Time (hh:mm:ss)
+          /^(1\d|0[1-9]|2[0-3]):[0-5]\d:[0-5]\d$/.test(value as string)
+          ? new Date(`1970-01-01T${value}.000Z`)
+          : // Other
+            new Date(value as string);
+
+      // Create function to get transformed value
       const getValue = () =>
         booleans.includes(template)
           ? true
+          : dates.includes(template)
+          ? getDate()
           : files.includes(template) && typeof value !== 'string'
           ? noSerialize(value)
           : numbers.includes(template)
-          ? parseFloat(value as string)
+          ? /^\d*(\.\d+)?$/.test(value as string)
+            ? parseFloat(value as string)
+            : getDate().getTime()
           : value;
 
       // Add value of current field to values

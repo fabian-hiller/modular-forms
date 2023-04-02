@@ -33,6 +33,7 @@ Headless form field that provides reactive properties and state.
 <Field
   of={…}
   name={…}
+  type={…}
   validate={…}
   keepActive={…}
   keepState={…}
@@ -61,6 +62,7 @@ Headless form field that provides reactive properties and state.
 
 - `of` <Property {...properties.qwik.of} />
 - `name` <Property type="string" />
+- `type` <Property {...properties.qwik.type} />
 - `validate` <Property {...properties.validate} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
@@ -75,6 +77,12 @@ Headless form field that provides reactive properties and state.
 The `initialValue` you define directly at a field has the highest specificity and overrides initial values you set at <A href="/api/createForm">`createForm`</A> and <A href="/api/reset">`reset`</A>. If the `initialValue` is reactive, changing the value will update the initial value of the field. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
 
 </Solid>
+
+<Qwik block>
+
+The value of the `type` property must match the data type of the field. Depending on this specification, the value of a native HTML form field is captured differently, making your fields fully type-safe.
+
+</Qwik>
 
 For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
 
@@ -156,6 +164,19 @@ export const properties = {
         name: 'FormStore',
         href: '/api/FormStore',
       },
+    },
+    type: {
+      type: [
+        { type: 'string', value: 'string' },
+        { type: 'string', value: 'string[]' },
+        { type: 'string', value: 'number' },
+        { type: 'string', value: 'boolean' },
+        { type: 'string', value: 'submit' },
+        { type: 'string', value: 'File' },
+        { type: 'string', value: 'File[]' },
+        { type: 'string', value: 'Date' },
+        'undefined',
+      ],
     },
     children: {
       type: {

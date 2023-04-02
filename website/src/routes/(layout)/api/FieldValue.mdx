@@ -1,5 +1,6 @@
 import { A } from 'solid-start';
 import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
 
 <Title>FieldValue</Title>
 <Description>Type that defines the value of a field.</Description>
@@ -10,27 +11,44 @@ Type that defines the value of a field.
 
 ## Definition
 
-- `FieldValue` <Property {...properties.FieldValue} />
+- `FieldValue` <Property {...properties[getFramework()]?.FieldValue} />
 
 > Make sure to use the correct input fields with the correct setting for the respective values. You can find instructions <A href="/guides/special-inputs">here</A>.
 
 export const properties = {
-  FieldValue: {
-    type: [
-      'string',
-      'number',
-      'boolean',
-      'null',
-      'undefined',
-      { type: 'array', item: 'string' },
-      {
-        type: 'custom',
-        name: 'File',
-      },
-      {
-        type: 'custom',
-        name: 'FileList',
-      },
-    ],
+  solid: {
+    FieldValue: {
+      type: [
+        'string',
+        { type: 'array', item: 'string' },
+        'number',
+        'boolean',
+        'null',
+        'undefined',
+        { type: 'custom', name: 'File' },
+        { type: 'custom', name: 'FileList' },
+      ],
+    },
+  },
+  qwik: {
+    FieldValue: {
+      type: [
+        'string',
+        { type: 'array', item: 'string' },
+        'number',
+        'boolean',
+        'null',
+        'undefined',
+        { type: 'custom', name: 'File' },
+        {
+          type: 'array',
+          item: {
+            type: 'custom',
+            name: 'File',
+          },
+        },
+        { type: 'custom', name: 'Date' },
+      ],
+    },
   },
 };

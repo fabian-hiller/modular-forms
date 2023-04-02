@@ -10,9 +10,12 @@ import {
 import type {
   FieldArrayPath,
   FieldPath,
+  FieldPathValue,
   FieldValues,
   FormOptions,
   FormStore,
+  MaybeValue,
+  PartialKey,
   ResponseData,
 } from '../types';
 import { useFormStore } from './useFormStore';
@@ -41,19 +44,31 @@ export function useForm<
         'of' | 'action'
       >
     ) => JSX.Element;
-    Field: <
-      TFieldName extends FieldPath<TFieldValues>,
-      TFieldArrayName extends FieldArrayPath<TFieldValues>
-    >(
-      props: Omit<
-        FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-        'of'
-      >
+    Field: <TFieldName extends FieldPath<TFieldValues>>(
+      props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
+        ? PartialKey<
+            Omit<
+              FieldProps<
+                TFieldValues,
+                TResponseData,
+                TFieldName,
+                TFieldArrayName
+              >,
+              'of'
+            >,
+            'type'
+          >
+        : Omit<
+            FieldProps<
+              TFieldValues,
+              TResponseData,
+              TFieldName,
+              TFieldArrayName
+            >,
+            'of'
+          >
     ) => JSX.Element;
-    FieldArray: <
-      TFieldName extends FieldPath<TFieldValues>,
-      TFieldArrayName extends FieldArrayPath<TFieldValues>
-    >(
+    FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
       props: Omit<
         FieldArrayProps<
           TFieldValues,
@@ -79,19 +94,40 @@ export function useForm<
           'of' | 'action'
         >
       ) => Form({ of: form, action: options.action, ...props }),
-      Field: <
-        TFieldName extends FieldPath<TFieldValues>,
-        TFieldArrayName extends FieldArrayPath<TFieldValues>
-      >(
-        props: Omit<
-          FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-          'of'
-        >
-      ) => Field({ of: form, ...props }),
-      FieldArray: <
-        TFieldName extends FieldPath<TFieldValues>,
-        TFieldArrayName extends FieldArrayPath<TFieldValues>
-      >(
+      Field: <TFieldName extends FieldPath<TFieldValues>>(
+        props: FieldPathValue<
+          TFieldValues,
+          TFieldName
+        > extends MaybeValue<string>
+          ? PartialKey<
+              Omit<
+                FieldProps<
+                  TFieldValues,
+                  TResponseData,
+                  TFieldName,
+                  TFieldArrayName
+                >,
+                'of'
+              >,
+              'type'
+            >
+          : Omit<
+              FieldProps<
+                TFieldValues,
+                TResponseData,
+                TFieldName,
+                TFieldArrayName
+              >,
+              'of'
+            >
+      ) =>
+        Field({ of: form, ...props } as FieldProps<
+          TFieldValues,
+          TResponseData,
+          TFieldName,
+          TFieldArrayName
+        >),
+      FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
         props: Omit<
           FieldArrayProps<
             TFieldValues,

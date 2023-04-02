@@ -36,7 +36,7 @@ A simple checkbox represents a boolean and is `true` when checked or `false` oth
 <Qwik block>
 
 ```tsx
-<Field name="cookies">
+<Field name="cookies" type="boolean">
   {(field, props) => (
     <label>
       <input {...props} type="checkbox" checked={field.value} />
@@ -89,7 +89,7 @@ However, you can also use multiple checkboxes to represent an array of strings. 
     { label: 'Apples', value: 'apples' },
     { label: 'Grapes', value: 'grapes' },
   ].map(({ label, value }) => (
-    <Field name="fruits" key={value}>
+    <Field name="fruits" type="string[]" key={value}>
       {(field, props) => (
         <label>
           <input
@@ -192,7 +192,7 @@ However, if you set the `multiple` attribute, multiple options can be selected m
 <Qwik block>
 
 ```tsx
-<Field name="framework">
+<Field name="framework" type="string[]">
   {(field, props) => (
     // Set "multiple" to "true"
     <select {...props} multiple>

@@ -2,6 +2,14 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `type` property to `Field` component
+- Change implementation of `getElementInput` util
+- Add `Date` to `FieldValue` type (issue #34)
+- Add date support to `minRange` and `maxRange` validation function
+- Add date support to `getFormDataValues` util
+
 ## v0.6.0 (March 31, 2023)
 
 - Upgrade Qwik and Qwik City to v1 release candidate (issue #45)

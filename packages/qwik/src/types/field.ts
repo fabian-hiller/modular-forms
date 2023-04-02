@@ -6,7 +6,7 @@ import type {
   QwikFocusEvent,
 } from '@builder.io/qwik';
 import type { FieldPath, FieldPathValue } from './path';
-import type { Maybe, MaybePromise } from './utils';
+import type { Maybe, MaybePromise, MaybeValue } from './utils';
 
 /**
  * Value type of a field.
@@ -21,7 +21,8 @@ export type FieldValue =
   | NoSerialize<Blob>
   | NoSerialize<Blob[]>
   | NoSerialize<File>
-  | NoSerialize<File[]>;
+  | NoSerialize<File[]>
+  | Date;
 
 /**
  * Value type of the form fields.
@@ -29,6 +30,25 @@ export type FieldValue =
 export type FieldValues = {
   [name: string]: FieldValue | FieldValues | (FieldValue | FieldValues)[];
 };
+
+/**
+ * Value type of the field type.
+ */
+export type FieldType<T> = T extends MaybeValue<string>
+  ? 'string'
+  : T extends MaybeValue<string[]>
+  ? 'string[]'
+  : T extends MaybeValue<number>
+  ? 'number'
+  : T extends MaybeValue<boolean>
+  ? 'boolean'
+  : T extends MaybeValue<NoSerialize<Blob> | NoSerialize<File>>
+  ? 'File'
+  : T extends MaybeValue<NoSerialize<Blob[]> | NoSerialize<File[]>>
+  ? 'File[]'
+  : T extends MaybeValue<Date>
+  ? 'Date'
+  : never;
 
 /**
  * HTML element type of a field.

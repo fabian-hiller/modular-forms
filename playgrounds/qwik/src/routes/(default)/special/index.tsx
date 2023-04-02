@@ -58,7 +58,7 @@ export default component$(() => {
     >
       <FormHeader of={specialForm} heading="Special form" />
       <div class="space-y-8 md:space-y-10 lg:space-y-12">
-        <Field name="number">
+        <Field name="number" type="number">
           {(field, props) => (
             <TextInput
               {...props}
@@ -70,7 +70,7 @@ export default component$(() => {
           )}
         </Field>
 
-        <Field name="range">
+        <Field name="range" type="number">
           {(field, props) => (
             <Slider
               {...props}
@@ -91,7 +91,7 @@ export default component$(() => {
             { label: 'Option 2', value: 'option_2' },
             { label: 'Option 3', value: 'option_3' },
           ].map(({ label, value }) => (
-            <Field key={value} name="checkbox.array">
+            <Field key={value} name="checkbox.array" type="string[]">
               {(field, props) => (
                 <Checkbox
                   {...props}
@@ -106,7 +106,7 @@ export default component$(() => {
           ))}
         </div>
 
-        <Field name="checkbox.boolean">
+        <Field name="checkbox.boolean" type="boolean">
           {(field, props) => (
             <Checkbox
               {...props}
@@ -117,7 +117,7 @@ export default component$(() => {
           )}
         </Field>
 
-        <Field name="select.array">
+        <Field name="select.array" type="string[]">
           {(field, props) => (
             <Select
               {...props}
@@ -150,7 +150,7 @@ export default component$(() => {
           )}
         </Field>
 
-        <Field name="file.list">
+        <Field name="file.list" type="File[]">
           {(field, props) => (
             <FileInput
               {...props}
@@ -162,7 +162,7 @@ export default component$(() => {
           )}
         </Field>
 
-        <Field name="file.item">
+        <Field name="file.item" type="File">
           {(field, props) => (
             <FileInput
               {...props}

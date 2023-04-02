@@ -4,7 +4,9 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldStore,
+  FieldType,
   FieldValues,
+  Maybe,
 } from '../types';
 
 /**
@@ -19,36 +21,32 @@ export function getElementInput<
   TFieldName extends FieldPath<TFieldValues>
 >(
   element: FieldElement,
-  field: FieldStore<TFieldValues, TFieldName>
+  field: FieldStore<TFieldValues, TFieldName>,
+  type: Maybe<FieldType<any>>
 ): FieldPathValue<TFieldValues, TFieldName> {
-  const { checked, files, multiple, options, type, value, valueAsNumber } =
+  const { checked, files, options, value, valueAsDate, valueAsNumber } =
     element as HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement;
   return (
-    type === 'number' || type === 'range'
-      ? // Return values as number
-        field.value === undefined || !isNaN(valueAsNumber)
-        ? valueAsNumber
-        : field.value
-      : type === 'checkbox'
-      ? value && value !== 'on'
-        ? // Return value as array of string
-          checked
-          ? [...((field.value || []) as string[]), value]
-          : ((field.value || []) as string[]).filter((v) => v !== value)
-        : // Return value as boolean
-          checked
-      : type === 'file'
-      ? multiple
-        ? // Return value as array of files
-          noSerialize([...files!])
-        : // Return value as single file
-          noSerialize(files![0])
-      : options && multiple
-      ? // Return value as array of strings
-        [...options]
-          .filter((e) => e.selected && !e.disabled)
-          .map((e) => e.value)
-      : // Return value as string
-        value
+    !type || type === 'string'
+      ? value
+      : type === 'string[]'
+      ? options
+        ? [...options]
+            .filter((e) => e.selected && !e.disabled)
+            .map((e) => e.value)
+        : checked
+        ? [...((field.value || []) as string[]), value]
+        : ((field.value || []) as string[]).filter((v) => v !== value)
+      : type === 'number'
+      ? valueAsNumber
+      : type === 'boolean'
+      ? checked
+      : type === 'File' && files
+      ? noSerialize(files[0])
+      : type === 'File[]' && files
+      ? noSerialize([...files])
+      : type === 'Date' && valueAsDate
+      ? valueAsDate
+      : field.value
   ) as FieldPathValue<TFieldValues, TFieldName>;
 }

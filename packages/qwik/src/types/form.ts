@@ -112,6 +112,7 @@ export type PartialValues<Value> = Value extends
 export type FormDataInfo<TFieldValues extends FieldValues> = Partial<{
   arrays: TypeInfoPath<TFieldValues, any[]>[];
   booleans: TypeInfoPath<TFieldValues, boolean>[];
+  dates: TypeInfoPath<TFieldValues, Date>[];
   files: TypeInfoPath<TFieldValues, NoSerialize<Blob> | NoSerialize<File>>[];
   numbers: TypeInfoPath<TFieldValues, number>[];
 }>;

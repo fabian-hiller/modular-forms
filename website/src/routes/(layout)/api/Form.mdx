@@ -33,14 +33,14 @@ Form element that takes care of validation and simplifies submission.
 ```tsx
 <Form
   of={…}
-  action={…}
   onSubmit$={…}
+  encType={…}
+  reloadDocument={…}
   keepResponse={…}
   shouldActive={…}
   shouldTouched={…}
   shouldDirty={…}
   shouldFocus={…}
-  reloadDocument={…}
 >
   children
 </Form>
@@ -67,12 +67,13 @@ Form element that takes care of validation and simplifies submission.
 
 - `of` <Property {...properties.qwik.of} />
 - `onSubmit$` <Property {...properties.qwik.onSubmit$} />
+- `encType` <Property {...properties.qwik.encType} />
+- `reloadDocument` <Property {...properties.qwik.reloadDocument} />
 - `keepResponse` <Property {...properties.keepResponse} />
 - `shouldActive` <Property {...properties.shouldActive} />
 - `shouldTouched` <Property {...properties.shouldTouched} />
 - `shouldDirty` <Property {...properties.shouldDirty} />
 - `shouldFocus` <Property {...properties.shouldFocus} />
-- `reloadDocument` <Property {...properties.reloadDocument} />
 - `children` <Property {...properties.children} />
 
 </Qwik>
@@ -85,17 +86,17 @@ Before executing the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function,
 
 Errors thrown by the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <Solid><A href="/api/FormState">`FormState`</A></Solid><Qwik><A href="/api/FormStore">`FormStore`</A></Qwik> object to display them to your user.
 
+<Qwik block>
+
+If JavaScript is available, we prevent the page from being reloaded and send the data to the server as JSON via JavaScript. To change this, you can set `encType` to send the data as `FormData` and `reloadDocument` to not prevent the page from reloading.
+
+</Qwik>
+
 By default, the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
 
 By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
 
 `shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
-
-<Qwik block>
-
-If JavaScript is available, we prevent the page from being reloaded and send the data to the server via JavaScript. To change this, you can set `reloadDocument` to `true`.
-
-</Qwik>
 
 export const properties = {
   keepResponse: {
@@ -117,10 +118,6 @@ export const properties = {
   shouldFocus: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
-  },
-  reloadDocument: {
-    type: 'boolean',
-    defaultValue: { type: 'boolean', value: false },
   },
   children: {
     type: { type: 'custom', name: 'JSX.Element' },
@@ -193,6 +190,22 @@ export const properties = {
           { type: 'custom', name: 'Promise', generics: ['void'] },
         ],
       },
+    },
+    encType: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        generics: [
+          [
+            { type: 'string', value: 'application/x-www-form-urlencoded' },
+            { type: 'string', value: 'multipart/form-data' },
+          ],
+        ],
+      },
+    },
+    reloadDocument: {
+      type: 'boolean',
+      defaultValue: { type: 'boolean', value: false },
     },
   },
 };

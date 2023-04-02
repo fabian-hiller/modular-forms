@@ -1,6 +1,11 @@
 import type { QRL } from '@builder.io/qwik';
 
 /**
+ * Returns a type with optional keys.
+ */
+export type PartialKey<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
+/**
  * Checks if an array type is a tuple type.
  */
 export type IsTuple<T extends Array<any>> = number extends T['length']
@@ -21,6 +26,11 @@ export type ArrayKey = number;
  * Returns an optional type.
  */
 export type Maybe<T> = T | undefined;
+
+/**
+ * Returns an optional value type.
+ */
+export type MaybeValue<T> = T | null | undefined;
 
 /**
  * Returns an optional promise type.

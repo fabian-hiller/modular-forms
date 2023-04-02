@@ -89,7 +89,7 @@ export function Form<
       ref={(element: Element) => {
         form.element = element as HTMLFormElement;
       }}
-      onSubmit$={async (event, element) => {
+      onSubmit$={async (event: QwikSubmitEvent<HTMLFormElement>, element) => {
         // Reset response if it is not to be kept
         if (!keepResponse) {
           form.response = {};
@@ -109,19 +109,12 @@ export function Form<
             // Run submit actions of form
             const [actionResult] = await Promise.all([
               !reloadDocument
-                ? action?.submit(
-                    encType === 'multipart/form-data'
-                      ? new FormData(element)
-                      : values
-                  )
+                ? action?.submit(encType ? new FormData(element) : values)
                 : undefined,
               // TODO: Remove comment below once we have a better solution for
               // our `SubmitHandler` type
               // eslint-disable-next-line qwik/valid-lexical-scope
-              onSubmit$?.(
-                values as TFieldValues,
-                event as QwikSubmitEvent<HTMLFormElement>
-              ),
+              onSubmit$?.(values as TFieldValues, event),
             ]);
 
             // Set form action result if necessary

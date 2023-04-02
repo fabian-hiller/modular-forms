@@ -1,14 +1,14 @@
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Title } from '~/components';
 import { getFramework } from '~/utils';
 
 <Title>maxRange</Title>
 <Description>
-  Creates a validation functions that validates the range of a string.
+  Creates a validation functions that validates the range of a string or date.
 </Description>
 
 # maxRange
 
-Creates a validation functions that validates the range of a string.
+Creates a validation functions that validates the range of a string<Qwik> or date</Qwik>.
 
 ```ts
 const validate = maxRange(requirement, error);
@@ -16,7 +16,7 @@ const validate = maxRange(requirement, error);
 
 ## Parameters
 
-- `requirement` <Property type="string" />
+- `requirement` <Property {...properties[getFramework()]?.requirement} />
 - `error` <Property type="string" />
 
 ## Return
@@ -25,6 +25,7 @@ const validate = maxRange(requirement, error);
 
 export const properties = {
   solid: {
+    requirement: { type: 'string' },
     validate: {
       type: {
         type: 'function',
@@ -39,6 +40,7 @@ export const properties = {
     },
   },
   qwik: {
+    requirement: { type: ['string', { type: 'custom', name: 'Date' }] },
     validate: {
       type: {
         type: 'custom',
@@ -49,7 +51,12 @@ export const properties = {
             params: [
               {
                 name: 'value',
-                type: ['string', 'null', 'undefined'],
+                type: [
+                  'string',
+                  { type: 'custom', name: 'Date' },
+                  'null',
+                  'undefined',
+                ],
               },
             ],
             return: 'string',

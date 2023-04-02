@@ -8,10 +8,13 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldStore,
+  FieldType,
   FieldValues,
   FormStore,
   Maybe,
   MaybeArray,
+  MaybeValue,
+  PartialKey,
   ResponseData,
   ValidateField,
 } from '../types';
@@ -35,6 +38,7 @@ export type FieldProps<
     store: FieldStore<TFieldValues, TFieldName>,
     props: FieldElementProps<TFieldValues, TFieldName>
   ) => JSX.Element;
+  type: FieldType<FieldPathValue<TFieldValues, TFieldName>>;
   validate?: Maybe<
     MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
@@ -54,13 +58,19 @@ export function Field<
 >({
   children,
   name,
+  type,
   ...props
-}: FieldProps<
-  TFieldValues,
-  TResponseData,
-  TFieldName,
-  TFieldArrayName
->): JSX.Element {
+}: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
+  ? PartialKey<
+      FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+      'type'
+    >
+  : FieldProps<
+      TFieldValues,
+      TResponseData,
+      TFieldName,
+      TFieldArrayName
+    >): JSX.Element {
   // Destructure props
   const { of: form } = props;
 
@@ -77,7 +87,12 @@ export function Field<
         }),
         onInput$: $((_: Event, element: FieldElement) => {
           const field = getFieldStore(form, name);
-          updateFieldValue(form, field, name, getElementInput(element, field));
+          updateFieldValue(
+            form,
+            field,
+            name,
+            getElementInput(element, field, type)
+          );
         }),
         onChange$: $(() => {
           validateIfRequired(form, getFieldStore(form, name), name, {

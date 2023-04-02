@@ -46,6 +46,8 @@ If your form also processes files, as in the example above, you must also set th
 <Form encType="multipart/form-data">…</Form>
 ```
 
+Also you need to set the `encType` property when working with native date objects. This is because when JavaScript is enabled in the browser, we send the data to the server as JSON and do not suplement it there. By setting the `encType` property, you tell Modular Forms to submit the data as `FormData` and to suplement it server-side. In this process we then convert it back to a native date object.
+
 Not every website needs progressively enhanced forms. However, if yours does, you can find more code examples in our <a href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/qwik/src/routes/actions`} target="\_blank" rel="noreferrer">GitHub</a> repository and <a href={import.meta.env.VITE_STACKBLITZ_QWIK_ACTIONS_URL} target="\_blank" rel="noreferrer">StackBlitz</a> playground.
 
 </Qwik>

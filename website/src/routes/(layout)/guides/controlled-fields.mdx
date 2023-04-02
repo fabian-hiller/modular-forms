@@ -44,3 +44,49 @@ For a text input field you simply add the `value` attribute<Solid>{' '}and pass 
 </Qwik>
 
 > The HTML `<input type="file" />` element is an exception because it cannot be controlled. However, you have the possibility to control the UI around it. For inspiration you can use the code of our <a href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${getFramework()}/src/components/FileInput.tsx`} target="\_blank" rel="noreferrer">`FileInput`</a> component from our <A href="/playground/special">playground</A>.
+
+<Qwik block>
+
+## Numbers and dates
+
+To make the fields of numbers and dates controlled, further steps are required. Since not every input into an `<input type="number" />` field is a valid number, for example when typing floating numbers, the value may be `NaN` in between. You have to catch this case, otherwise the whole input will be removed when `NaN` is passed. It is best to encapsulate this logic in a separate component as described <A href="/guides/input-components">here</A>.
+
+```tsx
+import { component$, useTask$, … } from '@builder.io/qwik';
+
+type NumberInputProps = { … };
+
+export const NumberInput = component$(
+  ({ value, ...props }: NumberInputProps) => {
+    // Update signal if value is not `NaN`
+    const input = useSignal<number>();
+    useTask$(({ track }) => {
+      if (!Number.isNaN(track(() => value))) {
+        input.value = value;
+      }
+    });
+    return <input {...props} type="number" value={input.value} />;
+  }
+);
+```
+
+A date or a number representing a date must be converted to a string before it can be passed to an `<input type="date" />` field, for example. Since it is a calculated value, you can use `useComputed$` for this.
+
+```tsx
+import { component$, useComputed$, … } from '@builder.io/qwik';
+
+type DateInputProps = { … };
+
+export const DateInput = component$(({ value, ...props }: DateInputProps) => {
+  // Transform date or number to string
+  const input = useComputed$(({ track }) =>
+    track(() => value) &&
+    !Number.isNaN(typeof value === "number" ? value : value.getTime())
+      ? new Date(value).toISOString().split("T", 1)[0]
+      : undefined
+  );
+  return <input {...props} type="date" value={input.value} />;
+});
+```
+
+</Qwik>

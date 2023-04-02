@@ -50,7 +50,7 @@ export const properties = {
               {
                 name: 'value',
                 type: [
-                  { type: 'custom', name: 'FileList' },
+                  { type: 'array', item: { type: 'custom', name: 'File' } },
                   'null',
                   'undefined',
                 ],

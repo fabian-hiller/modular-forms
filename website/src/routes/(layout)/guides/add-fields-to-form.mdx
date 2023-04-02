@@ -81,11 +81,23 @@ export default component$(() => {
       <input type="submit" />
     </Form>
   );
-}
+});
 ```
 
 </Qwik>
 
 The <A href="/api/Field">`Field`</A> component does not render its own UI elements. It is headless and provides only the data layer of the field. This allows you to freely define your user interface. You can use HTML elements, custom components or an external UI library.
 
-This API design leads to an almost completely type-safe form. For example, if you change the name of a field, TypeScript will immediately alert you. Also, you can't mistype when adding an error message, because it is taken from the provided state of the field. More about this on the next page.
+<Qwik block>
+
+If you want your field to capture a data type other than string, a second property called `type` is required. However, based on your type definition, we will recognize this, point it out in your code, and help you fill in the value using autocompletion. This way we know your data type at runtime and can ensure that only valid values are captured.
+
+```tsx
+<Field name="age" type="number">
+  {(field, props) => <input {...props} type="number" />}
+</Field>
+```
+
+</Qwik>
+
+This API design <Solid>leads to an almost completely</Solid><Qwik>results in a fully</Qwik> type-safe form. For example, if you change the name of a field, TypeScript will immediately alert you. Also, you can't mistype when adding an error message, because it is taken from the provided state of the field. More about this on the next page.
