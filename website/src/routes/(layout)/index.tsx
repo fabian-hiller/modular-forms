@@ -4,11 +4,10 @@ import { LogoIcon } from '~/icons';
 export default function HomePage() {
   return (
     <>
-      <Title>Modular Forms: The modular form library for SolidJS</Title>
+      <Title>Modular Forms: The modular and type-safe form library</Title>
       <Description>
-        Modular Forms is a JavaScript library that is build on top of SolidJS to
-        validate and handle various types of forms. It is fast by default and
-        the bundle size is small due to a modular design.
+        Modular Forms is a JavaScript library that is build on top of SolidJS
+        and Qwik to validate and handle various types of forms.
       </Description>
 
       <main class="flex h-full flex-1 flex-col items-center space-y-8 py-32 md:space-y-12 md:py-40 lg:justify-center lg:space-y-16">
