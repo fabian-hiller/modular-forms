@@ -1,6 +1,9 @@
-import { $, type QRL } from '@builder.io/qwik';
+import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
+import type { MaybeValue } from '../types';
 
-type Value = string | string[] | number[] | null | undefined;
+type Value = MaybeValue<
+  string | string[] | number[] | NoSerialize<Blob[]> | NoSerialize<File[]>
+>;
 
 /**
  * Creates a validation functions that validates the length of a string or array.

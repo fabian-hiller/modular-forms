@@ -3,12 +3,13 @@ import { getFramework } from '~/utils';
 
 <Title>minRange</Title>
 <Description>
-  Creates a validation functions that validates the range of a string or date.
+  Creates a validation functions that validates the range of a string, number or
+  date.
 </Description>
 
 # minRange
 
-Creates a validation functions that validates the range of a string<Qwik> or date</Qwik>.
+Creates a validation functions that validates the range of a string<Qwik>, number or date</Qwik>.
 
 ```ts
 const validate = minRange(requirement, error);
@@ -40,7 +41,9 @@ export const properties = {
     },
   },
   qwik: {
-    requirement: { type: ['string', { type: 'custom', name: 'Date' }] },
+    requirement: {
+      type: ['string', 'number', { type: 'custom', name: 'Date' }],
+    },
     validate: {
       type: {
         type: 'custom',

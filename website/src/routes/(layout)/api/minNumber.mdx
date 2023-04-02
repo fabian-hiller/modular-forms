@@ -1,5 +1,4 @@
-import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>minNumber</Title>
 <Description>
@@ -7,6 +6,8 @@ import { getFramework } from '~/utils';
 </Description>
 
 # minNumber
+
+<Solid block>
 
 Creates a validation functions that validates a number.
 
@@ -21,41 +22,27 @@ const validate = minNumber(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()]?.validate} />
+- `validate` <Property {...properties.validate} />
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
 
 export const properties = {
-  solid: {
-    validate: {
-      type: {
-        type: 'function',
-        params: [
-          {
-            name: 'value',
-            type: ['number', 'null', 'undefined'],
-          },
-        ],
-        return: 'string',
-      },
-    },
-  },
-  qwik: {
-    validate: {
-      type: {
-        type: 'custom',
-        name: 'QRL',
-        generics: [
-          {
-            type: 'function',
-            params: [
-              {
-                name: 'value',
-                type: ['number', 'null', 'undefined'],
-              },
-            ],
-            return: 'string',
-          },
-        ],
-      },
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: ['number', 'null', 'undefined'],
+        },
+      ],
+      return: 'string',
     },
   },
 };

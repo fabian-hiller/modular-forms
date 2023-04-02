@@ -11,18 +11,17 @@ import type { Maybe, MaybePromise, MaybeValue } from './utils';
 /**
  * Value type of a field.
  */
-export type FieldValue =
+export type FieldValue = MaybeValue<
   | string
   | string[]
   | number
   | boolean
-  | null
-  | undefined
   | NoSerialize<Blob>
   | NoSerialize<Blob[]>
   | NoSerialize<File>
   | NoSerialize<File[]>
-  | Date;
+  | Date
+>;
 
 /**
  * Value type of the form fields.

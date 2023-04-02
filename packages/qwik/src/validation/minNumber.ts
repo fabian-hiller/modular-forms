@@ -1,9 +1,12 @@
 import { $, type QRL } from '@builder.io/qwik';
+import type { MaybeValue } from '../types';
 
-type Value = number | null | undefined;
+type Value = MaybeValue<number>;
 
 /**
  * Creates a validation functions that validates a number.
+ *
+ * @deprecated Please use `minRange` instead.
  *
  * @param requirement The minimum number.
  * @param error The error message.

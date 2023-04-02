@@ -1,6 +1,7 @@
 import { $, type QRL } from '@builder.io/qwik';
+import type { MaybeValue } from '../types';
 
-type Value = string | number | null | undefined;
+type Value = MaybeValue<string | number>;
 
 /**
  * Creates a validation function that checks the value of an input for equality.

@@ -7,8 +7,9 @@ All notable changes to the library will be documented in this file.
 - Add `type` property to `Field` component
 - Change implementation of `getElementInput` util
 - Add `Date` to `FieldValue` type (issue #34)
-- Add date support to `minRange` and `maxRange` validation function
 - Add date support to `getFormDataValues` util
+- Add number and date support to `minRange` and `maxRange` validation function
+- Deprecate `minFiles`, `maxFiles`, `minNumber` and `maxNumber` validation function
 
 ## v0.6.0 (March 31, 2023)
 

@@ -1,6 +1,7 @@
 import { $, type QRL } from '@builder.io/qwik';
+import type { MaybeValue } from '../types';
 
-type Value = string | null | undefined;
+type Value = MaybeValue<string>;
 
 /**
  * Creates a validation functions that validates a email.

@@ -1,12 +1,12 @@
 import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
+import type { MaybeValue } from '../types';
 
-type Value =
+type Value = MaybeValue<
   | NoSerialize<Blob>
   | NoSerialize<Blob[]>
   | NoSerialize<File>
   | NoSerialize<File[]>
-  | null
-  | undefined;
+>;
 
 /**
  * Creates a validation functions that validates the file type.
