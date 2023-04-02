@@ -1,5 +1,5 @@
-import { Accessor } from 'solid-js';
-// import { Meta } from 'solid-start';
+import { Accessor, createEffect } from 'solid-js';
+import { Meta } from 'solid-start';
 
 type DescriptionProps = {
   children: string | Accessor<HTMLElement>;
@@ -10,7 +10,16 @@ type DescriptionProps = {
  * snippets, for example.
  */
 export function Description(props: DescriptionProps) {
-  // TODO: Enable <Meta /> again once issue #28 of @solidjs/meta is fixed
+  // TODO: Remove effect once issue #28 of @solidjs/meta is fixed
+  createEffect(() => {
+    Meta({
+      name: 'description',
+      content:
+        typeof props.children === 'function'
+          ? props.children()?.innerText?.replace(/\n/g, ' ') || ''
+          : props.children,
+    });
+  });
   return <></>;
   // return (
   //   <Meta
