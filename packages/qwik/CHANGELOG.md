@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.7.0 (April 02, 2023)
 
 - Add `type` property to `Field` component
 - Change implementation of `getElementInput` util
