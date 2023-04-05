@@ -82,13 +82,19 @@ Form element that takes care of validation and simplifies submission.
 
 ### Explanation
 
+<Solid block>
+
+When the form is submitted, `event.preventDefault()` is executed by default to prevent the window from reloading so that the values can also be processed directly in the browser and the state of the form is preserved.
+
+</Solid>
+
 Before executing the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
 Errors thrown by the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <Solid><A href="/api/FormState">`FormState`</A></Solid><Qwik><A href="/api/FormStore">`FormStore`</A></Qwik> object to display them to your user.
 
 <Qwik block>
 
-If JavaScript is available, we prevent the page from being reloaded and send the data to the server as JSON via JavaScript. To change this, you can set `encType` to send the data as `FormData` and `reloadDocument` to not prevent the page from reloading.
+If JavaScript is available, we use `preventdefault:submit` to prevent the page from being reloaded and send the data to the server as JSON via JavaScript using the Fetch API. To change this, you can set `encType` to send the data as `FormData` and `reloadDocument` to not prevent the page from reloading.
 
 </Qwik>
 

@@ -103,6 +103,8 @@ export default component$(() => {
 
 </Qwik>
 
+When the form is submitted, `event.preventDefault()` is executed by default to prevent the window from reloading so that the values can also be processed directly in the browser and the state of the form is preserved.
+
 While the form is being submitted, you can use `loginForm.submitting` to display a loading animation and disable the submit button. Furthermore, using the `shouldDirty` property of the <A href="/api/Form">`Form`</A> component, you have the option to have the form return only modified values. This reduces network traffic, for example if you only want to update values that have changed in your database.
 
 <Qwik block>
