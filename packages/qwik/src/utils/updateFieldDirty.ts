@@ -2,10 +2,13 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldStore,
+  FieldValue,
   FieldValues,
   FormStore,
+  Maybe,
   ResponseData,
 } from '../types';
+import { isFieldDirty } from './isFieldDirty';
 import { updateFormDirty } from './updateFormDirty';
 
 /**
@@ -23,20 +26,11 @@ export function updateFieldDirty<
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   field: FieldStore<TFieldValues, TFieldName>
 ): void {
-  // Get start value and value of field
-  const startValue = field.internal.startValue;
-  const value = field.value;
-
   // Check if field is dirty
-  const dirty =
-    Array.isArray(startValue) && Array.isArray(value)
-      ? startValue.join() !== value.join()
-      : typeof startValue === 'number' &&
-        typeof value === 'number' &&
-        isNaN(startValue) &&
-        isNaN(value)
-      ? false
-      : startValue !== value;
+  const dirty = isFieldDirty(
+    field.internal.startValue as Maybe<FieldValue>,
+    field.value as Maybe<FieldValue>
+  );
 
   // Update dirty state of field if necessary
   if (dirty !== field.dirty) {
