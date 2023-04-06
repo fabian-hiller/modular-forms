@@ -48,21 +48,21 @@
     "publish": "npm publish"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^0.100.0",
-    "@builder.io/qwik-city": "^0.100.0",
+    "@builder.io/qwik": "^0.101.0",
+    "@builder.io/qwik-city": "^0.101.0",
     "@types/eslint": "^8.37.0",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.37.0",
-    "eslint-plugin-qwik": "^0.100.0",
+    "eslint-plugin-qwik": "^0.101.0",
     "prettier": "^2.8.7",
     "typescript": "4.9.5",
     "vite": "^4.2.1",
     "zod": "^3.21.4"
   },
   "peerDependencies": {
-    "@builder.io/qwik": "^0.23.0",
-    "@builder.io/qwik-city": "^0.6.5"
+    "@builder.io/qwik": "^0.101.0",
+    "@builder.io/qwik-city": "^0.101.0"
   }
 }
