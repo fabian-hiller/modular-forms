@@ -63,6 +63,6 @@
   },
   "peerDependencies": {
     "@builder.io/qwik": "^0.101.0",
-    "@builder.io/qwik-city": "^0.101.5"
+    "@builder.io/qwik-city": "^0.101.0"
   }
 }
