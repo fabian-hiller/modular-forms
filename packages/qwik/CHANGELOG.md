@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month, DD, YYYY)
+## v0.8.0 (April 06, 2023)
 
 - Fix date support at `updateFieldDirty` util
 - Fix and refactor `getInitialStores` util
