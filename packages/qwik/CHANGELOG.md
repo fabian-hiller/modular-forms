@@ -7,6 +7,7 @@ All notable changes to the library will be documented in this file.
 - Fix date support at `updateFieldDirty` util
 - Fix and refactor `getInitialStores` util
 - Add `setValues` and improve `setValue` method (issue #35)
+- Upgrade Qwik and Qwik City peer dependency (issue #45)
 
 ## v0.7.0 (April 02, 2023)
 
