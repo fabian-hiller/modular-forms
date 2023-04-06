@@ -2,8 +2,10 @@ import type { Signal } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type {
   FieldArrayPath,
+  FieldArrayPathValue,
   FieldArraysStore,
   FieldPath,
+  FieldPathValue,
   FieldsStore,
   FieldValues,
   FormActionStore,
@@ -12,6 +14,8 @@ import type {
   PartialValues,
   ResponseData,
 } from '../types';
+import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
+import { getInitialFieldStore } from './getInitialFieldStore';
 import { getPathValue } from './getPathValue';
 import { getUniqueId } from './getUniqueId';
 
@@ -41,9 +45,23 @@ export function getInitialStores<
   FieldsStore<TFieldValues, TFieldName>,
   FieldArraysStore<TFieldValues, TFieldArrayName>
 ] {
+  // Create function to get value of field or field array
+  function getActionValue(
+    name: TFieldName
+  ): Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  function getActionValue(
+    name: TFieldArrayName
+  ): Maybe<FieldArrayPathValue<TFieldValues, TFieldArrayName>>;
+  function getActionValue(name: any): any {
+    return action?.value?.values && getPathValue(name, action.value.values);
+  }
+
+  // Create function to generate array items
+  const generateItems = () => getUniqueId();
+
   // Create function to get error of field
-  const getError = (name: TFieldName | TFieldArrayName) =>
-    action?.value?.errors[name] || '';
+  const getActionError = (name: TFieldName | TFieldArrayName) =>
+    action?.value?.errors[name];
 
   // Create recursive function to create initial stores
   const createInitialStores = (
@@ -60,43 +78,30 @@ export function getInitialStores<
 
       // Add initial store of field
       if (!value || typeof value !== 'object' || Array.isArray(value)) {
-        stores[0][compoundPath as TFieldName] = {
-          internal: {
+        stores[0][compoundPath as TFieldName] = getInitialFieldStore(
+          compoundPath as TFieldName,
+          {
             initialValue: value,
-            startValue: value,
-            validate: [],
-            elements: [],
-            consumers: [],
-          },
-          name: compoundPath as TFieldName,
-          value:
-            (action?.value?.values &&
-              getPathValue(compoundPath as TFieldName, action.value.values)) ??
-            value,
-          error: getError(compoundPath as TFieldName),
-          active: false,
-          touched: false,
-          dirty: false,
-        };
+            value: getActionValue(compoundPath as TFieldName) ?? value,
+            error: getActionError(compoundPath as TFieldName),
+          }
+        );
       }
 
       // Add initial store of field array
       if (Array.isArray(value)) {
-        const items = value.map(() => getUniqueId());
-        stores[1][compoundPath as TFieldArrayName] = {
-          internal: {
-            initialItems: [...items],
-            startItems: [...items],
-            validate: [],
-            consumers: [],
-          },
-          name: compoundPath as TFieldArrayName,
-          items,
-          error: getError(compoundPath as TFieldArrayName),
-          active: false,
-          touched: false,
-          dirty: false,
-        };
+        const initialItems = value.map(generateItems);
+        stores[1][compoundPath as TFieldArrayName] = getInitialFieldArrayStore(
+          compoundPath as TFieldArrayName,
+          {
+            initialItems,
+            items:
+              getActionValue(compoundPath as TFieldArrayName)?.map(
+                generateItems
+              ) || initialItems,
+            error: getActionError(compoundPath as TFieldArrayName),
+          }
+        );
       }
 
       // Add stores of nested fields and field arrays

@@ -111,6 +111,18 @@ export type FieldElementProps<
 };
 
 /**
+ * Value type of the initial field state.
+ */
+export type InitialFieldState<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>
+> = {
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  initialValue?: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  error?: Maybe<string>;
+};
+
+/**
  * Value type of the internal raw field state.
  */
 export type RawFieldState<

@@ -1,7 +1,7 @@
 import type { QRL } from '@builder.io/qwik';
 import type { FieldValues } from './field';
 import type { FieldArrayPath } from './path';
-import type { MaybePromise } from './utils';
+import type { Maybe, MaybePromise } from './utils';
 
 /**
  * Function type to validate a field array.
@@ -34,6 +34,15 @@ export type FieldArrayStore<
   active: boolean;
   touched: boolean;
   dirty: boolean;
+};
+
+/**
+ * Value type of the initial field array state.
+ */
+export type InitialFieldArrayState = {
+  items: number[];
+  initialItems?: number[];
+  error?: Maybe<string>;
 };
 
 /**
