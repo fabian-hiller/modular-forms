@@ -34,13 +34,11 @@ By default, the field is focused when an error occurs during validation. To chan
 
 export const properties = {
   value: {
-    type: [
-      {
-        type: 'custom',
-        name: 'FieldValue',
-        href: '/api/FieldValue',
-      },
-    ],
+    type: {
+      type: 'custom',
+      name: 'FieldValue',
+      href: '/api/FieldValue',
+    },
   },
   options: {
     type: 'object',

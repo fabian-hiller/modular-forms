@@ -1,0 +1,114 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+import { getFramework } from '~/utils';
+
+<Title>setValues</Title>
+<Description>
+  Sets multiple values of the form or a field array at once.
+</Description>
+
+# setValues
+
+<Qwik block>
+
+Sets multiple values of the form or a field array at once.
+
+```ts
+// Set multiple form values
+setValues(form, values, options);
+
+// Set values of a field array
+setValues(form, name, values, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties[getFramework()]?.form} />
+- `name` <Property type="string" />
+- `values` <Property {...properties.values} />
+- `options` <Property {...properties.options} />
+  - `shouldTouched` <Property {...properties.shouldTouched} />
+  - `shouldDirty` <Property {...properties.shouldDirty} />
+  - `shouldValidate` <Property {...properties.shouldValidate} />
+  - `shouldFocus` <Property {...properties.shouldFocus} />
+
+### Explanation
+
+By default, the fields are set to touched and the dirty state is updated. If you don't want this, you can set `shouldTouched` and/or `shouldDirty` to `false`.
+
+By default, the fields are validated according to the rules defined in the `options` of the <Solid><A href="/api/createForm">`createForm`</A> primitive</Solid><Qwik><A href="/api/useForm">`useForm`</A> hook</Qwik>. To disable validation you can set `shouldValidate` to `false`.
+
+By default, a field is focused when an error occurs during validation. To change this behavior you can set `shouldFocus` to `false`.
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  values: {
+    type: [
+      {
+        type: 'custom',
+        name: 'FieldValues',
+        href: '/api/FieldValues',
+      },
+      {
+        type: 'array',
+        item: [
+          {
+            type: 'custom',
+            name: 'FieldValues',
+            href: '/api/FieldValues',
+          },
+          {
+            type: 'custom',
+            name: 'FieldValue',
+            href: '/api/FieldValue',
+          },
+        ],
+      },
+    ],
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldValidate: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldFocus: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  solid: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormState',
+        href: '/api/FormState',
+      },
+    },
+  },
+  qwik: {
+    form: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '/api/FormStore',
+      },
+    },
+  },
+};

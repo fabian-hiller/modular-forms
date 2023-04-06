@@ -6,7 +6,11 @@ import type {
   FormStore,
   ResponseData,
 } from '../types';
-import { getFieldStore, updateFieldDirty, validateIfRequired } from '../utils';
+import {
+  initializeFieldStore,
+  updateFieldDirty,
+  validateIfRequired,
+} from '../utils';
 
 type ValueOptions = Partial<{
   shouldTouched: boolean;
@@ -42,8 +46,8 @@ export function setValue<
     shouldFocus = true,
   } = options;
 
-  // Get store of specified field
-  const field = getFieldStore(form, name);
+  // Initialize store of specified field
+  const field = initializeFieldStore(form, name, { value });
 
   // Set input
   field.value = value;

@@ -43,6 +43,7 @@ export default function ApiLayout() {
               'setError',
               'setResponse',
               'setValue',
+              isQwik() ? 'setValues' : undefined,
               'swap',
               'validate',
             ].filter((item) => item) as string[],

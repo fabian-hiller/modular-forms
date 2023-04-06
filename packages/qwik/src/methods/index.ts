@@ -15,5 +15,6 @@ export * from './reset';
 export * from './setError';
 export * from './setResponse';
 export * from './setValue';
+export * from './setValues';
 export * from './swap';
 export * from './validate';

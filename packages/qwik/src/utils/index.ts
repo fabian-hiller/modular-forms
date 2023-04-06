@@ -15,6 +15,8 @@ export * from './getParsedZodSchema';
 export * from './getPathIndex';
 export * from './getPathValue';
 export * from './getUniqueId';
+export * from './initializeFieldArrayStore';
+export * from './initializeFieldStore';
 export * from './setErrorResponse';
 export * from './setFieldArrayStore';
 export * from './setFieldArrayValue';

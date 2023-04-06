@@ -1,10 +1,11 @@
-import { A } from 'solid-start';
-import { Description, Property, Title } from '~/components';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>FieldElementProps</Title>
 <Description>Type that defines the element properties of a field.</Description>
 
 # FieldElementProps
+
+<Qwik block>
 
 Type that defines the element properties of a field.
 
@@ -26,6 +27,14 @@ The properties must be passed to an HTML `<input />`, `<textarea />` or `<select
 ```tsx
 <input {...props} type="text" />
 ```
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
 
 export const properties = {
   ref: {
