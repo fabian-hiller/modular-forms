@@ -40,6 +40,9 @@ type ResetOptions<
  * Resets the entire form, several fields and field arrays or a singel field or
  * field array.
  *
+ * FIXME: This method could currently lead to bugs when specifying new initial
+ * items of a field array.
+ *
  * @param form The form to be reset.
  * @param arg2 The names to be reset or the reset options.
  * @param arg3 The reset options.
