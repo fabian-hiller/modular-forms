@@ -48,7 +48,6 @@ export type ResponseData = Maybe<Record<string, any> | Array<any>>;
 
 /**
  * Value type of the form response.
- * TODO: Add = unknown
  */
 export type FormResponse<TResponseData extends ResponseData = undefined> =
   Partial<{

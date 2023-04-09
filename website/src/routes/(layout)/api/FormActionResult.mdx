@@ -15,6 +15,7 @@ Type that defines the return of a form action.
   - `status` <Property {...properties.status} />
   - `message` <Property {...properties.message} />
   - `errors` <Property {...properties.errors} />
+  - `data` <Property {...properties.data} />
 
 </Qwik>
 
@@ -42,6 +43,16 @@ export const properties = {
         type: 'custom',
         name: 'FormErrors',
         href: '/api/FormErrors',
+      },
+      'undefined',
+    ],
+  },
+  data: {
+    type: [
+      {
+        type: 'custom',
+        name: 'ResponseData',
+        href: '/api/ResponseData',
       },
       'undefined',
     ],
