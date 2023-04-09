@@ -1,7 +1,7 @@
 {
-  "name": "@modular-forms/qwik",
-  "description": "The modular and type-safe form library for Qwik",
-  "version": "0.8.1",
+  "name": "@modular-forms/shared",
+  "description": "Shared code between our packages",
+  "version": "0.1.0",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
@@ -9,34 +9,22 @@
     "type": "git",
     "url": "https://github.com/fabian-hiller/modular-forms"
   },
-  "keywords": [
-    "modular-forms",
-    "form",
-    "forms",
-    "qwik",
-    "qwik-city",
-    "performance",
-    "bundle-size",
-    "form-validation",
-    "validation",
-    "typescript",
-    "type-safe"
-  ],
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.qwik.mjs",
-  "qwik": "./dist/index.qwik.mjs",
+  "source": "./src/index.ts",
   "types": "./dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.qwik.mjs",
-      "require": "./dist/index.qwik.cjs",
-      "types": "./dist/types/index.d.ts"
-    }
-  },
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -48,23 +36,12 @@
     "publish": "npm publish"
   },
   "devDependencies": {
-    "@builder.io/qwik": "0.100.0",
-    "@builder.io/qwik-city": "0.100.0",
     "@types/eslint": "^8.37.0",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.37.0",
-    "eslint-plugin-qwik": "0.100.0",
     "typescript": "4.9.5",
-    "vite": "^4.2.1",
-    "zod": "^3.21.4"
-  },
-  "peerDependencies": {
-    "@builder.io/qwik": "0.100.0",
-    "@builder.io/qwik-city": "0.100.0"
-  },
-  "dependencies": {
-    "@modular-forms/shared": "workspace:^"
+    "vite": "^4.2.1"
   }
 }

@@ -1,14 +1,10 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "jsx": "react-jsx",
-    "jsxImportSource": "@builder.io/qwik",
-    "strict": true,
     "moduleResolution": "node",
-    "skipLibCheck": true,
+    "strict": true,
     "outDir": "dist/source",
     "declaration": true,
     "declarationDir": "dist/types"
