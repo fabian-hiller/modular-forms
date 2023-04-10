@@ -1,21 +1,21 @@
 import type { QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
-import type { Maybe, ResponseData } from '@modular-forms/shared';
+import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import { getValues, setError, validate } from '../methods';
 import type {
   FormStore,
-  FieldValues,
   FieldPath,
   FieldArrayPath,
   SubmitHandler,
   FormActionStore,
   PartialValues,
+  FieldValue,
 } from '../types';
 import { setErrorResponse } from '../utils';
 
 export type FormProps<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
@@ -50,7 +50,7 @@ export type FormProps<
  * Form element that takes care of validation and simplifies submission.
  */
 export function Form<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

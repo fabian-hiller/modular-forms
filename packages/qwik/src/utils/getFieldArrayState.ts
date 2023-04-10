@@ -1,8 +1,12 @@
-import type { RawFieldArrayState, ResponseData } from '@modular-forms/shared';
+import type {
+  FieldValues,
+  RawFieldArrayState,
+  ResponseData,
+} from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 import { getFieldArrayStore } from './getFieldArrayStore';
@@ -16,7 +20,7 @@ import { getFieldArrayStore } from './getFieldArrayStore';
  * @returns The state of the field array.
  */
 export function getFieldArrayState<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

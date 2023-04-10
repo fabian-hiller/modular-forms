@@ -1,9 +1,9 @@
-import type { ResponseData } from '@modular-forms/shared';
+import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormStore,
   InitialFieldState,
 } from '../types';
@@ -19,7 +19,7 @@ import { getInitialFieldStore } from './getInitialFieldStore';
  * @returns The reactive store.
  */
 export function initializeFieldStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

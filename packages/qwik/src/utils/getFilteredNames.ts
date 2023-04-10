@@ -1,8 +1,8 @@
-import type { Maybe, ResponseData } from '@modular-forms/shared';
+import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 import { getFieldArrayNames } from './getFieldArrayNames';
@@ -20,7 +20,7 @@ import { getFieldNames } from './getFieldNames';
  * @returns A tuple with filtered names.
  */
 export function getFilteredNames<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,

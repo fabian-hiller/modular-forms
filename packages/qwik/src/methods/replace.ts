@@ -1,15 +1,15 @@
-import type { ResponseData } from '@modular-forms/shared';
+import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
-  FieldValues,
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
+  FieldValue,
   FormStore,
 } from '../types';
 import { getFieldArrayStore, getUniqueId, setFieldArrayValue } from '../utils';
 
 type ReplaceOptions<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
 > = {
@@ -25,7 +25,7 @@ type ReplaceOptions<
  * @param options The replace options.
  */
 export function replace<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,

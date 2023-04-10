@@ -8,6 +8,7 @@ import {
 } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  FieldValues,
   Maybe,
   MaybeArray,
   ResponseData,
@@ -20,14 +21,14 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 import { getUniqueId, updateFormState } from '../utils';
 import { reset } from '../methods';
 
 type FieldProps<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   store: FieldStore<TFieldValues, TFieldName>;
@@ -37,7 +38,7 @@ type FieldProps<
 };
 
 type FieldArrayProps<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   store: FieldArrayStore<TFieldValues, TFieldArrayName>;
@@ -45,7 +46,7 @@ type FieldArrayProps<
 };
 
 type LifecycleProps<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
@@ -64,7 +65,7 @@ type LifecycleProps<
  * array.
  */
 export const Lifecycle: <
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
@@ -76,7 +77,7 @@ export const Lifecycle: <
   flags: number
 ) => JSXNode | null = component$(
   <
-    TFieldValues extends FieldValues,
+    TFieldValues extends FieldValues<FieldValue>,
     TResponseData extends ResponseData,
     TFieldName extends FieldPath<TFieldValues>,
     TFieldArrayName extends FieldArrayPath<TFieldValues>

@@ -1,16 +1,21 @@
-import { FieldElement, Maybe, ValidateField } from '@modular-forms/shared';
+import {
+  FieldElement,
+  FieldValues,
+  Maybe,
+  ValidateField,
+} from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
   FieldPath,
   FieldPathValue,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormState,
 } from '../types';
 import { getInitialValue } from './getInitialValue';
 
 type FieldOtions<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = Partial<{
   initialValue: [FieldPathValue<TFieldValues, TFieldName>];
@@ -27,7 +32,7 @@ type FieldOtions<
  * @returns The store of a field.
  */
 export function getField<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,

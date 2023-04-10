@@ -1,7 +1,8 @@
+import type { FieldValues } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayStore,
-  FieldValues,
+  FieldValue,
   InitialFieldArrayState,
 } from '../types';
 
@@ -13,7 +14,7 @@ import type {
  * @returns The initial store.
  */
 export function getInitialFieldArrayStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   name: TFieldArrayName,

@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldValues, FormState } from '../types';
+import { FieldValue, FormState } from '../types';
 
 /**
  * Updates the dirty state of the form.
@@ -7,7 +8,7 @@ import { FieldValues, FormState } from '../types';
  * @param form The form for which the dirty state is to be updated.
  * @param dirty Whether dirty state is true.
  */
-export function updateDirty<TFieldValues extends FieldValues>(
+export function updateDirty<TFieldValues extends FieldValues<FieldValue>>(
   form: FormState<TFieldValues>,
   dirty?: boolean
 ): void {

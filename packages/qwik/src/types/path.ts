@@ -1,5 +1,10 @@
-import type { ArrayKey, IsTuple, TupleKeys } from '@modular-forms/shared';
-import type { FieldValue, FieldValues } from './field';
+import type {
+  ArrayKey,
+  FieldValues,
+  IsTuple,
+  TupleKeys,
+} from '@modular-forms/shared';
+import type { FieldValue } from './field';
 
 /**
  * Returns a path of a type that leads to a field value.
@@ -26,7 +31,7 @@ type ValuePaths<Data> = Data extends Array<infer Child>
 /**
  * See {@link ValuePaths}
  */
-export type FieldPath<TFieldValues extends FieldValues> =
+export type FieldPath<TFieldValues extends FieldValues<FieldValue>> =
   ValuePaths<TFieldValues>;
 
 /**
@@ -53,7 +58,7 @@ type PathValue<
  * See {@link PathValue}
  */
 export type FieldPathValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldPath extends FieldPath<TFieldValues>
 > = PathValue<TFieldValues, TFieldPath>;
 
@@ -62,7 +67,7 @@ export type FieldPathValue<
  */
 type ArrayPath<Key extends string | number, Value> = Value extends Array<any>
   ? `${Key}` | `${Key}.${ArrayPaths<Value>}`
-  : Value extends FieldValues
+  : Value extends FieldValues<FieldValue>
   ? `${Key}.${ArrayPaths<Value>}`
   : never;
 
@@ -82,14 +87,14 @@ type ArrayPaths<Data> = Data extends Array<infer Child>
 /**
  * See {@link ArrayPaths}
  */
-export type FieldArrayPath<TFieldValues extends FieldValues> =
+export type FieldArrayPath<TFieldValues extends FieldValues<FieldValue>> =
   ArrayPaths<TFieldValues>;
 
 /**
  * See {@link PathValue}
  */
 export type FieldArrayPathValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayPath extends FieldArrayPath<TFieldValues>
 > = PathValue<TFieldValues, TFieldArrayPath> & Array<unknown>;
 
@@ -104,7 +109,9 @@ type TypeTemplatePath<
   ? Value extends Array<any> | Record<string, any>
     ? `${Key}` | `${Key}.${TypeTemplatePaths<Value, Type>}`
     : `${Key}`
-  : Value extends FieldValues | (FieldValue | FieldValues)[]
+  : Value extends
+      | FieldValues<FieldValue>
+      | (FieldValue | FieldValues<FieldValue>)[]
   ? `${Key extends number ? '$' : Key}.${TypeTemplatePaths<Value, Type>}`
   : never;
 
@@ -129,6 +136,6 @@ type TypeTemplatePaths<Data, Type> = Data extends Array<infer Child>
  * See {@link TypePaths}
  */
 export type TypeInfoPath<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   Type
 > = TypeTemplatePaths<TFieldValues, Type>;

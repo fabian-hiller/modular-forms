@@ -1,9 +1,9 @@
-import { RawFieldArrayState } from '@modular-forms/shared';
+import { FieldValues, RawFieldArrayState } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
 import {
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormState,
   RawFieldState,
 } from '../types';
@@ -32,7 +32,7 @@ type MoveOptions = {
  * @param options The move options.
  */
 export function move<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(

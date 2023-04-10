@@ -1,8 +1,9 @@
+import { FieldValues } from '@modular-forms/shared';
 import { JSX, splitProps } from 'solid-js';
 import { handleSubmit } from '../methods/handleSubmit';
-import { FieldValues, FormState, SubmitHandler } from '../types';
+import { FieldValue, FormState, SubmitHandler } from '../types';
 
-export type FormProps<TFieldValues extends FieldValues> = Omit<
+export type FormProps<TFieldValues extends FieldValues<FieldValue>> = Omit<
   JSX.FormHTMLAttributes<HTMLFormElement>,
   'onSubmit'
 > & {
@@ -20,7 +21,7 @@ export type FormProps<TFieldValues extends FieldValues> = Omit<
  * HTML form element that simplifies form submission and disables the browser's
  * default form validation.
  */
-export function Form<TFieldValues extends FieldValues>(
+export function Form<TFieldValues extends FieldValues<FieldValue>>(
   props: FormProps<TFieldValues>
 ): JSX.Element {
   // Split props between local, options and other

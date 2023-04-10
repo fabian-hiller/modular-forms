@@ -10,6 +10,7 @@ import type {
   Maybe,
   ValidateField,
   FieldElement,
+  FieldValues,
 } from '@modular-forms/shared';
 import type { FieldPath, FieldPathValue } from './path';
 
@@ -27,13 +28,6 @@ export type FieldValue = MaybeValue<
   | NoSerialize<File[]>
   | Date
 >;
-
-/**
- * Value type of the form fields.
- */
-export type FieldValues = {
-  [name: string]: FieldValue | FieldValues | (FieldValue | FieldValues)[];
-};
 
 /**
  * Value type of the field type.
@@ -63,13 +57,15 @@ export type FieldType<T> = T extends MaybeValue<string>
  * and moves with it.
  */
 export type FieldStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   internal: {
     initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
     startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-    validate: QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[];
+    validate: QRL<
+      ValidateField<FieldPathValue<TFieldValues, TFieldName>>
+    >[];
     elements: FieldElement[];
     consumers: number[];
   };
@@ -85,7 +81,7 @@ export type FieldStore<
  * Value type of the field element props.
  */
 export type FieldElementProps<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   name: TFieldName;
@@ -104,7 +100,7 @@ export type FieldElementProps<
  * Value type of the initial field state.
  */
 export type InitialFieldState<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
@@ -116,7 +112,7 @@ export type InitialFieldState<
  * Value type of the internal raw field state.
  */
 export type RawFieldState<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;

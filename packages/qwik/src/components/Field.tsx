@@ -3,6 +3,7 @@ import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
   FieldElement,
+  FieldValues,
   Maybe,
   MaybeArray,
   MaybeValue,
@@ -17,7 +18,7 @@ import type {
   FieldPathValue,
   FieldStore,
   FieldType,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 import {
@@ -29,7 +30,7 @@ import {
 import { Lifecycle } from './Lifecycle';
 
 export type FieldProps<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
@@ -53,7 +54,7 @@ export type FieldProps<
  * Headless form field that provides reactive properties and state.
  */
 export function Field<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

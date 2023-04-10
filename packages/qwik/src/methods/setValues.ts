@@ -1,9 +1,9 @@
-import type { ResponseData } from '@modular-forms/shared';
+import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormStore,
   PartialValues,
 } from '../types';
@@ -26,7 +26,7 @@ type ValuesOptions = Partial<{
  * @param options The values options.
  */
 export function setValues<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
@@ -45,7 +45,7 @@ export function setValues<
  * @param options The values options.
  */
 export function setValues<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
@@ -57,7 +57,7 @@ export function setValues<
 ): void;
 
 export function setValues<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

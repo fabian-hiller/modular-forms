@@ -1,9 +1,13 @@
-import type { RawFieldArrayState, ResponseData } from '@modular-forms/shared';
 import type {
   FieldValues,
+  RawFieldArrayState,
+  ResponseData,
+} from '@modular-forms/shared';
+import type {
   FieldPath,
   FormStore,
   FieldArrayPath,
+  FieldValue,
 } from '../types';
 
 /**
@@ -14,7 +18,7 @@ import type {
  * @param state The new state to be set.
  */
 export function setFieldArrayStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

@@ -1,15 +1,19 @@
-import { ValidationMode, FormResponse } from '@modular-forms/shared';
+import {
+  ValidationMode,
+  FormResponse,
+  FieldValues,
+} from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
   DeepPartial,
   FieldArrayStore,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormState,
   ValidateForm,
 } from '../types';
 
-type FormOptions<TFieldValues extends FieldValues> = Partial<{
+type FormOptions<TFieldValues extends FieldValues<FieldValue>> = Partial<{
   initialValues: DeepPartial<TFieldValues>;
   validateOn: ValidationMode;
   revalidateOn: ValidationMode;
@@ -23,7 +27,7 @@ type FormOptions<TFieldValues extends FieldValues> = Partial<{
  *
  * @returns The state of the form.
  */
-export function createForm<TFieldValues extends FieldValues>(
+export function createForm<TFieldValues extends FieldValues<FieldValue>>(
   options: FormOptions<TFieldValues> = {}
 ): FormState<TFieldValues> {
   // Destructure options and set default values

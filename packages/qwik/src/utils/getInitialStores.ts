@@ -1,6 +1,6 @@
 import type { Signal } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
-import type { Maybe, ResponseData } from '@modular-forms/shared';
+import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
@@ -8,7 +8,7 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldsStore,
-  FieldValues,
+  FieldValue,
   FormActionStore,
   InitialValues,
   PartialValues,
@@ -27,7 +27,7 @@ import { getUniqueId } from './getUniqueId';
  * @returns The initial stores tuple.
  */
 export function getInitialStores<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

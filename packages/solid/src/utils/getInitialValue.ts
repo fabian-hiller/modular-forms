@@ -1,5 +1,5 @@
-import { Maybe } from '@modular-forms/shared';
-import { FieldPath, FieldPathValue, FieldValues, FormState } from '../types';
+import { FieldValues, Maybe } from '@modular-forms/shared';
+import { FieldPath, FieldPathValue, FieldValue, FormState } from '../types';
 import { getPathValue } from './getPathValue';
 
 /**
@@ -11,7 +11,7 @@ import { getPathValue } from './getPathValue';
  * @returns Initial field value.
  */
 export function getInitialValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,

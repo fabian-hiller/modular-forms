@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { FieldArrayStore, FieldValues, FormState } from '../types';
+import { FieldArrayStore, FieldValue, FormState } from '../types';
 import { updateDirty } from './updateDirty';
 
 /**
@@ -8,10 +9,9 @@ import { updateDirty } from './updateDirty';
  * @param form The form that contains the field array.
  * @param fieldArray The field array to be updated.
  */
-export function updateFieldArrayDirty<TFieldValues extends FieldValues>(
-  form: FormState<TFieldValues>,
-  fieldArray: FieldArrayStore
-): void {
+export function updateFieldArrayDirty<
+  TFieldValues extends FieldValues<FieldValue>
+>(form: FormState<TFieldValues>, fieldArray: FieldArrayStore): void {
   // Ignores tracking of reactive dependencies
   untrack(() => {
     // Check if field array is dirty

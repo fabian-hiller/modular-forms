@@ -6,13 +6,14 @@ import type {
 } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type {
+  FieldValues,
+  FormResponse,
   MaybePromise,
   Maybe,
-  FormResponse,
   ResponseData,
   ValidationMode,
 } from '@modular-forms/shared';
-import type { FieldStore, FieldValue, FieldValues } from './field';
+import type { FieldStore, FieldValue } from './field';
 import type { FieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath, TypeInfoPath } from './path';
 import type { MaybeQRL } from './utils';
@@ -20,17 +21,18 @@ import type { MaybeQRL } from './utils';
 /**
  * Function type to handle the submission of the form.
  */
-export type SubmitHandler<TFieldValues extends FieldValues> = MaybeQRL<
-  (
-    values: TFieldValues,
-    event: QwikSubmitEvent<HTMLFormElement>
-  ) => MaybePromise<unknown>
->;
+export type SubmitHandler<TFieldValues extends FieldValues<FieldValue>> =
+  MaybeQRL<
+    (
+      values: TFieldValues,
+      event: QwikSubmitEvent<HTMLFormElement>
+    ) => MaybePromise<unknown>
+  >;
 
 /**
  * Value type of the form errors.
  */
-export type FormErrors<TFieldValues extends FieldValues> = {
+export type FormErrors<TFieldValues extends FieldValues<FieldValue>> = {
   [name in
     | FieldPath<TFieldValues>
     | FieldArrayPath<TFieldValues>]?: Maybe<string>;
@@ -39,7 +41,7 @@ export type FormErrors<TFieldValues extends FieldValues> = {
 /**
  * Function type to validate a form.
  */
-export type ValidateForm<TFieldValues extends FieldValues> = (
+export type ValidateForm<TFieldValues extends FieldValues<FieldValue>> = (
   values: PartialValues<TFieldValues>
 ) => MaybePromise<FormErrors<TFieldValues>>;
 
@@ -47,7 +49,7 @@ export type ValidateForm<TFieldValues extends FieldValues> = (
  * Value type of the fields store.
  */
 export type FieldsStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   [Name in TFieldName]: FieldStore<TFieldValues, Name>;
@@ -57,7 +59,7 @@ export type FieldsStore<
  * Value type of the field arrays store.
  */
 export type FieldArraysStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   [Name in TFieldArrayName]: FieldArrayStore<TFieldValues, Name>;
@@ -90,19 +92,20 @@ export type PartialValues<Value> = Value extends
 /**
  * Value type of the form data info.
  */
-export type FormDataInfo<TFieldValues extends FieldValues> = Partial<{
-  arrays: TypeInfoPath<TFieldValues, any[]>[];
-  booleans: TypeInfoPath<TFieldValues, boolean>[];
-  dates: TypeInfoPath<TFieldValues, Date>[];
-  files: TypeInfoPath<TFieldValues, NoSerialize<Blob> | NoSerialize<File>>[];
-  numbers: TypeInfoPath<TFieldValues, number>[];
-}>;
+export type FormDataInfo<TFieldValues extends FieldValues<FieldValue>> =
+  Partial<{
+    arrays: TypeInfoPath<TFieldValues, any[]>[];
+    booleans: TypeInfoPath<TFieldValues, boolean>[];
+    dates: TypeInfoPath<TFieldValues, Date>[];
+    files: TypeInfoPath<TFieldValues, NoSerialize<Blob> | NoSerialize<File>>[];
+    numbers: TypeInfoPath<TFieldValues, number>[];
+  }>;
 
 /**
  * Value type of the form action store.
  */
 export type FormActionStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData
 > = {
   values: PartialValues<TFieldValues>;
@@ -114,7 +117,7 @@ export type FormActionStore<
  * Value type of the form options.
  */
 export type FormOptions<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData
 > = {
   loader: Signal<InitialValues<TFieldValues>>;
@@ -134,7 +137,7 @@ export type FormOptions<
  * Value type of the form store.
  */
 export type FormStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldPath, FieldStore, FieldValues, RawFieldState } from '../types';
+import { FieldPath, FieldStore, FieldValue, RawFieldState } from '../types';
 
 /**
  * Returns the state of the field.
@@ -9,7 +10,7 @@ import { FieldPath, FieldStore, FieldValues, RawFieldState } from '../types';
  * @returns The state of the field.
  */
 export function getFieldState<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(field: FieldStore<TFieldValues, TFieldName>): RawFieldState {
   return untrack(() => ({

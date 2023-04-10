@@ -1,9 +1,9 @@
 import { useStore } from '@builder.io/qwik';
-import type { ResponseData } from '@modular-forms/shared';
+import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormOptions,
   FormStore,
 } from '../types';
@@ -17,7 +17,7 @@ import { getInitialStores } from '../utils';
  * @returns The reactive store.
  */
 export function useFormStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData = undefined,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>

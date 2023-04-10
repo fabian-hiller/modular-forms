@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldPath, FieldValues, FormState } from '../types';
+import { FieldPath, FieldValue, FormState } from '../types';
 
 /**
  * Focuses the specified field of the form.
@@ -8,7 +9,7 @@ import { FieldPath, FieldValues, FormState } from '../types';
  * @param name The name of the field to focus on.
  */
 export function focus<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(form: FormState<TFieldValues>, name: TFieldName): void {
   untrack(() => form.internal.fields.get(name)?.getElements()[0]?.focus());

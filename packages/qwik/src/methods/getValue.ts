@@ -1,9 +1,9 @@
-import type { Maybe, ResponseData } from '@modular-forms/shared';
+import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 import { getFieldStore } from '../utils';
@@ -25,7 +25,7 @@ type ValueOptions = Partial<{
  * @returns The value of the field.
  */
 export function getValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

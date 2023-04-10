@@ -1,11 +1,11 @@
 import { noSerialize } from '@builder.io/qwik';
-import type { FieldElement, Maybe } from '@modular-forms/shared';
+import type { FieldElement, FieldValues, Maybe } from '@modular-forms/shared';
 import type {
   FieldPath,
   FieldPathValue,
   FieldStore,
   FieldType,
-  FieldValues,
+  FieldValue,
 } from '../types';
 
 /**
@@ -16,7 +16,7 @@ import type {
  * @returns The element input.
  */
 export function getElementInput<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   element: FieldElement,

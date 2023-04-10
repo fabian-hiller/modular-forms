@@ -1,4 +1,4 @@
-import { ValidationMode } from '@modular-forms/shared';
+import { FieldValues, ValidationMode } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
 import { validate } from '../methods';
 import {
@@ -6,7 +6,7 @@ import {
   FieldArrayStore,
   FieldPath,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormState,
 } from '../types';
 
@@ -22,7 +22,7 @@ type ValidateOptions = {
  * @param name The name of the field or field array to be validated.
  */
 export function validateIfNecessary<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(

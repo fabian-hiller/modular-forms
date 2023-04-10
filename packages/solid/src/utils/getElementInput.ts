@@ -1,6 +1,6 @@
-import { FieldElement, Maybe } from '@modular-forms/shared';
+import { FieldElement, FieldValues, Maybe } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldPath, FieldPathValue, FieldStore, FieldValues } from '../types';
+import { FieldPath, FieldPathValue, FieldStore, FieldValue } from '../types';
 
 /**
  * Returns the current input of the element.
@@ -10,7 +10,7 @@ import { FieldPath, FieldPathValue, FieldStore, FieldValues } from '../types';
  * @returns The current element input.
  */
 export function getElementInput<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   element: FieldElement,

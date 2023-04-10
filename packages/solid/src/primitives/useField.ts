@@ -1,4 +1,4 @@
-import { Maybe, ValidateField } from '@modular-forms/shared';
+import { FieldValues, Maybe, ValidateField } from '@modular-forms/shared';
 import { batch, createEffect, onCleanup, untrack } from 'solid-js';
 import { reset } from '../methods';
 import {
@@ -16,13 +16,13 @@ import {
   FieldState,
   FieldPath,
   FieldPathValue,
-  FieldValues,
   FormState,
   FieldStore,
+  FieldValue,
 } from '../types';
 
 type FieldOptions<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = Partial<{
   initialValue: [FieldPathValue<TFieldValues, TFieldName>];
@@ -43,7 +43,7 @@ type FieldOptions<
  * @returns The reactive properties and state of the field.
  */
 export function useField<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,

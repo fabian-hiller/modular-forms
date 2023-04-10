@@ -1,10 +1,10 @@
-import type { ResponseData } from '@modular-forms/shared';
+import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 import { updateFieldDirty } from './updateFieldDirty';
@@ -19,7 +19,7 @@ import { validateIfRequired } from './validateIfRequired';
  * @param value The new value of the field.
  */
 export function updateFieldValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

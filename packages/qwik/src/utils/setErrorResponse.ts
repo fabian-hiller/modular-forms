@@ -1,10 +1,10 @@
-import type { Maybe, ResponseData } from '@modular-forms/shared';
+import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayStore,
   FieldPath,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormErrors,
   FormStore,
 } from '../types';
@@ -24,7 +24,7 @@ type ErrorResponseOptions = Partial<{
  * @param options The error options.
  */
 export function setErrorResponse<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

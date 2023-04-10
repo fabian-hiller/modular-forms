@@ -1,12 +1,13 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { FieldValues, FormState } from '../types';
+import { FieldValue, FormState } from '../types';
 
 /**
  * Updates the touched, dirty and invalid state of the form.
  *
  * @param form The form to be updated.
  */
-export function updateState<TFieldValues extends FieldValues>(
+export function updateState<TFieldValues extends FieldValues<FieldValue>>(
   form: FormState<TFieldValues>
 ): void {
   // Create state variables

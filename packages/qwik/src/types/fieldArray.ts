@@ -1,6 +1,10 @@
 import type { QRL } from '@builder.io/qwik';
-import type { Maybe, ValidateFieldArray } from '@modular-forms/shared';
-import type { FieldValues } from './field';
+import type {
+  FieldValues,
+  Maybe,
+  ValidateFieldArray,
+} from '@modular-forms/shared';
+import type { FieldValue } from './field';
 import type { FieldArrayPath } from './path';
 
 /**
@@ -12,7 +16,7 @@ import type { FieldArrayPath } from './path';
  * dirty and moves with it.
  */
 export type FieldArrayStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   internal: {

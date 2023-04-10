@@ -1,5 +1,6 @@
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  FieldValues,
   MaybeValue,
   PartialKey,
   ResponseData,
@@ -16,7 +17,7 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
-  FieldValues,
+  FieldValue,
   FormOptions,
   FormStore,
 } from '../types';
@@ -31,7 +32,7 @@ import { useFormStore } from './useFormStore';
  * @returns The store and linked components.
  */
 export function useForm<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData = undefined,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>

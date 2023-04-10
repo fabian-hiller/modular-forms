@@ -1,4 +1,5 @@
-import { FieldPath, FieldPathValue, FieldValues, FormState } from '../types';
+import { FieldValues } from '@modular-forms/shared';
+import { FieldPath, FieldPathValue, FieldValue, FormState } from '../types';
 
 /**
  * Sets the initial value of the form field.
@@ -8,7 +9,7 @@ import { FieldPath, FieldPathValue, FieldValues, FormState } from '../types';
  * @param value The initial value.
  */
 export function setInitialValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,

@@ -1,8 +1,8 @@
-import type { Maybe, ResponseData } from '@modular-forms/shared';
+import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 import { getFieldAndArrayStores } from './getFieldAndArrayStores';
@@ -14,7 +14,7 @@ import { getFieldAndArrayStores } from './getFieldAndArrayStores';
  * @param dirty Whether dirty state is true.
  */
 export function updateFormDirty<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

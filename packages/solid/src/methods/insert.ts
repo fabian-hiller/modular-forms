@@ -1,10 +1,11 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
 import {
   DeepPartial,
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormState,
 } from '../types';
 import {
@@ -22,7 +23,7 @@ import {
 } from '../utils';
 
 type InsertOptions<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
     Array<unknown>
@@ -39,7 +40,7 @@ type InsertOptions<
  * @param options The insert options.
  */
 export function insert<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &

@@ -1,4 +1,5 @@
 import type {
+  FieldValues,
   Maybe,
   ResponseData,
   ValidationMode,
@@ -9,7 +10,7 @@ import type {
   FieldArrayStore,
   FieldPath,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormStore,
 } from '../types';
 
@@ -27,7 +28,7 @@ type ValidateOptions = {
  * @param options The validate options.
  */
 export function validateIfRequired<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

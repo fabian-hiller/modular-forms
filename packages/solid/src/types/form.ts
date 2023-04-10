@@ -1,4 +1,5 @@
 import {
+  FieldValues,
   FormResponse,
   Maybe,
   MaybePromise,
@@ -6,7 +7,7 @@ import {
   ValidationMode,
 } from '@modular-forms/shared';
 import { Accessor, Setter } from 'solid-js';
-import { FieldStore, FieldValue, FieldValues } from './field';
+import { FieldStore, FieldValue } from './field';
 import { FieldArrayStore } from './fieldArray';
 import { FieldArrayPath, FieldPath } from './path';
 
@@ -23,7 +24,7 @@ export type SubmitEvent = Event & {
 /**
  * Function type to handle the submission of the form.
  */
-export type SubmitHandler<TFieldValues extends FieldValues> = (
+export type SubmitHandler<TFieldValues extends FieldValues<FieldValue>> = (
   values: TFieldValues,
   event: SubmitEvent
 ) => MaybePromise<unknown>;
@@ -31,7 +32,7 @@ export type SubmitHandler<TFieldValues extends FieldValues> = (
 /**
  * Value type of the form errors.
  */
-export type FormErrors<TFieldValues extends FieldValues> = {
+export type FormErrors<TFieldValues extends FieldValues<FieldValue>> = {
   [name in
     | FieldPath<TFieldValues>
     | FieldArrayPath<TFieldValues>]?: Maybe<string>;
@@ -40,7 +41,7 @@ export type FormErrors<TFieldValues extends FieldValues> = {
 /**
  * Function type to validate a form.
  */
-export type ValidateForm<TFieldValues extends FieldValues> = (
+export type ValidateForm<TFieldValues extends FieldValues<FieldValue>> = (
   values: PartialValues<TFieldValues>
 ) => MaybePromise<FormErrors<TFieldValues>>;
 
@@ -48,7 +49,7 @@ export type ValidateForm<TFieldValues extends FieldValues> = (
  * Value type of the fields store.
  */
 export type FieldsStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   [Name in TFieldName]?: FieldStore<TFieldValues, Name>;
@@ -58,7 +59,7 @@ export type FieldsStore<
  * Value type of the field arrays store.
  */
 export type FieldArraysStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   [Name in TFieldArrayName]?: FieldArrayStore<TFieldValues, Name>;
@@ -76,18 +77,19 @@ export type PartialValues<Value> = Value extends string[] | Blob[] | File[]
 /**
  * Value type of the form options.
  */
-export type FormOptions<TFieldValues extends FieldValues> = Partial<{
-  initialValues: PartialValues<TFieldValues>;
-  validateOn: ValidationMode;
-  revalidateOn: ValidationMode;
-  validate: ValidateForm<TFieldValues>;
-}>;
+export type FormOptions<TFieldValues extends FieldValues<FieldValue>> =
+  Partial<{
+    initialValues: PartialValues<TFieldValues>;
+    validateOn: ValidationMode;
+    revalidateOn: ValidationMode;
+    validate: ValidateForm<TFieldValues>;
+  }>;
 
 /**
  * Value type of the form store.
  */
 export type FormStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

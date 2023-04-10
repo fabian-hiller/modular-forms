@@ -1,10 +1,11 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch } from 'solid-js';
 import {
   DeepPartial,
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
-  FieldValues,
+  FieldValue,
   FormState,
 } from '../types';
 import {
@@ -19,7 +20,7 @@ import {
 import { setInitialValue } from '../utils';
 
 type ResetOptions<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = Partial<{
   initialValue: [FieldPathValue<TFieldValues, TFieldName>];
@@ -46,7 +47,7 @@ type ResetOptions<
  * @param arg3 The reset options.
  */
 export function reset<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(

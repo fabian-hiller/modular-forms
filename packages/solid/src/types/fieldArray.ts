@@ -1,6 +1,6 @@
-import { ValidateFieldArray } from '@modular-forms/shared';
+import { FieldValues, ValidateFieldArray } from '@modular-forms/shared';
 import { Accessor, Setter } from 'solid-js';
-import { FieldValues } from './field';
+import { FieldValue } from './field';
 import { FieldArrayPath } from './path';
 
 /**
@@ -12,7 +12,7 @@ import { FieldArrayPath } from './path';
  * dirty and moves with it.
  */
 export type FieldArrayStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   internal: {
@@ -42,7 +42,7 @@ export type FieldArrayStore<
  * TODO: Remove me
  */
 export type FieldArrayState<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   name: TFieldArrayName;

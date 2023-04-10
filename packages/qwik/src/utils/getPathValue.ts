@@ -1,10 +1,10 @@
-import type { Maybe } from '@modular-forms/shared';
+import type { FieldValues, Maybe } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
   FieldPathValue,
-  FieldValues,
+  FieldValue,
   PartialValues,
 } from '../types';
 
@@ -17,14 +17,14 @@ import type {
  * @returns The value or undefined.
  */
 export function getPathValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   path: TFieldName,
   object: PartialValues<TFieldValues>
 ): Maybe<FieldPathValue<TFieldValues, TFieldName>>;
 export function getPathValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   path: TFieldArrayName,

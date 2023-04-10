@@ -1,23 +1,24 @@
 import type { QRL } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  FieldValues,
   Maybe,
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
 } from '@modular-forms/shared';
 import type {
-  FieldValues,
   FieldPath,
   FieldArrayPath,
   FormStore,
   FieldArrayStore,
+  FieldValue,
 } from '../types';
 import { getFieldArrayStore } from '../utils';
 import { Lifecycle } from './Lifecycle';
 
 export type FieldArrayProps<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
@@ -36,7 +37,7 @@ export type FieldArrayProps<
  * Headless field array that provides reactive properties and state.
  */
 export function FieldArray<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

@@ -1,9 +1,10 @@
+import { FieldValues } from '@modular-forms/shared';
 import { ZodType } from 'zod';
 import {
   DeepPartial,
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormErrors,
 } from '../types';
 
@@ -14,7 +15,7 @@ import {
  *
  * @returns A validation function.
  */
-export function zodForm<TFieldValues extends FieldValues>(
+export function zodForm<TFieldValues extends FieldValues<FieldValue>>(
   schema: ZodType<any, any, TFieldValues>
 ): (values: DeepPartial<TFieldValues>) => FormErrors<TFieldValues> {
   return (values: DeepPartial<TFieldValues>) => {

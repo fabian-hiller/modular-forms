@@ -1,9 +1,9 @@
-import { ValidateFieldArray } from '@modular-forms/shared';
+import { FieldValues, ValidateFieldArray } from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
   FieldArrayPath,
   FieldArrayStore,
-  FieldValues,
+  FieldValue,
   FormState,
 } from '../types';
 import { getInitialItems as getInitialArrayItems } from './getInitialItems';
@@ -22,7 +22,7 @@ type FieldArrayOptions = Partial<{
  * @returns The store of a field array.
  */
 export function getFieldArray<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,

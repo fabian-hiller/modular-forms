@@ -1,9 +1,10 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch } from 'solid-js';
 import {
   FieldPath,
   FieldPathValue,
   FieldStore,
-  FieldValues,
+  FieldValue,
   FormState,
 } from '../types';
 import { updateFieldDirty } from './updateFieldDirty';
@@ -16,7 +17,7 @@ import { validateIfNecessary } from './validateIfNecessary';
  * @param field The field to be updated.
  */
 export function updateFieldInput<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,

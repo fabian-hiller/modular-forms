@@ -1,5 +1,5 @@
-import { Maybe } from '@modular-forms/shared';
-import { FieldPath, FieldPathValue, FieldValues, FormState } from '../types';
+import { FieldValues, Maybe } from '@modular-forms/shared';
+import { FieldPath, FieldPathValue, FieldValue, FormState } from '../types';
 import { getField } from '../utils';
 
 type ValueOptions<TTypeValidated> = Partial<{
@@ -20,7 +20,7 @@ type ValueOptions<TTypeValidated> = Partial<{
  * @returns The value of the field.
  */
 export function getValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TTypeValidated extends boolean = false
 >(

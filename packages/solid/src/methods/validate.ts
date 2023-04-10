@@ -1,9 +1,10 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
 import {
   DeepPartial,
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormErrors,
   FormState,
 } from '../types';
@@ -33,7 +34,7 @@ type ValidateOptions = Partial<{
  * @returns Whether the fields are valid.
  */
 export async function validate<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(

@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
+import { FieldArrayPath, FieldPath, FieldValue, FormState } from '../types';
 
 /**
  * Returns a tuple with filtered field and field array names. For each
@@ -13,7 +14,7 @@ import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
  * @returns A tuple with the filtered names.
  */
 export function getFilteredNames<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TOptions extends Record<string, any>

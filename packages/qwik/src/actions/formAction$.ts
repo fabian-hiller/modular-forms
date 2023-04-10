@@ -5,13 +5,14 @@ import {
   type Action,
 } from '@builder.io/qwik-city';
 import type {
+  FieldValues,
   FormResponse,
   Maybe,
   MaybePromise,
   ResponseData,
 } from '@modular-forms/shared';
 import type {
-  FieldValues,
+  FieldValue,
   FormActionStore,
   FormDataInfo,
   FormErrors,
@@ -21,21 +22,21 @@ import type {
 import { getFormDataValues } from '../utils';
 
 export type FormActionResult<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData
 > = FormResponse<TResponseData> & {
   errors?: Maybe<FormErrors<TFieldValues>>;
 };
 
 type FormActionFunc<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData
 > = (
   values: TFieldValues,
   event: RequestEventAction
 ) => MaybePromise<FormActionResult<TFieldValues, TResponseData> | void>;
 
-type FormActionArg2<TFieldValues extends FieldValues> =
+type FormActionArg2<TFieldValues extends FieldValues<FieldValue>> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
       validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
@@ -45,7 +46,7 @@ type FormActionArg2<TFieldValues extends FieldValues> =
  * See {@link formAction$}
  */
 export function formActionQrl<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData = undefined
 >(
   action: QRL<FormActionFunc<TFieldValues, TResponseData>>,
@@ -131,7 +132,7 @@ export function formActionQrl<
  * @returns Form action constructor.
  */
 export const formAction$: <
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData = undefined
 >(
   actionQrl: FormActionFunc<TFieldValues, TResponseData>,

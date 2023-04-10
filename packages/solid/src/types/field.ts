@@ -1,4 +1,9 @@
-import { FieldElement, Maybe, ValidateField } from '@modular-forms/shared';
+import {
+  FieldElement,
+  FieldValues,
+  Maybe,
+  ValidateField,
+} from '@modular-forms/shared';
 import { Accessor, JSX, Setter } from 'solid-js';
 import { FieldPath, FieldPathValue } from './path';
 
@@ -16,13 +21,6 @@ export type FieldValue =
   | FileList;
 
 /**
- * Value type of the form fields.
- */
-export type FieldValues = {
-  [name: string]: FieldValue | FieldValue[] | FieldValues | FieldValues[];
-};
-
-/**
  * Value type ot the field store.
  *
  * Notice: The initial value is used for resetting and may only be changed
@@ -31,7 +29,7 @@ export type FieldValues = {
  * and moves with it.
  */
 export type FieldStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   internal: {
@@ -63,7 +61,7 @@ export type FieldStore<
  * TODO: Remove me
  */
 export type FieldState<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = {
   props: {

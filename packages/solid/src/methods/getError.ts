@@ -1,4 +1,5 @@
-import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
+import { FieldValues } from '@modular-forms/shared';
+import { FieldArrayPath, FieldPath, FieldValue, FormState } from '../types';
 import { getField, getFieldArray } from '../utils';
 
 type ErrorOptions = Partial<{
@@ -16,7 +17,7 @@ type ErrorOptions = Partial<{
  * @returns The error of the field.
  */
 export function getError<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(

@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch } from 'solid-js';
-import { FieldValues, FormState, SubmitEvent, SubmitHandler } from '../types';
+import { FieldValue, FormState, SubmitEvent, SubmitHandler } from '../types';
 import { getValues } from './getValues';
 import { validate } from './validate';
 
@@ -19,7 +20,7 @@ type SubmitOptions = Partial<{
  *
  * @returns A submit event handler.
  */
-export function handleSubmit<TFieldValues extends FieldValues>(
+export function handleSubmit<TFieldValues extends FieldValues<FieldValue>>(
   form: FormState<TFieldValues>,
   submitAction: SubmitHandler<TFieldValues>,
   options: SubmitOptions = {}

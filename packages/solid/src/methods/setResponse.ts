@@ -1,5 +1,5 @@
-import { FormResponse } from '@modular-forms/shared';
-import { FieldValues, FormState } from '../types';
+import { FieldValues, FormResponse } from '@modular-forms/shared';
+import { FieldValue, FormState } from '../types';
 
 type ResponseOptions = Partial<{
   duration: number;
@@ -12,7 +12,7 @@ type ResponseOptions = Partial<{
  * @param response The response object.
  * @param options The response options.
  */
-export function setResponse<TFieldValues extends FieldValues>(
+export function setResponse<TFieldValues extends FieldValues<FieldValue>>(
   form: FormState<TFieldValues>,
   response: FormResponse,
   options: ResponseOptions = {}

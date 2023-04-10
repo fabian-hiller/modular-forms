@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
+import { FieldArrayPath, FieldPath, FieldValue, FormState } from '../types';
 import {
   getField,
   getFieldArray,
@@ -24,7 +25,7 @@ type RemoveOptions = {
  * @param options The remove options.
  */
 export function remove<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(

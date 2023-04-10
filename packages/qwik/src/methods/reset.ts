@@ -1,9 +1,9 @@
-import type { Maybe, ResponseData } from '@modular-forms/shared';
+import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
-  FieldValues,
+  FieldValue,
   FormStore,
   InitialValues,
 } from '../types';
@@ -18,7 +18,7 @@ import {
 } from '../utils';
 
 type ResetOptions<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 > = Partial<{
   initialValue: FieldPathValue<TFieldValues, TFieldName>;
@@ -47,7 +47,7 @@ type ResetOptions<
  * @param arg3 The reset options.
  */
 export function reset<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>

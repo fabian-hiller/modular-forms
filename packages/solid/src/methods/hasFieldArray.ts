@@ -1,5 +1,6 @@
+import { FieldValues } from '@modular-forms/shared';
 import { createMemo } from 'solid-js';
-import { FieldArrayPath, FieldValues, FormState } from '../types';
+import { FieldArrayPath, FieldValue, FormState } from '../types';
 import { getFieldArray } from '../utils';
 
 type FieldArrayOptions = Partial<{
@@ -18,7 +19,7 @@ type FieldArrayOptions = Partial<{
  * @returns Whether the field array is included.
  */
 export function hasFieldArray<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormState<TFieldValues>,

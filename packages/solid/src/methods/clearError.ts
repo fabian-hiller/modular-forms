@@ -1,4 +1,5 @@
-import { FieldArrayPath, FieldPath, FieldValues, FormState } from '../types';
+import { FieldValues } from '@modular-forms/shared';
+import { FieldArrayPath, FieldPath, FieldValue, FormState } from '../types';
 import { setError } from './setError';
 
 /**
@@ -8,7 +9,7 @@ import { setError } from './setError';
  * @param name The name of the field where the error should be cleared.
  */
 export function clearError<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(form: FormState<TFieldValues>, name: TFieldName | TFieldArrayName): void {

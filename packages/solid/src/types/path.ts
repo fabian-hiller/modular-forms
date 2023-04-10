@@ -1,5 +1,10 @@
-import { IsTuple, TupleKeys, ArrayKey } from '@modular-forms/shared';
-import { FieldValue, FieldValues } from './field';
+import {
+  IsTuple,
+  TupleKeys,
+  ArrayKey,
+  FieldValues,
+} from '@modular-forms/shared';
+import { FieldValue } from './field';
 
 /**
  * Returns a path of a type that leads to a field value.
@@ -26,7 +31,7 @@ type ValuePaths<T> = T extends Array<infer V>
 /**
  * See {@link ValuePaths}
  */
-export type FieldPath<TFieldValues extends FieldValues> =
+export type FieldPath<TFieldValues extends FieldValues<FieldValue>> =
   ValuePaths<TFieldValues>;
 
 /**
@@ -53,7 +58,7 @@ type PathValue<
  * See {@link PathValue}
  */
 export type FieldPathValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldPath extends FieldPath<TFieldValues>
 > = PathValue<TFieldValues, TFieldPath>;
 
@@ -82,13 +87,13 @@ type ArrayPaths<T> = T extends Array<infer V>
 /**
  * See {@link ArrayPaths}
  */
-export type FieldArrayPath<TFieldValues extends FieldValues> =
+export type FieldArrayPath<TFieldValues extends FieldValues<FieldValue>> =
   ArrayPaths<TFieldValues>;
 
 /**
  * See {@link PathValue}
  */
 export type FieldArrayPathValue<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldArrayPath extends FieldArrayPath<TFieldValues>
 > = PathValue<TFieldValues, TFieldArrayPath>;

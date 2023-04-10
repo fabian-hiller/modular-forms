@@ -1,9 +1,9 @@
-import { ResponseData, FormResponse } from '@modular-forms/shared';
+import { ResponseData, FormResponse, FieldValues } from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
   FieldArrayPath,
   FieldPath,
-  FieldValues,
+  FieldValue,
   FormOptions,
   FormStore,
   PartialValues,
@@ -17,7 +17,7 @@ import {
  * @returns The reactive store.
  */
 export function createFormStore<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData = undefined,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>

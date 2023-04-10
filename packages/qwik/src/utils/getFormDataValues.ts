@@ -1,6 +1,6 @@
 import { noSerialize } from '@builder.io/qwik';
-import type { Maybe } from '@modular-forms/shared';
-import type { FieldValues, FormDataInfo, PartialValues } from '../types';
+import type { FieldValues, Maybe } from '@modular-forms/shared';
+import type { FieldValue, FormDataInfo, PartialValues } from '../types';
 
 /**
  * Returns the values of a form data object. Information that is lost during
@@ -11,7 +11,7 @@ import type { FieldValues, FormDataInfo, PartialValues } from '../types';
  *
  * @returns The form data values.
  */
-export function getFormDataValues<TFieldValues extends FieldValues>(
+export function getFormDataValues<TFieldValues extends FieldValues<FieldValue>>(
   formData: FormData,
   formDataInfo: FormDataInfo<TFieldValues> = {}
 ): PartialValues<TFieldValues> {

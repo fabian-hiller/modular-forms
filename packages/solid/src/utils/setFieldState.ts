@@ -1,9 +1,9 @@
-import { Maybe } from '@modular-forms/shared';
+import { FieldValues, Maybe } from '@modular-forms/shared';
 import {
   FieldPath,
   FieldPathValue,
   FieldStore,
-  FieldValues,
+  FieldValue,
   RawFieldState,
 } from '../types';
 
@@ -14,7 +14,7 @@ import {
  * @param state The state to be set.
  */
 export function setFieldState<
-  TFieldValues extends FieldValues,
+  TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues>
 >(field: FieldStore<TFieldValues, TFieldName>, state: RawFieldState): void {
   field.setElements(state.elements);
