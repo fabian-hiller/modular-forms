@@ -3,9 +3,10 @@ import {
   FieldPath,
   FieldValues,
   RawFieldArrayState,
+  RawFieldState,
 } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { FieldValue, FormState, RawFieldState } from '../types';
+import { FieldValue, FormState } from '../types';
 import {
   getField,
   getFieldArray,

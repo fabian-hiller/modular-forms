@@ -108,17 +108,3 @@ export type InitialFieldState<
   initialValue?: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   error?: Maybe<string>;
 };
-
-/**
- * Value type of the internal raw field state.
- */
-export type RawFieldState<
-  TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>
-> = {
-  startValue: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
-  error: string;
-  touched: boolean;
-  dirty: boolean;
-};

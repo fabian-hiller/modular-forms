@@ -2,9 +2,10 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  RawFieldState,
   ResponseData,
 } from '@modular-forms/shared';
-import type { FormStore, RawFieldState, FieldValue } from '../types';
+import type { FormStore, FieldValue } from '../types';
 
 /**
  * Sets the store of a field to the specified state.
@@ -21,7 +22,7 @@ export function setFieldStore<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName,
-  state: RawFieldState<TFieldValues, TFieldName>
+  state: RawFieldState<TFieldValues, TFieldName, FieldValue>
 ): void {
   const { startValue, ...rest } = state;
   form.internal.fields[name] = {

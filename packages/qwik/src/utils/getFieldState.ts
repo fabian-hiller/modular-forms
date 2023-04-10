@@ -2,9 +2,10 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  RawFieldState,
   ResponseData,
 } from '@modular-forms/shared';
-import type { FieldValue, FormStore, RawFieldState } from '../types';
+import type { FieldValue, FormStore } from '../types';
 import { getFieldStore } from './getFieldStore';
 
 /**
@@ -23,7 +24,7 @@ export function getFieldState<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName
-): RawFieldState<TFieldValues, TFieldName> {
+): RawFieldState<TFieldValues, TFieldName, FieldValue> {
   const {
     internal: { startValue },
     value,

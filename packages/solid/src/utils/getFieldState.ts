@@ -1,6 +1,6 @@
-import { FieldPath, FieldValues } from '@modular-forms/shared';
+import { FieldPath, FieldValues, RawFieldState } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldStore, FieldValue, RawFieldState } from '../types';
+import { FieldStore, FieldValue } from '../types';
 
 /**
  * Returns the state of the field.

@@ -3,9 +3,10 @@ import type {
   FieldPath,
   FieldValues,
   RawFieldArrayState,
+  RawFieldState,
   ResponseData,
 } from '@modular-forms/shared';
-import type { FieldValue, FormStore, RawFieldState } from '../types';
+import type { FieldValue, FormStore } from '../types';
 import {
   getFieldArrayStore,
   getPathIndex,
@@ -101,7 +102,7 @@ export function move<
     // Create field and field array state map
     const fieldStateMap = new Map<
       TFieldName,
-      RawFieldState<TFieldValues, TFieldName>
+      RawFieldState<TFieldValues, TFieldName, FieldValue>
     >();
     const fieldArrayStateMap = new Map<TFieldArrayName, RawFieldArrayState>();
 

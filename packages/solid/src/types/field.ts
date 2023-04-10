@@ -90,14 +90,3 @@ export type FieldState<
   touched: boolean;
   dirty: boolean;
 };
-
-/**
- * Value type of the internal raw field state.
- */
-export type RawFieldState = {
-  initialInput: Maybe<FieldValue>;
-  input: Maybe<FieldValue>;
-  error: string;
-  touched: boolean;
-  dirty: boolean;
-};

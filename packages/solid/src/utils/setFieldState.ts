@@ -3,8 +3,9 @@ import {
   FieldPathValue,
   FieldValues,
   Maybe,
+  RawFieldState,
 } from '@modular-forms/shared';
-import { FieldStore, FieldValue, RawFieldState } from '../types';
+import { FieldStore, FieldValue } from '../types';
 
 /**
  * Sets the state of the field.
