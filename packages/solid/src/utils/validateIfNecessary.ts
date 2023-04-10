@@ -1,3 +1,4 @@
+import { ValidationMode } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
 import { validate } from '../methods';
 import {
@@ -7,7 +8,6 @@ import {
   FieldStore,
   FieldValues,
   FormState,
-  ValidationMode,
 } from '../types';
 
 type ValidateOptions = {

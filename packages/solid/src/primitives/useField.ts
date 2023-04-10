@@ -1,3 +1,5 @@
+import { Maybe, ValidateField } from '@modular-forms/shared';
+import { batch, createEffect, onCleanup, untrack } from 'solid-js';
 import { reset } from '../methods';
 import {
   getElementInput,
@@ -16,11 +18,8 @@ import {
   FieldPathValue,
   FieldValues,
   FormState,
-  ValidateField,
   FieldStore,
 } from '../types';
-import { batch, createEffect, onCleanup, untrack } from 'solid-js';
-import { Maybe } from '@modular-forms/shared';
 
 type FieldOptions<
   TFieldValues extends FieldValues,

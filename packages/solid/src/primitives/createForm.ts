@@ -1,13 +1,12 @@
+import { ValidationMode, FormResponse } from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
   DeepPartial,
   FieldArrayStore,
   FieldStore,
   FieldValues,
-  FormResponse,
   FormState,
   ValidateForm,
-  ValidationMode,
 } from '../types';
 
 type FormOptions<TFieldValues extends FieldValues> = Partial<{

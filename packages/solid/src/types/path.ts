@@ -1,5 +1,5 @@
+import { IsTuple, TupleKeys, ArrayKey } from '@modular-forms/shared';
 import { FieldValue, FieldValues } from './field';
-import { ArrayKey, IsTuple, TupleKeys } from './utils';
 
 /**
  * Returns a path of a type that leads to a field value.

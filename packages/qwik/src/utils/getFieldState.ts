@@ -1,10 +1,10 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormStore,
   RawFieldState,
-  ResponseData,
 } from '../types';
 import { getFieldStore } from './getFieldStore';
 
@@ -29,7 +29,6 @@ export function getFieldState<
     internal: { startValue },
     value,
     error,
-    active,
     touched,
     dirty,
   } = getFieldStore(form, name);
@@ -37,7 +36,6 @@ export function getFieldState<
     startValue,
     value,
     error,
-    active,
     touched,
     dirty,
   };

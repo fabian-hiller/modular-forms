@@ -1,4 +1,8 @@
-import type { Maybe } from '@modular-forms/shared';
+import type {
+  Maybe,
+  ResponseData,
+  ValidationMode,
+} from '@modular-forms/shared';
 import { validate } from '../methods';
 import type {
   FieldArrayPath,
@@ -7,8 +11,6 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
-  ResponseData,
-  ValidationMode,
 } from '../types';
 
 type ValidateOptions = {

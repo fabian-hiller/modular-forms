@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Remove `active` property from RawFieldState and RawFieldArrayState type
+
 ## v0.8.1 (April 07, 2023)
 
 - Downgrade Qwik and Qwik City peer dependency due to a bug in Qwik

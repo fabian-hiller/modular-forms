@@ -1,3 +1,4 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayStore,
@@ -5,7 +6,6 @@ import type {
   FieldValues,
   FormStore,
   InitialFieldArrayState,
-  ResponseData,
 } from '../types';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 

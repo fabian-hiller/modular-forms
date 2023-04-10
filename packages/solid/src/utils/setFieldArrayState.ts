@@ -1,4 +1,5 @@
-import { FieldArrayStore, RawFieldArrayState } from '../types';
+import { RawFieldArrayState } from '@modular-forms/shared';
+import { FieldArrayStore } from '../types';
 
 /**
  * Sets the state of the field array.

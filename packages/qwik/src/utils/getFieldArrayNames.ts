@@ -1,9 +1,9 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldValues,
   FieldPath,
   FieldArrayPath,
   FormStore,
-  ResponseData,
 } from '../types';
 
 /**

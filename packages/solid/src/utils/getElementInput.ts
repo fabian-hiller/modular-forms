@@ -1,12 +1,6 @@
-import { Maybe } from '@modular-forms/shared';
+import { FieldElement, Maybe } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import {
-  FieldElement,
-  FieldPath,
-  FieldPathValue,
-  FieldStore,
-  FieldValues,
-} from '../types';
+import { FieldPath, FieldPathValue, FieldStore, FieldValues } from '../types';
 
 /**
  * Returns the current input of the element.

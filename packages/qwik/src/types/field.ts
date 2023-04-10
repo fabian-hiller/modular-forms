@@ -5,7 +5,12 @@ import type {
   QwikChangeEvent,
   QwikFocusEvent,
 } from '@builder.io/qwik';
-import type { MaybeValue, MaybePromise, Maybe } from '@modular-forms/shared';
+import type {
+  MaybeValue,
+  Maybe,
+  ValidateField,
+  FieldElement,
+} from '@modular-forms/shared';
 import type { FieldPath, FieldPathValue } from './path';
 
 /**
@@ -48,21 +53,6 @@ export type FieldType<T> = T extends MaybeValue<string>
   : T extends MaybeValue<Date>
   ? 'Date'
   : never;
-
-/**
- * HTML element type of a field.
- */
-export type FieldElement =
-  | HTMLInputElement
-  | HTMLSelectElement
-  | HTMLTextAreaElement;
-
-/**
- * Function type to validate a field.
- */
-export type ValidateField<TFieldValue> = (
-  value: TFieldValue | undefined
-) => MaybePromise<string>;
 
 /**
  * Value type ot the field store.
@@ -132,7 +122,6 @@ export type RawFieldState<
   startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   error: string;
-  active: boolean;
   touched: boolean;
   dirty: boolean;
 };

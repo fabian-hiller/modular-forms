@@ -1,10 +1,10 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldValues,
   FieldPath,
   FormStore,
   FieldArrayPath,
   RawFieldState,
-  ResponseData,
 } from '../types';
 
 /**
@@ -26,8 +26,8 @@ export function setFieldStore<
 ): void {
   const { startValue, ...rest } = state;
   form.internal.fields[name] = {
+    ...(form.internal.fields[name] || { name, active: false }),
     ...rest,
-    name,
     internal: {
       ...(form.internal.fields[name]?.internal || {
         initialValue: startValue,

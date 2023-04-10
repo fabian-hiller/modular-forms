@@ -1,13 +1,11 @@
-import { Maybe } from '@modular-forms/shared';
+import { FieldElement, Maybe, ValidateField } from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
-  FieldElement,
   FieldPath,
   FieldPathValue,
   FieldStore,
   FieldValues,
   FormState,
-  ValidateField,
 } from '../types';
 import { getInitialValue } from './getInitialValue';
 

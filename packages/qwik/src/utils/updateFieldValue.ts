@@ -1,3 +1,4 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
@@ -5,7 +6,6 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
-  ResponseData,
 } from '../types';
 import { updateFieldDirty } from './updateFieldDirty';
 import { validateIfRequired } from './validateIfRequired';

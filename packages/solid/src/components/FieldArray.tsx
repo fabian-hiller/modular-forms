@@ -1,3 +1,4 @@
+import { ValidateFieldArray } from '@modular-forms/shared';
 import { JSX, splitProps } from 'solid-js';
 import { useFieldArray } from '../primitives';
 import {
@@ -5,7 +6,6 @@ import {
   FieldArrayState,
   FieldValues,
   FormState,
-  ValidateFieldArray,
 } from '../types';
 
 export type FieldArrayProps<

@@ -1,11 +1,11 @@
 import { useStore } from '@builder.io/qwik';
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormOptions,
   FormStore,
-  ResponseData,
 } from '../types';
 import { getInitialStores } from '../utils';
 

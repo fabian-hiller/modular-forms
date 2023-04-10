@@ -1,5 +1,9 @@
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
-import type { MaybeValue, PartialKey } from '@modular-forms/shared';
+import type {
+  MaybeValue,
+  PartialKey,
+  ResponseData,
+} from '@modular-forms/shared';
 import {
   Field,
   type FieldProps,
@@ -15,7 +19,6 @@ import type {
   FieldValues,
   FormOptions,
   FormStore,
-  ResponseData,
 } from '../types';
 import { useFormStore } from './useFormStore';
 

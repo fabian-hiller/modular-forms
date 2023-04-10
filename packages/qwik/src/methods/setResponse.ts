@@ -1,10 +1,9 @@
+import type { FormResponse, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
-  FormResponse,
   FormStore,
-  ResponseData,
 } from '../types';
 
 type ResponseOptions = Partial<{

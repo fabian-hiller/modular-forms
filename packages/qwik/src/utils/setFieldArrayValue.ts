@@ -1,10 +1,10 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
   FieldValues,
   FormStore,
-  ResponseData,
 } from '../types';
 import { getUniqueId } from './getUniqueId';
 import { setFieldArrayStore } from './setFieldArrayStore';
@@ -56,7 +56,6 @@ export function setFieldArrayValue<
           startValue: value,
           value,
           error: '',
-          active: false,
           touched: false,
           dirty: false,
         });
@@ -69,7 +68,6 @@ export function setFieldArrayValue<
           startItems: [...items],
           items,
           error: '',
-          active: false,
           touched: false,
           dirty: false,
         });

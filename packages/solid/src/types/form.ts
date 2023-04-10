@@ -1,9 +1,14 @@
-import { Maybe, MaybePromise } from '@modular-forms/shared';
+import {
+  FormResponse,
+  Maybe,
+  MaybePromise,
+  ResponseData,
+  ValidationMode,
+} from '@modular-forms/shared';
 import { Accessor, Setter } from 'solid-js';
 import { FieldStore, FieldValue, FieldValues } from './field';
 import { FieldArrayStore } from './fieldArray';
 import { FieldArrayPath, FieldPath } from './path';
-import { DeepPartial } from './utils';
 
 /**
  * Value type of the submit event object.
@@ -24,29 +29,20 @@ export type SubmitHandler<TFieldValues extends FieldValues> = (
 ) => MaybePromise<unknown>;
 
 /**
- * Value type of the response status.
+ * Value type of the form errors.
  */
-type ResponseStatus = 'info' | 'error' | 'success';
+export type FormErrors<TFieldValues extends FieldValues> = {
+  [name in
+    | FieldPath<TFieldValues>
+    | FieldArrayPath<TFieldValues>]?: Maybe<string>;
+} & { [name: string]: string };
 
 /**
- * Value type of the response data.
+ * Function type to validate a form.
  */
-export type ResponseData = Maybe<Record<string, any> | Array<any>>;
-
-/**
- * Value type of the form response.
- */
-export type FormResponse<TResponseData extends ResponseData = undefined> =
-  Partial<{
-    status: ResponseStatus;
-    message: string;
-    data: TResponseData;
-  }>;
-
-/**
- * Value type of the validation mode.
- */
-export type ValidationMode = 'touched' | 'input' | 'change' | 'blur' | 'submit';
+export type ValidateForm<TFieldValues extends FieldValues> = (
+  values: PartialValues<TFieldValues>
+) => MaybePromise<FormErrors<TFieldValues>>;
 
 /**
  * Value type of the fields store.
@@ -67,20 +63,6 @@ export type FieldArraysStore<
 > = {
   [Name in TFieldArrayName]?: FieldArrayStore<TFieldValues, Name>;
 };
-
-/**
- * Value type of the form errors.
- */
-export type FormErrors<TFieldValues extends FieldValues> = {
-  [name in FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>]?: string;
-};
-
-/**
- * Function type to validate a form.
- */
-export type ValidateForm<TFieldValues extends FieldValues> = (
-  values: DeepPartial<TFieldValues>
-) => MaybePromise<FormErrors<TFieldValues>>;
 
 /**
  * Value type of the partial field values.

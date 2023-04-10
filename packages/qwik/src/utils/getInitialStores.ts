@@ -1,6 +1,6 @@
 import type { Signal } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
-import type { Maybe } from '@modular-forms/shared';
+import type { Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
@@ -12,7 +12,6 @@ import type {
   FormActionStore,
   InitialValues,
   PartialValues,
-  ResponseData,
 } from '../types';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 import { getInitialFieldStore } from './getInitialFieldStore';

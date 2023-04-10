@@ -1,11 +1,10 @@
+import type { RawFieldArrayState, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormStore,
-  RawFieldArrayState,
   RawFieldState,
-  ResponseData,
 } from '../types';
 import {
   getFieldArrayStore,

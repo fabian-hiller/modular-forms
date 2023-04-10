@@ -1,3 +1,4 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
@@ -5,7 +6,6 @@ import type {
   FieldValues,
   FormStore,
   PartialValues,
-  ResponseData,
 } from '../types';
 import { getUniqueId, initializeFieldArrayStore } from '../utils';
 import { setValue } from './setValue';

@@ -1,4 +1,4 @@
-import { MaybePromise, Maybe } from '@modular-forms/shared';
+import { FieldElement, Maybe, ValidateField } from '@modular-forms/shared';
 import { Accessor, JSX, Setter } from 'solid-js';
 import { FieldPath, FieldPathValue } from './path';
 
@@ -21,21 +21,6 @@ export type FieldValue =
 export type FieldValues = {
   [name: string]: FieldValue | FieldValue[] | FieldValues | FieldValues[];
 };
-
-/**
- * HTML element type of a field.
- */
-export type FieldElement =
-  | HTMLInputElement
-  | HTMLSelectElement
-  | HTMLTextAreaElement;
-
-/**
- * Function type to validate a field.
- */
-export type ValidateField<TFieldValue> = (
-  value: TFieldValue | undefined
-) => MaybePromise<string>;
 
 /**
  * Value type ot the field store.
@@ -100,7 +85,6 @@ export type FieldState<
  * Value type of the internal raw field state.
  */
 export type RawFieldState = {
-  elements: FieldElement[];
   initialInput: Maybe<FieldValue>;
   input: Maybe<FieldValue>;
   error: string;

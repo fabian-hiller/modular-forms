@@ -1,10 +1,9 @@
+import type { RawFieldArrayState, ResponseData } from '@modular-forms/shared';
 import type {
   FieldValues,
   FieldPath,
   FormStore,
   FieldArrayPath,
-  RawFieldArrayState,
-  ResponseData,
 } from '../types';
 
 /**
@@ -26,8 +25,8 @@ export function setFieldArrayStore<
 ): void {
   const { startItems, ...rest } = state;
   form.internal.fieldArrays[name] = {
+    ...(form.internal.fieldArrays[name] || { name, active: false }),
     ...rest,
-    name,
     internal: {
       ...(form.internal.fieldArrays[name]?.internal || {
         initialItems: startItems,

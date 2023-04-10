@@ -1,13 +1,12 @@
+import { ResponseData, FormResponse } from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormOptions,
-  FormResponse,
   FormStore,
   PartialValues,
-  ResponseData,
 } from '../types';
 
 /**

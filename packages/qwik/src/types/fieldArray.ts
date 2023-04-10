@@ -1,14 +1,7 @@
 import type { QRL } from '@builder.io/qwik';
-import type { MaybePromise, Maybe } from '@modular-forms/shared';
+import type { Maybe, ValidateFieldArray } from '@modular-forms/shared';
 import type { FieldValues } from './field';
 import type { FieldArrayPath } from './path';
-
-/**
- * Function type to validate a field array.
- */
-export type ValidateFieldArray<TFieldArrayItems> = (
-  items: TFieldArrayItems
-) => MaybePromise<string>;
 
 /**
  * Value type ot the field array store.
@@ -43,16 +36,4 @@ export type InitialFieldArrayState = {
   items: number[];
   initialItems?: number[];
   error?: Maybe<string>;
-};
-
-/**
- * Value type of the internal raw field array state.
- */
-export type RawFieldArrayState = {
-  startItems: number[];
-  items: number[];
-  error: string;
-  active: boolean;
-  touched: boolean;
-  dirty: boolean;
 };

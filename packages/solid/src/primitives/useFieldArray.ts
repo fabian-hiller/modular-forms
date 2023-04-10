@@ -1,3 +1,4 @@
+import { ValidateFieldArray } from '@modular-forms/shared';
 import { batch, onCleanup } from 'solid-js';
 import { reset } from '../methods';
 import {
@@ -5,7 +6,6 @@ import {
   FieldArrayState,
   FieldValues,
   FormState,
-  ValidateFieldArray,
 } from '../types';
 import { getFieldArray, getUniqueId, getValidateList } from '../utils';
 

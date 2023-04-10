@@ -1,5 +1,6 @@
+import { RawFieldArrayState } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldArrayStore, RawFieldArrayState } from '../types';
+import { FieldArrayStore } from '../types';
 
 /**
  * Returns the state of the field array.

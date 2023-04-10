@@ -4,15 +4,18 @@ import {
   globalActionQrl,
   type Action,
 } from '@builder.io/qwik-city';
-import type { Maybe, MaybePromise } from '@modular-forms/shared';
+import type {
+  FormResponse,
+  Maybe,
+  MaybePromise,
+  ResponseData,
+} from '@modular-forms/shared';
 import type {
   FieldValues,
   FormActionStore,
   FormDataInfo,
   FormErrors,
-  FormResponse,
   PartialValues,
-  ResponseData,
   ValidateForm,
 } from '../types';
 import { getFormDataValues } from '../utils';

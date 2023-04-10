@@ -1,4 +1,5 @@
-import { FieldValues, FormResponse, FormState } from '../types';
+import { FormResponse } from '@modular-forms/shared';
+import { FieldValues, FormState } from '../types';
 
 type ResponseOptions = Partial<{
   duration: number;

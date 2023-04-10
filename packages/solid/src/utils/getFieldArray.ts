@@ -1,10 +1,10 @@
+import { ValidateFieldArray } from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
 import {
   FieldArrayPath,
   FieldArrayStore,
   FieldValues,
   FormState,
-  ValidateFieldArray,
 } from '../types';
 import { getInitialItems as getInitialArrayItems } from './getInitialItems';
 

@@ -1,10 +1,10 @@
+import { RawFieldArrayState } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
 import {
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormState,
-  RawFieldArrayState,
   RawFieldState,
 } from '../types';
 import {

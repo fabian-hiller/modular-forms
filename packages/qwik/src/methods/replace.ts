@@ -1,10 +1,10 @@
+import type { ResponseData } from '@modular-forms/shared';
 import type {
   FieldValues,
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
   FormStore,
-  ResponseData,
 } from '../types';
 import { getFieldArrayStore, getUniqueId, setFieldArrayValue } from '../utils';
 

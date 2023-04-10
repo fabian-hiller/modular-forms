@@ -5,7 +5,13 @@ import type {
   Signal,
 } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
-import type { MaybePromise, Maybe } from '@modular-forms/shared';
+import type {
+  MaybePromise,
+  Maybe,
+  FormResponse,
+  ResponseData,
+  ValidationMode,
+} from '@modular-forms/shared';
 import type { FieldStore, FieldValue, FieldValues } from './field';
 import type { FieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath, TypeInfoPath } from './path';
@@ -36,31 +42,6 @@ export type FormErrors<TFieldValues extends FieldValues> = {
 export type ValidateForm<TFieldValues extends FieldValues> = (
   values: PartialValues<TFieldValues>
 ) => MaybePromise<FormErrors<TFieldValues>>;
-
-/**
- * Value type of the response status.
- */
-export type ResponseStatus = 'info' | 'error' | 'success';
-
-/**
- * Value type of the response data.
- */
-export type ResponseData = Maybe<Record<string, any> | Array<any>>;
-
-/**
- * Value type of the form response.
- */
-export type FormResponse<TResponseData extends ResponseData = undefined> =
-  Partial<{
-    status: ResponseStatus;
-    message: string;
-    data: TResponseData;
-  }>;
-
-/**
- * Value type of the validation mode.
- */
-export type ValidationMode = 'touched' | 'input' | 'change' | 'blur' | 'submit';
 
 /**
  * Value type of the fields store.
