@@ -1,10 +1,10 @@
+import type { Maybe } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
   FieldPathValue,
   FieldValues,
-  Maybe,
   PartialValues,
 } from '../types';
 

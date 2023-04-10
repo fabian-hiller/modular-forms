@@ -1,6 +1,6 @@
 import type { QRL } from '@builder.io/qwik';
+import type { MaybeFunction } from '@modular-forms/shared';
 import type { SafeParseReturnType, ZodType } from 'zod';
-import type { MaybeFunction } from '../types';
 
 /**
  * Parses a value with a Zod scheme and returns the result.

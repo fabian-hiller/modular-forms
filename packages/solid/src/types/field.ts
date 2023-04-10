@@ -1,6 +1,6 @@
+import { MaybePromise, Maybe } from '@modular-forms/shared';
 import { Accessor, JSX, Setter } from 'solid-js';
 import { FieldPath, FieldPathValue } from './path';
-import { Maybe, MaybePromise } from './utils';
 
 /**
  * Value type of a field.

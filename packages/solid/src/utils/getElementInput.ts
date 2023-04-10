@@ -1,3 +1,4 @@
+import { Maybe } from '@modular-forms/shared';
 import { untrack } from 'solid-js';
 import {
   FieldElement,
@@ -5,7 +6,6 @@ import {
   FieldPathValue,
   FieldStore,
   FieldValues,
-  Maybe,
 } from '../types';
 
 /**

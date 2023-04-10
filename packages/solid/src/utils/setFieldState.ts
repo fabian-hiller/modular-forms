@@ -1,9 +1,9 @@
+import { Maybe } from '@modular-forms/shared';
 import {
   FieldPath,
   FieldPathValue,
   FieldStore,
   FieldValues,
-  Maybe,
   RawFieldState,
 } from '../types';
 

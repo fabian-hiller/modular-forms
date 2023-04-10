@@ -1,10 +1,10 @@
+import type { Maybe } from '@modular-forms/shared';
 import type {
   FieldPath,
   FieldStore,
   FieldValue,
   FieldValues,
   InitialFieldState,
-  Maybe,
 } from '../types';
 import { isFieldDirty } from './isFieldDirty';
 

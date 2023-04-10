@@ -1,10 +1,10 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
+import type { MaybeFunction } from '@modular-forms/shared';
 import type { ZodType } from 'zod';
 import { getParsedZodSchema } from '../utils';
 import type {
   FieldValues,
   FormErrors,
-  MaybeFunction,
   PartialValues,
   ValidateForm,
 } from '../types';

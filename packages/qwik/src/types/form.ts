@@ -5,10 +5,11 @@ import type {
   Signal,
 } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
+import type { MaybePromise, Maybe } from '@modular-forms/shared';
 import type { FieldStore, FieldValue, FieldValues } from './field';
 import type { FieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath, TypeInfoPath } from './path';
-import type { Maybe, MaybePromise, MaybeQRL } from './utils';
+import type { MaybeQRL } from './utils';
 
 /**
  * Function type to handle the submission of the form.

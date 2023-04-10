@@ -1,7 +1,7 @@
+import { MaybePromise } from '@modular-forms/shared';
 import { Accessor, Setter } from 'solid-js';
 import { FieldValues } from './field';
 import { FieldArrayPath } from './path';
-import { MaybePromise } from './utils';
 
 /**
  * Function type to validate a field array.

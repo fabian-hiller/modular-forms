@@ -1,3 +1,4 @@
+import { Maybe } from '@modular-forms/shared';
 import { JSX, splitProps } from 'solid-js';
 import { useField } from '../primitives';
 import {
@@ -6,7 +7,6 @@ import {
   FieldState,
   FieldValues,
   FormState,
-  Maybe,
   ValidateField,
 } from '../types';
 

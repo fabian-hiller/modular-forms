@@ -1,4 +1,5 @@
-import { FieldValue, Maybe, MaybePromise } from '../types';
+import { Maybe, MaybePromise } from '@modular-forms/shared';
+import { FieldValue } from '../types';
 
 /**
  * Creates a custom validation function.

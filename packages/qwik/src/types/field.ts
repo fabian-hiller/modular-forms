@@ -5,8 +5,8 @@ import type {
   QwikChangeEvent,
   QwikFocusEvent,
 } from '@builder.io/qwik';
+import type { MaybeValue, MaybePromise, Maybe } from '@modular-forms/shared';
 import type { FieldPath, FieldPathValue } from './path';
-import type { Maybe, MaybePromise, MaybeValue } from './utils';
 
 /**
  * Value type of a field.

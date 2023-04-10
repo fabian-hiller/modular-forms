@@ -1,3 +1,4 @@
+import type { Maybe } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
@@ -5,7 +6,6 @@ import type {
   FieldValues,
   FormStore,
   InitialValues,
-  Maybe,
   ResponseData,
 } from '../types';
 import {

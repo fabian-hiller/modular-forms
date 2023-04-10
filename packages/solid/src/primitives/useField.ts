@@ -16,11 +16,11 @@ import {
   FieldPathValue,
   FieldValues,
   FormState,
-  Maybe,
   ValidateField,
   FieldStore,
 } from '../types';
 import { batch, createEffect, onCleanup, untrack } from 'solid-js';
+import { Maybe } from '@modular-forms/shared';
 
 type FieldOptions<
   TFieldValues extends FieldValues,

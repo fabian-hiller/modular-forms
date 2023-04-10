@@ -1,8 +1,9 @@
+import { Maybe, MaybePromise } from '@modular-forms/shared';
 import { Accessor, Setter } from 'solid-js';
 import { FieldStore, FieldValues } from './field';
 import { FieldArrayStore } from './fieldArray';
 import { FieldArrayPath, FieldPath } from './path';
-import { DeepPartial, MaybePromise } from './utils';
+import { DeepPartial } from './utils';
 
 /**
  * Value type of the submit event object.
@@ -26,6 +27,11 @@ export type SubmitHandler<TFieldValues extends FieldValues> = (
  * Value type of the response status.
  */
 type ResponseStatus = 'info' | 'error' | 'success';
+
+/**
+ * Value type of the response data.
+ */
+export type ResponseData = Maybe<Record<string, any> | Array<any>>;
 
 /**
  * Value type of the form response.
@@ -53,6 +59,13 @@ export type FormErrors<TFieldValues extends FieldValues> = {
 export type ValidateForm<TFieldValues extends FieldValues> = (
   values: DeepPartial<TFieldValues>
 ) => MaybePromise<FormErrors<TFieldValues>>;
+
+export type FormOptions<TFieldValues extends FieldValues> = Partial<{
+  initialValues: DeepPartial<TFieldValues>;
+  validateOn: ValidationMode;
+  revalidateOn: ValidationMode;
+  validate: ValidateForm<TFieldValues>;
+}>;
 
 /**
  * Value type of the external and internal form state.

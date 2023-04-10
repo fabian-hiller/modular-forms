@@ -1,4 +1,5 @@
-import { FieldValue, Maybe } from '../types';
+import { Maybe } from '@modular-forms/shared';
+import { FieldValue } from '../types';
 
 /**
  * Creates a validation function that checks the existence of an input.

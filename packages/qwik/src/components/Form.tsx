@@ -1,6 +1,7 @@
 import type { QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import type { Maybe } from '@modular-forms/shared';
 import { getValues, setError, validate } from '../methods';
 import type {
   FormStore,
@@ -10,7 +11,6 @@ import type {
   SubmitHandler,
   FormActionStore,
   PartialValues,
-  Maybe,
   ResponseData,
 } from '../types';
 import { setErrorResponse } from '../utils';

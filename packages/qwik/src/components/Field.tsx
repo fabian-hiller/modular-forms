@@ -2,6 +2,12 @@ import { $, type QRL, type QwikFocusEvent } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  Maybe,
+  MaybeArray,
+  MaybeValue,
+  PartialKey,
+} from '@modular-forms/shared';
+import type {
   FieldArrayPath,
   FieldElement,
   FieldElementProps,
@@ -11,10 +17,6 @@ import type {
   FieldType,
   FieldValues,
   FormStore,
-  Maybe,
-  MaybeArray,
-  MaybeValue,
-  PartialKey,
   ResponseData,
   ValidateField,
 } from '../types';

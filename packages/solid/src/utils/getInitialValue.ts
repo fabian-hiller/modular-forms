@@ -1,10 +1,5 @@
-import {
-  FieldPath,
-  FieldPathValue,
-  FieldValues,
-  FormState,
-  Maybe,
-} from '../types';
+import { Maybe } from '@modular-forms/shared';
+import { FieldPath, FieldPathValue, FieldValues, FormState } from '../types';
 import { getPathValue } from './getPathValue';
 
 /**

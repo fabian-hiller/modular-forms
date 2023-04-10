@@ -1,4 +1,4 @@
-import { MaybePromise } from '../types';
+import { MaybePromise } from '@modular-forms/shared';
 
 /**
  * Returns a list with validation functions.

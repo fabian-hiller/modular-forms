@@ -1,4 +1,5 @@
 import { noSerialize } from '@builder.io/qwik';
+import type { Maybe } from '@modular-forms/shared';
 import type {
   FieldElement,
   FieldPath,
@@ -6,7 +7,6 @@ import type {
   FieldStore,
   FieldType,
   FieldValues,
-  Maybe,
 } from '../types';
 
 /**

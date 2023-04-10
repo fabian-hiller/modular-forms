@@ -1,4 +1,5 @@
-import type { FieldValue, Maybe } from '../types';
+import type { Maybe } from '@modular-forms/shared';
+import type { FieldValue } from '../types';
 
 /**
  * Returns whether the field is dirty.

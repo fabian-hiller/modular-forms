@@ -1,5 +1,6 @@
+import { Maybe } from '@modular-forms/shared';
 import { ZodType } from 'zod';
-import { FieldValue, Maybe } from '../types';
+import { FieldValue } from '../types';
 
 /**
  * Creates a validation functions that parses the Zod schema of a field.

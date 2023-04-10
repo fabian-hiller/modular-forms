@@ -1,7 +1,7 @@
 import type { QRL } from '@builder.io/qwik';
+import type { MaybePromise, Maybe } from '@modular-forms/shared';
 import type { FieldValues } from './field';
 import type { FieldArrayPath } from './path';
-import type { Maybe, MaybePromise } from './utils';
 
 /**
  * Function type to validate a field array.

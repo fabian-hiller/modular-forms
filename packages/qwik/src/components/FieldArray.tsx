@@ -1,5 +1,6 @@
 import type { QRL } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import type { Maybe, MaybeArray } from '@modular-forms/shared';
 import type {
   FieldValues,
   FieldPath,
@@ -7,8 +8,6 @@ import type {
   FormStore,
   FieldArrayStore,
   ValidateFieldArray,
-  MaybeArray,
-  Maybe,
   ResponseData,
 } from '../types';
 import { getFieldArrayStore } from '../utils';
