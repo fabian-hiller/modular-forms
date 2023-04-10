@@ -2,6 +2,7 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormErrors,
   Maybe,
   ResponseData,
 } from '@modular-forms/shared';
@@ -9,7 +10,6 @@ import type {
   FieldArrayStore,
   FieldStore,
   FieldValue,
-  FormErrors,
   FormStore,
 } from '../types';
 import { getFieldArrayStore } from './getFieldArrayStore';
@@ -34,7 +34,7 @@ export function setErrorResponse<
   TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  formErrors: FormErrors<TFieldValues>,
+  formErrors: FormErrors<TFieldValues, FieldValue>,
   { shouldActive = true }: ErrorResponseOptions
 ): void {
   // Combine errors that were not set for any field or field array into one

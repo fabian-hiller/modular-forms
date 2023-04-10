@@ -2,10 +2,11 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormErrors,
   Maybe,
   ResponseData,
 } from '@modular-forms/shared';
-import type { FieldValue, FormErrors, FormStore } from '../types';
+import type { FieldValue, FormStore } from '../types';
 import {
   getFieldStore,
   getOptions,
@@ -62,8 +63,10 @@ export async function validate<
   form.validating = true;
 
   // Run form validation function
-  const formErrors: FormErrors<TFieldValues> = form.internal.validate
-    ? await form.internal.validate(getValues(form, { shouldActive }))
+  const formErrors: FormErrors<TFieldValues, FieldValue> = form.internal
+    .validate
+    ? // @ts-expect-error TODO: Remove this once TS issue #34933 is fixed
+      await form.internal.validate(getValues(form, { shouldActive }))
     : {};
 
   // Create valid variable
@@ -149,6 +152,7 @@ export async function validate<
 
   // Focus first field with an error if specified
   if (shouldFocus) {
+    // @ts-expect-error TODO: Remove this once TS issue #34933 is fixed
     const name = errorFields.find((name) => name);
     if (name) {
       focus(form, name);

@@ -14,6 +14,7 @@ import type {
   ValidationMode,
   FieldArrayPath,
   FieldPath,
+  FormErrors,
 } from '@modular-forms/shared';
 import type { FieldStore, FieldValue } from './field';
 import type { FieldArrayStore } from './fieldArray';
@@ -32,20 +33,11 @@ export type SubmitHandler<TFieldValues extends FieldValues<FieldValue>> =
   >;
 
 /**
- * Value type of the form errors.
- */
-export type FormErrors<TFieldValues extends FieldValues<FieldValue>> = {
-  [name in
-    | FieldPath<TFieldValues, FieldValue>
-    | FieldArrayPath<TFieldValues, FieldValue>]?: Maybe<string>;
-} & { [name: string]: string };
-
-/**
  * Function type to validate a form.
  */
 export type ValidateForm<TFieldValues extends FieldValues<FieldValue>> = (
   values: PartialValues<TFieldValues>
-) => MaybePromise<FormErrors<TFieldValues>>;
+) => MaybePromise<FormErrors<TFieldValues, FieldValue>>;
 
 /**
  * Value type of the fields store.
@@ -111,7 +103,7 @@ export type FormActionStore<
   TResponseData extends ResponseData
 > = {
   values: PartialValues<TFieldValues>;
-  errors: FormErrors<TFieldValues>;
+  errors: FormErrors<TFieldValues, FieldValue>;
   response: FormResponse<TResponseData>;
 };
 

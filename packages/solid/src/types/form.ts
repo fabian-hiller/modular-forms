@@ -2,6 +2,7 @@ import {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormErrors,
   FormResponse,
   Maybe,
   MaybePromise,
@@ -31,20 +32,11 @@ export type SubmitHandler<TFieldValues extends FieldValues<FieldValue>> = (
 ) => MaybePromise<unknown>;
 
 /**
- * Value type of the form errors.
- */
-export type FormErrors<TFieldValues extends FieldValues<FieldValue>> = {
-  [name in
-    | FieldPath<TFieldValues, FieldValue>
-    | FieldArrayPath<TFieldValues, FieldValue>]?: Maybe<string>;
-} & { [name: string]: string };
-
-/**
  * Function type to validate a form.
  */
 export type ValidateForm<TFieldValues extends FieldValues<FieldValue>> = (
   values: PartialValues<TFieldValues>
-) => MaybePromise<FormErrors<TFieldValues>>;
+) => MaybePromise<FormErrors<TFieldValues, FieldValue>>;
 
 /**
  * Value type of the fields store.

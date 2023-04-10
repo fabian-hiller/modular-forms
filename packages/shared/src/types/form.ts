@@ -1,3 +1,5 @@
+import { FieldValues } from './field';
+import { FieldArrayPath, FieldPath } from './path';
 import { Maybe } from './utils';
 
 /**
@@ -24,3 +26,15 @@ export type FormResponse<TResponseData extends ResponseData = undefined> =
     message: string;
     data: TResponseData;
   }>;
+
+/**
+ * Value type of the form errors.
+ */
+export type FormErrors<
+  TFieldValues extends FieldValues<TFieldValue>,
+  TFieldValue
+> = {
+  [name in
+    | FieldPath<TFieldValues, TFieldValue>
+    | FieldArrayPath<TFieldValues, TFieldValue>]?: Maybe<string>;
+} & { [name: string]: string };

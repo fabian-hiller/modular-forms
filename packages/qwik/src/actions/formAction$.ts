@@ -6,6 +6,7 @@ import {
 } from '@builder.io/qwik-city';
 import type {
   FieldValues,
+  FormErrors,
   FormResponse,
   Maybe,
   MaybePromise,
@@ -15,7 +16,6 @@ import type {
   FieldValue,
   FormActionStore,
   FormDataInfo,
-  FormErrors,
   PartialValues,
   ValidateForm,
 } from '../types';
@@ -25,7 +25,7 @@ export type FormActionResult<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData
 > = FormResponse<TResponseData> & {
-  errors?: Maybe<FormErrors<TFieldValues>>;
+  errors?: Maybe<FormErrors<TFieldValues, FieldValue>>;
 };
 
 type FormActionFunc<

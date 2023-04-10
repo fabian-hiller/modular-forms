@@ -1,6 +1,11 @@
-import { FieldArrayPath, FieldPath, FieldValues } from '@modular-forms/shared';
+import {
+  FieldArrayPath,
+  FieldPath,
+  FieldValues,
+  FormErrors,
+} from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { DeepPartial, FieldValue, FormErrors, FormState } from '../types';
+import { DeepPartial, FieldValue, FormState } from '../types';
 import {
   getField,
   getOptions,
@@ -60,7 +65,8 @@ export async function validate<
     // Ignores tracking of reactive dependencies
     await untrack(async () => {
       // Run form validation function
-      const formErrors: FormErrors<TFieldValues> = form.internal.validate
+      const formErrors: FormErrors<TFieldValues, FieldValue> = form.internal
+        .validate
         ? await form.internal.validate(
             getValues(form, { shouldActive }) as DeepPartial<TFieldValues>
           )

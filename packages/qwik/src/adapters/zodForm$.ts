@@ -1,13 +1,12 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
-import type { FieldValues, MaybeFunction } from '@modular-forms/shared';
+import type {
+  FieldValues,
+  FormErrors,
+  MaybeFunction,
+} from '@modular-forms/shared';
 import type { ZodType } from 'zod';
 import { getParsedZodSchema } from '../utils';
-import type {
-  FieldValue,
-  FormErrors,
-  PartialValues,
-  ValidateForm,
-} from '../types';
+import type { FieldValue, PartialValues, ValidateForm } from '../types';
 
 /**
  * See {@link zodForm$}
@@ -25,7 +24,7 @@ export function zodFormQrl<TFieldValues extends FieldValues<FieldValue>>(
             errors[path] = error.message;
           }
           return errors;
-        }, {}) as FormErrors<TFieldValues>);
+        }, {}) as FormErrors<TFieldValues, FieldValue>);
   });
 }
 
