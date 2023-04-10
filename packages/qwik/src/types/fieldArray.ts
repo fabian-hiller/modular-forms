@@ -11,7 +11,7 @@ export type ValidateFieldArray<TFieldArrayItems> = (
 ) => MaybePromise<string>;
 
 /**
- * Value type ot the internal field array store.
+ * Value type ot the field array store.
  *
  * Notice: The initial items are used for resetting and may only be changed
  * during this process. They do not move when a field array is moved. The start

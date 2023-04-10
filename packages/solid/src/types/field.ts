@@ -38,32 +38,44 @@ export type ValidateField<TFieldValue> = (
 ) => MaybePromise<string>;
 
 /**
- * Value type ot the internal field store.
+ * Value type ot the field store.
+ *
+ * Notice: The initial value is used for resetting and may only be changed
+ * during this process. It does not move when a field is moved. The start
+ * value, on the other hand, is used to determine whether the field is dirty
+ * and moves with it.
  */
 export type FieldStore<
   TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 > = {
-  consumers: Set<number>;
-  getElements: Accessor<FieldElement[]>;
-  setElements: Setter<FieldElement[]>;
-  getInitialInput: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  setInitialInput: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  getInput: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  setInput: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  getError: Accessor<string>;
-  setError: Setter<string>;
-  getActive: Accessor<boolean>;
-  setActive: Setter<boolean>;
-  getTouched: Accessor<boolean>;
-  setTouched: Setter<boolean>;
-  getDirty: Accessor<boolean>;
-  setDirty: Setter<boolean>;
-  validate: ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName>>>[];
+  internal: {
+    getElements: Accessor<FieldElement[]>;
+    setElements: Setter<FieldElement[]>;
+    // TODO: Check if it is necessary that initial and start value is a signal
+    getInitialValue: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+    setInitialValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+    getStartValue: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+    setStartValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+    setValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+    setError: Setter<string>;
+    setActive: Setter<boolean>;
+    setTouched: Setter<boolean>;
+    setDirty: Setter<boolean>;
+    validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+    consumers: Set<number>;
+  };
+  name: TFieldName;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  error: string;
+  active: boolean;
+  touched: boolean;
+  dirty: boolean;
 };
 
 /**
  * Value type of the external field state.
+ * TODO: Remove me
  */
 export type FieldState<
   TFieldValues extends FieldValues,

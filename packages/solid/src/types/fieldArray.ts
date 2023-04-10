@@ -11,27 +11,42 @@ export type ValidateFieldArray<TFieldArrayItems> = (
 ) => MaybePromise<string>;
 
 /**
- * Value type ot the internal field array store.
+ * Value type ot the field array store.
+ *
+ * Notice: The initial items are used for resetting and may only be changed
+ * during this process. They do not move when a field array is moved. The start
+ * items, on the other hand, are used to determine whether the field array is
+ * dirty and moves with it.
  */
-export type FieldArrayStore = {
-  consumers: Set<number>;
-  getInitialItems: Accessor<number[]>;
-  setInitialItems: Setter<number[]>;
-  getItems: Accessor<number[]>;
-  setItems: Setter<number[]>;
-  getError: Accessor<string>;
-  setError: Setter<string>;
-  getActive: Accessor<boolean>;
-  setActive: Setter<boolean>;
-  getTouched: Accessor<boolean>;
-  setTouched: Setter<boolean>;
-  getDirty: Accessor<boolean>;
-  setDirty: Setter<boolean>;
-  validate: ValidateFieldArray<number[]>[];
+export type FieldArrayStore<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = {
+  internal: {
+    getInitialItems: Accessor<number[]>;
+    setInitialItems: Setter<number[]>;
+    getStartItems: Accessor<number[]>;
+    setStartItems: Setter<number[]>;
+    setItems: Setter<number[]>;
+    setError: Setter<string>;
+    setActive: Setter<boolean>;
+    setTouched: Setter<boolean>;
+    setDirty: Setter<boolean>;
+    validate: ValidateFieldArray<number[]>[];
+    consumers: Set<number>;
+  };
+  name: TFieldArrayName;
+  items: number[];
+  length: number;
+  error: string;
+  active: boolean;
+  touched: boolean;
+  dirty: boolean;
 };
 
 /**
  * Value type of the external field array state.
+ * TODO: Remove me
  */
 export type FieldArrayState<
   TFieldValues extends FieldValues,

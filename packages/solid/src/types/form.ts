@@ -1,6 +1,6 @@
 import { Maybe, MaybePromise } from '@modular-forms/shared';
 import { Accessor, Setter } from 'solid-js';
-import { FieldStore, FieldValues } from './field';
+import { FieldStore, FieldValue, FieldValues } from './field';
 import { FieldArrayStore } from './fieldArray';
 import { FieldArrayPath, FieldPath } from './path';
 import { DeepPartial } from './utils';
@@ -36,15 +36,37 @@ export type ResponseData = Maybe<Record<string, any> | Array<any>>;
 /**
  * Value type of the form response.
  */
-export type FormResponse = Partial<{
-  status: ResponseStatus;
-  message: string;
-}>;
+export type FormResponse<TResponseData extends ResponseData = undefined> =
+  Partial<{
+    status: ResponseStatus;
+    message: string;
+    data: TResponseData;
+  }>;
 
 /**
  * Value type of the validation mode.
  */
 export type ValidationMode = 'touched' | 'input' | 'change' | 'blur' | 'submit';
+
+/**
+ * Value type of the fields store.
+ */
+export type FieldsStore<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>
+> = {
+  [Name in TFieldName]?: FieldStore<TFieldValues, Name>;
+};
+
+/**
+ * Value type of the field arrays store.
+ */
+export type FieldArraysStore<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = {
+  [Name in TFieldArrayName]?: FieldArrayStore<TFieldValues, Name>;
+};
 
 /**
  * Value type of the form errors.
@@ -60,29 +82,41 @@ export type ValidateForm<TFieldValues extends FieldValues> = (
   values: DeepPartial<TFieldValues>
 ) => MaybePromise<FormErrors<TFieldValues>>;
 
+/**
+ * Value type of the partial field values.
+ */
+export type PartialValues<Value> = Value extends string[] | Blob[] | File[]
+  ? Value
+  : Value extends FieldValue
+  ? Maybe<Value>
+  : { [Key in keyof Value]?: PartialValues<Value[Key]> };
+
+/**
+ * Value type of the form options.
+ */
 export type FormOptions<TFieldValues extends FieldValues> = Partial<{
-  initialValues: DeepPartial<TFieldValues>;
+  initialValues: PartialValues<TFieldValues>;
   validateOn: ValidationMode;
   revalidateOn: ValidationMode;
   validate: ValidateForm<TFieldValues>;
 }>;
 
 /**
- * Value type of the external and internal form state.
+ * Value type of the form store.
  */
-export type FormState<TFieldValues extends FieldValues> = {
+export type FormStore<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = {
   internal: {
-    validators: Set<number>;
-    initialValues: DeepPartial<TFieldValues> | {};
-    validateOn: ValidationMode;
-    revalidateOn: ValidationMode;
-    validate: ValidateForm<TFieldValues> | undefined;
-    fields: Map<string, FieldStore<TFieldValues>>; // TODO: Replace string
-    fieldArrays: Map<string, FieldArrayStore>; // TODO: Replace string
-    getFieldNames: Accessor<string[]>; // TODO: Replace string
-    setFieldNames: Setter<string[]>; // TODO: Replace string
-    getFieldArrayNames: Accessor<string[]>; // TODO: Replace string
-    setFieldArrayNames: Setter<string[]>; // TODO: Replace string
+    fields: FieldsStore<TFieldValues, TFieldName>;
+    fieldArrays: FieldArraysStore<TFieldValues, TFieldArrayName>;
+    getFieldNames: Accessor<TFieldName[]>;
+    setFieldNames: Setter<TFieldName[]>;
+    getFieldArrayNames: Accessor<TFieldArrayName[]>;
+    setFieldArrayNames: Setter<TFieldArrayName[]>;
     setElement: Setter<HTMLFormElement>;
     setSubmitCount: Setter<number>;
     setSubmitting: Setter<boolean>;
@@ -92,6 +126,11 @@ export type FormState<TFieldValues extends FieldValues> = {
     setDirty: Setter<boolean>;
     setInvalid: Setter<boolean>;
     setResponse: Setter<FormResponse>;
+    validate: ValidateForm<TFieldValues> | undefined;
+    validators: Set<number>;
+    initialValues: PartialValues<TFieldValues>;
+    validateOn: ValidationMode;
+    revalidateOn: ValidationMode;
   };
   element: HTMLFormElement | undefined;
   submitCount: number;
@@ -101,11 +140,13 @@ export type FormState<TFieldValues extends FieldValues> = {
   touched: boolean;
   dirty: boolean;
   invalid: boolean;
-  response: FormResponse;
+  response: FormResponse<TResponseData>;
 };
 
 /**
- * Utility type to extract the field values from the form state.
+ * Utility type to extract the field values from the form store.
  */
-export type FormValues<TFormState extends FormState<any>> =
-  TFormState extends FormState<infer TFieldValues> ? TFieldValues : never;
+export type FormValues<TFormStore extends FormStore<any, any, any, any>> =
+  TFormStore extends FormStore<infer TFieldValues, any, any, any>
+    ? TFieldValues
+    : never;
