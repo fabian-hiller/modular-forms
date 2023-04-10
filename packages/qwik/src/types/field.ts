@@ -11,8 +11,9 @@ import type {
   ValidateField,
   FieldElement,
   FieldValues,
+  FieldPath,
+  FieldPathValue,
 } from '@modular-forms/shared';
-import type { FieldPath, FieldPathValue } from './path';
 
 /**
  * Value type of a field.
@@ -58,19 +59,19 @@ export type FieldType<T> = T extends MaybeValue<string>
  */
 export type FieldStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   internal: {
-    initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-    startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+    initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
+    startValue: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
     validate: QRL<
-      ValidateField<FieldPathValue<TFieldValues, TFieldName>>
+      ValidateField<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
     >[];
     elements: FieldElement[];
     consumers: number[];
   };
   name: TFieldName;
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   error: string;
   active: boolean;
   touched: boolean;
@@ -82,7 +83,7 @@ export type FieldStore<
  */
 export type FieldElementProps<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   name: TFieldName;
   autoFocus: boolean;
@@ -101,10 +102,10 @@ export type FieldElementProps<
  */
 export type InitialFieldState<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-  initialValue?: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
+  initialValue?: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   error?: Maybe<string>;
 };
 
@@ -113,10 +114,10 @@ export type InitialFieldState<
  */
 export type RawFieldState<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
-  startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  startValue: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   error: string;
   touched: boolean;
   dirty: boolean;

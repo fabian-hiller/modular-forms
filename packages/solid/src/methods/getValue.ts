@@ -1,5 +1,10 @@
-import { FieldValues, Maybe } from '@modular-forms/shared';
-import { FieldPath, FieldPathValue, FieldValue, FormState } from '../types';
+import {
+  FieldPath,
+  FieldPathValue,
+  FieldValues,
+  Maybe,
+} from '@modular-forms/shared';
+import { FieldValue, FormState } from '../types';
 import { getField } from '../utils';
 
 type ValueOptions<TTypeValidated> = Partial<{
@@ -21,15 +26,15 @@ type ValueOptions<TTypeValidated> = Partial<{
  */
 export function getValue<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
   TTypeValidated extends boolean = false
 >(
   form: FormState<TFieldValues>,
   name: TFieldName,
   options: ValueOptions<TTypeValidated> = {}
 ): TTypeValidated extends true
-  ? FieldPathValue<TFieldValues, TFieldName>
-  : Maybe<FieldPathValue<TFieldValues, TFieldName>> {
+  ? FieldPathValue<TFieldValues, TFieldName, FieldValue>
+  : Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>> {
   // Destructure options and set default values
   const {
     shouldActive = true,
@@ -50,12 +55,12 @@ export function getValue<
   ) {
     // Return value of field
     return field.getInput() as TTypeValidated extends true
-      ? FieldPathValue<TFieldValues, TFieldName>
-      : Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+      ? FieldPathValue<TFieldValues, TFieldName, FieldValue>
+      : Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   }
 
   // Otherwise return undefined
   return undefined as TTypeValidated extends true
-    ? FieldPathValue<TFieldValues, TFieldName>
-    : Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+    ? FieldPathValue<TFieldValues, TFieldName, FieldValue>
+    : Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
 }

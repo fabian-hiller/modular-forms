@@ -1,4 +1,10 @@
-import { FieldValues, Maybe, ValidateField } from '@modular-forms/shared';
+import {
+  FieldPath,
+  FieldPathValue,
+  FieldValues,
+  Maybe,
+  ValidateField,
+} from '@modular-forms/shared';
 import { batch, createEffect, onCleanup, untrack } from 'solid-js';
 import { reset } from '../methods';
 import {
@@ -12,23 +18,18 @@ import {
   updateState,
   validateIfNecessary,
 } from '../utils';
-import {
-  FieldState,
-  FieldPath,
-  FieldPathValue,
-  FormState,
-  FieldStore,
-  FieldValue,
-} from '../types';
+import { FieldState, FormState, FieldStore, FieldValue } from '../types';
 
 type FieldOptions<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = Partial<{
-  initialValue: [FieldPathValue<TFieldValues, TFieldName>];
+  initialValue: [FieldPathValue<TFieldValues, TFieldName, FieldValue>];
   validate:
-    | ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName>>>
-    | ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName>>>[];
+    | ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>
+    | ValidateField<
+        Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+      >[];
   keepActive: boolean;
   keepState: boolean;
 }>;
@@ -44,7 +45,7 @@ type FieldOptions<
  */
 export function useField<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   name: TFieldName,
@@ -165,7 +166,7 @@ export function useField<
               form,
               field,
               name,
-              NaN as FieldPathValue<TFieldValues, TFieldName>
+              NaN as FieldPathValue<TFieldValues, TFieldName, FieldValue>
             );
 
             // Otheriwse, just update touched state

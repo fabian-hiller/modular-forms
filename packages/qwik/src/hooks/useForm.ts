@@ -1,5 +1,8 @@
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  FieldArrayPath,
+  FieldPath,
+  FieldPathValue,
   FieldValues,
   MaybeValue,
   PartialKey,
@@ -13,14 +16,7 @@ import {
   type FieldArrayProps,
   FieldArray,
 } from '../components';
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldPathValue,
-  FieldValue,
-  FormOptions,
-  FormStore,
-} from '../types';
+import type { FieldValue, FormOptions, FormStore } from '../types';
 import { useFormStore } from './useFormStore';
 
 /**
@@ -34,8 +30,14 @@ import { useFormStore } from './useFormStore';
 export function useForm<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData = undefined,
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue> = FieldPath<
+    TFieldValues,
+    FieldValue
+  >,
+  TFieldArrayName extends FieldArrayPath<
+    TFieldValues,
+    FieldValue
+  > = FieldArrayPath<TFieldValues, FieldValue>
 >(
   options: FormOptions<TFieldValues, TResponseData>
 ): [
@@ -47,8 +49,12 @@ export function useForm<
         'of' | 'action'
       >
     ) => JSX.Element;
-    Field: <TFieldName extends FieldPath<TFieldValues>>(
-      props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
+    Field: <TFieldName extends FieldPath<TFieldValues, FieldValue>>(
+      props: FieldPathValue<
+        TFieldValues,
+        TFieldName,
+        FieldValue
+      > extends MaybeValue<string>
         ? PartialKey<
             Omit<
               FieldProps<
@@ -71,7 +77,9 @@ export function useForm<
             'of'
           >
     ) => JSX.Element;
-    FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
+    FieldArray: <
+      TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+    >(
       props: Omit<
         FieldArrayProps<
           TFieldValues,
@@ -97,10 +105,11 @@ export function useForm<
           'of' | 'action'
         >
       ) => Form({ of: form, action: options.action, ...props }),
-      Field: <TFieldName extends FieldPath<TFieldValues>>(
+      Field: <TFieldName extends FieldPath<TFieldValues, FieldValue>>(
         props: FieldPathValue<
           TFieldValues,
-          TFieldName
+          TFieldName,
+          FieldValue
         > extends MaybeValue<string>
           ? PartialKey<
               Omit<
@@ -130,7 +139,9 @@ export function useForm<
           TFieldName,
           TFieldArrayName
         >),
-      FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
+      FieldArray: <
+        TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+      >(
         props: Omit<
           FieldArrayProps<
             TFieldValues,

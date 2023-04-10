@@ -1,15 +1,11 @@
 import type {
+  FieldArrayPath,
+  FieldPath,
   FieldValues,
   RawFieldArrayState,
   ResponseData,
 } from '@modular-forms/shared';
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValue,
-  FormStore,
-  RawFieldState,
-} from '../types';
+import type { FieldValue, FormStore, RawFieldState } from '../types';
 import {
   getFieldArrayStore,
   getPathIndex,
@@ -38,8 +34,8 @@ type MoveOptions = {
 export function move<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,

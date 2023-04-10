@@ -1,16 +1,15 @@
-import { FieldValues, ValidateFieldArray } from '@modular-forms/shared';
-import { JSX, splitProps } from 'solid-js';
-import { useFieldArray } from '../primitives';
 import {
   FieldArrayPath,
-  FieldArrayState,
-  FieldValue,
-  FormState,
-} from '../types';
+  FieldValues,
+  ValidateFieldArray,
+} from '@modular-forms/shared';
+import { JSX, splitProps } from 'solid-js';
+import { useFieldArray } from '../primitives';
+import { FieldArrayState, FieldValue, FormState } from '../types';
 
 export type FieldArrayProps<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   of: FormState<TFieldValues>;
   name: TFieldArrayName;
@@ -28,7 +27,7 @@ export type FieldArrayProps<
  */
 export function FieldArray<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(props: FieldArrayProps<TFieldValues, TFieldArrayName>): JSX.Element {
   // Split props between local and options
   const [local, options] = splitProps(props, ['of', 'name', 'children']);

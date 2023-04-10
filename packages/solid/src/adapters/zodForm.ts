@@ -1,12 +1,6 @@
-import { FieldValues } from '@modular-forms/shared';
+import { FieldArrayPath, FieldPath, FieldValues } from '@modular-forms/shared';
 import { ZodType } from 'zod';
-import {
-  DeepPartial,
-  FieldArrayPath,
-  FieldPath,
-  FieldValue,
-  FormErrors,
-} from '../types';
+import { DeepPartial, FieldValue, FormErrors } from '../types';
 
 /**
  * Creates a validation functions that parses the Zod schema of a form.
@@ -25,8 +19,8 @@ export function zodForm<TFieldValues extends FieldValues<FieldValue>>(
       : result.error.issues.reduce<FormErrors<TFieldValues>>(
           (errors, error) => {
             const path = error.path.join('.') as
-              | FieldPath<TFieldValues>
-              | FieldArrayPath<TFieldValues>;
+              | FieldPath<TFieldValues, FieldValue>
+              | FieldArrayPath<TFieldValues, FieldValue>;
             if (!errors[path]) {
               errors[path] = error.message;
             }

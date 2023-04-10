@@ -1,24 +1,26 @@
-import { FieldValues, Maybe, ValidateField } from '@modular-forms/shared';
-import { JSX, splitProps } from 'solid-js';
-import { useField } from '../primitives';
 import {
   FieldPath,
   FieldPathValue,
-  FieldState,
-  FieldValue,
-  FormState,
-} from '../types';
+  FieldValues,
+  Maybe,
+  ValidateField,
+} from '@modular-forms/shared';
+import { JSX, splitProps } from 'solid-js';
+import { useField } from '../primitives';
+import { FieldState, FieldValue, FormState } from '../types';
 
 export type FieldProps<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   of: FormState<TFieldValues>;
   name: TFieldName;
-  initialValue?: [FieldPathValue<TFieldValues, TFieldName>];
+  initialValue?: [FieldPathValue<TFieldValues, TFieldName, FieldValue>];
   validate?:
-    | ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName>>>
-    | ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName>>>[];
+    | ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>
+    | ValidateField<
+        Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+      >[];
   keepActive?: boolean;
   keepState?: boolean;
   children: (field: FieldState<TFieldValues, TFieldName>) => JSX.Element;
@@ -30,7 +32,7 @@ export type FieldProps<
  */
 export function Field<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(props: FieldProps<TFieldValues, TFieldName>): JSX.Element {
   // Split props between local and options
   const [local, options] = splitProps(props, ['of', 'name', 'children']);

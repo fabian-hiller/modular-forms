@@ -1,12 +1,11 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValue,
-  FormStore,
-  PartialValues,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore, PartialValues } from '../types';
 import { getFieldNames, getFieldValues } from '../utils';
 
 type ArrayValuesOptions = Partial<{
@@ -28,9 +27,13 @@ type ArrayValuesOptions = Partial<{
 export function getArrayValues<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValue extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValue extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  >
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,

@@ -30,26 +30,38 @@ export type FieldValue =
  */
 export type FieldStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   internal: {
     getElements: Accessor<FieldElement[]>;
     setElements: Setter<FieldElement[]>;
     // TODO: Check if it is necessary that initial and start value is a signal
-    getInitialValue: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-    setInitialValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-    getStartValue: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-    setStartValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-    setValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+    getInitialValue: Accessor<
+      Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+    >;
+    setInitialValue: Setter<
+      Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+    >;
+    getStartValue: Accessor<
+      Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+    >;
+    setStartValue: Setter<
+      Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+    >;
+    setValue: Setter<
+      Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+    >;
     setError: Setter<string>;
     setActive: Setter<boolean>;
     setTouched: Setter<boolean>;
     setDirty: Setter<boolean>;
-    validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+    validate: ValidateField<
+      FieldPathValue<TFieldValues, TFieldName, FieldValue>
+    >[];
     consumers: Set<number>;
   };
   name: TFieldName;
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   error: string;
   active: boolean;
   touched: boolean;
@@ -62,7 +74,7 @@ export type FieldStore<
  */
 export type FieldState<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   props: {
     name: TFieldName;
@@ -72,7 +84,7 @@ export type FieldState<
     onBlur: JSX.EventHandler<FieldElement, FocusEvent>;
   };
   name: TFieldName;
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   error: string;
   active: boolean;
   touched: boolean;

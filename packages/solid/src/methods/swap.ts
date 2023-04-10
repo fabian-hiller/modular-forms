@@ -1,12 +1,11 @@
-import { FieldValues, RawFieldArrayState } from '@modular-forms/shared';
-import { batch, untrack } from 'solid-js';
 import {
   FieldArrayPath,
   FieldPath,
-  FieldValue,
-  FormState,
-  RawFieldState,
-} from '../types';
+  FieldValues,
+  RawFieldArrayState,
+} from '@modular-forms/shared';
+import { batch, untrack } from 'solid-js';
+import { FieldValue, FormState, RawFieldState } from '../types';
 import {
   getField,
   getFieldArray,
@@ -32,8 +31,8 @@ type SwapOptions = {
  */
 export function swap<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   name: TFieldArrayName,

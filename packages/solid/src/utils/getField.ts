@@ -1,25 +1,23 @@
 import {
   FieldElement,
+  FieldPath,
+  FieldPathValue,
   FieldValues,
   Maybe,
   ValidateField,
 } from '@modular-forms/shared';
 import { createSignal } from 'solid-js';
-import {
-  FieldPath,
-  FieldPathValue,
-  FieldStore,
-  FieldValue,
-  FormState,
-} from '../types';
+import { FieldStore, FieldValue, FormState } from '../types';
 import { getInitialValue } from './getInitialValue';
 
 type FieldOtions<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = Partial<{
-  initialValue: [FieldPathValue<TFieldValues, TFieldName>];
-  validate: ValidateField<Maybe<FieldPathValue<TFieldValues, TFieldName>>>[];
+  initialValue: [FieldPathValue<TFieldValues, TFieldName, FieldValue>];
+  validate: ValidateField<
+    Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+  >[];
 }>;
 
 /**
@@ -33,7 +31,7 @@ type FieldOtions<
  */
 export function getField<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   name: TFieldName,
@@ -57,11 +55,11 @@ export function getField<
     // Create field signals
     const [getElements, setElements] = createSignal<FieldElement[]>([]);
     const [getInitialInput, setInitialInput] =
-      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(
+      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>(
         initialInput
       );
     const [getInput, setInput] =
-      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(
+      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>(
         initialInput
       );
     const [getError, setError] = createSignal('');

@@ -1,11 +1,12 @@
-import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  Maybe,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore } from '../types';
 import { getFieldStore } from '../utils';
 
 type ValueOptions = Partial<{
@@ -27,13 +28,13 @@ type ValueOptions = Partial<{
 export function getValue<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName,
   options: ValueOptions = {}
-): Maybe<FieldPathValue<TFieldValues, TFieldName>> {
+): Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>> {
   // Destructure options and set default values
   const {
     shouldActive = true,

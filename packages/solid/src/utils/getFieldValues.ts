@@ -1,5 +1,5 @@
-import { FieldValues } from '@modular-forms/shared';
-import { FieldPath, FieldValue, FormState } from '../types';
+import { FieldPath, FieldValues } from '@modular-forms/shared';
+import { FieldValue, FormState } from '../types';
 import { getField } from './getField';
 
 type FieldValuesOptions<TInitialValue> = {
@@ -22,7 +22,7 @@ type FieldValuesOptions<TInitialValue> = {
  */
 export function getFieldValues<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
   TInitialValue extends [] | {}
 >(
   form: FormState<TFieldValues>,

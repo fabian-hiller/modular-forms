@@ -1,10 +1,10 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore } from '../types';
 
 /**
  * Clears the response of the form.
@@ -14,8 +14,8 @@ import type {
 export function clearResponse<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
 ): void {

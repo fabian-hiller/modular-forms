@@ -1,13 +1,11 @@
-import { FieldValues } from '@modular-forms/shared';
-import { batch, untrack } from 'solid-js';
 import {
   FieldArrayPath,
   FieldArrayPathValue,
-  DeepPartial,
   FieldPath,
-  FormState,
-  FieldValue,
-} from '../types';
+  FieldValues,
+} from '@modular-forms/shared';
+import { batch, untrack } from 'solid-js';
+import { DeepPartial, FormState, FieldValue } from '../types';
 import {
   getPathIndex,
   getFieldArray,
@@ -20,8 +18,12 @@ import {
 
 type ReplaceOptions<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  > &
     Array<unknown>
 > = {
   at: number;
@@ -37,9 +39,13 @@ type ReplaceOptions<
  */
 export function replace<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  > &
     Array<unknown>
 >(
   form: FormState<TFieldValues>,

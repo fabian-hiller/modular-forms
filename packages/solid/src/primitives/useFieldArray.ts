@@ -1,12 +1,7 @@
 import { FieldValues, ValidateFieldArray } from '@modular-forms/shared';
 import { batch, onCleanup } from 'solid-js';
 import { reset } from '../methods';
-import {
-  FieldArrayPath,
-  FieldArrayState,
-  FieldValue,
-  FormState,
-} from '../types';
+import { FieldArrayState, FieldValue, FormState } from '../types';
 import { getFieldArray, getUniqueId, getValidateList } from '../utils';
 
 type FieldArrayOptions = Partial<{
@@ -26,7 +21,7 @@ type FieldArrayOptions = Partial<{
  */
 export function useFieldArray<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayState<TFieldValues>
 >(
   form: FormState<TFieldValues>,
   name: TFieldArrayName,

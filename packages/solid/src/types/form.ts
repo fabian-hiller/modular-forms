@@ -1,4 +1,6 @@
 import {
+  FieldArrayPath,
+  FieldPath,
   FieldValues,
   FormResponse,
   Maybe,
@@ -9,7 +11,6 @@ import {
 import { Accessor, Setter } from 'solid-js';
 import { FieldStore, FieldValue } from './field';
 import { FieldArrayStore } from './fieldArray';
-import { FieldArrayPath, FieldPath } from './path';
 
 /**
  * Value type of the submit event object.
@@ -34,8 +35,8 @@ export type SubmitHandler<TFieldValues extends FieldValues<FieldValue>> = (
  */
 export type FormErrors<TFieldValues extends FieldValues<FieldValue>> = {
   [name in
-    | FieldPath<TFieldValues>
-    | FieldArrayPath<TFieldValues>]?: Maybe<string>;
+    | FieldPath<TFieldValues, FieldValue>
+    | FieldArrayPath<TFieldValues, FieldValue>]?: Maybe<string>;
 } & { [name: string]: string };
 
 /**
@@ -50,7 +51,7 @@ export type ValidateForm<TFieldValues extends FieldValues<FieldValue>> = (
  */
 export type FieldsStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   [Name in TFieldName]?: FieldStore<TFieldValues, Name>;
 };
@@ -60,7 +61,7 @@ export type FieldsStore<
  */
 export type FieldArraysStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   [Name in TFieldArrayName]?: FieldArrayStore<TFieldValues, Name>;
 };
@@ -91,8 +92,8 @@ export type FormOptions<TFieldValues extends FieldValues<FieldValue>> =
 export type FormStore<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   internal: {
     fields: FieldsStore<TFieldValues, TFieldName>;

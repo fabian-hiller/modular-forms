@@ -1,14 +1,12 @@
-import { FieldValues, ValidationMode } from '@modular-forms/shared';
-import { untrack } from 'solid-js';
-import { validate } from '../methods';
 import {
   FieldArrayPath,
-  FieldArrayStore,
   FieldPath,
-  FieldStore,
-  FieldValue,
-  FormState,
-} from '../types';
+  FieldValues,
+  ValidationMode,
+} from '@modular-forms/shared';
+import { untrack } from 'solid-js';
+import { validate } from '../methods';
+import { FieldArrayStore, FieldStore, FieldValue, FormState } from '../types';
 
 type ValidateOptions = {
   on: Exclude<ValidationMode, 'submit'>[];
@@ -23,8 +21,8 @@ type ValidateOptions = {
  */
 export function validateIfNecessary<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   field: FieldStore<TFieldValues, TFieldName> | FieldArrayStore,

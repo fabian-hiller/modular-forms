@@ -1,11 +1,11 @@
-import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldStore,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  Maybe,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldStore, FieldValue, FormStore } from '../types';
 import { isFieldDirty } from './isFieldDirty';
 import { updateFormDirty } from './updateFormDirty';
 
@@ -18,8 +18,8 @@ import { updateFormDirty } from './updateFormDirty';
 export function updateFieldDirty<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   field: FieldStore<TFieldValues, TFieldName>

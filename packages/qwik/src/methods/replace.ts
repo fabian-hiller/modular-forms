@@ -1,17 +1,21 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore } from '../types';
 import { getFieldArrayStore, getUniqueId, setFieldArrayValue } from '../utils';
 
 type ReplaceOptions<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  >
 > = {
   at: number;
   value: TFieldArrayValues[number];
@@ -27,9 +31,13 @@ type ReplaceOptions<
 export function replace<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  >
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,

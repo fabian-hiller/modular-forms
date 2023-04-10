@@ -1,5 +1,5 @@
-import { FieldValues } from '@modular-forms/shared';
-import { FieldPath, FieldPathValue, FieldValue, FormState } from '../types';
+import { FieldPath, FieldPathValue, FieldValues } from '@modular-forms/shared';
+import { FieldValue, FormState } from '../types';
 
 /**
  * Sets the initial value of the form field.
@@ -10,11 +10,11 @@ import { FieldPath, FieldPathValue, FieldValue, FormState } from '../types';
  */
 export function setInitialValue<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   name: TFieldName,
-  value: FieldPathValue<TFieldValues, TFieldName>
+  value: FieldPathValue<TFieldValues, TFieldName, FieldValue>
 ): void {
   name
     .split('.')

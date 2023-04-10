@@ -1,10 +1,5 @@
-import type { FieldValues, Maybe } from '@modular-forms/shared';
-import type {
-  FieldPath,
-  FieldStore,
-  FieldValue,
-  InitialFieldState,
-} from '../types';
+import type { FieldPath, FieldValues, Maybe } from '@modular-forms/shared';
+import type { FieldStore, FieldValue, InitialFieldState } from '../types';
 import { isFieldDirty } from './isFieldDirty';
 
 /**
@@ -16,7 +11,7 @@ import { isFieldDirty } from './isFieldDirty';
  */
 export function getInitialFieldStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   name: TFieldName,
   {

@@ -1,11 +1,12 @@
-import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  Maybe,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore } from '../types';
 import {
   getFieldArrayStore,
   getPathIndex,
@@ -22,8 +23,12 @@ import {
 
 type InsertOptions<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  >
 > = {
   at?: Maybe<number>;
   value: TFieldArrayValues[number];
@@ -39,9 +44,13 @@ type InsertOptions<
 export function insert<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  >
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,

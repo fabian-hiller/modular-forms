@@ -1,12 +1,6 @@
-import { FieldValues } from '@modular-forms/shared';
+import { FieldPath, FieldPathValue, FieldValues } from '@modular-forms/shared';
 import { batch } from 'solid-js';
-import {
-  FieldPath,
-  FieldPathValue,
-  FieldStore,
-  FieldValue,
-  FormState,
-} from '../types';
+import { FieldStore, FieldValue, FormState } from '../types';
 import { updateFieldDirty } from './updateFieldDirty';
 import { validateIfNecessary } from './validateIfNecessary';
 
@@ -18,12 +12,12 @@ import { validateIfNecessary } from './validateIfNecessary';
  */
 export function updateFieldInput<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   field: FieldStore<TFieldValues, TFieldName>,
   name: TFieldName,
-  input: FieldPathValue<TFieldValues, TFieldName>
+  input: FieldPathValue<TFieldValues, TFieldName, FieldValue>
 ): void {
   // Sync state updates and prevent unnecessary recalculation
   batch(() => {

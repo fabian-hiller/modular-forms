@@ -1,14 +1,11 @@
 import type {
+  FieldArrayPath,
+  FieldPath,
   FieldValues,
   RawFieldArrayState,
   ResponseData,
 } from '@modular-forms/shared';
-import type {
-  FieldPath,
-  FormStore,
-  FieldArrayPath,
-  FieldValue,
-} from '../types';
+import type { FormStore, FieldValue } from '../types';
 
 /**
  * Sets the store of a field array to the specified state.
@@ -20,8 +17,8 @@ import type {
 export function setFieldArrayStore<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,

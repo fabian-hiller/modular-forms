@@ -1,11 +1,11 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore } from '../types';
 import {
   initializeFieldStore,
   updateFieldDirty,
@@ -30,12 +30,12 @@ type ValueOptions = Partial<{
 export function setValue<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName,
-  value: FieldPathValue<TFieldValues, TFieldName>,
+  value: FieldPathValue<TFieldValues, TFieldName, FieldValue>,
   options: ValueOptions = {}
 ): void {
   // Destructure options and set default values

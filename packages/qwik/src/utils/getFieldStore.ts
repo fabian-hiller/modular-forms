@@ -1,11 +1,10 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldStore,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldStore, FieldValue, FormStore } from '../types';
 
 /**
  * Returns the store of a field.
@@ -18,8 +17,8 @@ import type {
 export function getFieldStore<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName

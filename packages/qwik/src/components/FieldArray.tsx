@@ -1,27 +1,23 @@
 import type { QRL } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  FieldArrayPath,
+  FieldPath,
   FieldValues,
   Maybe,
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
 } from '@modular-forms/shared';
-import type {
-  FieldPath,
-  FieldArrayPath,
-  FormStore,
-  FieldArrayStore,
-  FieldValue,
-} from '../types';
+import type { FormStore, FieldArrayStore, FieldValue } from '../types';
 import { getFieldArrayStore } from '../utils';
 import { Lifecycle } from './Lifecycle';
 
 export type FieldArrayProps<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   name: TFieldArrayName;
@@ -39,8 +35,8 @@ export type FieldArrayProps<
 export function FieldArray<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >({
   children,
   name,

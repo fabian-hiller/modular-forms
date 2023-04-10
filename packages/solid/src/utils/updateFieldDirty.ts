@@ -1,6 +1,6 @@
-import { FieldValues } from '@modular-forms/shared';
+import { FieldPath, FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { FieldPath, FieldStore, FieldValue, FormState } from '../types';
+import { FieldStore, FieldValue, FormState } from '../types';
 import { updateDirty } from './updateDirty';
 
 /**
@@ -11,7 +11,7 @@ import { updateDirty } from './updateDirty';
  */
 export function updateFieldDirty<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   field: FieldStore<TFieldValues, TFieldName>

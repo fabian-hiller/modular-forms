@@ -1,11 +1,11 @@
-import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldValue,
-  FormErrors,
-  FormStore,
-} from '../types';
+  FieldValues,
+  Maybe,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormErrors, FormStore } from '../types';
 import {
   getFieldStore,
   getOptions,
@@ -36,8 +36,8 @@ type ValidateOptions = Partial<{
 export async function validate<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   arg2?: Maybe<

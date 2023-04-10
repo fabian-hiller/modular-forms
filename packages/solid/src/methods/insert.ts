@@ -1,13 +1,11 @@
-import { FieldValues } from '@modular-forms/shared';
-import { batch, untrack } from 'solid-js';
 import {
-  DeepPartial,
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValue,
-  FormState,
-} from '../types';
+  FieldValues,
+} from '@modular-forms/shared';
+import { batch, untrack } from 'solid-js';
+import { DeepPartial, FieldValue, FormState } from '../types';
 import {
   getField,
   getFieldArray,
@@ -24,8 +22,12 @@ import {
 
 type InsertOptions<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  > &
     Array<unknown>
 > = Partial<{
   at: number;
@@ -41,9 +43,13 @@ type InsertOptions<
  */
 export function insert<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName> &
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValues extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  > &
     Array<unknown>
 >(
   form: FormState<TFieldValues>,

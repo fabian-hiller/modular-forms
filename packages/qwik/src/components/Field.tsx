@@ -2,7 +2,10 @@ import { $, type QRL, type QwikFocusEvent } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  FieldArrayPath,
   FieldElement,
+  FieldPath,
+  FieldPathValue,
   FieldValues,
   Maybe,
   MaybeArray,
@@ -12,10 +15,7 @@ import type {
   ValidateField,
 } from '@modular-forms/shared';
 import type {
-  FieldArrayPath,
   FieldElementProps,
-  FieldPath,
-  FieldPathValue,
   FieldStore,
   FieldType,
   FieldValue,
@@ -32,8 +32,8 @@ import { Lifecycle } from './Lifecycle';
 export type FieldProps<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   name: TFieldName;
@@ -41,9 +41,11 @@ export type FieldProps<
     store: FieldStore<TFieldValues, TFieldName>,
     props: FieldElementProps<TFieldValues, TFieldName>
   ) => JSX.Element;
-  type: FieldType<FieldPathValue<TFieldValues, TFieldName>>;
+  type: FieldType<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   validate?: Maybe<
-    MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
+    MaybeArray<
+      QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>
+    >
   >;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
@@ -56,14 +58,18 @@ export type FieldProps<
 export function Field<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >({
   children,
   name,
   type,
   ...props
-}: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
+}: FieldPathValue<
+  TFieldValues,
+  TFieldName,
+  FieldValue
+> extends MaybeValue<string>
   ? PartialKey<
       FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
       'type'
@@ -113,7 +119,7 @@ export function Field<
                 form,
                 field,
                 name,
-                NaN as FieldPathValue<TFieldValues, TFieldName>
+                NaN as FieldPathValue<TFieldValues, TFieldName, FieldValue>
               );
 
               // Otheriwse, just update touched state

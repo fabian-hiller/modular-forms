@@ -1,14 +1,11 @@
 import type {
+  FieldArrayPath,
+  FieldPath,
   FieldValues,
   FormResponse,
   ResponseData,
 } from '@modular-forms/shared';
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValue,
-  FormStore,
-} from '../types';
+import type { FieldValue, FormStore } from '../types';
 
 type ResponseOptions = Partial<{
   duration: number;
@@ -24,8 +21,8 @@ type ResponseOptions = Partial<{
 export function setResponse<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   response: FormResponse<TResponseData>,

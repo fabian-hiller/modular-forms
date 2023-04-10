@@ -1,13 +1,11 @@
-import { FieldValues } from '@modular-forms/shared';
-import { untrack } from 'solid-js';
 import {
-  DeepPartial,
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValue,
-  FormState,
-} from '../types';
+  FieldValues,
+} from '@modular-forms/shared';
+import { untrack } from 'solid-js';
+import { DeepPartial, FieldValue, FormState } from '../types';
 import { getFieldArray, getFieldValues } from '../utils';
 
 type ArrayValuesOptions<TTypeValidated> = Partial<{
@@ -29,9 +27,13 @@ type ArrayValuesOptions<TTypeValidated> = Partial<{
  */
 export function getArrayValues<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValue extends FieldArrayPathValue<TFieldValues, TFieldArrayName>,
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
+  TFieldArrayValue extends FieldArrayPathValue<
+    TFieldValues,
+    TFieldArrayName,
+    FieldValue
+  >,
   TTypeValidated extends boolean = false
 >(
   form: FormState<TFieldValues>,

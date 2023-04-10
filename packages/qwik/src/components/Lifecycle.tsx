@@ -8,6 +8,9 @@ import {
 } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
+  FieldArrayPath,
+  FieldPath,
+  FieldPathValue,
   FieldValues,
   Maybe,
   MaybeArray,
@@ -16,10 +19,7 @@ import type {
   ValidateFieldArray,
 } from '@modular-forms/shared';
 import type {
-  FieldArrayPath,
   FieldArrayStore,
-  FieldPath,
-  FieldPathValue,
   FieldStore,
   FieldValue,
   FormStore,
@@ -29,17 +29,19 @@ import { reset } from '../methods';
 
 type FieldProps<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   store: FieldStore<TFieldValues, TFieldName>;
   validate?: Maybe<
-    MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
+    MaybeArray<
+      QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>
+    >
   >;
 };
 
 type FieldArrayProps<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   store: FieldArrayStore<TFieldValues, TFieldArrayName>;
   validate?: Maybe<MaybeArray<QRL<ValidateFieldArray<number[]>>>>;
@@ -48,8 +50,8 @@ type FieldArrayProps<
 type LifecycleProps<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = (
   | FieldProps<TFieldValues, TFieldName>
   | FieldArrayProps<TFieldValues, TFieldArrayName>
@@ -67,8 +69,8 @@ type LifecycleProps<
 export const Lifecycle: <
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   props: PublicProps<
     LifecycleProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
@@ -79,8 +81,8 @@ export const Lifecycle: <
   <
     TFieldValues extends FieldValues<FieldValue>,
     TResponseData extends ResponseData,
-    TFieldName extends FieldPath<TFieldValues>,
-    TFieldArrayName extends FieldArrayPath<TFieldValues>
+    TFieldName extends FieldPath<TFieldValues, FieldValue>,
+    TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
   >({
     of: form,
     store,
@@ -100,7 +102,9 @@ export const Lifecycle: <
       store.internal.validate = (
         validate ? (Array.isArray(validate) ? validate : [validate]) : []
       ) as
-        | QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[]
+        | QRL<
+            ValidateField<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
+          >[]
         | QRL<ValidateFieldArray<number[]>>[];
 
       // Create unique consumer ID

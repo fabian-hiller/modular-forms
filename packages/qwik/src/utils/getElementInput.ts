@@ -1,12 +1,12 @@
 import { noSerialize } from '@builder.io/qwik';
-import type { FieldElement, FieldValues, Maybe } from '@modular-forms/shared';
 import type {
+  FieldElement,
   FieldPath,
   FieldPathValue,
-  FieldStore,
-  FieldType,
-  FieldValue,
-} from '../types';
+  FieldValues,
+  Maybe,
+} from '@modular-forms/shared';
+import type { FieldStore, FieldType, FieldValue } from '../types';
 
 /**
  * Returns the current input of the element.
@@ -17,12 +17,12 @@ import type {
  */
 export function getElementInput<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   element: FieldElement,
   field: FieldStore<TFieldValues, TFieldName>,
   type: Maybe<FieldType<any>>
-): FieldPathValue<TFieldValues, TFieldName> {
+): FieldPathValue<TFieldValues, TFieldName, FieldValue> {
   const { checked, files, options, value, valueAsDate, valueAsNumber } =
     element as HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement;
   return (
@@ -47,5 +47,5 @@ export function getElementInput<
       : type === 'Date' && valueAsDate
       ? valueAsDate
       : field.value
-  ) as FieldPathValue<TFieldValues, TFieldName>;
+  ) as FieldPathValue<TFieldValues, TFieldName, FieldValue>;
 }

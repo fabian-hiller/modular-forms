@@ -1,13 +1,6 @@
-import { FieldValues } from '@modular-forms/shared';
+import { FieldArrayPath, FieldPath, FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import {
-  DeepPartial,
-  FieldArrayPath,
-  FieldPath,
-  FieldValue,
-  FormErrors,
-  FormState,
-} from '../types';
+import { DeepPartial, FieldValue, FormErrors, FormState } from '../types';
 import {
   getField,
   getOptions,
@@ -35,8 +28,8 @@ type ValidateOptions = Partial<{
  */
 export async function validate<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   arg2?:

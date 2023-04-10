@@ -1,6 +1,6 @@
-import { FieldValues } from '@modular-forms/shared';
+import { FieldPath, FieldPathValue, FieldValues } from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { FieldPath, FieldPathValue, FieldValue, FormState } from '../types';
+import { FieldValue, FormState } from '../types';
 import { getField, updateFieldDirty, validateIfNecessary } from '../utils';
 
 type ValueOptions = Partial<{
@@ -20,11 +20,11 @@ type ValueOptions = Partial<{
  */
 export function setValue<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   name: TFieldName,
-  value: FieldPathValue<TFieldValues, TFieldName>,
+  value: FieldPathValue<TFieldValues, TFieldName, FieldValue>,
   options: ValueOptions = {}
 ): void {
   // Destructure options and set default values

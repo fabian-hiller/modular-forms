@@ -1,5 +1,5 @@
-import { FieldValues } from '@modular-forms/shared';
-import { FieldPath, FieldValue } from '../types';
+import { FieldPath, FieldValues } from '@modular-forms/shared';
+import { FieldValue } from '../types';
 
 /**
  * Returns the index of the path in the field array.
@@ -11,7 +11,7 @@ import { FieldPath, FieldValue } from '../types';
  */
 export function getPathIndex<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(name: string, path: TFieldName): number {
   return +path.replace(`${name}.`, '').split('.')[0];
 }

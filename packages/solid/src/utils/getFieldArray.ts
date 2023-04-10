@@ -1,11 +1,10 @@
-import { FieldValues, ValidateFieldArray } from '@modular-forms/shared';
-import { createSignal } from 'solid-js';
 import {
   FieldArrayPath,
-  FieldArrayStore,
-  FieldValue,
-  FormState,
-} from '../types';
+  FieldValues,
+  ValidateFieldArray,
+} from '@modular-forms/shared';
+import { createSignal } from 'solid-js';
+import { FieldArrayStore, FieldValue, FormState } from '../types';
 import { getInitialItems as getInitialArrayItems } from './getInitialItems';
 
 type FieldArrayOptions = Partial<{
@@ -23,7 +22,7 @@ type FieldArrayOptions = Partial<{
  */
 export function getFieldArray<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   name: TFieldArrayName,

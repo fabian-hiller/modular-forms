@@ -1,11 +1,5 @@
-import { FieldValues } from '@modular-forms/shared';
-import {
-  DeepPartial,
-  FieldArrayPath,
-  FieldPath,
-  FieldValue,
-  FormState,
-} from '../types';
+import { FieldArrayPath, FieldPath, FieldValues } from '@modular-forms/shared';
+import { DeepPartial, FieldValue, FormState } from '../types';
 import { getOptions, getFilteredNames, getFieldValues } from '../utils';
 
 type ValuesOptions<TTypeValidated> = Partial<{
@@ -27,8 +21,8 @@ type ValuesOptions<TTypeValidated> = Partial<{
  */
 export function getValues<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
   TTypeValidated extends boolean = false
 >(
   form: FormState<TFieldValues>,

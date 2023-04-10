@@ -1,13 +1,12 @@
-import { ResponseData, FormResponse, FieldValues } from '@modular-forms/shared';
-import { createSignal } from 'solid-js';
 import {
+  ResponseData,
+  FormResponse,
+  FieldValues,
   FieldArrayPath,
   FieldPath,
-  FieldValue,
-  FormOptions,
-  FormStore,
-  PartialValues,
-} from '../types';
+} from '@modular-forms/shared';
+import { createSignal } from 'solid-js';
+import { FieldValue, FormOptions, FormStore, PartialValues } from '../types';
 
 /**
  * Creates and returns the store of the form.
@@ -19,8 +18,14 @@ import {
 export function createFormStore<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData = undefined,
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue> = FieldPath<
+    TFieldValues,
+    FieldValue
+  >,
+  TFieldArrayName extends FieldArrayPath<
+    TFieldValues,
+    FieldValue
+  > = FieldArrayPath<TFieldValues, FieldValue>
 >(
   options: FormOptions<TFieldValues> = {}
 ): FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName> {

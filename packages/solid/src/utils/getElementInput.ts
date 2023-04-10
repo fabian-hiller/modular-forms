@@ -1,6 +1,12 @@
-import { FieldElement, FieldValues, Maybe } from '@modular-forms/shared';
+import {
+  FieldElement,
+  FieldPath,
+  FieldPathValue,
+  FieldValues,
+  Maybe,
+} from '@modular-forms/shared';
 import { untrack } from 'solid-js';
-import { FieldPath, FieldPathValue, FieldStore, FieldValue } from '../types';
+import { FieldStore, FieldValue } from '../types';
 
 /**
  * Returns the current input of the element.
@@ -11,15 +17,16 @@ import { FieldPath, FieldPathValue, FieldStore, FieldValue } from '../types';
  */
 export function getElementInput<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   element: FieldElement,
   field: FieldStore<TFieldValues, TFieldName>
-): FieldPathValue<TFieldValues, TFieldName> {
+): FieldPathValue<TFieldValues, TFieldName, FieldValue> {
   const { checked, files, multiple, options, type, value } =
     element as HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement;
   const getInput = () => untrack(field.getInput);
-  let input: Maybe<FieldPathValue<TFieldValues, TFieldName>>, parsed: number;
+  let input: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>,
+    parsed: number;
   return (
     type === 'number' || type === 'range'
       ? // Return values as number
@@ -47,5 +54,5 @@ export function getElementInput<
           .map((e) => e.value)
       : // Return value as string
         value
-  ) as FieldPathValue<TFieldValues, TFieldName>;
+  ) as FieldPathValue<TFieldValues, TFieldName, FieldValue>;
 }

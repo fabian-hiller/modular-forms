@@ -1,6 +1,6 @@
-import { FieldValues } from '@modular-forms/shared';
+import { FieldPath, FieldValues } from '@modular-forms/shared';
 import { createMemo } from 'solid-js';
-import { FieldPath, FieldValue, FormState } from '../types';
+import { FieldValue, FormState } from '../types';
 import { getField } from '../utils';
 
 type FieldOptions = Partial<{
@@ -20,7 +20,7 @@ type FieldOptions = Partial<{
  */
 export function hasField<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   form: FormState<TFieldValues>,
   name: TFieldName | string,

@@ -1,12 +1,16 @@
 import type { Signal } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
-import type { FieldValues, Maybe, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
-  FieldArraysStore,
   FieldPath,
   FieldPathValue,
+  FieldValues,
+  Maybe,
+  ResponseData,
+} from '@modular-forms/shared';
+import type {
+  FieldArraysStore,
   FieldsStore,
   FieldValue,
   FormActionStore,
@@ -29,8 +33,8 @@ import { getUniqueId } from './getUniqueId';
 export function getInitialStores<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   loader: Signal<InitialValues<TFieldValues>>,
   action?: Maybe<
@@ -47,10 +51,10 @@ export function getInitialStores<
   // Create function to get value of field or field array
   function getActionValue(
     name: TFieldName
-  ): Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  ): Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   function getActionValue(
     name: TFieldArrayName
-  ): Maybe<FieldArrayPathValue<TFieldValues, TFieldArrayName>>;
+  ): Maybe<FieldArrayPathValue<TFieldValues, TFieldArrayName, FieldValue>>;
   function getActionValue(name: any): any {
     return action?.value?.values && getPathValue(name, action.value.values);
   }
@@ -59,7 +63,7 @@ export function getInitialStores<
   const generateItems = () => getUniqueId();
 
   // Create function to get error of field
-  const getActionError = (name: TFieldName | TFieldArrayName) =>
+  const getActionError = (name: TFieldName | TFieldArrayName): Maybe<string> =>
     action?.value?.errors[name];
 
   // Create recursive function to create initial stores

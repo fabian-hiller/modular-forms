@@ -1,7 +1,10 @@
-import { FieldValues, ValidateFieldArray } from '@modular-forms/shared';
+import {
+  FieldArrayPath,
+  FieldValues,
+  ValidateFieldArray,
+} from '@modular-forms/shared';
 import { Accessor, Setter } from 'solid-js';
 import { FieldValue } from './field';
-import { FieldArrayPath } from './path';
 
 /**
  * Value type ot the field array store.
@@ -13,7 +16,7 @@ import { FieldArrayPath } from './path';
  */
 export type FieldArrayStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   internal: {
     getInitialItems: Accessor<number[]>;
@@ -43,7 +46,7 @@ export type FieldArrayStore<
  */
 export type FieldArrayState<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   name: TFieldArrayName;
   items: number[];

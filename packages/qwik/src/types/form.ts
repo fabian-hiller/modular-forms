@@ -12,10 +12,12 @@ import type {
   Maybe,
   ResponseData,
   ValidationMode,
+  FieldArrayPath,
+  FieldPath,
 } from '@modular-forms/shared';
 import type { FieldStore, FieldValue } from './field';
 import type { FieldArrayStore } from './fieldArray';
-import type { FieldArrayPath, FieldPath, TypeInfoPath } from './path';
+import type { TypeInfoPath } from './path';
 import type { MaybeQRL } from './utils';
 
 /**
@@ -34,8 +36,8 @@ export type SubmitHandler<TFieldValues extends FieldValues<FieldValue>> =
  */
 export type FormErrors<TFieldValues extends FieldValues<FieldValue>> = {
   [name in
-    | FieldPath<TFieldValues>
-    | FieldArrayPath<TFieldValues>]?: Maybe<string>;
+    | FieldPath<TFieldValues, FieldValue>
+    | FieldArrayPath<TFieldValues, FieldValue>]?: Maybe<string>;
 } & { [name: string]: string };
 
 /**
@@ -50,7 +52,7 @@ export type ValidateForm<TFieldValues extends FieldValues<FieldValue>> = (
  */
 export type FieldsStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
   [Name in TFieldName]: FieldStore<TFieldValues, Name>;
 };
@@ -60,7 +62,7 @@ export type FieldsStore<
  */
 export type FieldArraysStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   [Name in TFieldArrayName]: FieldArrayStore<TFieldValues, Name>;
 };
@@ -139,8 +141,8 @@ export type FormOptions<
 export type FormStore<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   internal: {
     fields: FieldsStore<TFieldValues, TFieldName>;

@@ -1,12 +1,11 @@
 import { useStore } from '@builder.io/qwik';
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldPath,
-  FieldValue,
-  FormOptions,
-  FormStore,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormOptions, FormStore } from '../types';
 import { getInitialStores } from '../utils';
 
 /**
@@ -18,12 +17,15 @@ import { getInitialStores } from '../utils';
  */
 export function useFormStore<
   TFieldValues extends FieldValues<FieldValue>,
-  TResponseData extends ResponseData = undefined,
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData = undefined
 >(
   options: FormOptions<TFieldValues, TResponseData>
-): FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName> {
+): FormStore<
+  TFieldValues,
+  TResponseData,
+  FieldPath<TFieldValues, FieldValue>,
+  FieldArrayPath<TFieldValues, FieldValue>
+> {
   // Destructure options
   const {
     loader,

@@ -1,21 +1,21 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValue,
-  FormStore,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore } from '../types';
 import { getUniqueId } from './getUniqueId';
 import { setFieldArrayStore } from './setFieldArrayStore';
 import { setFieldStore } from './setFieldStore';
 
 type ValueOptions<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 > = {
   at: number;
-  value: FieldArrayPathValue<TFieldValues, TFieldArrayName>[number];
+  value: FieldArrayPathValue<TFieldValues, TFieldArrayName, FieldValue>[number];
 };
 
 /**
@@ -29,8 +29,8 @@ type ValueOptions<
 export function setFieldArrayValue<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,

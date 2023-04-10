@@ -1,10 +1,10 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
-  FieldPath,
   FieldArrayPath,
-  FormStore,
-  FieldValue,
-} from '../types';
+  FieldPath,
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FormStore, FieldValue } from '../types';
 
 /**
  * Returns a list with the names of all file arrays.
@@ -16,8 +16,8 @@ import type {
 export function getFieldArrayNames<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
 ): TFieldArrayName[] {

@@ -1,5 +1,5 @@
-import { FieldValues } from '@modular-forms/shared';
-import { FieldArrayPath, FieldPath, FieldValue, FormState } from '../types';
+import { FieldArrayPath, FieldPath, FieldValues } from '@modular-forms/shared';
+import { FieldValue, FormState } from '../types';
 import { setError } from './setError';
 
 /**
@@ -10,8 +10,8 @@ import { setError } from './setError';
  */
 export function clearError<
   TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(form: FormState<TFieldValues>, name: TFieldName | TFieldArrayName): void {
   setError(form, name, '');
 }

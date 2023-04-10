@@ -1,12 +1,11 @@
-import type { FieldValues, ResponseData } from '@modular-forms/shared';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
-  FieldValue,
-  FormStore,
-  PartialValues,
-} from '../types';
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import type { FieldValue, FormStore, PartialValues } from '../types';
 import { getUniqueId, initializeFieldArrayStore } from '../utils';
 import { setValue } from './setValue';
 import { validate } from './validate';
@@ -28,8 +27,8 @@ type ValuesOptions = Partial<{
 export function setValues<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   values: PartialValues<TFieldValues>,
@@ -47,24 +46,26 @@ export function setValues<
 export function setValues<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
-  values: FieldArrayPathValue<TFieldValues, TFieldArrayName>,
+  values: FieldArrayPathValue<TFieldValues, TFieldArrayName, FieldValue>,
   options?: ValuesOptions
 ): void;
 
 export function setValues<
   TFieldValues extends FieldValues<FieldValue>,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   arg2: PartialValues<TFieldValues> | TFieldArrayName,
-  arg3?: ValuesOptions | FieldArrayPathValue<TFieldValues, TFieldArrayName>,
+  arg3?:
+    | ValuesOptions
+    | FieldArrayPathValue<TFieldValues, TFieldArrayName, FieldValue>,
   arg4?: ValuesOptions
 ): void {
   // Check if values of a field array should be set
@@ -73,7 +74,7 @@ export function setValues<
   // Get values from arguments
   const values = (isFieldArray ? arg3 : arg2) as
     | PartialValues<TFieldValues>
-    | FieldArrayPathValue<TFieldValues, TFieldArrayName>;
+    | FieldArrayPathValue<TFieldValues, TFieldArrayName, FieldValue>;
 
   // Get options from arguments
   const options = ((isFieldArray ? arg4 : arg3) || {}) as ValuesOptions;
@@ -145,7 +146,7 @@ export function setValues<
   if (isFieldArray) {
     setFieldArrayItems(
       arg2 as TFieldArrayName,
-      arg3 as FieldArrayPathValue<TFieldValues, TFieldArrayName>
+      arg3 as FieldArrayPathValue<TFieldValues, TFieldArrayName, FieldValue>
     );
   }
 
