@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Remove `active` property from RawFieldState and RawFieldArrayState type
+- Remove unnecessary code from `Field` component
 
 ## v0.8.1 (April 07, 2023)
 

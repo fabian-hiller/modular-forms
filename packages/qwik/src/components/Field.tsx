@@ -1,4 +1,4 @@
-import { $, type QRL, type QwikFocusEvent } from '@builder.io/qwik';
+import { $, type QRL } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
@@ -95,7 +95,6 @@ export function Field<
           field.internal.elements.push(element as FieldElement);
         }),
         onInput$: $((_: Event, element: FieldElement) => {
-          const field = getFieldStore(form, name);
           updateFieldValue(
             form,
             field,
@@ -104,36 +103,17 @@ export function Field<
           );
         }),
         onChange$: $(() => {
-          validateIfRequired(form, getFieldStore(form, name), name, {
+          validateIfRequired(form, field, name, {
             on: ['change'],
           });
         }),
-        onBlur$: $(
-          (_: QwikFocusEvent<FieldElement>, { type, value }: FieldElement) => {
-            // Get store of specified field
-            const field = getFieldStore(form, name);
-
-            // Set input to "NaN" if type is "number" and value is emtpy
-            if (type === 'number' && value === '') {
-              updateFieldValue(
-                form,
-                field,
-                name,
-                NaN as FieldPathValue<TFieldValues, TFieldName, FieldValue>
-              );
-
-              // Otheriwse, just update touched state
-            } else {
-              field.touched = true;
-              form.touched = true;
-            }
-
-            // Validate value if required
-            validateIfRequired(form, field, name, {
-              on: ['touched', 'blur'],
-            });
-          }
-        ),
+        onBlur$: $(() => {
+          field.touched = true;
+          form.touched = true;
+          validateIfRequired(form, field, name, {
+            on: ['touched', 'blur'],
+          });
+        }),
       })}
     </Lifecycle>
   );
