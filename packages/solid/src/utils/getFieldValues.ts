@@ -1,6 +1,6 @@
 import { FieldPath, FieldValues } from '@modular-forms/shared';
 import { FieldValue, FormState } from '../types';
-import { getField } from './getField';
+import { getField } from './getFieldStore';
 
 type FieldValuesOptions<TInitialValue> = {
   initialValue: TInitialValue;

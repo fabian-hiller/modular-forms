@@ -1,14 +1,25 @@
-import { FieldValues } from '@modular-forms/shared';
+import {
+  FieldArrayPath,
+  FieldPath,
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
 import { batch, untrack } from 'solid-js';
-import { FieldValue, FormState } from '../types';
+import { FieldValue, FormStore } from '../types';
+import { getFieldAndArrayStores } from './getFieldAndArrayStores';
 
 /**
  * Updates the touched, dirty and invalid state of the form.
  *
  * @param form The form to be updated.
  */
-export function updateState<TFieldValues extends FieldValues<FieldValue>>(
-  form: FormState<TFieldValues>
+export function updateFormState<
+  TFieldValues extends FieldValues<FieldValue>,
+  TResponseData extends ResponseData,
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+>(
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
 ): void {
   // Create state variables
   let touched = false,
@@ -18,18 +29,15 @@ export function updateState<TFieldValues extends FieldValues<FieldValue>>(
   // Ignores tracking of reactive dependencies
   untrack(() => {
     // Check each field and field array and update state if necessary
-    for (const [, fieldOrFieldArray] of [
-      ...form.internal.fields,
-      ...form.internal.fieldArrays,
-    ]) {
-      if (fieldOrFieldArray.getActive()) {
-        if (fieldOrFieldArray.getTouched()) {
+    for (const fieldOrFieldArray of getFieldAndArrayStores(form)) {
+      if (fieldOrFieldArray.active) {
+        if (fieldOrFieldArray.touched) {
           touched = true;
         }
-        if (fieldOrFieldArray.getDirty()) {
+        if (fieldOrFieldArray.dirty) {
           dirty = true;
         }
-        if (fieldOrFieldArray.getError()) {
+        if (fieldOrFieldArray.error) {
           invalid = true;
         }
       }

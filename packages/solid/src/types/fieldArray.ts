@@ -32,27 +32,9 @@ export type FieldArrayStore<
     consumers: Set<number>;
   };
   name: TFieldArrayName;
-  items: number[];
-  length: number;
-  error: string;
-  active: boolean;
-  touched: boolean;
-  dirty: boolean;
-};
-
-/**
- * Value type of the external field array state.
- * TODO: Remove me
- */
-export type FieldArrayState<
-  TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
-> = {
-  name: TFieldArrayName;
-  items: number[];
-  length: number;
-  error: string;
-  active: boolean;
-  touched: boolean;
-  dirty: boolean;
+  get items(): number[];
+  get error(): string;
+  get active(): boolean;
+  get touched(): boolean;
+  get dirty(): boolean;
 };

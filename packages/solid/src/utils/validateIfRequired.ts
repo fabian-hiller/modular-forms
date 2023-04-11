@@ -19,7 +19,7 @@ type ValidateOptions = {
  * @param form The form that contains the field or field array.
  * @param name The name of the field or field array to be validated.
  */
-export function validateIfNecessary<
+export function validateIfRequired<
   TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues, FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>

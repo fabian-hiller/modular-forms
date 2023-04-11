@@ -37,11 +37,11 @@ export type FieldProps<
 > = {
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   name: TFieldName;
+  type: FieldType<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   children: (
     store: FieldStore<TFieldValues, TFieldName>,
     props: FieldElementProps<TFieldValues, TFieldName>
   ) => JSX.Element;
-  type: FieldType<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
   validate?: Maybe<
     MaybeArray<
       QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>

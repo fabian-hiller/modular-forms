@@ -1,5 +1,10 @@
-import { FieldArrayPath, FieldValues } from '@modular-forms/shared';
-import { FieldValue, FormState } from '../types';
+import {
+  FieldArrayPath,
+  FieldPath,
+  FieldValues,
+  ResponseData,
+} from '@modular-forms/shared';
+import { FieldValue, FormStore } from '../types';
 import { getPathValue } from './getPathValue';
 import { getUniqueId } from './getUniqueId';
 
@@ -11,10 +16,15 @@ import { getUniqueId } from './getUniqueId';
  *
  * @returns Initial field array items.
  */
-export function getInitialItems<
+export function getInitialArrayItems<
   TFieldValues extends FieldValues<FieldValue>,
+  TResponseData extends ResponseData,
+  TFieldName extends FieldPath<TFieldValues, FieldValue>,
   TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
->(form: FormState<TFieldValues>, name: TFieldArrayName): number[] {
+>(
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  name: TFieldArrayName
+): number[] {
   return (getPathValue(name, form.internal.initialValues) || []).map(() =>
     getUniqueId()
   );

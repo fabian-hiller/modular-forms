@@ -1,11 +1,13 @@
 import {
   FieldElement,
+  FieldPath,
+  FieldPathValue,
   FieldValues,
   Maybe,
+  MaybeValue,
   ValidateField,
 } from '@modular-forms/shared';
 import { Accessor, JSX, Setter } from 'solid-js';
-import { FieldPath, FieldPathValue } from './path';
 
 /**
  * Value type of a field.
@@ -18,7 +20,27 @@ export type FieldValue =
   | null
   | undefined
   | File
-  | FileList;
+  | File[]
+  | Date;
+
+/**
+ * Value type of the field type.
+ */
+export type FieldType<T> = T extends MaybeValue<string>
+  ? 'string'
+  : T extends MaybeValue<string[]>
+  ? 'string[]'
+  : T extends MaybeValue<number>
+  ? 'number'
+  : T extends MaybeValue<boolean>
+  ? 'boolean'
+  : T extends MaybeValue<File>
+  ? 'File'
+  : T extends MaybeValue<File[]>
+  ? 'File[]'
+  : T extends MaybeValue<Date>
+  ? 'Date'
+  : never;
 
 /**
  * Value type ot the field store.
@@ -61,32 +83,24 @@ export type FieldStore<
     consumers: Set<number>;
   };
   name: TFieldName;
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
-  error: string;
-  active: boolean;
-  touched: boolean;
-  dirty: boolean;
+  get value(): Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
+  get error(): string;
+  get active(): boolean;
+  get touched(): boolean;
+  get dirty(): boolean;
 };
 
 /**
- * Value type of the external field state.
- * TODO: Remove me
+ * Value type of the field element props.
  */
-export type FieldState<
+export type FieldElementProps<
   TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues, FieldValue>
 > = {
-  props: {
-    name: TFieldName;
-    ref: (element: FieldElement) => void;
-    onInput: JSX.EventHandler<FieldElement, InputEvent>;
-    onChange: JSX.EventHandler<FieldElement, Event>;
-    onBlur: JSX.EventHandler<FieldElement, FocusEvent>;
-  };
   name: TFieldName;
-  value: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
-  error: string;
-  active: boolean;
-  touched: boolean;
-  dirty: boolean;
+  autoFocus: boolean;
+  ref: (element: FieldElement) => void;
+  onInput: JSX.EventHandler<FieldElement, InputEvent>;
+  onChange: JSX.EventHandler<FieldElement, Event>;
+  onBlur: JSX.EventHandler<FieldElement, FocusEvent>;
 };

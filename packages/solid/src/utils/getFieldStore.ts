@@ -36,7 +36,7 @@ export function getFieldStore<
     // Get initial value of field
     const initialValue = getInitialFieldValue(form, name);
 
-    // Create all necessary signals
+    // Create signals of field store
     const [getElements, setElements] = createSignal<FieldElement[]>([]);
     const [getInitialValue, setInitialValue] =
       createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>(
@@ -90,11 +90,11 @@ export function getFieldStore<
       },
     };
 
-    // Add store of field to form fields
+    // Add store of field to form
     form.internal.fields[name] = field;
 
-    // Add name of field to field names
-    form.internal.setFieldNames((prevNames) => [...prevNames, name]);
+    // Add name of field to form
+    form.internal.setFieldNames((names) => [...names, name]);
   }
 
   // Return store of field

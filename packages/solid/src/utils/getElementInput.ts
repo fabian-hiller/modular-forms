@@ -1,58 +1,50 @@
-import {
+import type {
   FieldElement,
   FieldPath,
   FieldPathValue,
   FieldValues,
   Maybe,
 } from '@modular-forms/shared';
-import { untrack } from 'solid-js';
-import { FieldStore, FieldValue } from '../types';
+import type { FieldStore, FieldType, FieldValue } from '../types';
 
 /**
  * Returns the current input of the element.
  *
  * @param element The field element.
  *
- * @returns The current element input.
+ * @returns The element input.
  */
 export function getElementInput<
   TFieldValues extends FieldValues<FieldValue>,
   TFieldName extends FieldPath<TFieldValues, FieldValue>
 >(
   element: FieldElement,
-  field: FieldStore<TFieldValues, TFieldName>
+  field: FieldStore<TFieldValues, TFieldName>,
+  type: Maybe<FieldType<any>>
 ): FieldPathValue<TFieldValues, TFieldName, FieldValue> {
-  const { checked, files, multiple, options, type, value } =
+  const { checked, files, options, value, valueAsDate, valueAsNumber } =
     element as HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement;
-  const getInput = () => untrack(field.getInput);
-  let input: Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>,
-    parsed: number;
   return (
-    type === 'number' || type === 'range'
-      ? // Return values as number
-        ((input = getInput()),
-        (parsed = parseFloat(value)),
-        input === undefined || !isNaN(parsed) ? parsed : input)
-      : type === 'checkbox'
-      ? value && value !== 'on'
-        ? // Return value as array of string
-          checked
-          ? [...((getInput() || []) as string[]), value]
-          : ((getInput() || []) as string[]).filter((v) => v !== value)
-        : // Return value as boolean
-          checked
-      : type === 'file'
-      ? multiple
-        ? // Return value as file list
-          files
-        : // Return value as single file
-          files?.[0]
-      : options && multiple
-      ? // Return value as array of strings
-        [...options]
-          .filter((e) => e.selected && !e.disabled)
-          .map((e) => e.value)
-      : // Return value as string
-        value
+    !type || type === 'string'
+      ? value
+      : type === 'string[]'
+      ? options
+        ? [...options]
+            .filter((e) => e.selected && !e.disabled)
+            .map((e) => e.value)
+        : checked
+        ? [...((field.value || []) as string[]), value]
+        : ((field.value || []) as string[]).filter((v) => v !== value)
+      : type === 'number'
+      ? valueAsNumber
+      : type === 'boolean'
+      ? checked
+      : type === 'File' && files
+      ? files[0]
+      : type === 'File[]' && files
+      ? [...files]
+      : type === 'Date' && valueAsDate
+      ? valueAsDate
+      : field.value
   ) as FieldPathValue<TFieldValues, TFieldName, FieldValue>;
 }
