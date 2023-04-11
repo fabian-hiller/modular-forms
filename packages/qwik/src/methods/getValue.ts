@@ -54,6 +54,7 @@ export function getValue<
     (!shouldValid || !field.error)
   ) {
     // Return value of field
+    // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
     return field.value;
   }
 

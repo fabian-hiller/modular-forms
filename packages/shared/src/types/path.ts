@@ -39,7 +39,7 @@ type ValuePaths<TValue, TFieldValue> = TValue extends Array<infer TChild>
  * See {@link ValuePaths}
  */
 export type FieldPath<
-  TFieldValues extends FieldValues<any>,
+  TFieldValues extends FieldValues<TFieldValue>,
   TFieldValue
 > = ValuePaths<TFieldValues, TFieldValue>;
 
@@ -75,7 +75,7 @@ type PathValue<TValue, TPath, TFieldValue> =
  * See {@link PathValue}
  */
 export type FieldPathValue<
-  TFieldValues extends FieldValues<any>,
+  TFieldValues extends FieldValues<TFieldValue>,
   TFieldPath extends FieldPath<TFieldValues, TFieldValue>,
   TFieldValue
 > = PathValue<TFieldValues, TFieldPath, TFieldValue>;
@@ -118,7 +118,7 @@ type ArrayPaths<TValue, TFieldValue> = TValue extends Array<infer TChild>
  * See {@link ArrayPaths}
  */
 export type FieldArrayPath<
-  TFieldValues extends FieldValues<any>,
+  TFieldValues extends FieldValues<TFieldValue>,
   TFieldValue
 > = ArrayPaths<TFieldValues, TFieldValue>;
 
@@ -126,7 +126,7 @@ export type FieldArrayPath<
  * See {@link PathValue}
  */
 export type FieldArrayPathValue<
-  TFieldValues extends FieldValues<any>,
+  TFieldValues extends FieldValues<TFieldValue>,
   TFieldArrayPath extends FieldArrayPath<TFieldValues, TFieldValue>,
   TFieldValue
 > = PathValue<TFieldValues, TFieldArrayPath, TFieldValue> & Array<unknown>;

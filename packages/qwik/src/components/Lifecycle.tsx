@@ -99,13 +99,12 @@ export const Lifecycle: <
     // TODO: Switch back to `useTask$` once issue #3193 is fixed
     useVisibleTask$(({ cleanup }) => {
       // Add validation functions
-      store.internal.validate = (
-        validate ? (Array.isArray(validate) ? validate : [validate]) : []
-      ) as
-        | QRL<
-            ValidateField<FieldPathValue<TFieldValues, TFieldName, FieldValue>>
-          >[]
-        | QRL<ValidateFieldArray<number[]>>[];
+      // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
+      store.internal.validate = validate
+        ? Array.isArray(validate)
+          ? validate
+          : [validate]
+        : [];
 
       // Create unique consumer ID
       const consumer = getUniqueId();

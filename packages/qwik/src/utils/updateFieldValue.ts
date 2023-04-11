@@ -29,6 +29,7 @@ export function updateFieldValue<
   value: FieldPathValue<TFieldValues, TFieldName, FieldValue>
 ): void {
   // Update value state
+  // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
   field.value = value;
 
   // Update touched state

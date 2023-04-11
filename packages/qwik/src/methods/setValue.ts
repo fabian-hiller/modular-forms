@@ -47,9 +47,11 @@ export function setValue<
   } = options;
 
   // Initialize store of specified field
+  // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
   const field = initializeFieldStore(form, name, { value });
 
   // Set input
+  // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
   field.value = value;
 
   // Update touched if set to "true"

@@ -105,6 +105,7 @@ export function useForm<
           'of' | 'action'
         >
       ) => Form({ of: form, action: options.action, ...props }),
+      // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
       Field: <TFieldName extends FieldPath<TFieldValues, FieldValue>>(
         props: FieldPathValue<
           TFieldValues,
