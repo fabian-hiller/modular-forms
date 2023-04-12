@@ -56,7 +56,7 @@
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.37.0",
     "eslint-plugin-qwik": "0.100.0",
-    "typescript": "^5.0.4",
+    "typescript": "4.9.5",
     "vite": "^4.2.1",
     "zod": "^3.21.4"
   },
