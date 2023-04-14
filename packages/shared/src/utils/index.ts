@@ -9,6 +9,7 @@ export * from './getFieldStore';
 export * from './getFieldValues';
 export * from './getFilteredNames';
 export * from './getOptions';
+export * from './getParsedZodSchema';
 export * from './getPathIndex';
 export * from './getPathValue';
 export * from './getUniqueId';

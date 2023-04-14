@@ -1,6 +1,5 @@
-import type { QRL } from '@builder.io/qwik';
-import type { MaybeFunction } from '@modular-forms/shared';
 import type { SafeParseReturnType, ZodType } from 'zod';
+import type { MaybeFunction, MaybeQRL } from '../types';
 
 /**
  * Parses a value with a Zod scheme and returns the result.
@@ -11,11 +10,11 @@ import type { SafeParseReturnType, ZodType } from 'zod';
  * @returns The parse result.
  */
 export async function getParsedZodSchema<Schema, Value>(
-  schema: QRL<MaybeFunction<ZodType<any, any, Schema>>>,
+  schema: MaybeQRL<MaybeFunction<ZodType<any, any, Schema>>>,
   value: Value
 ): Promise<SafeParseReturnType<Schema, any>> {
-  const qrlValue = await schema.resolve();
-  return (typeof qrlValue === 'function' ? qrlValue() : qrlValue).safeParse(
+  const zodSchema = 'resolve' in schema ? await schema.resolve() : schema;
+  return (typeof zodSchema === 'function' ? zodSchema() : zodSchema).safeParse(
     value
   );
 }

@@ -5,8 +5,8 @@ import type {
   MaybeFunction,
   ValidateField,
 } from '@modular-forms/shared';
+import { zodField } from '@modular-forms/shared';
 import type { ZodType } from 'zod';
-import { getParsedZodSchema } from '../utils';
 
 /**
  * See {@link zodField$}
@@ -14,10 +14,7 @@ import { getParsedZodSchema } from '../utils';
 export function zodFieldQrl<TFieldValue extends FieldValue>(
   schema: QRL<MaybeFunction<ZodType<any, any, TFieldValue>>>
 ): QRL<ValidateField<TFieldValue>> {
-  return $(async (value: Maybe<TFieldValue>) => {
-    const result = await getParsedZodSchema(schema, value);
-    return result.success ? '' : result.error.issues[0].message;
-  });
+  return $((value: Maybe<TFieldValue>) => zodField(schema)(value));
 }
 
 /**

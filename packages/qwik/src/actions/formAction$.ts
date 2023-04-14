@@ -17,6 +17,9 @@ import type {
 import type { FormActionStore, FormDataInfo } from '../types';
 import { getFormDataValues } from '../utils';
 
+/**
+ * Value type of the form action result.
+ */
 export type FormActionResult<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData
@@ -24,6 +27,9 @@ export type FormActionResult<
   errors?: Maybe<FormErrors<TFieldValues>>;
 };
 
+/**
+ * Function type of the form action.
+ */
 type FormActionFunc<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData
@@ -32,6 +38,9 @@ type FormActionFunc<
   event: RequestEventAction
 ) => MaybePromise<FormActionResult<TFieldValues, TResponseData> | void>;
 
+/**
+ * Value type of the second form action argument.
+ */
 type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
