@@ -4,8 +4,8 @@ import type {
   FieldValues,
   FormStore,
   ResponseData,
-} from '@modular-forms/shared';
-import { getFieldStore } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { getFieldStore } from '@modular-forms/core';
 import type { FieldStore } from '../types';
 import { getInitialFieldStore } from './getInitialFieldStore';
 

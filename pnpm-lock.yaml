@@ -14,11 +14,41 @@ importers:
         specifier: 4.9.5
         version: 4.9.5
 
+  packages/core:
+    devDependencies:
+      '@builder.io/qwik':
+        specifier: 0.100.0
+        version: 0.100.0(undici@5.21.0)
+      '@types/eslint':
+        specifier: ^8.37.0
+        version: 8.37.0
+      '@types/node':
+        specifier: ^18.15.11
+        version: 18.15.11
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^5.57.0
+        version: 5.57.0(@typescript-eslint/parser@5.57.0)(eslint@8.37.0)(typescript@4.9.5)
+      '@typescript-eslint/parser':
+        specifier: ^5.57.0
+        version: 5.57.0(eslint@8.37.0)(typescript@4.9.5)
+      eslint:
+        specifier: ^8.37.0
+        version: 8.37.0
+      typescript:
+        specifier: 4.9.5
+        version: 4.9.5
+      vite:
+        specifier: ^4.2.1
+        version: 4.2.1(@types/node@18.15.11)
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+
   packages/qwik:
     dependencies:
-      '@modular-forms/shared':
+      '@modular-forms/core':
         specifier: workspace:^
-        version: link:../shared
+        version: link:../core
     devDependencies:
       '@builder.io/qwik':
         specifier: 0.100.0
@@ -54,41 +84,11 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
 
-  packages/shared:
-    devDependencies:
-      '@builder.io/qwik':
-        specifier: 0.100.0
-        version: 0.100.0(undici@5.21.0)
-      '@types/eslint':
-        specifier: ^8.37.0
-        version: 8.37.0
-      '@types/node':
-        specifier: ^18.15.11
-        version: 18.15.11
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^5.57.0
-        version: 5.57.0(@typescript-eslint/parser@5.57.0)(eslint@8.37.0)(typescript@4.9.5)
-      '@typescript-eslint/parser':
-        specifier: ^5.57.0
-        version: 5.57.0(eslint@8.37.0)(typescript@4.9.5)
-      eslint:
-        specifier: ^8.37.0
-        version: 8.37.0
-      typescript:
-        specifier: 4.9.5
-        version: 4.9.5
-      vite:
-        specifier: ^4.2.1
-        version: 4.2.1(@types/node@18.15.11)
-      zod:
-        specifier: ^3.21.4
-        version: 3.21.4
-
   packages/solid:
     dependencies:
-      '@modular-forms/shared':
+      '@modular-forms/core':
         specifier: workspace:^
-        version: link:../shared
+        version: link:../core
     devDependencies:
       '@types/eslint':
         specifier: ^8.37.0

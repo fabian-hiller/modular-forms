@@ -18,8 +18,8 @@ import type {
   ResponseData,
   ValidateField,
   ValidateFieldArray,
-} from '@modular-forms/shared';
-import { handleLifecycle } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { handleLifecycle } from '@modular-forms/core';
 import type { FieldStore, FormStore } from '../types';
 
 /**

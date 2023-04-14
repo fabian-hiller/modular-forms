@@ -14,7 +14,7 @@ import type {
   FieldPath,
   FormStore as FormStoreType,
   InternalFormStore,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 import type { TypeInfoPath } from './path';
 
 /**

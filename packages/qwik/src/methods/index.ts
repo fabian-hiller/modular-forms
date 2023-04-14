@@ -12,7 +12,7 @@ export {
   setError,
   setResponse,
   validate,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 export * from './insert';
 export * from './move';
 export * from './remove';

@@ -1,12 +1,13 @@
-import {
+import type {
   ResponseData,
   FormResponse,
   FieldValues,
   FieldArrayPath,
   FieldPath,
-} from '@modular-forms/shared';
+  PartialValues,
+} from '@modular-forms/core';
 import { createSignal } from 'solid-js';
-import { FieldValue, FormOptions, FormStore, PartialValues } from '../types';
+import type { FormOptions, FormStore } from '../types';
 
 /**
  * Creates and returns the store of the form.
@@ -16,16 +17,10 @@ import { FieldValue, FormOptions, FormStore, PartialValues } from '../types';
  * @returns The reactive store.
  */
 export function createFormStore<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData = undefined,
-  TFieldName extends FieldPath<TFieldValues, FieldValue> = FieldPath<
-    TFieldValues,
-    FieldValue
-  >,
-  TFieldArrayName extends FieldArrayPath<
-    TFieldValues,
-    FieldValue
-  > = FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
 >(
   options: FormOptions<TFieldValues> = {}
 ): FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName> {
@@ -37,7 +32,7 @@ export function createFormStore<
     validate,
   } = options;
 
-  // Create all necessary signals
+  // Create signals of form store
   const [getFieldNames, setFieldNames] = createSignal<TFieldName[]>([]);
   const [getFieldArrayNames, setFieldArrayNames] = createSignal<
     TFieldArrayName[]
@@ -55,53 +50,79 @@ export function createFormStore<
   // Return form functions and state
   return {
     internal: {
-      fields: {},
-      fieldArrays: {},
-      getFieldNames,
-      setFieldNames,
-      getFieldArrayNames,
-      setFieldArrayNames,
-      setElement,
-      setSubmitCount,
-      setSubmitting,
-      setSubmitted,
-      setValidating,
-      setTouched,
-      setDirty,
-      setInvalid,
-      setResponse,
-      validate,
-      validators: new Set(),
       initialValues,
+      fields: {},
+      get fieldNames() {
+        return getFieldNames();
+      },
+      set fieldNames(value) {
+        setFieldNames(value);
+      },
+      fieldArrays: {},
+      get fieldArrayNames() {
+        return getFieldArrayNames();
+      },
+      set fieldArrayNames(value) {
+        setFieldArrayNames(value);
+      },
+      validate,
+      validators: [],
       validateOn,
       revalidateOn,
     },
     get element() {
       return getElement();
     },
+    set element(value) {
+      setElement(value);
+    },
     get submitCount() {
       return getSubmitCount();
+    },
+    set submitCount(value) {
+      setSubmitCount(value);
     },
     get submitting() {
       return getSubmitting();
     },
+    set submitting(value) {
+      setSubmitting(value);
+    },
     get submitted() {
       return getSubmitted();
+    },
+    set submitted(value) {
+      setSubmitted(value);
     },
     get validating() {
       return getValidating();
     },
+    set validating(value) {
+      setValidating(value);
+    },
     get touched() {
       return getTouched();
+    },
+    set touched(value) {
+      setTouched(value);
     },
     get dirty() {
       return getDirty();
     },
+    set dirty(value) {
+      setDirty(value);
+    },
     get invalid() {
       return getInvalid();
     },
+    set invalid(value) {
+      setInvalid(value);
+    },
     get response() {
       return getResponse();
+    },
+    set response(value) {
+      setResponse(value);
     },
   };
 }

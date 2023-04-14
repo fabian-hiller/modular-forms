@@ -1,6 +1,6 @@
 import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
-import type { MaybeValue } from '@modular-forms/shared';
-import { mimeType as validate } from '@modular-forms/shared';
+import type { MaybeValue } from '@modular-forms/core';
+import { mimeType as validate } from '@modular-forms/core';
 
 type Value = MaybeValue<
   | NoSerialize<Blob>

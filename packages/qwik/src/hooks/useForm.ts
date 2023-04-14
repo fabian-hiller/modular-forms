@@ -7,7 +7,7 @@ import type {
   MaybeValue,
   PartialKey,
   ResponseData,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 import {
   Field,
   type FieldProps,

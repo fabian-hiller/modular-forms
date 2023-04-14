@@ -8,8 +8,8 @@ import type {
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
-} from '@modular-forms/shared';
-import { getFieldArrayStore } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { getFieldArrayStore } from '@modular-forms/core';
 import type { FieldArrayStore, FormStore } from '../types';
 import { Lifecycle } from './Lifecycle';
 

@@ -10,8 +10,8 @@ import type {
   MaybeQRL,
   PartialValues,
   ResponseData,
-} from '@modular-forms/shared';
-import { setErrorResponse } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { setErrorResponse } from '@modular-forms/core';
 import { getValues, setError, validate } from '../methods';
 import type { FormActionStore, FormStore } from '../types';
 

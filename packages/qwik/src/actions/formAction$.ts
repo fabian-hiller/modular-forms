@@ -13,7 +13,7 @@ import type {
   PartialValues,
   ResponseData,
   ValidateForm,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 import type { FormActionStore, FormDataInfo } from '../types';
 import { getFormDataValues } from '../utils';
 

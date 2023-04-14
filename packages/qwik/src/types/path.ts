@@ -4,7 +4,7 @@ import type {
   FieldValues,
   IsTuple,
   TupleKeys,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 
 /**
  * Returns a template path of a specified type.

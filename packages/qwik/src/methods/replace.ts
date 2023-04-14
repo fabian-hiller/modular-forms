@@ -5,8 +5,8 @@ import type {
   FieldValues,
   ReplaceOptions,
   ResponseData,
-} from '@modular-forms/shared';
-import { replace as replaceMethod } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { replace as replaceMethod } from '@modular-forms/core';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 

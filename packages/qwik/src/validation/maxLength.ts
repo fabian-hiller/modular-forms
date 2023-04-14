@@ -1,6 +1,6 @@
 import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
-import type { MaybeValue } from '@modular-forms/shared';
-import { maxLength as validate } from '@modular-forms/shared';
+import type { MaybeValue } from '@modular-forms/core';
+import { maxLength as validate } from '@modular-forms/core';
 
 type Value = MaybeValue<
   string | string[] | number[] | NoSerialize<Blob[]> | NoSerialize<File[]>

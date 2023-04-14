@@ -1,6 +1,6 @@
 import { $, type QRL } from '@builder.io/qwik';
-import type { MaybeValue } from '@modular-forms/shared';
-import { minRange as validate } from '@modular-forms/shared';
+import type { MaybeValue } from '@modular-forms/core';
+import { minRange as validate } from '@modular-forms/core';
 
 type Value = MaybeValue<string | number | Date>;
 

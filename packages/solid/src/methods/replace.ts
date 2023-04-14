@@ -1,142 +1,37 @@
-import {
+import type {
   FieldArrayPath,
   FieldArrayPathValue,
   FieldPath,
   FieldValues,
-} from '@modular-forms/shared';
-import { batch, untrack } from 'solid-js';
-import { DeepPartial, FormState, FieldValue } from '../types';
-import {
-  getPathIndex,
-  getFieldArray,
-  getPathValue,
-  setFieldState,
-  getField,
-  getUniqueId,
-  setFieldArrayState,
-} from '../utils';
-
-type ReplaceOptions<
-  TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
-  TFieldArrayValues extends FieldArrayPathValue<
-    TFieldValues,
-    TFieldArrayName,
-    FieldValue
-  > &
-    Array<unknown>
-> = {
-  at: number;
-  value?: DeepPartial<TFieldArrayValues[number]>;
-};
+  ReplaceOptions,
+  ResponseData,
+} from '@modular-forms/core';
+import { replace as replaceMethod } from '@modular-forms/core';
+import type { FormStore } from '../types';
+import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
 /**
  * Replaces a item of the field array.
  *
- * @param form The form that contains the field array.
- * @param name The field array to be modified.
+ * @param form The form of the field array.
+ * @param name The name of the field array.
  * @param options The replace options.
  */
 export function replace<
-  TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>,
-  TFieldArrayValues extends FieldArrayPathValue<
-    TFieldValues,
-    TFieldArrayName,
-    FieldValue
-  > &
-    Array<unknown>
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>,
+  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
 >(
-  form: FormState<TFieldValues>,
+  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
   options: ReplaceOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
 ): void {
-  // Sync state updates and prevent unnecessary recalculation
-  batch(() => {
-    // Ignores tracking of reactive dependencies
-    untrack(() => {
-      // Destructure options
-      const { at: index, value } = options;
-
-      // Get specified field array
-      const fieldArray = getFieldArray(form, name);
-
-      // Get last index of field array
-      const lastIndex = fieldArray.getItems().length - 1;
-
-      // Continue if specified index is valid
-      if (index >= 0 && index <= lastIndex) {
-        // Create filter name function
-        const filterName = (value: string) =>
-          value.startsWith(`${name}.`) && getPathIndex(name, value) === index;
-
-        // Get each field name of the specified index
-        (form.internal.getFieldNames() as TFieldName[])
-          .filter(filterName)
-          .forEach((fieldName) => {
-            // Get initial input
-            const initialInput = getPathValue(
-              fieldName.replace(
-                new RegExp(`${name}\.${getPathIndex(name, fieldName)}\.?`),
-                ''
-              ),
-              value
-            );
-
-            // Replace state of field
-            setFieldState(getField(form, fieldName), {
-              elements: [],
-              initialInput,
-              input: initialInput,
-              error: '',
-              dirty: false,
-              touched: false,
-            });
-          });
-
-        // Get each field array name of the specified index
-        (form.internal.getFieldArrayNames() as TFieldArrayName[])
-          .filter(filterName)
-          .forEach((fieldArrayName) => {
-            // Get initial items
-            const initialItems = (
-              getPathValue(
-                fieldArrayName.replace(
-                  new RegExp(
-                    `${name}\.${getPathIndex(name, fieldArrayName)}\.?`
-                  ),
-                  ''
-                ),
-                value
-              ) || []
-            ).map(() => getUniqueId());
-
-            // Replace state of field array
-            setFieldArrayState(getFieldArray(form, fieldArrayName), {
-              initialItems,
-              items: initialItems,
-              error: '',
-              dirty: false,
-              touched: false,
-            });
-          });
-
-        // Replace item at field array
-        fieldArray.setItems((prevItems) => {
-          const nextItems = [...prevItems];
-          nextItems[index] = getUniqueId();
-          return nextItems;
-        });
-
-        // Set touched at field array and form to true
-        fieldArray.setTouched(true);
-        form.internal.setTouched(true);
-
-        // Set dirty at field array and form to true
-        fieldArray.setDirty(true);
-        form.internal.setDirty(true);
-      }
-    });
-  });
+  replaceMethod(
+    { initializeFieldStore, initializeFieldArrayStore },
+    form,
+    name,
+    options
+  );
 }

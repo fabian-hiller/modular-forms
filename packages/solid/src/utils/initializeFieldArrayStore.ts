@@ -1,26 +1,27 @@
-import {
+import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormStore,
   ResponseData,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { getPathValue, getUniqueId } from '@modular-forms/core';
 import { createSignal } from 'solid-js';
-import { FieldArrayStore, FieldValue, FormStore } from '../types';
-import { getInitialArrayItems } from './getInitialArrayItems';
+import type { FieldArrayStore } from '../types';
 
 /**
- * Returns the store of a field array.
+ * Initializes and returns the store of a field array.
  *
  * @param form The form of the field array.
  * @param name The name of the field array.
  *
  * @returns The reactive store.
  */
-export function getFieldArrayStore<
-  TFieldValues extends FieldValues<FieldValue>,
+export function initializeFieldArrayStore<
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName
@@ -31,7 +32,10 @@ export function getFieldArrayStore<
   // Initialize store on first request
   if (!fieldArray) {
     // Create initial items of field array
-    const initialItems = getInitialArrayItems(form, name);
+    const initialItems =
+      getPathValue(name, form.internal.initialValues!)?.map(() =>
+        getUniqueId()
+      ) || [];
 
     // Create signals of field array store
     const [getInitialItems, setInitialItems] = createSignal(initialItems);
@@ -45,33 +49,51 @@ export function getFieldArrayStore<
     // Create form field array object
     fieldArray = {
       internal: {
-        getInitialItems,
-        setInitialItems,
-        getStartItems,
-        setStartItems,
-        setItems,
-        setError,
-        setActive,
-        setTouched,
-        setDirty,
+        get initialItems() {
+          return getInitialItems();
+        },
+        set initialItems(value) {
+          setInitialItems(() => value);
+        },
+        get startItems() {
+          return getStartItems();
+        },
+        set startItems(value) {
+          setStartItems(() => value);
+        },
         validate: [],
-        consumers: new Set(),
+        consumers: [],
       },
       name,
       get items() {
         return getItems();
       },
+      set items(value) {
+        setItems(value);
+      },
       get error() {
         return getError();
+      },
+      set error(value) {
+        setError(value);
       },
       get active() {
         return getActive();
       },
+      set active(value) {
+        setActive(value);
+      },
       get touched() {
         return getTouched();
       },
+      set touched(value) {
+        setTouched(value);
+      },
       get dirty() {
         return getDirty();
+      },
+      set dirty(value) {
+        setDirty(value);
       },
     };
 
@@ -79,7 +101,7 @@ export function getFieldArrayStore<
     form.internal.fieldArrays[name] = fieldArray;
 
     // Add name of field array to form
-    form.internal.setFieldArrayNames((names) => [...names, name]);
+    form.internal.fieldArrayNames!.push(name);
   }
 
   // Return store of field array

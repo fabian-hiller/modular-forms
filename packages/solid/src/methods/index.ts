@@ -1,19 +1,22 @@
-export * from './clearError';
-export * from './clearResponse';
-export * from './focus';
-export * from './getArrayValues';
-export * from './getError';
-export * from './getValue';
-export * from './getValues';
-export * from './hasField';
-export * from './hasFieldArray';
+export {
+  clearError,
+  clearResponse,
+  focus,
+  getArrayValues,
+  getError,
+  getValue,
+  getValues,
+  hasField,
+  hasFieldArray,
+  reset,
+  setError,
+  setResponse,
+  validate,
+} from '@modular-forms/core';
 export * from './insert';
 export * from './move';
 export * from './remove';
 export * from './replace';
-export * from './reset';
-export * from './setError';
-export * from './setResponse';
 export * from './setValue';
+export * from './setValues';
 export * from './swap';
-export * from './validate';

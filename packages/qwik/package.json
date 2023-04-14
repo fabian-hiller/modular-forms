@@ -65,6 +65,6 @@
     "@builder.io/qwik-city": "0.100.0"
   },
   "dependencies": {
-    "@modular-forms/shared": "workspace:^"
+    "@modular-forms/core": "workspace:^"
   }
 }

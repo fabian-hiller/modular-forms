@@ -1,6 +1,6 @@
 import { $, type QRL } from '@builder.io/qwik';
-import type { MaybeValue } from '@modular-forms/shared';
-import { email as validate } from '@modular-forms/shared';
+import type { MaybeValue } from '@modular-forms/core';
+import { email as validate } from '@modular-forms/core';
 
 type Value = MaybeValue<string>;
 

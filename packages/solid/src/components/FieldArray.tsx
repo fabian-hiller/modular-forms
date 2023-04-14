@@ -1,21 +1,24 @@
-import {
+import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
-} from '@modular-forms/shared';
-import { createMemo, JSX } from 'solid-js';
-import { createLifecycle } from '../primitives';
-import { FieldArrayStore, FieldValue, FormStore } from '../types';
-import { getFieldArrayStore } from '../utils';
+} from '@modular-forms/core';
+import { handleLifecycle } from '@modular-forms/core';
+import { createEffect, createMemo, onCleanup, type JSX } from 'solid-js';
+import type { FieldArrayStore, FormStore } from '../types';
+import { initializeFieldArrayStore } from '../utils';
 
+/**
+ * Value type of the field array props.
+ */
 export type FieldArrayProps<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   name: TFieldArrayName;
@@ -31,10 +34,10 @@ export type FieldArrayProps<
  * Headless field array that provides reactive properties and state.
  */
 export function FieldArray<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   props: FieldArrayProps<
     TFieldValues,
@@ -45,11 +48,13 @@ export function FieldArray<
 ): JSX.Element {
   // Get store of specified field array
   const getFieldArray = createMemo(() =>
-    getFieldArrayStore(props.of, props.name)
+    initializeFieldArrayStore(props.of, props.name)
   );
 
-  // Create lifecycle of field array
-  createLifecycle(props, getFieldArray);
+  // Create lifecycle of field
+  createEffect(() => {
+    handleLifecycle({ store: getFieldArray(), ...props }, onCleanup);
+  });
 
   return <>{props.children(getFieldArray())}</>;
 }

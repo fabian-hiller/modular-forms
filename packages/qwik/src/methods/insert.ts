@@ -5,8 +5,8 @@ import type {
   FieldValues,
   InsertOptions,
   ResponseData,
-} from '@modular-forms/shared';
-import { insert as insertMethod } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { insert as insertMethod } from '@modular-forms/core';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 

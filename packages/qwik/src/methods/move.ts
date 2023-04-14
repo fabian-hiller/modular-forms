@@ -4,8 +4,8 @@ import type {
   FieldValues,
   MoveOptions,
   ResponseData,
-} from '@modular-forms/shared';
-import { move as moveMethod } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { move as moveMethod } from '@modular-forms/core';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 

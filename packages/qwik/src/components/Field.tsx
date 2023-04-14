@@ -20,13 +20,13 @@ import type {
   PartialKey,
   ResponseData,
   ValidateField,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 import {
   getElementInput,
   getFieldStore,
   updateFieldValue,
   validateIfRequired,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 import type { FieldStore, FormStore } from '../types';
 import { Lifecycle } from './Lifecycle';
 

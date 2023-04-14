@@ -4,8 +4,8 @@ import type {
   MaybeFunction,
   PartialValues,
   ValidateForm,
-} from '@modular-forms/shared';
-import { zodForm } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { zodForm } from '@modular-forms/core';
 import type { ZodType } from 'zod';
 
 /**

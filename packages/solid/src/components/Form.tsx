@@ -1,18 +1,40 @@
-import {
+import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  MaybePromise,
   ResponseData,
-} from '@modular-forms/shared';
-import { JSX, batch, splitProps } from 'solid-js';
-import { FieldValue, FormStore, SubmitEvent, SubmitHandler } from '../types';
-import { getValues, validate } from '../methods';
+} from '@modular-forms/core';
+import { getValues, handleSubmit } from '@modular-forms/core';
+import { batch, type JSX, splitProps } from 'solid-js';
+import type { FormStore } from '../types';
 
+/**
+ * Value type of the submit event object.
+ */
+export type SubmitEvent = Event & {
+  submitter: HTMLElement;
+} & {
+  currentTarget: HTMLFormElement;
+  target: Element;
+};
+
+/**
+ * Function type to handle the submission of the form.
+ */
+export type SubmitHandler<TFieldValues extends FieldValues> = (
+  values: TFieldValues,
+  event: SubmitEvent
+) => MaybePromise<any>;
+
+/**
+ * Value type of the form properties.
+ */
 export type FormProps<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   onSubmit: SubmitHandler<TFieldValues>;
@@ -29,10 +51,10 @@ export type FormProps<
  * default form validation.
  */
 export function Form<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   props: FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
 ): JSX.Element {
@@ -49,46 +71,27 @@ export function Form<
     ]
   );
 
-  // Return HTML form element and include handleSubmit in onSubmit
   return (
     <form
       {...other}
-      ref={props.of.internal.setElement}
+      noValidate
+      ref={props.of.element}
       onSubmit={async (event: SubmitEvent) => {
         // Prevent default behavior of browser
         event.preventDefault();
 
-        batch(() => {
-          // Reset response if it is not to be kept
-          if (!options.keepResponse) {
-            local.of.internal.setResponse({});
-          }
+        // Destructure local props
+        // eslint-disable-next-line solid/reactivity
+        const { of: form, onSubmit } = local;
 
-          // Increase submit count and set submitted and submitting to "true"
-          local.of.internal.setSubmitCount((count) => count + 1);
-          local.of.internal.setSubmitted(true);
-          local.of.internal.setSubmitting(true);
-        });
-
-        // Try to run submit action if form is valid
-        try {
-          if (await validate(local.of, options)) {
-            await local.onSubmit(getValues(local.of, options), event);
-          }
-
-          // If an error occurred, set error response
-        } catch (error: any) {
-          local.of.internal.setResponse({
-            status: 'error',
-            message: error?.message || 'An unknown error has occurred.',
-          });
-
-          // Finally set submitting back to "false"
-        } finally {
-          local.of.internal.setSubmitting(false);
-        }
+        // Handle submission and execute user action
+        await handleSubmit(
+          form,
+          () => onSubmit(getValues(form, options) as TFieldValues, event),
+          options,
+          batch
+        );
       }}
-      noValidate
     />
   );
 }

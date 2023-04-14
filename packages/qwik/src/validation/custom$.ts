@@ -1,6 +1,6 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
-import type { FieldValue, Maybe, MaybePromise } from '@modular-forms/shared';
-import { custom } from '@modular-forms/shared';
+import type { FieldValue, Maybe, MaybePromise } from '@modular-forms/core';
+import { custom } from '@modular-forms/core';
 
 /**
  * See {@link custom$}

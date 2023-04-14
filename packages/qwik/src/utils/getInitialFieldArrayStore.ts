@@ -1,4 +1,4 @@
-import type { FieldArrayPath, FieldValues } from '@modular-forms/shared';
+import type { FieldArrayPath, FieldValues } from '@modular-forms/core';
 import type { FieldArrayStore } from '../types';
 
 /**

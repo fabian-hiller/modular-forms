@@ -4,7 +4,7 @@ import type {
   FieldPath,
   FieldValues,
   ResponseData,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 import type { FormOptions, FormStore } from '../types';
 import { getInitialStores } from '../utils';
 

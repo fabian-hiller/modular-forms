@@ -4,8 +4,8 @@ import type {
   FieldValue,
   FieldValues,
   Maybe,
-} from '@modular-forms/shared';
-import { isFieldDirty } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { isFieldDirty } from '@modular-forms/core';
 import type { FieldStore } from '../types';
 
 /**

@@ -26,7 +26,7 @@ export type {
   ValidateFieldArray,
   ValidateForm,
   ValidationMode,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 export * from './field';
 export * from './fieldArray';
 export * from './form';

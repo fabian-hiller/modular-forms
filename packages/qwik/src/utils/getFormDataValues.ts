@@ -1,5 +1,5 @@
 import { noSerialize } from '@builder.io/qwik';
-import type { FieldValues, Maybe, PartialValues } from '@modular-forms/shared';
+import type { FieldValues, Maybe, PartialValues } from '@modular-forms/core';
 import type { FormDataInfo } from '../types';
 
 /**

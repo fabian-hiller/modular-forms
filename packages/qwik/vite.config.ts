@@ -13,7 +13,11 @@ export default defineConfig(() => {
       },
       minify: false,
       rollupOptions: {
-        external: ['@builder.io/qwik', '@builder.io/qwik-city', 'zod'],
+        external: [
+          '@builder.io/qwik',
+          '@builder.io/qwik-city',
+          '@modular-forms/core',
+        ],
       },
     },
     plugins: [qwikVite()],

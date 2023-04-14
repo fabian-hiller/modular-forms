@@ -4,8 +4,8 @@ import type {
   FieldValues,
   ResponseData,
   SwapOptions,
-} from '@modular-forms/shared';
-import { swap as swapMethod } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { swap as swapMethod } from '@modular-forms/core';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 

@@ -5,8 +5,8 @@ import type {
   FieldValues,
   ResponseData,
   ValueOptions,
-} from '@modular-forms/shared';
-import { setValue as setValueMethod } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { setValue as setValueMethod } from '@modular-forms/core';
 import type { FormStore } from '../types';
 import { initializeFieldStore } from '../utils';
 

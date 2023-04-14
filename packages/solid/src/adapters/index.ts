@@ -1,2 +1,1 @@
-export * from './zodField';
-export * from './zodForm';
+export { zodField, zodForm } from '@modular-forms/core';

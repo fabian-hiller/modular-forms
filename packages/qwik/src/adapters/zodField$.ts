@@ -4,8 +4,8 @@ import type {
   Maybe,
   MaybeFunction,
   ValidateField,
-} from '@modular-forms/shared';
-import { zodField } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { zodField } from '@modular-forms/core';
 import type { ZodType } from 'zod';
 
 /**

@@ -12,8 +12,8 @@ import type {
   Maybe,
   PartialValues,
   ResponseData,
-} from '@modular-forms/shared';
-import { getPathValue, getUniqueId } from '@modular-forms/shared';
+} from '@modular-forms/core';
+import { getPathValue, getUniqueId } from '@modular-forms/core';
 import type { FormActionStore } from '../types';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 import { getInitialFieldStore } from './getInitialFieldStore';

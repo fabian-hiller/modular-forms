@@ -1,116 +1,141 @@
-import {
-  ValidationMode,
-  FormResponse,
+import type {
   FieldValues,
-} from '@modular-forms/shared';
-import { createSignal } from 'solid-js';
-import {
-  DeepPartial,
-  FieldArrayStore,
-  FieldStore,
-  FieldValue,
-  FormState,
-  ValidateForm,
-} from '../types';
-
-type FormOptions<TFieldValues extends FieldValues<FieldValue>> = Partial<{
-  initialValues: DeepPartial<TFieldValues>;
-  validateOn: ValidationMode;
-  revalidateOn: ValidationMode;
-  validate: ValidateForm<TFieldValues>;
-}>;
+  ResponseData,
+  FieldPath,
+  FieldArrayPath,
+  FieldPathValue,
+  MaybeValue,
+  PartialKey,
+} from '@modular-forms/core';
+import type { JSX } from 'solid-js/jsx-runtime';
+import type { FormProps, FieldProps, FieldArrayProps } from '../components';
+import { Form, Field, FieldArray } from '../components';
+import type { FormOptions, FormStore } from '../types';
+import { createFormStore } from './createFormStore';
 
 /**
- * Creates the core of a modular form that contains its reactive state.
+ * Creates and returns the store of the form as well as a linked Form, Field
+ * and FieldArray component.
  *
  * @param options The form options.
  *
- * @returns The state of the form.
+ * @returns The store and linked components.
  */
-export function createForm<TFieldValues extends FieldValues<FieldValue>>(
-  options: FormOptions<TFieldValues> = {}
-): FormState<TFieldValues> {
-  // Destructure options and set default values
-  const {
-    initialValues = {},
-    validateOn = 'submit',
-    revalidateOn = 'input',
-    validate,
-  } = options;
+export function createForm<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData = undefined,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+>(
+  options?: FormOptions<TFieldValues>
+): [
+  FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  {
+    Form: (
+      props: Omit<
+        FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+        'of'
+      >
+    ) => JSX.Element;
+    Field: (
+      props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
+        ? PartialKey<
+            Omit<
+              FieldProps<
+                TFieldValues,
+                TResponseData,
+                TFieldName,
+                TFieldArrayName
+              >,
+              'of'
+            >,
+            'type'
+          >
+        : Omit<
+            FieldProps<
+              TFieldValues,
+              TResponseData,
+              TFieldName,
+              TFieldArrayName
+            >,
+            'of'
+          >
+    ) => JSX.Element;
+    FieldArray: (
+      props: Omit<
+        FieldArrayProps<
+          TFieldValues,
+          TResponseData,
+          TFieldName,
+          TFieldArrayName
+        >,
+        'of'
+      >
+    ) => JSX.Element;
+  }
+] {
+  // Create form store
+  const form = createFormStore<
+    TFieldValues,
+    TResponseData,
+    TFieldName,
+    TFieldArrayName
+  >(options);
 
-  // Create map of fields and field arrays
-  const fields = new Map<string, FieldStore<TFieldValues>>();
-  const fieldArrays = new Map<string, FieldArrayStore>();
-
-  // Create field names, field array names and element signal
-  const [getFieldNames, setFieldNames] = createSignal<string[]>([]);
-  const [getFieldArrayNames, setFieldArrayNames] = createSignal<string[]>([]);
-  const [getElement, setElement] = createSignal<HTMLFormElement>();
-
-  // Create submit count, submitting, submited and validating signal
-  const [getSubmitCount, setSubmitCount] = createSignal(0);
-  const [getSubmitting, setSubmitting] = createSignal(false);
-  const [getSubmitted, setSubmitted] = createSignal(false);
-  const [getValidating, setValidating] = createSignal(false);
-
-  // Create touched, dirty and invalid signal
-  const [getTouched, setTouched] = createSignal(false);
-  const [getDirty, setDirty] = createSignal(false);
-  const [getInvalid, setInvalid] = createSignal(false);
-
-  // Create response signal
-  const [getResponse, setResponse] = createSignal<FormResponse>({});
-
-  // Return form functions and state
-  return {
-    internal: {
-      validators: new Set(),
-      initialValues,
-      validateOn,
-      revalidateOn,
-      validate,
-      fields,
-      fieldArrays,
-      getFieldNames,
-      setFieldNames,
-      getFieldArrayNames,
-      setFieldArrayNames,
-      setElement,
-      setSubmitCount,
-      setSubmitting,
-      setSubmitted,
-      setValidating,
-      setTouched,
-      setDirty,
-      setInvalid,
-      setResponse,
+  // Return form store and linked components
+  return [
+    form,
+    {
+      Form: (
+        props: Omit<
+          FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+          'of'
+        >
+      ) => Form({ of: form, ...props }),
+      Field: (
+        props: FieldPathValue<
+          TFieldValues,
+          TFieldName
+        > extends MaybeValue<string>
+          ? PartialKey<
+              Omit<
+                FieldProps<
+                  TFieldValues,
+                  TResponseData,
+                  TFieldName,
+                  TFieldArrayName
+                >,
+                'of'
+              >,
+              'type'
+            >
+          : Omit<
+              FieldProps<
+                TFieldValues,
+                TResponseData,
+                TFieldName,
+                TFieldArrayName
+              >,
+              'of'
+            >
+      ) =>
+        Field({ of: form, ...props } as FieldProps<
+          TFieldValues,
+          TResponseData,
+          TFieldName,
+          TFieldArrayName
+        >),
+      FieldArray: (
+        props: Omit<
+          FieldArrayProps<
+            TFieldValues,
+            TResponseData,
+            TFieldName,
+            TFieldArrayName
+          >,
+          'of'
+        >
+      ) => FieldArray({ of: form, ...props }),
     },
-    get element() {
-      return getElement();
-    },
-    get submitCount() {
-      return getSubmitCount();
-    },
-    get submitting() {
-      return getSubmitting();
-    },
-    get submitted() {
-      return getSubmitted();
-    },
-    get validating() {
-      return getValidating();
-    },
-    get touched() {
-      return getTouched();
-    },
-    get dirty() {
-      return getDirty();
-    },
-    get invalid() {
-      return getInvalid();
-    },
-    get response() {
-      return getResponse();
-    },
-  };
+  ];
 }

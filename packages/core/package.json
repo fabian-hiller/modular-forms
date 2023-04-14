@@ -1,6 +1,6 @@
 {
-  "name": "@modular-forms/shared",
-  "description": "Shared code between our packages",
+  "name": "@modular-forms/core",
+  "description": "The core logic of Modular Forms",
   "version": "0.1.0",
   "license": "MIT",
   "author": "Fabian Hiller",

@@ -6,7 +6,7 @@ import type {
   FieldStore as FieldStoreType,
   InternalFieldStore,
   ValidateField,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 
 /**
  * Value type ot the field store.

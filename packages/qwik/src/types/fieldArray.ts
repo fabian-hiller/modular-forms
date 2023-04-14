@@ -5,7 +5,7 @@ import type {
   FieldValues,
   InternalFieldArrayStore,
   ValidateFieldArray,
-} from '@modular-forms/shared';
+} from '@modular-forms/core';
 
 /**
  * Value type ot the field array store.
