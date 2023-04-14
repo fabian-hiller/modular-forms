@@ -1,4 +1,4 @@
-import type { NoSerialize, Signal } from '@builder.io/qwik';
+import type { NoSerialize, QRL, Signal } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type {
   FieldValues,
@@ -10,6 +10,10 @@ import type {
   PartialValues,
   ValidateForm,
   InitialValues,
+  FieldArrayPath,
+  FieldPath,
+  FormStore as FormStoreType,
+  InternalFormStore,
 } from '@modular-forms/shared';
 import type { TypeInfoPath } from './path';
 
@@ -51,7 +55,27 @@ export type FormOptions<
       true
     >
   >;
-  validate?: Maybe<ValidateForm<TFieldValues>>;
+  validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
   validateOn?: Maybe<ValidationMode>;
   revalidateOn?: Maybe<ValidationMode>;
+};
+
+/**
+ * Value type of the form store.
+ */
+export type FormStore<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData,
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = Omit<
+  FormStoreType<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  'internal'
+> & {
+  internal: Omit<
+    InternalFormStore<TFieldValues, TFieldName, TFieldArrayName>,
+    'validate'
+  > & {
+    validate: Maybe<QRL<ValidateForm<TFieldValues>>>;
+  };
 };

@@ -4,7 +4,6 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldValues,
-  FormStore,
   MaybeValue,
   PartialKey,
   ResponseData,
@@ -17,7 +16,7 @@ import {
   type FieldArrayProps,
   FieldArray,
 } from '../components';
-import type { FormOptions } from '../types';
+import type { FormOptions, FormStore } from '../types';
 import { useFormStore } from './useFormStore';
 
 /**

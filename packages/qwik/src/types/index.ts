@@ -1,17 +1,14 @@
 export type {
   FieldArrayPath,
   FieldArrayPathValue,
-  FieldArrayStore,
   FieldElement,
   FieldPath,
   FieldPathValue,
-  FieldStore,
   FieldType,
   FieldValue,
   FieldValues,
   FormErrors,
   FormResponse,
-  FormStore,
   FormValues,
   InitialValues,
   Maybe,
@@ -30,5 +27,7 @@ export type {
   ValidateForm,
   ValidationMode,
 } from '@modular-forms/shared';
+export * from './field';
+export * from './fieldArray';
 export * from './form';
 export * from './path';

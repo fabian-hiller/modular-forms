@@ -2,11 +2,11 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
-  FormStore,
   RemoveOptions,
   ResponseData,
 } from '@modular-forms/shared';
 import { remove as removeMethod } from '@modular-forms/shared';
+import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
 /**

@@ -1,8 +1,5 @@
-import type {
-  FieldArrayPath,
-  FieldArrayStore,
-  FieldValues,
-} from '@modular-forms/shared';
+import type { FieldArrayPath, FieldValues } from '@modular-forms/shared';
+import type { FieldArrayStore } from '../types';
 
 /**
  * Value type of the initial field array state.

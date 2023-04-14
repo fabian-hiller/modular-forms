@@ -3,10 +3,9 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
-  FormStore,
   ResponseData,
 } from '@modular-forms/shared';
-import type { FormOptions } from '../types';
+import type { FormOptions, FormStore } from '../types';
 import { getInitialStores } from '../utils';
 
 /**

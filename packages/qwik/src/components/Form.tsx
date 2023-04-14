@@ -1,4 +1,3 @@
-/* eslint-disable qwik/valid-lexical-scope */
 import type { QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
@@ -6,7 +5,6 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
-  FormStore,
   Maybe,
   MaybePromise,
   MaybeQRL,
@@ -15,7 +13,7 @@ import type {
 } from '@modular-forms/shared';
 import { setErrorResponse } from '@modular-forms/shared';
 import { getValues, setError, validate } from '../methods';
-import type { FormActionStore } from '../types';
+import type { FormActionStore, FormStore } from '../types';
 
 /**
  * Function type to handle the submission of the form.
@@ -24,7 +22,7 @@ export type SubmitHandler<TFieldValues extends FieldValues> = MaybeQRL<
   (
     values: TFieldValues,
     event: QwikSubmitEvent<HTMLFormElement>
-  ) => MaybePromise<unknown>
+  ) => MaybePromise<any>
 >;
 
 /**
@@ -126,6 +124,7 @@ export function Form<
               !reloadDocument
                 ? action?.submit(encType ? new FormData(element) : values)
                 : undefined,
+              // eslint-disable-next-line qwik/valid-lexical-scope
               onSubmit$?.(values as TFieldValues, event),
             ]);
 

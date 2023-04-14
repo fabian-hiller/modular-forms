@@ -2,11 +2,11 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
-  FormStore,
   ResponseData,
   SwapOptions,
 } from '@modular-forms/shared';
 import { swap as swapMethod } from '@modular-forms/shared';
+import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
 /**

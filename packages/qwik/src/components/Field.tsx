@@ -1,11 +1,10 @@
-import {
+import type {
   PropFunction,
   QwikChangeEvent,
   QwikFocusEvent,
   QRL,
-  noSerialize,
 } from '@builder.io/qwik';
-import { $ } from '@builder.io/qwik';
+import { $, noSerialize } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
@@ -13,10 +12,8 @@ import type {
   FieldElement,
   FieldPath,
   FieldPathValue,
-  FieldStore,
   FieldType,
   FieldValues,
-  FormStore,
   Maybe,
   MaybeArray,
   MaybeValue,
@@ -30,6 +27,7 @@ import {
   updateFieldValue,
   validateIfRequired,
 } from '@modular-forms/shared';
+import type { FieldStore, FormStore } from '../types';
 import { Lifecycle } from './Lifecycle';
 
 /**
@@ -103,7 +101,10 @@ export function Field<
   const { of: form } = props;
 
   // Get store of specified field
-  const field = getFieldStore(form, name)!;
+  const field = getFieldStore(form, name) as FieldStore<
+    TFieldValues,
+    TFieldName
+  >;
 
   return (
     <Lifecycle key={name} store={field} {...props}>

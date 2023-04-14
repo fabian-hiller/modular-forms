@@ -40,11 +40,9 @@ export type FormErrors<TFieldValues extends FieldValues> = {
 /**
  * Function type to validate a form.
  */
-export type ValidateForm<TFieldValues extends FieldValues> = MaybeQRL<
-  (
-    values: PartialValues<TFieldValues>
-  ) => MaybePromise<FormErrors<TFieldValues>>
->;
+export type ValidateForm<TFieldValues extends FieldValues> = (
+  values: PartialValues<TFieldValues>
+) => MaybePromise<FormErrors<TFieldValues>>;
 
 /**
  * Value type of the fields store.
@@ -91,6 +89,22 @@ export type PartialValues<Value> = Value extends
   : { [Key in keyof Value]?: PartialValues<Value[Key]> };
 
 /**
+ * Value type of the internal form store.
+ */
+export type InternalFormStore<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = {
+  fields: FieldsStore<TFieldValues, TFieldName>;
+  fieldArrays: FieldArraysStore<TFieldValues, TFieldArrayName>;
+  validate: Maybe<MaybeQRL<ValidateForm<TFieldValues>>>;
+  validators: number[];
+  validateOn: ValidationMode;
+  revalidateOn: ValidationMode;
+};
+
+/**
  * Value type of the form store.
  */
 export type FormStore<
@@ -99,17 +113,7 @@ export type FormStore<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
-  internal: {
-    initialValues?: PartialValues<TFieldValues>;
-    fields: FieldsStore<TFieldValues, TFieldName>;
-    fieldNames?: TFieldName[];
-    fieldArrays: FieldArraysStore<TFieldValues, TFieldArrayName>;
-    fieldArrayNames?: TFieldArrayName[];
-    validate: ValidateForm<TFieldValues> | undefined;
-    validators: number[];
-    validateOn: ValidationMode;
-    revalidateOn: ValidationMode;
-  };
+  internal: InternalFormStore<TFieldValues, TFieldName, TFieldArrayName>;
   element: HTMLFormElement | undefined;
   submitCount: number;
   submitting: boolean;

@@ -59,9 +59,9 @@ export type FieldValues = {
 /**
  * Function type to validate a field.
  */
-export type ValidateField<TFieldValue> = MaybeQRL<
-  (value: TFieldValue | undefined) => MaybePromise<string>
->;
+export type ValidateField<TFieldValue> = (
+  value: TFieldValue | undefined
+) => MaybePromise<string>;
 
 /**
  * Value type ot the field store.
@@ -71,17 +71,25 @@ export type ValidateField<TFieldValue> = MaybeQRL<
  * value, on the other hand, is used to determine whether the field is dirty
  * and moves with it.
  */
+export type InternalFieldStore<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>
+> = {
+  initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  validate: MaybeQRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[];
+  elements: FieldElement[];
+  consumers: number[];
+};
+
+/**
+ * Value type ot the field store.
+ */
 export type FieldStore<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>
 > = {
-  internal: {
-    initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-    startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-    validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
-    elements: FieldElement[];
-    consumers: number[];
-  };
+  internal: InternalFieldStore<TFieldValues, TFieldName>;
   name: TFieldName;
   value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   error: string;

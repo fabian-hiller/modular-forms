@@ -1,12 +1,12 @@
 import type {
   FieldArrayPath,
-  FieldArrayStore,
   FieldPath,
   FieldValues,
   FormStore,
   ResponseData,
 } from '@modular-forms/shared';
 import { getFieldArrayStore } from '@modular-forms/shared';
+import type { FieldArrayStore } from '../types';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 
 /**
@@ -30,5 +30,8 @@ export function initializeFieldArrayStore<
   if (!getFieldArrayStore(form, name)) {
     form.internal.fieldArrays[name] = getInitialFieldArrayStore(name);
   }
-  return getFieldArrayStore(form, name)!;
+  return getFieldArrayStore(form, name) as FieldArrayStore<
+    TFieldValues,
+    TFieldArrayName
+  >;
 }

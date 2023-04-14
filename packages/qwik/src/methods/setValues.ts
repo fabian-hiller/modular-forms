@@ -3,12 +3,12 @@ import type {
   FieldArrayPathValue,
   FieldPath,
   FieldValues,
-  FormStore,
   PartialValues,
   ResponseData,
   ValuesOptions,
 } from '@modular-forms/shared';
 import { setValues as setValuesMethod } from '@modular-forms/shared';
+import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
 /**

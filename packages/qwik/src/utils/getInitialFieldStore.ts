@@ -1,12 +1,12 @@
 import type {
   FieldPath,
   FieldPathValue,
-  FieldStore,
   FieldValue,
   FieldValues,
   Maybe,
 } from '@modular-forms/shared';
 import { isFieldDirty } from '@modular-forms/shared';
+import type { FieldStore } from '../types';
 
 /**
  * Value type of the initial field state.

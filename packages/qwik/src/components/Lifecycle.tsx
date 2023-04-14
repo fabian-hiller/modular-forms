@@ -12,9 +12,7 @@ import type {
   FieldArrayStore,
   FieldPath,
   FieldPathValue,
-  FieldStore,
   FieldValues,
-  FormStore,
   Maybe,
   MaybeArray,
   ResponseData,
@@ -22,6 +20,7 @@ import type {
   ValidateFieldArray,
 } from '@modular-forms/shared';
 import { handleLifecycle } from '@modular-forms/shared';
+import type { FieldStore, FormStore } from '../types';
 
 /**
  * Value type of the field specific properties.
