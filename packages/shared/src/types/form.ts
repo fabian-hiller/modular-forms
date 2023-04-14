@@ -96,8 +96,11 @@ export type InternalFormStore<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
+  initialValues?: PartialValues<TFieldValues>;
   fields: FieldsStore<TFieldValues, TFieldName>;
+  fieldNames?: TFieldName[];
   fieldArrays: FieldArraysStore<TFieldValues, TFieldArrayName>;
+  fieldArrayNames?: TFieldArrayName[];
   validate: Maybe<MaybeQRL<ValidateForm<TFieldValues>>>;
   validators: number[];
   validateOn: ValidationMode;

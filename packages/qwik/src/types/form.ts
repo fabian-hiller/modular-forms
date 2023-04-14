@@ -74,7 +74,7 @@ export type FormStore<
 > & {
   internal: Omit<
     InternalFormStore<TFieldValues, TFieldName, TFieldArrayName>,
-    'validate'
+    'initialValues' | 'fieldNames' | 'fieldArrayNames' | 'validate'
   > & {
     validate: Maybe<QRL<ValidateForm<TFieldValues>>>;
   };

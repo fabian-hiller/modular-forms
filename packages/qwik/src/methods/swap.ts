@@ -27,10 +27,7 @@ export function swap<
   options: SwapOptions
 ): void {
   swapMethod(
-    {
-      initializeFieldStore,
-      initializeFieldArrayStore,
-    },
+    { initializeFieldStore, initializeFieldArrayStore },
     form,
     name,
     options

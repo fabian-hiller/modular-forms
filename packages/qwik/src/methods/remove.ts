@@ -27,10 +27,7 @@ export function remove<
   options: RemoveOptions
 ): void {
   removeMethod(
-    {
-      initializeFieldStore,
-      initializeFieldArrayStore,
-    },
+    { initializeFieldStore, initializeFieldArrayStore },
     form,
     name,
     options

@@ -29,10 +29,7 @@ export function insert<
   options: InsertOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
 ): void {
   insertMethod(
-    {
-      initializeFieldStore,
-      initializeFieldArrayStore,
-    },
+    { initializeFieldStore, initializeFieldArrayStore },
     form,
     name,
     options

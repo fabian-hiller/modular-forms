@@ -28,10 +28,7 @@ export function move<
   options: MoveOptions
 ): void {
   moveMethod(
-    {
-      initializeFieldStore,
-      initializeFieldArrayStore,
-    },
+    { initializeFieldStore, initializeFieldArrayStore },
     form,
     name,
     options

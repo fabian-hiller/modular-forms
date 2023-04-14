@@ -29,10 +29,7 @@ export function replace<
   options: ReplaceOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
 ): void {
   replaceMethod(
-    {
-      initializeFieldStore,
-      initializeFieldArrayStore,
-    },
+    { initializeFieldStore, initializeFieldArrayStore },
     form,
     name,
     options
