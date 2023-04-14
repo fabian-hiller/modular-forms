@@ -1,5 +1,6 @@
 import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
 import type { MaybeValue } from '@modular-forms/shared';
+import { maxSize as validate } from '@modular-forms/shared';
 
 type Value = MaybeValue<
   | NoSerialize<Blob>
@@ -20,12 +21,5 @@ export function maxSize(
   requirement: number,
   error: string
 ): QRL<(value: Value) => string> {
-  return $((value: Value) =>
-    value &&
-    (Array.isArray(value)
-      ? [...value].some((file) => file.size > requirement)
-      : value.size > requirement)
-      ? error
-      : ''
-  );
+  return $((value: Value) => validate(requirement, error)(value));
 }

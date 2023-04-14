@@ -1,5 +1,6 @@
 import { $, type QRL } from '@builder.io/qwik';
 import type { MaybeValue } from '@modular-forms/shared';
+import { email as validate } from '@modular-forms/shared';
 
 type Value = MaybeValue<string>;
 
@@ -11,12 +12,5 @@ type Value = MaybeValue<string>;
  * @returns A validation function.
  */
 export function email(error: string): QRL<(value: Value) => string> {
-  return $((value: Value) =>
-    value &&
-    !/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i.test(
-      value
-    )
-      ? error
-      : ''
-  );
+  return $((value: Value) => validate(error)(value));
 }

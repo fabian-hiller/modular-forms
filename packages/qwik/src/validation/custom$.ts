@@ -1,5 +1,6 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
 import type { FieldValue, Maybe, MaybePromise } from '@modular-forms/shared';
+import { custom } from '@modular-forms/shared';
 
 /**
  * See {@link custom$}
@@ -8,12 +9,7 @@ export function customQrl<TFieldValue extends FieldValue>(
   requirement: QRL<(value: Maybe<TFieldValue>) => MaybePromise<boolean>>,
   error: string
 ): QRL<(value: Maybe<TFieldValue>) => Promise<string>> {
-  return $(async (value: Maybe<TFieldValue>) =>
-    (Array.isArray(value) ? value.length : value || value === 0) &&
-    !(await requirement(value))
-      ? error
-      : ''
-  );
+  return $((value: Maybe<TFieldValue>) => custom(requirement, error)(value));
 }
 
 /**

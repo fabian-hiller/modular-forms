@@ -1,6 +1,4 @@
-import { $, type QRL } from '@builder.io/qwik';
-import type { MaybeValue } from '@modular-forms/shared';
-import { pattern as validate } from '@modular-forms/shared';
+import type { MaybeValue } from '../types';
 
 type Value = MaybeValue<string>;
 
@@ -15,6 +13,6 @@ type Value = MaybeValue<string>;
 export function pattern(
   requirement: RegExp,
   error: string
-): QRL<(value: Value) => string> {
-  return $((value: Value) => validate(requirement, error)(value));
+): (value: Value) => string {
+  return (value: Value) => (value && !requirement.test(value) ? error : '');
 }

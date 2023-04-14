@@ -1,5 +1,6 @@
 import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
 import type { MaybeValue } from '@modular-forms/shared';
+import { minLength as validate } from '@modular-forms/shared';
 
 type Value = MaybeValue<
   string | string[] | number[] | NoSerialize<Blob[]> | NoSerialize<File[]>
@@ -17,7 +18,5 @@ export function minLength(
   requirement: number,
   error: string
 ): QRL<(value: Value) => string> {
-  return $((value: Value) =>
-    value?.length && value.length < requirement ? error : ''
-  );
+  return $((value: Value) => validate(requirement, error)(value));
 }
