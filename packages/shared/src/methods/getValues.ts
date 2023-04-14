@@ -45,6 +45,12 @@ export function getValues<
     shouldValid = false,
   } = getOptions(arg2, arg3);
 
+  // If no name is specified, set listener to be notified when a new field is
+  // added
+  if (typeof arg2 !== 'string' && !Array.isArray(arg2)) {
+    form.internal.fieldNames;
+  }
+
   // Return object that contains values of fields
   return getFieldValues(form, getFilteredNames(form, arg2)[0], {
     initialValue: typeof arg2 === 'string' ? [] : {},

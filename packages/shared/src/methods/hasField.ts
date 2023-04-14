@@ -43,6 +43,12 @@ export function hasField<
   // Get store of specified field
   const field = getFieldStore(form, name as TFieldName);
 
+  // If field is not present, set listener to be notified when a new field is
+  // added
+  if (!field) {
+    form.internal.fieldNames;
+  }
+
   // Return whether field is present and matches filter options
   return (
     !!field &&

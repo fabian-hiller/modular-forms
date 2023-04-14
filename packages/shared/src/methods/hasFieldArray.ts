@@ -43,6 +43,12 @@ export function hasFieldArray<
   // Get store of specified field array
   const fieldArray = getFieldArrayStore(form, name as TFieldArrayName);
 
+  // If field array is not present, set listener to be notified when a new
+  // field array is added
+  if (!fieldArray) {
+    form.internal.fieldArrayNames;
+  }
+
   // Return whether field array is present and matches filter options
   return (
     !!fieldArray &&
