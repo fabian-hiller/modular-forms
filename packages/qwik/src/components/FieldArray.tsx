@@ -2,22 +2,26 @@ import type { QRL } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
   FieldArrayPath,
+  FieldArrayStore,
   FieldPath,
   FieldValues,
+  FormStore,
   Maybe,
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
 } from '@modular-forms/shared';
-import type { FormStore, FieldArrayStore, FieldValue } from '../types';
-import { getFieldArrayStore } from '../utils';
+import { getFieldArrayStore } from '@modular-forms/shared';
 import { Lifecycle } from './Lifecycle';
 
+/**
+ * Value type of the field array props.
+ */
 export type FieldArrayProps<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   name: TFieldArrayName;
@@ -33,10 +37,10 @@ export type FieldArrayProps<
  * Headless field array that provides reactive properties and state.
  */
 export function FieldArray<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >({
   children,
   name,
@@ -47,11 +51,8 @@ export function FieldArray<
   TFieldName,
   TFieldArrayName
 >): JSX.Element {
-  // Destructure props
-  const { of: form } = props;
-
   // Get store of specified field
-  const fieldArray = getFieldArrayStore(form, name);
+  const fieldArray = getFieldArrayStore(props.of, name)!;
 
   return (
     <Lifecycle key={name} store={fieldArray} {...props}>

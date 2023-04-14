@@ -3,15 +3,16 @@ import type {
   FieldValues,
   FormErrors,
   MaybeFunction,
+  PartialValues,
+  ValidateForm,
 } from '@modular-forms/shared';
 import type { ZodType } from 'zod';
 import { getParsedZodSchema } from '../utils';
-import type { FieldValue, PartialValues, ValidateForm } from '../types';
 
 /**
  * See {@link zodForm$}
  */
-export function zodFormQrl<TFieldValues extends FieldValues<FieldValue>>(
+export function zodFormQrl<TFieldValues extends FieldValues>(
   schema: QRL<MaybeFunction<ZodType<any, any, TFieldValues>>>
 ): QRL<ValidateForm<TFieldValues>> {
   return $(async (values: PartialValues<TFieldValues>) => {
@@ -24,7 +25,7 @@ export function zodFormQrl<TFieldValues extends FieldValues<FieldValue>>(
             errors[path] = error.message;
           }
           return errors;
-        }, {}) as FormErrors<TFieldValues, FieldValue>);
+        }, {}) as FormErrors<TFieldValues>);
   });
 }
 

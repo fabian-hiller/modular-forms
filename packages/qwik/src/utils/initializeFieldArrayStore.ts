@@ -1,15 +1,12 @@
 import type {
   FieldArrayPath,
+  FieldArrayStore,
   FieldPath,
   FieldValues,
+  FormStore,
   ResponseData,
 } from '@modular-forms/shared';
-import type {
-  FieldArrayStore,
-  FieldValue,
-  FormStore,
-  InitialFieldArrayState,
-} from '../types';
+import { getFieldArrayStore } from '@modular-forms/shared';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 
 /**
@@ -22,20 +19,16 @@ import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
  * @returns The reactive store.
  */
 export function initializeFieldArrayStore<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldArrayName,
-  initialState: InitialFieldArrayState
+  name: TFieldArrayName
 ): FieldArrayStore<TFieldValues, TFieldArrayName> {
-  if (!form.internal.fieldArrays[name]) {
-    form.internal.fieldArrays[name] = getInitialFieldArrayStore(
-      name,
-      initialState
-    );
+  if (!getFieldArrayStore(form, name)) {
+    form.internal.fieldArrays[name] = getInitialFieldArrayStore(name);
   }
-  return form.internal.fieldArrays[name];
+  return getFieldArrayStore(form, name)!;
 }

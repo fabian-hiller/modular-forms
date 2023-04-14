@@ -1,6 +1,5 @@
 import { $, type QRL } from '@builder.io/qwik';
-import type { Maybe, MaybePromise } from '@modular-forms/shared';
-import type { FieldValue } from '../types';
+import type { FieldValue, Maybe, MaybePromise } from '@modular-forms/shared';
 
 /**
  * Creates a custom validation function.

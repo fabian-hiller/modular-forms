@@ -10,33 +10,29 @@ import type {
   FormResponse,
   Maybe,
   MaybePromise,
-  ResponseData,
-} from '@modular-forms/shared';
-import type {
-  FieldValue,
-  FormActionStore,
-  FormDataInfo,
   PartialValues,
+  ResponseData,
   ValidateForm,
-} from '../types';
+} from '@modular-forms/shared';
+import type { FormActionStore, FormDataInfo } from '../types';
 import { getFormDataValues } from '../utils';
 
 export type FormActionResult<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData
 > = FormResponse<TResponseData> & {
-  errors?: Maybe<FormErrors<TFieldValues, FieldValue>>;
+  errors?: Maybe<FormErrors<TFieldValues>>;
 };
 
 type FormActionFunc<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData
 > = (
   values: TFieldValues,
   event: RequestEventAction
 ) => MaybePromise<FormActionResult<TFieldValues, TResponseData> | void>;
 
-type FormActionArg2<TFieldValues extends FieldValues<FieldValue>> =
+type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
       validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
@@ -46,7 +42,7 @@ type FormActionArg2<TFieldValues extends FieldValues<FieldValue>> =
  * See {@link formAction$}
  */
 export function formActionQrl<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData = undefined
 >(
   action: QRL<FormActionFunc<TFieldValues, TResponseData>>,
@@ -108,6 +104,7 @@ export function formActionQrl<
 
             // If an error occurred, set error response
           } catch (error: any) {
+            console.error(error);
             formActionStore.response = {
               status: 'error',
               message: 'An unknown error has occurred.',
@@ -132,7 +129,7 @@ export function formActionQrl<
  * @returns Form action constructor.
  */
 export const formAction$: <
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData = undefined
 >(
   actionQrl: FormActionFunc<TFieldValues, TResponseData>,

@@ -1,6 +1,24 @@
-import type { FieldPath, FieldValues, Maybe } from '@modular-forms/shared';
-import type { FieldStore, FieldValue, InitialFieldState } from '../types';
-import { isFieldDirty } from './isFieldDirty';
+import type {
+  FieldPath,
+  FieldPathValue,
+  FieldStore,
+  FieldValue,
+  FieldValues,
+  Maybe,
+} from '@modular-forms/shared';
+import { isFieldDirty } from '@modular-forms/shared';
+
+/**
+ * Value type of the initial field state.
+ */
+type InitialFieldState<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>
+> = {
+  value: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+  error: string;
+};
 
 /**
  * Returns the initial store of a field.
@@ -10,15 +28,19 @@ import { isFieldDirty } from './isFieldDirty';
  * @returns The initial store.
  */
 export function getInitialFieldStore<
-  TFieldValues extends FieldValues<FieldValue>,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>
 >(
   name: TFieldName,
   {
     value,
-    initialValue = value,
-    error = '',
-  }: InitialFieldState<TFieldValues, TFieldName>
+    initialValue,
+    error,
+  }: InitialFieldState<TFieldValues, TFieldName> = {
+    value: undefined,
+    initialValue: undefined,
+    error: '',
+  }
 ): FieldStore<TFieldValues, TFieldName> {
   const dirty = isFieldDirty(
     initialValue as Maybe<FieldValue>,

@@ -1,6 +1,5 @@
 import { $, type QRL } from '@builder.io/qwik';
-import type { Maybe } from '@modular-forms/shared';
-import type { FieldValue } from '../types';
+import type { FieldValue, Maybe } from '@modular-forms/shared';
 
 /**
  * Creates a validation function that checks the existence of an input.

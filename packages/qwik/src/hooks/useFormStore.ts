@@ -3,9 +3,10 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormStore,
   ResponseData,
 } from '@modular-forms/shared';
-import type { FieldValue, FormOptions, FormStore } from '../types';
+import type { FormOptions } from '../types';
 import { getInitialStores } from '../utils';
 
 /**
@@ -16,26 +17,22 @@ import { getInitialStores } from '../utils';
  * @returns The reactive store.
  */
 export function useFormStore<
-  TFieldValues extends FieldValues<FieldValue>,
-  TResponseData extends ResponseData = undefined
->(
-  options: FormOptions<TFieldValues, TResponseData>
-): FormStore<
+  TFieldValues extends FieldValues,
+  TResponseData extends ResponseData = undefined,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+>({
+  loader,
+  action,
+  validate,
+  validateOn = 'submit',
+  revalidateOn = 'input',
+}: FormOptions<TFieldValues, TResponseData>): FormStore<
   TFieldValues,
   TResponseData,
-  FieldPath<TFieldValues, FieldValue>,
-  FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName,
+  TFieldArrayName
 > {
-  // Destructure options
-  const {
-    loader,
-    action,
-    validate,
-    validateOn = 'submit',
-    revalidateOn = 'input',
-  } = options;
-
-  // Create and return form store
   return useStore(
     () => {
       const [fields, fieldArrays] = getInitialStores(loader, action);

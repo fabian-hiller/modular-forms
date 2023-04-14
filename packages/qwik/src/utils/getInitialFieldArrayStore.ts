@@ -1,23 +1,36 @@
-import type { FieldArrayPath, FieldValues } from '@modular-forms/shared';
 import type {
+  FieldArrayPath,
   FieldArrayStore,
-  FieldValue,
-  InitialFieldArrayState,
-} from '../types';
+  FieldValues,
+} from '@modular-forms/shared';
+
+/**
+ * Value type of the initial field array state.
+ */
+type InitialFieldArrayState = {
+  items: number[];
+  initialItems: number[];
+  error: string;
+};
 
 /**
  * Returns the initial store of a field array.
  *
- * @param initialState The initial state.
+ * @param name The name of the field array.
+ * @param state The initial state.
  *
  * @returns The initial store.
  */
 export function getInitialFieldArrayStore<
-  TFieldValues extends FieldValues<FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   name: TFieldArrayName,
-  { items, initialItems = items, error = '' }: InitialFieldArrayState
+  { items, initialItems, error }: InitialFieldArrayState = {
+    items: [],
+    initialItems: [],
+    error: '',
+  }
 ): FieldArrayStore<TFieldValues, TFieldArrayName> {
   const dirty = initialItems.join() !== items.join();
   return {

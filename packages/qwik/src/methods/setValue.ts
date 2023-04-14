@@ -3,21 +3,12 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldValues,
+  FormStore,
   ResponseData,
+  ValueOptions,
 } from '@modular-forms/shared';
-import type { FieldValue, FormStore } from '../types';
-import {
-  initializeFieldStore,
-  updateFieldDirty,
-  validateIfRequired,
-} from '../utils';
-
-type ValueOptions = Partial<{
-  shouldTouched: boolean;
-  shouldDirty: boolean;
-  shouldValidate: boolean;
-  shouldFocus: boolean;
-}>;
+import { setValue as setValueMethod } from '@modular-forms/shared';
+import { initializeFieldStore } from '../utils';
 
 /**
  * Sets the value of the specified field.
@@ -28,48 +19,15 @@ type ValueOptions = Partial<{
  * @param options The value options.
  */
 export function setValue<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName,
-  value: FieldPathValue<TFieldValues, TFieldName, FieldValue>,
-  options: ValueOptions = {}
+  value: FieldPathValue<TFieldValues, TFieldName>,
+  options: ValueOptions
 ): void {
-  // Destructure options and set default values
-  const {
-    shouldTouched = true,
-    shouldDirty = true,
-    shouldValidate = true,
-    shouldFocus = true,
-  } = options;
-
-  // Initialize store of specified field
-  // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
-  const field = initializeFieldStore(form, name, { value });
-
-  // Set input
-  // @ts-ignore FIXME: Unknown bug since TypeScript 5.0
-  field.value = value;
-
-  // Update touched if set to "true"
-  if (shouldTouched) {
-    field.touched = true;
-    form.touched = true;
-  }
-
-  // Update dirty if set to "true"
-  if (shouldDirty) {
-    updateFieldDirty(form, field);
-  }
-
-  // Validate if set to "true" and necessary
-  if (shouldValidate) {
-    validateIfRequired(form, field, name, {
-      on: ['touched', 'input'],
-      shouldFocus,
-    });
-  }
+  setValueMethod(initializeFieldStore, form, name, value, options);
 }

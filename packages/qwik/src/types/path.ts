@@ -1,10 +1,10 @@
 import type {
   ArrayKey,
+  FieldValue,
   FieldValues,
   IsTuple,
   TupleKeys,
 } from '@modular-forms/shared';
-import type { FieldValue } from './field';
 
 /**
  * Returns a template path of a specified type.
@@ -17,9 +17,7 @@ type TypeTemplatePath<
   ? Value extends Array<any> | Record<string, any>
     ? `${Key}` | `${Key}.${TypeTemplatePaths<Value, Type>}`
     : `${Key}`
-  : Value extends
-      | FieldValues<FieldValue>
-      | (FieldValue | FieldValues<FieldValue>)[]
+  : Value extends FieldValues | (FieldValue | FieldValues)[]
   ? `${Key extends number ? '$' : Key}.${TypeTemplatePaths<Value, Type>}`
   : never;
 
@@ -44,6 +42,6 @@ type TypeTemplatePaths<Data, Type> = Data extends Array<infer Child>
  * See {@link TypePaths}
  */
 export type TypeInfoPath<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   Type
 > = TypeTemplatePaths<TFieldValues, Type>;

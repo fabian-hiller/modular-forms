@@ -1,4 +1,11 @@
-import { $, type QRL } from '@builder.io/qwik';
+import {
+  PropFunction,
+  QwikChangeEvent,
+  QwikFocusEvent,
+  QRL,
+  noSerialize,
+} from '@builder.io/qwik';
+import { $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
@@ -6,7 +13,10 @@ import type {
   FieldElement,
   FieldPath,
   FieldPathValue,
+  FieldStore,
+  FieldType,
   FieldValues,
+  FormStore,
   Maybe,
   MaybeArray,
   MaybeValue,
@@ -14,38 +24,51 @@ import type {
   ResponseData,
   ValidateField,
 } from '@modular-forms/shared';
-import type {
-  FieldElementProps,
-  FieldStore,
-  FieldType,
-  FieldValue,
-  FormStore,
-} from '../types';
 import {
   getElementInput,
   getFieldStore,
   updateFieldValue,
   validateIfRequired,
-} from '../utils';
+} from '@modular-forms/shared';
 import { Lifecycle } from './Lifecycle';
 
+/**
+ * Value type of the field element props.
+ */
+export type FieldElementProps<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>
+> = {
+  name: TFieldName;
+  autoFocus: boolean;
+  ref: PropFunction<(element: Element) => void>;
+  onInput$: PropFunction<(event: Event, element: FieldElement) => void>;
+  onChange$: PropFunction<
+    (event: QwikChangeEvent<FieldElement>, element: FieldElement) => void
+  >;
+  onBlur$: PropFunction<
+    (event: QwikFocusEvent<FieldElement>, element: FieldElement) => void
+  >;
+};
+
+/**
+ * Value type of the field props.
+ */
 export type FieldProps<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
   name: TFieldName;
-  type: FieldType<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
+  type: FieldType<FieldPathValue<TFieldValues, TFieldName>>;
   children: (
     store: FieldStore<TFieldValues, TFieldName>,
     props: FieldElementProps<TFieldValues, TFieldName>
   ) => JSX.Element;
   validate?: Maybe<
-    MaybeArray<
-      QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName, FieldValue>>>
-    >
+    MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
@@ -56,20 +79,16 @@ export type FieldProps<
  * Headless form field that provides reactive properties and state.
  */
 export function Field<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >({
   children,
   name,
   type,
   ...props
-}: FieldPathValue<
-  TFieldValues,
-  TFieldName,
-  FieldValue
-> extends MaybeValue<string>
+}: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
   ? PartialKey<
       FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
       'type'
@@ -84,7 +103,7 @@ export function Field<
   const { of: form } = props;
 
   // Get store of specified field
-  const field = getFieldStore(form, name);
+  const field = getFieldStore(form, name)!;
 
   return (
     <Lifecycle key={name} store={field} {...props}>
@@ -99,7 +118,7 @@ export function Field<
             form,
             field,
             name,
-            getElementInput(element, field, type)
+            getElementInput(element, field, type, noSerialize)
           );
         }),
         onChange$: $(() => {

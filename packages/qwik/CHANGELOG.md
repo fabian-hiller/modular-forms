@@ -6,6 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Remove `active` property from RawFieldState and RawFieldArrayState type
 - Remove unnecessary code from `Field` component
+- Add log statement for unknown errors to `formAction$` (issue #50)
 
 ## v0.8.1 (April 07, 2023)
 

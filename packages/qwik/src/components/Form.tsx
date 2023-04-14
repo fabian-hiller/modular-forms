@@ -1,3 +1,4 @@
+/* eslint-disable qwik/valid-lexical-scope */
 import type { QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
@@ -5,24 +6,35 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormStore,
   Maybe,
+  MaybePromise,
+  MaybeQRL,
+  PartialValues,
   ResponseData,
 } from '@modular-forms/shared';
+import { setErrorResponse } from '@modular-forms/shared';
 import { getValues, setError, validate } from '../methods';
-import type {
-  FormStore,
-  SubmitHandler,
-  FormActionStore,
-  PartialValues,
-  FieldValue,
-} from '../types';
-import { setErrorResponse } from '../utils';
+import type { FormActionStore } from '../types';
 
+/**
+ * Function type to handle the submission of the form.
+ */
+export type SubmitHandler<TFieldValues extends FieldValues> = MaybeQRL<
+  (
+    values: TFieldValues,
+    event: QwikSubmitEvent<HTMLFormElement>
+  ) => MaybePromise<unknown>
+>;
+
+/**
+ * Value type of the form properties.
+ */
 export type FormProps<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   // Custom props
   of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
@@ -54,10 +66,10 @@ export type FormProps<
  * Form element that takes care of validation and simplifies submission.
  */
 export function Form<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >({
   of: form,
   action,
@@ -114,9 +126,6 @@ export function Form<
               !reloadDocument
                 ? action?.submit(encType ? new FormData(element) : values)
                 : undefined,
-              // TODO: Remove comment below once we have a better solution for
-              // our `SubmitHandler` type
-              // eslint-disable-next-line qwik/valid-lexical-scope
               onSubmit$?.(values as TFieldValues, event),
             ]);
 

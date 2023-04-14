@@ -3,24 +3,20 @@ import type { ActionStore } from '@builder.io/qwik-city';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
+  FieldArraysStore,
   FieldPath,
   FieldPathValue,
+  FieldsStore,
   FieldValues,
+  InitialValues,
   Maybe,
+  PartialValues,
   ResponseData,
 } from '@modular-forms/shared';
-import type {
-  FieldArraysStore,
-  FieldsStore,
-  FieldValue,
-  FormActionStore,
-  InitialValues,
-  PartialValues,
-} from '../types';
+import { getPathValue, getUniqueId } from '@modular-forms/shared';
+import type { FormActionStore } from '../types';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 import { getInitialFieldStore } from './getInitialFieldStore';
-import { getPathValue } from './getPathValue';
-import { getUniqueId } from './getUniqueId';
 
 /**
  * Returns a tuple with the initial stores of the fields and field arrays.
@@ -31,10 +27,10 @@ import { getUniqueId } from './getUniqueId';
  * @returns The initial stores tuple.
  */
 export function getInitialStores<
-  TFieldValues extends FieldValues<FieldValue>,
+  TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues, FieldValue>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues, FieldValue>
+  TFieldName extends FieldPath<TFieldValues>,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   loader: Signal<InitialValues<TFieldValues>>,
   action?: Maybe<
@@ -51,10 +47,10 @@ export function getInitialStores<
   // Create function to get value of field or field array
   function getActionValue(
     name: TFieldName
-  ): Maybe<FieldPathValue<TFieldValues, TFieldName, FieldValue>>;
+  ): Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   function getActionValue(
     name: TFieldArrayName
-  ): Maybe<FieldArrayPathValue<TFieldValues, TFieldArrayName, FieldValue>>;
+  ): Maybe<FieldArrayPathValue<TFieldValues, TFieldArrayName>>;
   function getActionValue(name: any): any {
     return action?.value?.values && getPathValue(name, action.value.values);
   }
@@ -63,8 +59,8 @@ export function getInitialStores<
   const generateItems = () => getUniqueId();
 
   // Create function to get error of field
-  const getActionError = (name: TFieldName | TFieldArrayName): Maybe<string> =>
-    action?.value?.errors[name];
+  const getActionError = (name: TFieldName | TFieldArrayName): string =>
+    action?.value?.errors[name] || '';
 
   // Create recursive function to create initial stores
   const createInitialStores = (
@@ -98,10 +94,9 @@ export function getInitialStores<
           compoundPath as TFieldArrayName,
           {
             initialItems,
-            items:
-              getActionValue(compoundPath as TFieldArrayName)?.map(
-                generateItems
-              ) || initialItems,
+            items: getActionValue(compoundPath as TFieldArrayName)?.map(
+              generateItems
+            ) || [...initialItems],
             error: getActionError(compoundPath as TFieldArrayName),
           }
         );

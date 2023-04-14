@@ -6,5 +6,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/consistent-type-imports': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
 };
