@@ -7,6 +7,7 @@ import type {
   PartialKey,
   ResponseData,
 } from '@modular-forms/core';
+import { mergeProps } from 'solid-js';
 import type { JSX } from 'solid-js/jsx-runtime';
 import type { FormProps, FieldProps, FieldArrayProps } from '../components';
 import { Form, Field, FieldArray } from '../components';
@@ -120,12 +121,14 @@ export function createForm<
             >
       ) =>
         // FIXME: Improve types and remove `as unknown`
-        Field({ of: form, ...props } as unknown as FieldProps<
-          TFieldValues,
-          TResponseData,
-          TFieldName,
-          TFieldArrayName
-        >),
+        Field(
+          mergeProps({ of: form }, props) as unknown as FieldProps<
+            TFieldValues,
+            TResponseData,
+            TFieldName,
+            TFieldArrayName
+          >
+        ),
       FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
         props: Omit<
           FieldArrayProps<
@@ -138,12 +141,14 @@ export function createForm<
         >
       ) =>
         // FIXME: Improve types and remove `as unknown`
-        FieldArray({ of: form, ...props } as unknown as FieldArrayProps<
-          TFieldValues,
-          TResponseData,
-          TFieldName,
-          TFieldArrayName
-        >),
+        FieldArray(
+          mergeProps({ of: form }, props) as unknown as FieldArrayProps<
+            TFieldValues,
+            TResponseData,
+            TFieldName,
+            TFieldArrayName
+          >
+        ),
     },
   ];
 }

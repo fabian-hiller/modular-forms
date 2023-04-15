@@ -8,9 +8,11 @@ import type {
 } from '@modular-forms/core';
 import { handleLifecycle } from '@modular-forms/core';
 import {
+  batch,
   createEffect,
   createMemo,
   onCleanup as cleanup,
+  untrack,
   type JSX,
 } from 'solid-js';
 import type { FieldArrayStore, FormStore } from '../types';
