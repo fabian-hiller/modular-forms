@@ -13,6 +13,7 @@ import type {
   FormStore,
   Maybe,
   MaybeArray,
+  ReactivityDeps,
 } from '../types';
 import { getUniqueId } from './getUniqueId';
 import { updateFormState } from './updateFormState';
@@ -53,13 +54,17 @@ export function handleLifecycle<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   {
+    batch = (fn) => fn(),
+    untrack = (fn) => fn(),
+    cleanup,
+  }: ReactivityDeps & { cleanup: (fn: () => void) => void },
+  {
     of: form,
     store,
     validate,
     keepActive = false,
     keepState = true,
-  }: LifecycleProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  onCleanup: (fn: () => void) => void
+  }: LifecycleProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
 ) {
   // Add validation functions
   store.internal.validate = validate
@@ -77,31 +82,39 @@ export function handleLifecycle<
   store.internal.consumers.push(consumer);
 
   // Mark field as active and update form state if necessary
-  if (!store.active) {
-    store.active = true;
-    updateFormState(form);
-  }
+  batch(() =>
+    untrack(() => {
+      if (!store.active) {
+        store.active = true;
+        updateFormState(form);
+      }
+    })
+  );
 
   // On cleanup, remove consumer from field
-  onCleanup(() => {
+  cleanup(() => {
     store.internal.consumers.splice(
       store.internal.consumers.indexOf(consumer),
       1
     );
 
     // Mark field as inactive if there is no other consumer
-    if (!keepActive && !store.internal.consumers.length) {
-      store.active = false;
+    batch(() =>
+      untrack(() => {
+        if (!keepActive && !store.internal.consumers.length) {
+          store.active = false;
 
-      // Reset state if it is not to be kept
-      if (!keepState) {
-        reset(form, store.name);
+          // Reset state if it is not to be kept
+          if (!keepState) {
+            reset(form, store.name);
 
-        // Otherwise just update form state
-      } else {
-        updateFormState(form);
-      }
-    }
+            // Otherwise just update form state
+          } else {
+            updateFormState(form);
+          }
+        }
+      })
+    );
 
     // Remove unmounted elements
     if ('value' in store) {

@@ -3,12 +3,16 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
   ResponseData,
 } from '../types';
 import { getFieldStore, getFieldArrayStore, updateFormInvalid } from '../utils';
 import { focus } from './focus';
 
-type ErrorOptions = Partial<{
+/**
+ * Value type of the error options.
+ */
+export type ErrorOptions = Partial<{
   shouldActive: boolean;
   shouldTouched: boolean;
   shouldDirty: boolean;
@@ -32,7 +36,7 @@ export function setError<
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName | TFieldArrayName,
   error: string,
-  options: ErrorOptions = {}
+  options: Maybe<ErrorOptions> = {}
 ): void {
   // Destructure options and set default values
   const {

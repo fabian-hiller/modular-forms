@@ -7,6 +7,7 @@ import type {
   ResponseData,
 } from '@modular-forms/core';
 import { insert as insertMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
@@ -29,7 +30,7 @@ export function insert<
   options: InsertOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
 ): void {
   insertMethod(
-    { initializeFieldStore, initializeFieldArrayStore },
+    { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
     form,
     name,
     options

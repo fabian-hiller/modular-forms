@@ -6,6 +6,7 @@ import type {
   FormStore,
   Maybe,
   FormErrors,
+  ReactivityDeps,
 } from '../types';
 import {
   getFilteredNames,
@@ -19,7 +20,10 @@ import {
 import { focus } from './focus';
 import { getValues } from './getValues';
 
-type ValidateOptions = Partial<{
+/**
+ * Value type of the validate options.
+ */
+export type ValidateOptions = Partial<{
   shouldActive: boolean;
   shouldFocus: boolean;
 }>;
@@ -40,6 +44,7 @@ export async function validate<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
+  { batch = (fn) => fn(), untrack = (fn) => fn() }: ReactivityDeps,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   arg2?: Maybe<
     | TFieldName
@@ -64,7 +69,9 @@ export async function validate<
 
   // Run form validation function
   const formErrors: FormErrors<TFieldValues> = form.internal.validate
-    ? await form.internal.validate(getValues(form, { shouldActive }))
+    ? await form.internal.validate(
+        untrack(() => getValues(form, { shouldActive }))
+      )
     : {};
 
   // Create valid variable
@@ -78,7 +85,7 @@ export async function validate<
         const field = getFieldStore(form, name)!;
 
         // Continue if field corresponds to filter options
-        if (!shouldActive || field.active) {
+        if (!shouldActive || untrack(() => field.active)) {
           // Create local error variable
           let localError: string | undefined;
 
@@ -116,7 +123,7 @@ export async function validate<
         const fieldArray = getFieldArrayStore(form, name)!;
 
         // Continue if field array corresponds to filter options
-        if (!shouldActive || fieldArray.active) {
+        if (!shouldActive || untrack(() => fieldArray.active)) {
           // Create local error variable
           let localError = '';
 
@@ -145,30 +152,34 @@ export async function validate<
     ),
   ]);
 
-  // Set error response if necessary
-  setErrorResponse(form, formErrors, { shouldActive });
+  batch(() =>
+    untrack(() => {
+      // Set error response if necessary
+      setErrorResponse(form, formErrors, { shouldActive });
 
-  // Focus first field with an error if specified
-  if (shouldFocus) {
-    const name = errorFields.find((name) => name);
-    if (name) {
-      focus(form, name);
-    }
-  }
+      // Focus first field with an error if specified
+      if (shouldFocus) {
+        const name = errorFields.find((name) => name);
+        if (name) {
+          focus(form, name);
+        }
+      }
 
-  // Update invalid state of form
-  updateFormInvalid(form, !valid);
+      // Update invalid state of form
+      updateFormInvalid(form, !valid);
 
-  // Delete validator from list
-  form.internal.validators.splice(
-    form.internal.validators.indexOf(validator),
-    1
+      // Delete validator from list
+      form.internal.validators.splice(
+        form.internal.validators.indexOf(validator),
+        1
+      );
+
+      // Set validating to "false" if there is no other validator
+      if (!form.internal.validators.length) {
+        form.validating = false;
+      }
+    })
   );
-
-  // Set validating to "false" if there is no other validator
-  if (!form.internal.validators.length) {
-    form.validating = false;
-  }
 
   // Return whether fields are valid
   return valid;

@@ -33,7 +33,7 @@ export function getValue<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName,
-  options: ValueOptions = {}
+  options: Maybe<ValueOptions> = {}
 ): Maybe<FieldPathValue<TFieldValues, TFieldName>> {
   // Destructure options and set default values
   const {

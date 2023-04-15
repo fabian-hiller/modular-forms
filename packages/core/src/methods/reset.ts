@@ -18,7 +18,10 @@ import {
   getUniqueId,
 } from '../utils';
 
-type ResetOptions<
+/**
+ * Value type of the reset options.
+ */
+export type ResetOptions<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues>
 > = Partial<{

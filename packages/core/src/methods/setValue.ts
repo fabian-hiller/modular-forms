@@ -2,9 +2,11 @@ import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
-  FieldStore,
   FieldValues,
   FormStore,
+  InitializeStoreDeps,
+  Maybe,
+  ReactivityDeps,
   ResponseData,
 } from '../types';
 import { updateFieldDirty, validateIfRequired } from '../utils';
@@ -34,10 +36,16 @@ export function setValue<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  initialize: (
-    form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-    name: TFieldName
-  ) => FieldStore<TFieldValues, TFieldName>,
+  deps: ReactivityDeps &
+    Pick<
+      InitializeStoreDeps<
+        TFieldValues,
+        TResponseData,
+        TFieldName,
+        TFieldArrayName
+      >,
+      'initializeFieldStore'
+    >,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName,
   value: FieldPathValue<TFieldValues, TFieldName>,
@@ -46,10 +54,10 @@ export function setValue<
     shouldDirty = true,
     shouldValidate = true,
     shouldFocus = true,
-  }: ValueOptions = {}
+  }: Maybe<ValueOptions> = {}
 ): void {
   // Initialize store of specified field
-  const field = initialize(form, name);
+  const field = deps.initializeFieldStore(form, name);
 
   // Set new value
   field.value = value;
@@ -67,7 +75,7 @@ export function setValue<
 
   // Validate if set to "true" and necessary
   if (shouldValidate) {
-    validateIfRequired(form, field, name, {
+    validateIfRequired(deps, form, field, name, {
       on: ['touched', 'input'],
       shouldFocus,
     });

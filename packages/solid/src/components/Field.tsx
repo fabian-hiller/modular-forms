@@ -24,7 +24,7 @@ import {
   createMemo,
   type JSX,
   untrack,
-  onCleanup,
+  onCleanup as cleanup,
 } from 'solid-js';
 import type { FieldStore, FormStore } from '../types';
 import { initializeFieldStore } from '../utils';
@@ -88,7 +88,7 @@ export function Field<
 
   // Create lifecycle of field
   createEffect(() => {
-    handleLifecycle({ store: getField(), ...props }, onCleanup);
+    handleLifecycle({ cleanup }, { store: getField(), ...props });
   });
 
   return (
@@ -115,6 +115,7 @@ export function Field<
         },
         onInput({ currentTarget }) {
           updateFieldValue(
+            { batch, untrack },
             props.of,
             getField(),
             props.name,
@@ -122,17 +123,29 @@ export function Field<
           );
         },
         onChange() {
-          validateIfRequired(props.of, getField(), props.name, {
-            on: ['change'],
-          });
+          validateIfRequired(
+            { batch, untrack },
+            props.of,
+            getField(),
+            props.name,
+            {
+              on: ['change'],
+            }
+          );
         },
         onBlur() {
           batch(() => {
             getField().touched = true;
             props.of.touched = true;
-            validateIfRequired(props.of, getField(), props.name, {
-              on: ['touched', 'blur'],
-            });
+            validateIfRequired(
+              { batch, untrack },
+              props.of,
+              getField(),
+              props.name,
+              {
+                on: ['touched', 'blur'],
+              }
+            );
           });
         },
       })}

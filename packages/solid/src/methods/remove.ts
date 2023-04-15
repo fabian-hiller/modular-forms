@@ -6,6 +6,7 @@ import type {
   ResponseData,
 } from '@modular-forms/core';
 import { remove as removeMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
@@ -27,7 +28,7 @@ export function remove<
   options: RemoveOptions
 ): void {
   removeMethod(
-    { initializeFieldStore, initializeFieldArrayStore },
+    { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
     form,
     name,
     options

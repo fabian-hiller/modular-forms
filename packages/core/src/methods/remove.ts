@@ -4,6 +4,7 @@ import type {
   FieldValues,
   FormStore,
   InitializeStoreDeps,
+  ReactivityDeps,
   ResponseData,
 } from '../types';
 import {
@@ -40,12 +41,13 @@ export function remove<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  deps: InitializeStoreDeps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >,
+  deps: ReactivityDeps &
+    InitializeStoreDeps<
+      TFieldValues,
+      TResponseData,
+      TFieldName,
+      TFieldArrayName
+    >,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
   { at: index }: RemoveOptions
@@ -114,7 +116,7 @@ export function remove<
       updateFieldArrayDirty(form, fieldArray);
 
       // Validate field array if necessary
-      validateIfRequired(form, fieldArray, name, {
+      validateIfRequired(deps, form, fieldArray, name, {
         on: ['touched', 'input'],
       });
     }

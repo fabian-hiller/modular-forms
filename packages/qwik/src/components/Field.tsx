@@ -116,6 +116,7 @@ export function Field<
         }),
         onInput$: $((_: Event, element: FieldElement) => {
           updateFieldValue(
+            {},
             form,
             field,
             name,
@@ -123,14 +124,14 @@ export function Field<
           );
         }),
         onChange$: $(() => {
-          validateIfRequired(form, field, name, {
+          validateIfRequired({}, form, field, name, {
             on: ['change'],
           });
         }),
         onBlur$: $(() => {
           field.touched = true;
           form.touched = true;
-          validateIfRequired(form, field, name, {
+          validateIfRequired({}, form, field, name, {
             on: ['touched', 'blur'],
           });
         }),

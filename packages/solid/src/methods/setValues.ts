@@ -3,11 +3,13 @@ import type {
   FieldArrayPathValue,
   FieldPath,
   FieldValues,
+  Maybe,
   PartialValues,
   ResponseData,
   ValuesOptions,
 } from '@modular-forms/core';
 import { setValues as setValuesMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
@@ -57,11 +59,13 @@ export function setValues<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   arg2: PartialValues<TFieldValues> | TFieldArrayName,
-  arg3?: ValuesOptions | FieldArrayPathValue<TFieldValues, TFieldArrayName>,
-  arg4?: ValuesOptions
+  arg3?: Maybe<
+    ValuesOptions | FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  >,
+  arg4?: Maybe<ValuesOptions>
 ): void {
   setValuesMethod(
-    { initializeFieldStore, initializeFieldArrayStore },
+    { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
     form,
     arg2,
     arg3,

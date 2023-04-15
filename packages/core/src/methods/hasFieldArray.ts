@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
   ResponseData,
 } from '../types';
 import { getFieldArrayStore } from '../utils';
@@ -30,7 +31,7 @@ export function hasFieldArray<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName | string,
-  options: FieldArrayOptions = {}
+  options: Maybe<FieldArrayOptions> = {}
 ): boolean {
   // Destructure options and set default values
   const {

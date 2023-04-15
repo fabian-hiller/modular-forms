@@ -3,6 +3,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
   ResponseData,
 } from '../types';
 import { getFieldStore, getFieldArrayStore } from '../utils';
@@ -29,7 +30,7 @@ export function getError<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName | TFieldArrayName,
-  options: ErrorOptions = {}
+  options: Maybe<ErrorOptions> = {}
 ): string | undefined {
   // Destructure options and set default values
   const {

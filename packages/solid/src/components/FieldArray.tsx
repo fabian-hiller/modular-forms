@@ -7,7 +7,12 @@ import type {
   ValidateFieldArray,
 } from '@modular-forms/core';
 import { handleLifecycle } from '@modular-forms/core';
-import { createEffect, createMemo, onCleanup, type JSX } from 'solid-js';
+import {
+  createEffect,
+  createMemo,
+  onCleanup as cleanup,
+  type JSX,
+} from 'solid-js';
 import type { FieldArrayStore, FormStore } from '../types';
 import { initializeFieldArrayStore } from '../utils';
 
@@ -53,7 +58,7 @@ export function FieldArray<
 
   // Create lifecycle of field
   createEffect(() => {
-    handleLifecycle({ store: getFieldArray(), ...props }, onCleanup);
+    handleLifecycle({ cleanup }, { store: getFieldArray(), ...props });
   });
 
   return <>{props.children(getFieldArray())}</>;

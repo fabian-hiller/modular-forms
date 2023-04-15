@@ -1,12 +1,13 @@
 import type {
+  ErrorOptions,
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormStore,
   Maybe,
   ResponseData,
-} from '../types';
-import { type ErrorOptions, setError } from './setError';
+} from '@modular-forms/core';
+import { setError } from './setError';
 
 /**
  * Clears the error of the specified field or field array.

@@ -4,6 +4,7 @@ import type {
   FieldValues,
   FormResponse,
   FormStore,
+  Maybe,
   ResponseData,
 } from '../types';
 
@@ -26,7 +27,7 @@ export function setResponse<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   response: FormResponse<TResponseData>,
-  options: ResponseOptions = {}
+  options: Maybe<ResponseOptions> = {}
 ): void {
   // Destructure options
   const { duration } = options;

@@ -4,6 +4,7 @@ import type {
   FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
   PartialValues,
   ResponseData,
 } from '../types';
@@ -34,7 +35,7 @@ export function getArrayValues<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
-  options: ArrayValuesOptions = {}
+  options: Maybe<ArrayValuesOptions> = {}
 ): PartialValues<TFieldArrayValue> {
   // Destructure options and set default values
   const {

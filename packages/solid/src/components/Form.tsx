@@ -6,7 +6,7 @@ import type {
   ResponseData,
 } from '@modular-forms/core';
 import { getValues, handleSubmit } from '@modular-forms/core';
-import { batch, type JSX, splitProps } from 'solid-js';
+import { batch, type JSX, splitProps, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 
 /**
@@ -86,10 +86,10 @@ export function Form<
 
         // Handle submission and execute user action
         await handleSubmit(
+          { batch, untrack },
           form,
           () => onSubmit(getValues(form, options) as TFieldValues, event),
-          options,
-          batch
+          options
         );
       }}
     />

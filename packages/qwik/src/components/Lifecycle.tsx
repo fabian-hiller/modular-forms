@@ -94,7 +94,7 @@ export const Lifecycle: <
     >
   ): JSX.Element => {
     // TODO: Switch back to `useTask$` once issue #3193 is fixed
-    useVisibleTask$(({ cleanup }) => handleLifecycle(props, cleanup));
+    useVisibleTask$((deps) => handleLifecycle(deps, props));
     return <Slot />;
   }
 );

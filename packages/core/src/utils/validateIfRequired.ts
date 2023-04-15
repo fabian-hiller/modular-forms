@@ -6,11 +6,15 @@ import type {
   FieldValues,
   FormStore,
   Maybe,
+  ReactivityDeps,
   ResponseData,
   ValidationMode,
 } from '../types';
 import { validate } from '../methods';
 
+/**
+ * Value type of the validate otions.
+ */
 type ValidateOptions = {
   on: Exclude<ValidationMode, 'submit'>[];
   shouldFocus?: Maybe<boolean>;
@@ -30,6 +34,7 @@ export function validateIfRequired<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
+  deps: ReactivityDeps,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   fieldOrFieldArray:
     | FieldStore<TFieldValues, TFieldName>
@@ -52,6 +57,6 @@ export function validateIfRequired<
         : form.internal.validateOn
     )
   ) {
-    validate(form, name, { shouldFocus });
+    validate(deps, form, name, { shouldFocus });
   }
 }

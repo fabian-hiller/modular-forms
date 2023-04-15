@@ -5,6 +5,7 @@ import type {
   FieldStore,
   FieldValues,
   FormStore,
+  ReactivityDeps,
   ResponseData,
 } from '../types';
 import { updateFieldDirty } from './updateFieldDirty';
@@ -24,23 +25,31 @@ export function updateFieldValue<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
+  deps: ReactivityDeps,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   field: FieldStore<TFieldValues, TFieldName>,
   name: TFieldName,
   value: FieldPathValue<TFieldValues, TFieldName>
 ): void {
-  // Update value state
-  field.value = value;
+  // Destructure reactivity dependencies
+  const { batch = (fn) => fn(), untrack = (fn) => fn() } = deps;
 
-  // Update touched state
-  field.touched = true;
-  form.touched = true;
+  batch(() =>
+    untrack(() => {
+      // Update value state
+      field.value = value;
 
-  // Update dirty state
-  updateFieldDirty(form, field);
+      // Update touched state
+      field.touched = true;
+      form.touched = true;
+
+      // Update dirty state
+      updateFieldDirty(form, field);
+    })
+  );
 
   // Validate value if necessary
-  validateIfRequired(form, field, name, {
+  validateIfRequired(deps, form, field, name, {
     on: ['touched', 'input'],
   });
 }

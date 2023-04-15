@@ -129,25 +129,6 @@ export type FormStore<
 };
 
 /**
- * Value type of the initialize store dependencies.
- */
-export type InitializeStoreDeps<
-  TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = {
-  initializeFieldStore: (
-    form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-    name: TFieldName
-  ) => FieldStore<TFieldValues, TFieldName>;
-  initializeFieldArrayStore: (
-    form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-    name: TFieldArrayName
-  ) => FieldArrayStore<TFieldValues, TFieldArrayName>;
-};
-
-/**
  * Utility type to extract the field values from the form store.
  */
 export type FormValues<TFormStore extends FormStore<any, any, any, any>> =

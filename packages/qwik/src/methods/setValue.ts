@@ -29,5 +29,5 @@ export function setValue<
   value: FieldPathValue<TFieldValues, TFieldName>,
   options: ValueOptions
 ): void {
-  setValueMethod(initializeFieldStore, form, name, value, options);
+  setValueMethod({ initializeFieldStore }, form, name, value, options);
 }

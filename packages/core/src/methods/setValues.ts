@@ -5,7 +5,9 @@ import type {
   FieldValues,
   FormStore,
   InitializeStoreDeps,
+  Maybe,
   PartialValues,
+  ReactivityDeps,
   ResponseData,
 } from '../types';
 import { getUniqueId } from '../utils';
@@ -37,16 +39,19 @@ export function setValues<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  deps: InitializeStoreDeps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >,
+  deps: ReactivityDeps &
+    InitializeStoreDeps<
+      TFieldValues,
+      TResponseData,
+      TFieldName,
+      TFieldArrayName
+    >,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   arg3: PartialValues<TFieldValues> | TFieldArrayName,
-  arg4?: ValuesOptions | FieldArrayPathValue<TFieldValues, TFieldArrayName>,
-  arg5?: ValuesOptions
+  arg4?: Maybe<
+    ValuesOptions | FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  >,
+  arg5?: Maybe<ValuesOptions>
 ): void {
   // Check if values of a field array should be set
   const isFieldArray = typeof arg3 === 'string';
@@ -99,16 +104,10 @@ export function setValues<
 
       // Set value of fields
       if (!value || typeof value !== 'object' || Array.isArray(value)) {
-        setValue(
-          deps.initializeFieldStore,
-          form,
-          compoundPath as TFieldName,
-          value,
-          {
-            ...options,
-            shouldValidate: false,
-          }
-        );
+        setValue(deps, form, compoundPath as TFieldName, value, {
+          ...options,
+          shouldValidate: false,
+        });
 
         // Add name of field or field array to list
         names.push(compoundPath as TFieldName | TFieldArrayName);
@@ -145,6 +144,6 @@ export function setValues<
         : form.internal.validateOn
     )
   ) {
-    validate(form, names, { shouldFocus });
+    validate(deps, form, names, { shouldFocus });
   }
 }

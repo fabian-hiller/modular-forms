@@ -6,6 +6,7 @@ import type {
   FormStore,
   InitializeStoreDeps,
   Maybe,
+  ReactivityDeps,
   ResponseData,
 } from '../types';
 import {
@@ -49,12 +50,13 @@ export function insert<
   TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
 >(
-  deps: InitializeStoreDeps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >,
+  deps: ReactivityDeps &
+    InitializeStoreDeps<
+      TFieldValues,
+      TResponseData,
+      TFieldName,
+      TFieldArrayName
+    >,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldArrayName,
   options: InsertOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
@@ -139,7 +141,7 @@ export function insert<
       // mounted beforehand
       setTimeout(
         () =>
-          validateIfRequired(form, fieldArray, name, {
+          validateIfRequired(deps, form, fieldArray, name, {
             on: ['touched', 'input'],
           }),
         500

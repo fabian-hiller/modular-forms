@@ -1,21 +1,24 @@
 import type {
+  ErrorOptions,
   FieldArrayPath,
   FieldPath,
   FieldValues,
   FormStore,
   Maybe,
   ResponseData,
-} from '../types';
-import { type ErrorOptions, setError } from './setError';
+} from '@modular-forms/core';
+import { setError as setErrorMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 
 /**
- * Clears the error of the specified field or field array.
+ * Sets the error of the specified field or field array.
  *
  * @param form The form of the field.
  * @param name The name of the field.
+ * @param error The error message.
  * @param options The error options.
  */
-export function clearError<
+export function setError<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
@@ -23,7 +26,8 @@ export function clearError<
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName | TFieldArrayName,
+  error: string,
   options?: Maybe<ErrorOptions>
 ): void {
-  setError(form, name, '', options);
+  batch(() => untrack(() => setErrorMethod(form, name, error, options)));
 }

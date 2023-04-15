@@ -3,10 +3,12 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldValues,
+  Maybe,
   ResponseData,
   ValueOptions,
 } from '@modular-forms/core';
 import { setValue as setValueMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 import { initializeFieldStore } from '../utils';
 
@@ -27,7 +29,13 @@ export function setValue<
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   name: TFieldName,
   value: FieldPathValue<TFieldValues, TFieldName>,
-  options: ValueOptions
+  options?: Maybe<ValueOptions>
 ): void {
-  setValueMethod(initializeFieldStore, form, name, value, options);
+  setValueMethod(
+    { batch, untrack, initializeFieldStore },
+    form,
+    name,
+    value,
+    options
+  );
 }

@@ -5,6 +5,7 @@ import type {
   FieldPath,
   FieldArrayPath,
   FormStore,
+  ReactivityDeps,
 } from '../types';
 
 /**
@@ -34,11 +35,14 @@ export async function handleSubmit<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
+  deps: ReactivityDeps,
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
   action: () => Promise<any>,
-  options: SubmitOptions,
-  batch: (fn: () => void) => void = (fn) => fn()
-) {
+  options: SubmitOptions
+): Promise<void> {
+  // Destructure reactivity dependencies
+  const { batch = (fn) => fn() } = deps;
+
   batch(() => {
     // Reset response if it is not to be kept
     if (!options.keepResponse) {
@@ -53,7 +57,7 @@ export async function handleSubmit<
 
   // Try to run submit actions if form is valid
   try {
-    if (await validate(form, options)) {
+    if (await validate(deps, form, options)) {
       await action();
     }
 

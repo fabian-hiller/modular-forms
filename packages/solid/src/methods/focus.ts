@@ -1,29 +1,27 @@
+import { untrack } from 'solid-js';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
-  FormStore,
-  Maybe,
   ResponseData,
-} from '../types';
-import { type ErrorOptions, setError } from './setError';
+} from '@modular-forms/core';
+import { focus as focusMethod } from '@modular-forms/core';
+import type { FormStore } from '../types';
 
 /**
- * Clears the error of the specified field or field array.
+ * Focuses the specified field of the form.
  *
  * @param form The form of the field.
  * @param name The name of the field.
- * @param options The error options.
  */
-export function clearError<
+export function focus<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName | TFieldArrayName,
-  options?: Maybe<ErrorOptions>
+  name: TFieldName
 ): void {
-  setError(form, name, '', options);
+  untrack(() => focusMethod(form, name));
 }
