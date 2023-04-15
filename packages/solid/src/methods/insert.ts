@@ -29,10 +29,14 @@ export function insert<
   name: TFieldArrayName,
   options: InsertOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
 ): void {
-  insertMethod(
-    { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
-    form,
-    name,
-    options
+  batch(() =>
+    untrack(() =>
+      insertMethod(
+        { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
+        form,
+        name,
+        options
+      )
+    )
   );
 }

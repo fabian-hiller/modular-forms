@@ -64,11 +64,15 @@ export function setValues<
   >,
   arg4?: Maybe<ValuesOptions>
 ): void {
-  setValuesMethod(
-    { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
-    form,
-    arg2,
-    arg3,
-    arg4
+  batch(() =>
+    untrack(() =>
+      setValuesMethod(
+        { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
+        form,
+        arg2,
+        arg3,
+        arg4
+      )
+    )
   );
 }

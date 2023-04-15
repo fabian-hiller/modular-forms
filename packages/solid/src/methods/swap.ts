@@ -6,6 +6,7 @@ import type {
   SwapOptions,
 } from '@modular-forms/core';
 import { swap as swapMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
@@ -26,10 +27,14 @@ export function swap<
   name: TFieldArrayName,
   options: SwapOptions
 ): void {
-  swapMethod(
-    { initializeFieldStore, initializeFieldArrayStore },
-    form,
-    name,
-    options
+  batch(() =>
+    untrack(() =>
+      swapMethod(
+        { initializeFieldStore, initializeFieldArrayStore },
+        form,
+        name,
+        options
+      )
+    )
   );
 }

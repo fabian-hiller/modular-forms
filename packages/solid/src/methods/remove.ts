@@ -27,10 +27,14 @@ export function remove<
   name: TFieldArrayName,
   options: RemoveOptions
 ): void {
-  removeMethod(
-    { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
-    form,
-    name,
-    options
+  batch(() =>
+    untrack(() =>
+      removeMethod(
+        { batch, untrack, initializeFieldStore, initializeFieldArrayStore },
+        form,
+        name,
+        options
+      )
+    )
   );
 }

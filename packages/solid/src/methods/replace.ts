@@ -7,6 +7,7 @@ import type {
   ResponseData,
 } from '@modular-forms/core';
 import { replace as replaceMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
@@ -28,10 +29,14 @@ export function replace<
   name: TFieldArrayName,
   options: ReplaceOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
 ): void {
-  replaceMethod(
-    { initializeFieldStore, initializeFieldArrayStore },
-    form,
-    name,
-    options
+  batch(() =>
+    untrack(() =>
+      replaceMethod(
+        { initializeFieldStore, initializeFieldArrayStore },
+        form,
+        name,
+        options
+      )
+    )
   );
 }

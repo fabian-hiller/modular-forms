@@ -31,11 +31,15 @@ export function setValue<
   value: FieldPathValue<TFieldValues, TFieldName>,
   options?: Maybe<ValueOptions>
 ): void {
-  setValueMethod(
-    { batch, untrack, initializeFieldStore },
-    form,
-    name,
-    value,
-    options
+  batch(() =>
+    untrack(() =>
+      setValueMethod(
+        { batch, untrack, initializeFieldStore },
+        form,
+        name,
+        value,
+        options
+      )
+    )
   );
 }

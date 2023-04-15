@@ -6,6 +6,7 @@ import type {
   ResponseData,
 } from '@modular-forms/core';
 import { move as moveMethod } from '@modular-forms/core';
+import { batch, untrack } from 'solid-js';
 import type { FormStore } from '../types';
 import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 
@@ -27,10 +28,14 @@ export function move<
   name: TFieldArrayName,
   options: MoveOptions
 ): void {
-  moveMethod(
-    { initializeFieldStore, initializeFieldArrayStore },
-    form,
-    name,
-    options
+  batch(() =>
+    untrack(() =>
+      moveMethod(
+        { initializeFieldStore, initializeFieldArrayStore },
+        form,
+        name,
+        options
+      )
+    )
   );
 }
