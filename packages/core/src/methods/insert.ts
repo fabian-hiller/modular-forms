@@ -127,7 +127,9 @@ export function insert<
       setFieldArrayValue(deps, form, name, { at: index, value });
 
       // Insert item into field array
-      fieldArray.items.splice(index, 0, getUniqueId());
+      const nextItems = [...fieldArray.items];
+      nextItems.splice(index, 0, getUniqueId());
+      fieldArray.items = nextItems;
 
       // Set touched at field array and form to true
       fieldArray.touched = true;

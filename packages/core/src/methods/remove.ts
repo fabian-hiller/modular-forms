@@ -106,7 +106,9 @@ export function remove<
         });
 
       // Delete item from field array
-      fieldArray.items.splice(index, 1);
+      const nextItems = [...fieldArray.items];
+      nextItems.splice(index, 1);
+      fieldArray.items = nextItems;
 
       // Set touched at field array and form to true
       fieldArray.touched = true;

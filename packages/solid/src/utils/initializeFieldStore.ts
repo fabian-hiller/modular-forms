@@ -111,7 +111,7 @@ export function initializeFieldStore<
     };
 
     // Add name of field to form
-    form.internal.fieldNames!.push(name);
+    form.internal.fieldNames = [...form.internal.fieldNames!, name];
   }
 
   // Return store of field

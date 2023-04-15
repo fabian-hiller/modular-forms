@@ -63,7 +63,9 @@ export function replace<
       setFieldArrayValue(deps, form, name, options);
 
       // Replace item at field array
-      fieldArray.items[index] = getUniqueId();
+      const nextItems = [...fieldArray.items];
+      nextItems[index] = getUniqueId();
+      fieldArray.items = nextItems;
 
       // Set touched at field array and form to true
       fieldArray.touched = true;

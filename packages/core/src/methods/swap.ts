@@ -128,9 +128,10 @@ export function swap<
       );
 
       // Swap items of field array
-      const itemIndex1 = fieldArray.items[index1];
-      fieldArray.items[index1] = fieldArray.items[index2];
-      fieldArray.items[index2] = itemIndex1;
+      const nextItems = [...fieldArray.items];
+      nextItems[index1] = fieldArray.items[index2];
+      nextItems[index2] = fieldArray.items[index1];
+      fieldArray.items = nextItems;
 
       // Set touched at field array and form to true;
       fieldArray.touched = true;

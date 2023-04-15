@@ -101,7 +101,7 @@ export function initializeFieldArrayStore<
     form.internal.fieldArrays[name] = fieldArray;
 
     // Add name of field array to form
-    form.internal.fieldArrayNames!.push(name);
+    form.internal.fieldArrayNames = [...form.internal.fieldArrayNames!, name];
   }
 
   // Return store of field array

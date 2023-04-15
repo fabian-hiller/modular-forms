@@ -189,11 +189,9 @@ export function move<
       });
 
       // Swap items of field array
-      fieldArray.items.splice(
-        toIndex,
-        0,
-        fieldArray.items.splice(fromIndex, 1)[0]
-      );
+      const nextItems = [...fieldArray.items];
+      nextItems.splice(toIndex, 0, nextItems.splice(fromIndex, 1)[0]);
+      fieldArray.items = nextItems;
 
       // Set touched at field array and form to true
       fieldArray.touched = true;
