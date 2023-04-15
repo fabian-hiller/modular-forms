@@ -21,17 +21,17 @@ export function createFormStore<
   TResponseData extends ResponseData = undefined,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
->(
-  options: FormOptions<TFieldValues> = {}
-): FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName> {
-  // Destructure options and set default values
-  const {
-    initialValues = {} as PartialValues<TFieldValues>,
-    validateOn = 'submit',
-    revalidateOn = 'input',
-    validate,
-  } = options;
-
+>({
+  initialValues = {} as PartialValues<TFieldValues>,
+  validateOn = 'submit',
+  revalidateOn = 'input',
+  validate,
+}: FormOptions<TFieldValues> = {}): FormStore<
+  TFieldValues,
+  TResponseData,
+  TFieldName,
+  TFieldArrayName
+> {
   // Create signals of form store
   const [getFieldNames, setFieldNames] = createSignal<TFieldName[]>([]);
   const [getFieldArrayNames, setFieldArrayNames] = createSignal<

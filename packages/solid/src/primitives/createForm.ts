@@ -1,11 +1,11 @@
 import type {
-  FieldValues,
-  ResponseData,
-  FieldPath,
   FieldArrayPath,
+  FieldPath,
   FieldPathValue,
+  FieldValues,
   MaybeValue,
   PartialKey,
+  ResponseData,
 } from '@modular-forms/core';
 import type { JSX } from 'solid-js/jsx-runtime';
 import type { FormProps, FieldProps, FieldArrayProps } from '../components';
@@ -29,15 +29,20 @@ export function createForm<
 >(
   options?: FormOptions<TFieldValues>
 ): [
-  FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  FormStore<
+    TFieldValues,
+    TResponseData,
+    FieldPath<TFieldValues>,
+    FieldArrayPath<TFieldValues>
+  >,
   {
     Form: (
       props: Omit<
         FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-        'of'
+        'of' | 'action'
       >
     ) => JSX.Element;
-    Field: (
+    Field: <TFieldName extends FieldPath<TFieldValues>>(
       props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
         ? PartialKey<
             Omit<
@@ -61,7 +66,7 @@ export function createForm<
             'of'
           >
     ) => JSX.Element;
-    FieldArray: (
+    FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
       props: Omit<
         FieldArrayProps<
           TFieldValues,
@@ -75,12 +80,7 @@ export function createForm<
   }
 ] {
   // Create form store
-  const form = createFormStore<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >(options);
+  const form = createFormStore(options);
 
   // Return form store and linked components
   return [
@@ -89,10 +89,10 @@ export function createForm<
       Form: (
         props: Omit<
           FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-          'of'
+          'of' | 'action'
         >
       ) => Form({ of: form, ...props }),
-      Field: (
+      Field: <TFieldName extends FieldPath<TFieldValues>>(
         props: FieldPathValue<
           TFieldValues,
           TFieldName
@@ -119,13 +119,14 @@ export function createForm<
               'of'
             >
       ) =>
-        Field({ of: form, ...props } as FieldProps<
+        // FIXME: Improve types and remove `as unknown`
+        Field({ of: form, ...props } as unknown as FieldProps<
           TFieldValues,
           TResponseData,
           TFieldName,
           TFieldArrayName
         >),
-      FieldArray: (
+      FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
         props: Omit<
           FieldArrayProps<
             TFieldValues,
@@ -135,7 +136,14 @@ export function createForm<
           >,
           'of'
         >
-      ) => FieldArray({ of: form, ...props }),
+      ) =>
+        // FIXME: Improve types and remove `as unknown`
+        FieldArray({ of: form, ...props } as unknown as FieldArrayProps<
+          TFieldValues,
+          TResponseData,
+          TFieldName,
+          TFieldArrayName
+        >),
     },
   ];
 }

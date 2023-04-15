@@ -8,14 +8,8 @@ import type {
   PartialKey,
   ResponseData,
 } from '@modular-forms/core';
-import {
-  Field,
-  type FieldProps,
-  Form,
-  type FormProps,
-  type FieldArrayProps,
-  FieldArray,
-} from '../components';
+import type { FieldProps, FormProps, FieldArrayProps } from '../components';
+import { Field, Form, FieldArray } from '../components';
 import type { FormOptions, FormStore } from '../types';
 import { useFormStore } from './useFormStore';
 
