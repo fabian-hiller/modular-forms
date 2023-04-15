@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
-  FieldPath,
   FieldValues,
   Maybe,
   PartialValues,
@@ -22,11 +21,9 @@ import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
  */
 export function setValues<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   values: PartialValues<TFieldValues>,
   options?: ValuesOptions
 ): void;
@@ -42,10 +39,9 @@ export function setValues<
 export function setValues<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
   values: FieldArrayPathValue<TFieldValues, TFieldArrayName>,
   options?: ValuesOptions
@@ -54,10 +50,9 @@ export function setValues<
 export function setValues<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   arg2: PartialValues<TFieldValues> | TFieldArrayName,
   arg3?: Maybe<
     ValuesOptions | FieldArrayPathValue<TFieldValues, TFieldArrayName>

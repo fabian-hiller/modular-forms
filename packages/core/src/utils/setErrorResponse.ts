@@ -9,6 +9,9 @@ import type {
 import { getFieldArrayStore } from './getFieldArrayStore';
 import { getFieldStore } from './getFieldStore';
 
+/**
+ * Value type of the error response options.
+ */
 type ErrorResponseOptions = Partial<{
   shouldActive: boolean;
 }>;
@@ -23,11 +26,9 @@ type ErrorResponseOptions = Partial<{
  */
 export function setErrorResponse<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   formErrors: FormErrors<TFieldValues>,
   { shouldActive = true }: ErrorResponseOptions
 ): void {
@@ -37,8 +38,8 @@ export function setErrorResponse<
     .reduce<string[]>((errors, [name, error]) => {
       if (
         [
-          getFieldStore(form, name as TFieldName),
-          getFieldArrayStore(form, name as TFieldArrayName),
+          getFieldStore(form, name as FieldPath<TFieldValues>),
+          getFieldArrayStore(form, name as FieldArrayPath<TFieldValues>),
         ].every(
           (fieldOrFieldArray) =>
             !fieldOrFieldArray || (shouldActive && !fieldOrFieldArray.active)

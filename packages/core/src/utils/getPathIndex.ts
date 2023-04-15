@@ -1,4 +1,4 @@
-import type { FieldPath, FieldValues } from '../types';
+import type { FieldArrayPath, FieldPath, FieldValues } from '../types';
 
 /**
  * Returns the index of the path in the field array.
@@ -8,9 +8,9 @@ import type { FieldPath, FieldValues } from '../types';
  *
  * @returns The field index in the array.
  */
-export function getPathIndex<
-  TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>
->(name: string, path: TFieldName): number {
+export function getPathIndex<TFieldValues extends FieldValues>(
+  name: string,
+  path: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
+): number {
   return +path.replace(`${name}.`, '').split('.')[0];
 }

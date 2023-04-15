@@ -1,10 +1,4 @@
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValues,
-  FormStore,
-  ResponseData,
-} from '../types';
+import type { FieldPath, FieldValues, FormStore, ResponseData } from '../types';
 
 /**
  * Returns a list with the names of all files.
@@ -15,11 +9,7 @@ import type {
  */
 export function getFieldNames<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
->(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
-): TFieldName[] {
-  return Object.keys(form.internal.fields) as TFieldName[];
+  TResponseData extends ResponseData
+>(form: FormStore<TFieldValues, TResponseData>): FieldPath<TFieldValues>[] {
+  return Object.keys(form.internal.fields) as FieldPath<TFieldValues>[];
 }

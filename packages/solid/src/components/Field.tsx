@@ -1,5 +1,4 @@
 import type {
-  FieldArrayPath,
   FieldElement,
   FieldPath,
   FieldPathValue,
@@ -25,6 +24,7 @@ import {
   type JSX,
   untrack,
   onCleanup as cleanup,
+  mergeProps,
 } from 'solid-js';
 import type { FieldStore, FormStore } from '../types';
 import { initializeFieldStore } from '../utils';
@@ -50,10 +50,9 @@ export type FieldElementProps<
 export type FieldProps<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 > = {
-  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData>;
   name: TFieldName;
   type: FieldType<FieldPathValue<TFieldValues, TFieldName>>;
   children: (
@@ -73,15 +72,11 @@ export type FieldProps<
 export function Field<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 >(
   props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
-    ? PartialKey<
-        FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-        'type'
-      >
-    : FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
+    ? PartialKey<FieldProps<TFieldValues, TResponseData, TFieldName>, 'type'>
+    : FieldProps<TFieldValues, TResponseData, TFieldName>
 ): JSX.Element {
   // Get store of specified field
   const getField = createMemo(() => initializeFieldStore(props.of, props.name));
@@ -90,7 +85,8 @@ export function Field<
   createEffect(() =>
     handleLifecycle(
       { batch, untrack, cleanup },
-      { store: getField(), ...props }
+      // eslint-disable-next-line solid/reactivity
+      mergeProps({ store: getField() }, props)
     )
   );
 

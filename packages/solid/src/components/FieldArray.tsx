@@ -1,7 +1,7 @@
 import type {
   FieldArrayPath,
-  FieldPath,
   FieldValues,
+  Maybe,
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
@@ -11,6 +11,7 @@ import {
   batch,
   createEffect,
   createMemo,
+  mergeProps,
   onCleanup as cleanup,
   untrack,
   type JSX,
@@ -24,17 +25,17 @@ import { initializeFieldArrayStore } from '../utils';
 export type FieldArrayProps<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
-  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData>;
   name: TFieldArrayName;
   children: (
-    fieldArray: FieldArrayStore<TFieldValues, TFieldArrayName>
+    store: FieldArrayStore<TFieldValues, TFieldArrayName>
+    // name: TFieldArrayName
   ) => JSX.Element;
-  validate?: MaybeArray<ValidateFieldArray<number[]>>;
-  keepActive?: boolean;
-  keepState?: boolean;
+  validate?: Maybe<MaybeArray<ValidateFieldArray<number[]>>>;
+  keepActive?: Maybe<boolean>;
+  keepState?: Maybe<boolean>;
 };
 
 /**
@@ -43,15 +44,9 @@ export type FieldArrayProps<
 export function FieldArray<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  props: FieldArrayProps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >
+  props: FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>
 ): JSX.Element {
   // Get store of specified field array
   const getFieldArray = createMemo(() =>
@@ -62,7 +57,8 @@ export function FieldArray<
   createEffect(() =>
     handleLifecycle(
       { batch, untrack, cleanup },
-      { store: getFieldArray(), ...props }
+      // eslint-disable-next-line solid/reactivity
+      mergeProps({ store: getFieldArray() }, props)
     )
   );
 

@@ -1,6 +1,4 @@
 import type {
-  FieldArrayPath,
-  FieldPath,
   FieldValues,
   FormResponse,
   FormStore,
@@ -21,11 +19,9 @@ type ResponseOptions = Partial<{
  */
 export function setResponse<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   response: FormResponse<TResponseData>,
   options: Maybe<ResponseOptions> = {}
 ): void {

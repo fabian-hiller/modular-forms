@@ -21,12 +21,11 @@ export type ResponseData = Maybe<Record<string, any> | Array<any>>;
 /**
  * Value type of the form response.
  */
-export type FormResponse<TResponseData extends ResponseData = undefined> =
-  Partial<{
-    status: ResponseStatus;
-    message: string;
-    data: TResponseData;
-  }>;
+export type FormResponse<TResponseData extends ResponseData> = Partial<{
+  status: ResponseStatus;
+  message: string;
+  data: TResponseData;
+}>;
 
 /**
  * Value type of the form errors.
@@ -47,60 +46,50 @@ export type ValidateForm<TFieldValues extends FieldValues> = (
 /**
  * Value type of the fields store.
  */
-export type FieldsStore<
-  TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>
-> = {
-  [Name in TFieldName]?: FieldStore<TFieldValues, Name>;
+export type FieldsStore<TFieldValues extends FieldValues> = {
+  [Name in FieldPath<TFieldValues>]?: FieldStore<TFieldValues, Name>;
 };
 
 /**
  * Value type of the field arrays store.
  */
-export type FieldArraysStore<
-  TFieldValues extends FieldValues,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = {
-  [Name in TFieldArrayName]?: FieldArrayStore<TFieldValues, Name>;
+export type FieldArraysStore<TFieldValues extends FieldValues> = {
+  [Name in FieldArrayPath<TFieldValues>]?: FieldArrayStore<TFieldValues, Name>;
 };
 
 /**
  * Value type of the initial field values.
  */
-export type InitialValues<Value> = Value extends
+export type InitialValues<TValue> = TValue extends
   | string[]
   | MaybeNoSerialize<Blob[]>
   | MaybeNoSerialize<File[]>
-  ? Value
-  : Value extends FieldValue
-  ? Maybe<Value>
-  : { [Key in keyof Required<Value>]: InitialValues<Value[Key]> };
+  ? TValue
+  : TValue extends FieldValue
+  ? Maybe<TValue>
+  : { [Key in keyof Required<TValue>]: InitialValues<TValue[Key]> };
 
 /**
  * Value type of the partial field values.
  */
-export type PartialValues<Value> = Value extends
+export type PartialValues<TValue> = TValue extends
   | string[]
   | MaybeNoSerialize<Blob[]>
   | MaybeNoSerialize<File[]>
-  ? Value
-  : Value extends FieldValue
-  ? Maybe<Value>
-  : { [Key in keyof Value]?: PartialValues<Value[Key]> };
+  ? TValue
+  : TValue extends FieldValue
+  ? Maybe<TValue>
+  : { [Key in keyof TValue]?: PartialValues<TValue[Key]> };
 
 /**
  * Value type of the internal form store.
  */
-export type InternalFormStore<
-  TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = {
+export type InternalFormStore<TFieldValues extends FieldValues> = {
   initialValues?: PartialValues<TFieldValues>;
-  fields: FieldsStore<TFieldValues, TFieldName>;
-  fieldNames?: TFieldName[];
-  fieldArrays: FieldArraysStore<TFieldValues, TFieldArrayName>;
-  fieldArrayNames?: TFieldArrayName[];
+  fields: FieldsStore<TFieldValues>;
+  fieldNames?: FieldPath<TFieldValues>[];
+  fieldArrays: FieldArraysStore<TFieldValues>;
+  fieldArrayNames?: FieldArrayPath<TFieldValues>[];
   validate: Maybe<MaybeQRL<ValidateForm<TFieldValues>>>;
   validators: number[];
   validateOn: ValidationMode;
@@ -112,11 +101,9 @@ export type InternalFormStore<
  */
 export type FormStore<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 > = {
-  internal: InternalFormStore<TFieldValues, TFieldName, TFieldArrayName>;
+  internal: InternalFormStore<TFieldValues>;
   element: HTMLFormElement | undefined;
   submitCount: number;
   submitting: boolean;
@@ -131,7 +118,5 @@ export type FormStore<
 /**
  * Utility type to extract the field values from the form store.
  */
-export type FormValues<TFormStore extends FormStore<any, any, any, any>> =
-  TFormStore extends FormStore<infer TFieldValues, any, any, any>
-    ? TFieldValues
-    : never;
+export type FormValues<TFormStore extends FormStore<any, any>> =
+  TFormStore extends FormStore<infer TFieldValues, any> ? TFieldValues : never;

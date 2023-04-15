@@ -1,10 +1,5 @@
 import { untrack } from 'solid-js';
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValues,
-  ResponseData,
-} from '@modular-forms/core';
+import type { FieldPath, FieldValues, ResponseData } from '@modular-forms/core';
 import { focus as focusMethod } from '@modular-forms/core';
 import type { FormStore } from '../types';
 
@@ -16,12 +11,10 @@ import type { FormStore } from '../types';
  */
 export function focus<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldPath<TFieldValues>
 ): void {
   untrack(() => focusMethod(form, name));
 }

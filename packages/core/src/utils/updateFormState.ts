@@ -1,10 +1,4 @@
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValues,
-  FormStore,
-  ResponseData,
-} from '../types';
+import type { FieldValues, FormStore, ResponseData } from '../types';
 import { getFieldAndArrayStores } from './getFieldAndArrayStores';
 
 /**
@@ -14,12 +8,8 @@ import { getFieldAndArrayStores } from './getFieldAndArrayStores';
  */
 export function updateFormState<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
->(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
-): void {
+  TResponseData extends ResponseData
+>(form: FormStore<TFieldValues, TResponseData>): void {
   // Create state variables
   let touched = false,
     dirty = false,

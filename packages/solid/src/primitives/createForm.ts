@@ -24,57 +24,26 @@ import { createFormStore } from './createFormStore';
  */
 export function createForm<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData = undefined,
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData = undefined
 >(
   options?: FormOptions<TFieldValues>
 ): [
-  FormStore<
-    TFieldValues,
-    TResponseData,
-    FieldPath<TFieldValues>,
-    FieldArrayPath<TFieldValues>
-  >,
+  FormStore<TFieldValues, TResponseData>,
   {
     Form: (
-      props: Omit<
-        FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-        'of' | 'action'
-      >
+      props: Omit<FormProps<TFieldValues, TResponseData>, 'of' | 'action'>
     ) => JSX.Element;
     Field: <TFieldName extends FieldPath<TFieldValues>>(
       props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
         ? PartialKey<
-            Omit<
-              FieldProps<
-                TFieldValues,
-                TResponseData,
-                TFieldName,
-                TFieldArrayName
-              >,
-              'of'
-            >,
+            Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>,
             'type'
           >
-        : Omit<
-            FieldProps<
-              TFieldValues,
-              TResponseData,
-              TFieldName,
-              TFieldArrayName
-            >,
-            'of'
-          >
+        : Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>
     ) => JSX.Element;
     FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
       props: Omit<
-        FieldArrayProps<
-          TFieldValues,
-          TResponseData,
-          TFieldName,
-          TFieldArrayName
-        >,
+        FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>,
         'of'
       >
     ) => JSX.Element;
@@ -88,67 +57,35 @@ export function createForm<
     form,
     {
       Form: (
-        props: Omit<
-          FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-          'of' | 'action'
-        >
-      ) => Form({ of: form, ...props }),
+        props: Omit<FormProps<TFieldValues, TResponseData>, 'of' | 'action'>
+        // eslint-disable-next-line solid/reactivity
+      ) => Form(mergeProps({ of: form }, props)),
       Field: <TFieldName extends FieldPath<TFieldValues>>(
         props: FieldPathValue<
           TFieldValues,
           TFieldName
         > extends MaybeValue<string>
           ? PartialKey<
-              Omit<
-                FieldProps<
-                  TFieldValues,
-                  TResponseData,
-                  TFieldName,
-                  TFieldArrayName
-                >,
-                'of'
-              >,
+              Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>,
               'type'
             >
-          : Omit<
-              FieldProps<
-                TFieldValues,
-                TResponseData,
-                TFieldName,
-                TFieldArrayName
-              >,
-              'of'
-            >
+          : Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>
       ) =>
-        // FIXME: Improve types and remove `as unknown`
         Field(
-          mergeProps({ of: form }, props) as unknown as FieldProps<
+          // eslint-disable-next-line solid/reactivity
+          mergeProps({ of: form }, props) as FieldProps<
             TFieldValues,
             TResponseData,
-            TFieldName,
-            TFieldArrayName
+            TFieldName
           >
         ),
       FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
         props: Omit<
-          FieldArrayProps<
-            TFieldValues,
-            TResponseData,
-            TFieldName,
-            TFieldArrayName
-          >,
+          FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>,
           'of'
         >
-      ) =>
-        // FIXME: Improve types and remove `as unknown`
-        FieldArray(
-          mergeProps({ of: form }, props) as unknown as FieldArrayProps<
-            TFieldValues,
-            TResponseData,
-            TFieldName,
-            TFieldArrayName
-          >
-        ),
+        // eslint-disable-next-line solid/reactivity
+      ) => FieldArray(mergeProps({ of: form }, props)),
     },
   ];
 }

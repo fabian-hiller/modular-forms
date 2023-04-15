@@ -29,12 +29,10 @@ export type ErrorOptions = Partial<{
  */
 export function setError<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName | TFieldArrayName,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
   error: string,
   options: Maybe<ErrorOptions> = {}
 ): void {
@@ -47,8 +45,8 @@ export function setError<
   } = options;
 
   for (const fieldOrFieldArray of [
-    getFieldStore(form, name as TFieldName),
-    getFieldArrayStore(form, name as TFieldArrayName),
+    getFieldStore(form, name as FieldPath<TFieldValues>),
+    getFieldArrayStore(form, name as FieldArrayPath<TFieldValues>),
   ]) {
     if (
       fieldOrFieldArray &&
@@ -61,7 +59,7 @@ export function setError<
 
       // Focus element if set to "true"
       if (error && 'value' in fieldOrFieldArray && shouldFocus) {
-        focus(form, name as TFieldName);
+        focus(form, name as FieldPath<TFieldValues>);
       }
     }
   }

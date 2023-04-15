@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
-  FieldPath,
   FieldValues,
   FormStore,
   InitializeStoreDeps,
@@ -28,11 +27,10 @@ import {
  */
 export type InsertOptions<
   TFieldValues extends FieldValues,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   at?: Maybe<number>;
-  value: TFieldArrayValues[number];
+  value: FieldArrayPathValue<TFieldValues, TFieldArrayName>[number];
 };
 
 /**
@@ -46,20 +44,12 @@ export type InsertOptions<
 export function insert<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  deps: ReactivityDeps &
-    InitializeStoreDeps<
-      TFieldValues,
-      TResponseData,
-      TFieldName,
-      TFieldArrayName
-    >,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  deps: ReactivityDeps & InitializeStoreDeps<TFieldValues, TResponseData>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
-  options: InsertOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
+  options: InsertOptions<TFieldValues, TFieldArrayName>
 ): void {
   // Get store of specified field array
   const fieldArray = getFieldArrayStore(form, name);

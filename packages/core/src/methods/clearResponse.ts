@@ -1,10 +1,4 @@
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValues,
-  FormStore,
-  ResponseData,
-} from '../types';
+import type { FieldValues, FormStore, ResponseData } from '../types';
 
 /**
  * Clears the response of the form.
@@ -13,11 +7,7 @@ import type {
  */
 export function clearResponse<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
->(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
-): void {
+  TResponseData extends ResponseData
+>(form: FormStore<TFieldValues, TResponseData>): void {
   form.response = {};
 }

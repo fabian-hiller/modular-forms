@@ -30,12 +30,10 @@ export type SubmitHandler<TFieldValues extends FieldValues> = MaybeQRL<
  */
 export type FormProps<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 > = {
   // Custom props
-  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData>;
   action?: Maybe<
     ActionStore<
       FormActionStore<TFieldValues, TResponseData>,
@@ -65,9 +63,7 @@ export type FormProps<
  */
 export function Form<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >({
   of: form,
   action,
@@ -80,12 +76,7 @@ export function Form<
   reloadDocument,
   children,
   ...formProps
-}: FormProps<
-  TFieldValues,
-  TResponseData,
-  TFieldName,
-  TFieldArrayName
->): JSX.Element {
+}: FormProps<TFieldValues, TResponseData>): JSX.Element {
   // Destructure form props
   const { encType } = formProps;
 
@@ -133,7 +124,7 @@ export function Form<
               const { errors, response } = actionResult.value;
               (
                 Object.entries(errors) as [
-                  TFieldName | TFieldArrayName,
+                  FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
                   string
                 ][]
               ).forEach(([name, error]) =>

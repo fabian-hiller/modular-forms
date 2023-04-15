@@ -20,11 +20,9 @@ import { validate as validateMethod } from '@modular-forms/core';
  */
 export async function validate<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   options?: Maybe<ValidateOptions>
 ): Promise<boolean>;
 
@@ -40,12 +38,10 @@ export async function validate<
  */
 export async function validate<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName | TFieldArrayName,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
   options?: Maybe<ValidateOptions>
 ): Promise<boolean>;
 
@@ -61,26 +57,22 @@ export async function validate<
  */
 export async function validate<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  names: (TFieldName | TFieldArrayName)[],
+  form: FormStore<TFieldValues, TResponseData>,
+  names: (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[],
   options?: Maybe<ValidateOptions>
 ): Promise<boolean>;
 
 export async function validate<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   arg2?: Maybe<
-    | TFieldName
-    | TFieldArrayName
-    | (TFieldName | TFieldArrayName)[]
+    | FieldPath<TFieldValues>
+    | FieldArrayPath<TFieldValues>
+    | (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[]
     | ValidateOptions
   >,
   arg3?: Maybe<ValidateOptions>

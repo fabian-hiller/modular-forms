@@ -8,7 +8,6 @@ import { $, noSerialize } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import type {
-  FieldArrayPath,
   FieldElement,
   FieldPath,
   FieldPathValue,
@@ -55,10 +54,9 @@ export type FieldElementProps<
 export type FieldProps<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 > = {
-  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData>;
   name: TFieldName;
   type: FieldType<FieldPathValue<TFieldValues, TFieldName>>;
   children: (
@@ -79,24 +77,15 @@ export type FieldProps<
 export function Field<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 >({
   children,
   name,
   type,
   ...props
 }: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
-  ? PartialKey<
-      FieldProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-      'type'
-    >
-  : FieldProps<
-      TFieldValues,
-      TResponseData,
-      TFieldName,
-      TFieldArrayName
-    >): JSX.Element {
+  ? PartialKey<FieldProps<TFieldValues, TResponseData, TFieldName>, 'type'>
+  : FieldProps<TFieldValues, TResponseData, TFieldName>): JSX.Element {
   // Destructure props
   const { of: form } = props;
 

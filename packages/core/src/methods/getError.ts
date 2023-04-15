@@ -24,12 +24,10 @@ type ErrorOptions = Partial<{
  */
 export function getError<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName | TFieldArrayName,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
   options: Maybe<ErrorOptions> = {}
 ): string | undefined {
   // Destructure options and set default values
@@ -41,8 +39,8 @@ export function getError<
 
   // Return error if field or field array corresponds to filter options
   for (const fieldOrFieldArray of [
-    getFieldStore(form, name as TFieldName),
-    getFieldArrayStore(form, name as TFieldArrayName),
+    getFieldStore(form, name as FieldPath<TFieldValues>),
+    getFieldArrayStore(form, name as FieldArrayPath<TFieldValues>),
   ]) {
     if (
       fieldOrFieldArray &&

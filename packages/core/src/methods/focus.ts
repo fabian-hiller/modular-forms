@@ -1,10 +1,4 @@
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValues,
-  FormStore,
-  ResponseData,
-} from '../types';
+import type { FieldPath, FieldValues, FormStore, ResponseData } from '../types';
 import { getFieldStore } from '../utils';
 
 /**
@@ -15,12 +9,10 @@ import { getFieldStore } from '../utils';
  */
 export function focus<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldPath<TFieldValues>
 ): void {
   getFieldStore(form, name)?.internal.elements[0]?.focus();
 }

@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayStore,
-  FieldPath,
   FieldValues,
   FormStore,
   Maybe,
@@ -19,10 +18,9 @@ import type {
 export function getFieldArrayStore<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName
 ): Maybe<FieldArrayStore<TFieldValues, TFieldArrayName>> {
   return form.internal.fieldArrays[name];

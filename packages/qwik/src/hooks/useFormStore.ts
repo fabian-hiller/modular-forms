@@ -1,10 +1,5 @@
 import { useStore } from '@builder.io/qwik';
-import type {
-  FieldArrayPath,
-  FieldPath,
-  FieldValues,
-  ResponseData,
-} from '@modular-forms/core';
+import type { FieldValues, ResponseData } from '@modular-forms/core';
 import type { FormOptions, FormStore } from '../types';
 import { getInitialStores } from '../utils';
 
@@ -17,9 +12,7 @@ import { getInitialStores } from '../utils';
  */
 export function useFormStore<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData = undefined,
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData = undefined
 >({
   loader,
   action,
@@ -28,9 +21,7 @@ export function useFormStore<
   revalidateOn = 'input',
 }: FormOptions<TFieldValues, TResponseData>): FormStore<
   TFieldValues,
-  TResponseData,
-  TFieldName,
-  TFieldArrayName
+  TResponseData
 > {
   return useStore(
     () => {

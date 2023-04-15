@@ -10,8 +10,6 @@ import type {
   PartialValues,
   ValidateForm,
   InitialValues,
-  FieldArrayPath,
-  FieldPath,
   FormStore as FormStoreType,
   InternalFormStore,
 } from '@modular-forms/core';
@@ -65,15 +63,10 @@ export type FormOptions<
  */
 export type FormStore<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = Omit<
-  FormStoreType<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  'internal'
-> & {
+  TResponseData extends ResponseData
+> = Omit<FormStoreType<TFieldValues, TResponseData>, 'internal'> & {
   internal: Omit<
-    InternalFormStore<TFieldValues, TFieldName, TFieldArrayName>,
+    InternalFormStore<TFieldValues>,
     'initialValues' | 'fieldNames' | 'fieldArrayNames' | 'validate'
   > & {
     validate: Maybe<QRL<ValidateForm<TFieldValues>>>;

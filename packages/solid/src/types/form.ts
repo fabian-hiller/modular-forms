@@ -26,20 +26,15 @@ export type FormOptions<TFieldValues extends FieldValues> = Partial<{
  */
 export type FormStore<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = Omit<
-  FormStoreType<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  'internal'
-> & {
+  TResponseData extends ResponseData
+> = Omit<FormStoreType<TFieldValues, TResponseData>, 'internal'> & {
   internal: Omit<
-    InternalFormStore<TFieldValues, TFieldName, TFieldArrayName>,
+    InternalFormStore<TFieldValues>,
     'initialValues' | 'fieldNames' | 'fieldArrayNames' | 'validate'
   > & {
     initialValues: PartialValues<TFieldValues>;
-    fieldNames: TFieldName[];
-    fieldArrayNames: TFieldArrayName[];
+    fieldNames: FieldPath<TFieldValues>[];
+    fieldArrayNames: FieldArrayPath<TFieldValues>[];
     validate: Maybe<ValidateForm<TFieldValues>>;
   };
 };

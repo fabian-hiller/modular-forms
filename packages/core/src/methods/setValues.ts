@@ -36,17 +36,10 @@ export type ValuesOptions = Partial<{
 export function setValues<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  deps: ReactivityDeps &
-    InitializeStoreDeps<
-      TFieldValues,
-      TResponseData,
-      TFieldName,
-      TFieldArrayName
-    >,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  deps: ReactivityDeps & InitializeStoreDeps<TFieldValues, TResponseData>,
+  form: FormStore<TFieldValues, TResponseData>,
   arg3: PartialValues<TFieldValues> | TFieldArrayName,
   arg4?: Maybe<
     ValuesOptions | FieldArrayPathValue<TFieldValues, TFieldArrayName>
@@ -73,10 +66,14 @@ export function setValues<
   } = options;
 
   // Create list of field and field array names
-  const names: (TFieldName | TFieldArrayName)[] = isFieldArray ? [arg3] : [];
+  const names: (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[] =
+    isFieldArray ? [arg3] : [];
 
   // Create function to set items of field array
-  const setFieldArrayItems = (name: TFieldArrayName, value: any[]) => {
+  const setFieldArrayItems = (
+    name: FieldArrayPath<TFieldValues>,
+    value: any[]
+  ) => {
     // Initialize store of specified field array
     const fieldArray = deps.initializeFieldArrayStore(form, name);
 
@@ -104,18 +101,20 @@ export function setValues<
 
       // Set value of fields
       if (!value || typeof value !== 'object' || Array.isArray(value)) {
-        setValue(deps, form, compoundPath as TFieldName, value, {
+        setValue(deps, form, compoundPath as FieldPath<TFieldValues>, value, {
           ...options,
           shouldValidate: false,
         });
 
         // Add name of field or field array to list
-        names.push(compoundPath as TFieldName | TFieldArrayName);
+        names.push(
+          compoundPath as FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
+        );
       }
 
       // Set items of field arrays
       if (Array.isArray(value)) {
-        setFieldArrayItems(compoundPath as TFieldArrayName, value);
+        setFieldArrayItems(compoundPath as FieldArrayPath<TFieldValues>, value);
       }
 
       // Set values of nested fields and field arrays

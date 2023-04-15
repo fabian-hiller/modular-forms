@@ -18,12 +18,10 @@ import { reset as resetMethod } from '@modular-forms/core';
  */
 export function reset<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  options?: Maybe<ResetOptions<TFieldValues, TFieldName>>
+  form: FormStore<TFieldValues, TResponseData>,
+  options?: Maybe<ResetOptions<TFieldValues, FieldPath<TFieldValues>>>
 ): void;
 
 /**
@@ -37,11 +35,10 @@ export function reset<
 export function reset<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName | TFieldArrayName,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: TFieldName | FieldArrayPath<TFieldValues>,
   options?: Maybe<ResetOptions<TFieldValues, TFieldName>>
 ): void;
 
@@ -55,26 +52,23 @@ export function reset<
  */
 export function reset<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  names: (TFieldName | TFieldArrayName)[],
-  options?: Maybe<ResetOptions<TFieldValues, TFieldName>>
+  form: FormStore<TFieldValues, TResponseData>,
+  names: (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[],
+  options?: Maybe<ResetOptions<TFieldValues, FieldPath<TFieldValues>>>
 ): void;
 
 export function reset<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   arg2?: Maybe<
     | TFieldName
-    | TFieldArrayName
-    | (TFieldName | TFieldArrayName)[]
+    | FieldArrayPath<TFieldValues>
+    | (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[]
     | ResetOptions<TFieldValues, TFieldName>
   >,
   arg3?: Maybe<ResetOptions<TFieldValues, TFieldName>>

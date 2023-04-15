@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
-  FieldPath,
   FieldValues,
   FormStore,
   Maybe,
@@ -29,14 +28,12 @@ type ArrayValuesOptions = Partial<{
 export function getArrayValues<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValue extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
   options: Maybe<ArrayValuesOptions> = {}
-): PartialValues<TFieldArrayValue> {
+): PartialValues<FieldArrayPathValue<TFieldValues, TFieldArrayName>> {
   // Destructure options and set default values
   const {
     shouldActive = true,
@@ -57,5 +54,5 @@ export function getArrayValues<
       shouldDirty,
       shouldValid,
     }
-  ) as PartialValues<TFieldArrayValue>;
+  ) as PartialValues<FieldArrayPathValue<TFieldValues, TFieldArrayName>>;
 }

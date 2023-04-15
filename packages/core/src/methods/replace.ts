@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
-  FieldPath,
   FieldValues,
   FormStore,
   InitializeStoreDeps,
@@ -14,11 +13,10 @@ import { getFieldArrayStore, getUniqueId, setFieldArrayValue } from '../utils';
  */
 export type ReplaceOptions<
   TFieldValues extends FieldValues,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
   at: number;
-  value: TFieldArrayValues[number];
+  value: FieldArrayPathValue<TFieldValues, TFieldArrayName>[number];
 };
 
 /**
@@ -32,19 +30,12 @@ export type ReplaceOptions<
 export function replace<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  deps: InitializeStoreDeps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  deps: InitializeStoreDeps<TFieldValues, TResponseData>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
-  options: ReplaceOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
+  options: ReplaceOptions<TFieldValues, TFieldArrayName>
 ): void {
   // Get store of specified field array
   const fieldArray = getFieldArrayStore(form, name);

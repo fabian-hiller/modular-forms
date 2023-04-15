@@ -27,13 +27,13 @@ type ValuesOptions = Partial<{
  */
 export function getValues<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   arg2?: Maybe<
-    TFieldArrayName | (TFieldName | TFieldArrayName)[] | ValuesOptions
+    | FieldArrayPath<TFieldValues>
+    | (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[]
+    | ValuesOptions
   >,
   arg3?: Maybe<ValuesOptions>
 ): PartialValues<TFieldValues> {

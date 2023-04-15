@@ -23,30 +23,6 @@ import { handleLifecycle } from '@modular-forms/core';
 import type { FieldStore, FormStore } from '../types';
 
 /**
- * Value type of the field specific properties.
- */
-type FieldProps<
-  TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>
-> = {
-  store: FieldStore<TFieldValues, TFieldName>;
-  validate?: Maybe<
-    MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
-  >;
-};
-
-/**
- * Value type of the field array specific properties.
- */
-type FieldArrayProps<
-  TFieldValues extends FieldValues,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = {
-  store: FieldArrayStore<TFieldValues, TFieldArrayName>;
-  validate?: Maybe<MaybeArray<QRL<ValidateFieldArray<number[]>>>>;
-};
-
-/**
  * Value type of the lifecycle properties.
  */
 type LifecycleProps<
@@ -54,12 +30,16 @@ type LifecycleProps<
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
-> = (
-  | FieldProps<TFieldValues, TFieldName>
-  | FieldArrayProps<TFieldValues, TFieldArrayName>
-) & {
+> = {
   key: string | number;
-  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData>;
+  store:
+    | FieldStore<TFieldValues, TFieldName>
+    | FieldArrayStore<TFieldValues, TFieldArrayName>;
+  validate?: Maybe<
+    | MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
+    | MaybeArray<QRL<ValidateFieldArray<number[]>>>
+  >;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
 };

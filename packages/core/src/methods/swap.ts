@@ -38,18 +38,11 @@ export type SwapOptions = {
  */
 export function swap<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  deps: InitializeStoreDeps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldArrayName,
+  deps: InitializeStoreDeps<TFieldValues, TResponseData>,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldArrayPath<TFieldValues>,
   { at: index1, and: index2 }: SwapOptions
 ): void {
   // Get store of specified field array
@@ -74,10 +67,13 @@ export function swap<
 
       // Create field and field array state map
       const fieldStateMap = new Map<
-        TFieldName,
-        RawFieldState<TFieldValues, TFieldName>
+        FieldPath<TFieldValues>,
+        RawFieldState<TFieldValues, FieldPath<TFieldValues>>
       >();
-      const fieldArrayStateMap = new Map<TFieldArrayName, RawFieldArrayState>();
+      const fieldArrayStateMap = new Map<
+        FieldArrayPath<TFieldValues>,
+        RawFieldArrayState
+      >();
 
       // Create filter name function
       const filterName = <T extends string>(value: T) =>

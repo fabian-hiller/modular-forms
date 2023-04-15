@@ -9,9 +9,6 @@
 export function getOptions<
   TName extends string,
   TOptions extends Record<string, any>
->(
-  arg1: TName | TName[] | TOptions = {} as TOptions,
-  arg2: TOptions = {} as TOptions
-): TOptions {
-  return typeof arg1 !== 'string' && !Array.isArray(arg1) ? arg1 : arg2;
+>(arg1?: TName | TName[] | TOptions, arg2?: TOptions): Partial<TOptions> {
+  return (typeof arg1 !== 'string' && !Array.isArray(arg1) ? arg1 : arg2) || {};
 }

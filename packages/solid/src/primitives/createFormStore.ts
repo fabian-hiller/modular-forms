@@ -18,24 +18,19 @@ import type { FormOptions, FormStore } from '../types';
  */
 export function createFormStore<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData = undefined,
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData = undefined
 >({
   initialValues = {} as PartialValues<TFieldValues>,
   validateOn = 'submit',
   revalidateOn = 'input',
   validate,
-}: FormOptions<TFieldValues> = {}): FormStore<
-  TFieldValues,
-  TResponseData,
-  TFieldName,
-  TFieldArrayName
-> {
+}: FormOptions<TFieldValues> = {}): FormStore<TFieldValues, TResponseData> {
   // Create signals of form store
-  const [getFieldNames, setFieldNames] = createSignal<TFieldName[]>([]);
+  const [getFieldNames, setFieldNames] = createSignal<
+    FieldPath<TFieldValues>[]
+  >([]);
   const [getFieldArrayNames, setFieldArrayNames] = createSignal<
-    TFieldArrayName[]
+    FieldArrayPath<TFieldValues>[]
   >([]);
   const [getElement, setElement] = createSignal<HTMLFormElement>();
   const [getSubmitCount, setSubmitCount] = createSignal(0);
@@ -45,7 +40,9 @@ export function createFormStore<
   const [getTouched, setTouched] = createSignal(false);
   const [getDirty, setDirty] = createSignal(false);
   const [getInvalid, setInvalid] = createSignal(false);
-  const [getResponse, setResponse] = createSignal<FormResponse>({});
+  const [getResponse, setResponse] = createSignal<FormResponse<TResponseData>>(
+    {}
+  );
 
   // Return form functions and state
   return {

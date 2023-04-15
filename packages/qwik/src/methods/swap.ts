@@ -1,6 +1,5 @@
 import type {
   FieldArrayPath,
-  FieldPath,
   FieldValues,
   ResponseData,
   SwapOptions,
@@ -19,10 +18,9 @@ import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 export function swap<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
   options: SwapOptions
 ): void {

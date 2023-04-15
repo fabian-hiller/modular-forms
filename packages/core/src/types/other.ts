@@ -8,16 +8,16 @@ import type { FieldPath, FieldArrayPath } from './path';
  */
 export type InitializeStoreDeps<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 > = {
-  initializeFieldStore: (
-    form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  initializeFieldStore: <TFieldName extends FieldPath<TFieldValues>>(
+    form: FormStore<TFieldValues, TResponseData>,
     name: TFieldName
   ) => FieldStore<TFieldValues, TFieldName>;
-  initializeFieldArrayStore: (
-    form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  initializeFieldArrayStore: <
+    TFieldArrayName extends FieldArrayPath<TFieldValues>
+  >(
+    form: FormStore<TFieldValues, TResponseData>,
     name: TFieldArrayName
   ) => FieldArrayStore<TFieldValues, TFieldArrayName>;
 };

@@ -1,7 +1,5 @@
 import type {
   FieldArrayPath,
-  FieldArrayPathValue,
-  FieldPath,
   FieldValues,
   InsertOptions,
   ResponseData,
@@ -20,13 +18,11 @@ import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
 export function insert<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TFieldArrayValues extends FieldArrayPathValue<TFieldValues, TFieldArrayName>
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
-  options: InsertOptions<TFieldValues, TFieldArrayName, TFieldArrayValues>
+  options: InsertOptions<TFieldValues, TFieldArrayName>
 ): void {
   insertMethod(
     { initializeFieldStore, initializeFieldArrayStore },

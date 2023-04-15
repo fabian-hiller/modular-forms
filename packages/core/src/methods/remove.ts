@@ -1,6 +1,5 @@
 import type {
   FieldArrayPath,
-  FieldPath,
   FieldValues,
   FormStore,
   InitializeStoreDeps,
@@ -37,19 +36,11 @@ export type RemoveOptions = {
  */
 export function remove<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  deps: ReactivityDeps &
-    InitializeStoreDeps<
-      TFieldValues,
-      TResponseData,
-      TFieldName,
-      TFieldArrayName
-    >,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldArrayName,
+  deps: ReactivityDeps & InitializeStoreDeps<TFieldValues, TResponseData>,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldArrayPath<TFieldValues>,
   { at: index }: RemoveOptions
 ): void {
   // Get store of specified field array

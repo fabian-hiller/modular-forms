@@ -1,6 +1,5 @@
 import type {
   FieldArrayPath,
-  FieldPath,
   FieldValues,
   FormStore,
   Maybe,
@@ -19,12 +18,10 @@ import { getFieldArrayStore } from './getFieldArrayStore';
  */
 export function getFieldArrayState<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldArrayName
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldArrayPath<TFieldValues>
 ): Maybe<RawFieldArrayState> {
   const fieldArray = getFieldArrayStore(form, name);
   return fieldArray

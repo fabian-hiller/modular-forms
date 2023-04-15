@@ -35,7 +35,7 @@ export function validateIfRequired<
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   deps: ReactivityDeps,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   fieldOrFieldArray:
     | FieldStore<TFieldValues, TFieldName>
     | FieldArrayStore<TFieldValues, TFieldArrayName>,

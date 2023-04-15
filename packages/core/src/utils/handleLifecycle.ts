@@ -27,7 +27,7 @@ type LifecycleProps<
   TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 > = {
-  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData>;
   store:
     | FieldStore<TFieldValues, TFieldName>
     | FieldArrayStore<TFieldValues, TFieldArrayName>;

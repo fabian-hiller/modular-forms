@@ -1,6 +1,5 @@
 import type {
   FieldArrayPath,
-  FieldPath,
   FieldValues,
   RemoveOptions,
   ResponseData,
@@ -19,12 +18,10 @@ import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
  */
 export function remove<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldArrayName,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldArrayPath<TFieldValues>,
   options: RemoveOptions
 ): void {
   batch(() =>

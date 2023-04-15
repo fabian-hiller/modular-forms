@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayStore,
-  FieldPath,
   FieldValues,
   FormStore,
   RawFieldArrayState,
@@ -19,14 +18,13 @@ import type {
 export function setFieldArrayStore<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
   initialize: (
-    form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+    form: FormStore<TFieldValues, TResponseData>,
     name: TFieldArrayName
   ) => FieldArrayStore<TFieldValues, TFieldArrayName>,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
   state: RawFieldArrayState
 ): void {

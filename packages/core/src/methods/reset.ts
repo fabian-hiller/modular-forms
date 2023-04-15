@@ -53,14 +53,13 @@ export type ResetOptions<
 export function reset<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   arg2?: Maybe<
     | TFieldName
-    | TFieldArrayName
-    | (TFieldName | TFieldArrayName)[]
+    | FieldArrayPath<TFieldValues>
+    | (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[]
     | ResetOptions<TFieldValues, TFieldName>
   >,
   arg3?: Maybe<ResetOptions<TFieldValues, TFieldName>>

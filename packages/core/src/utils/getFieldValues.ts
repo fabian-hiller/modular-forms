@@ -1,5 +1,4 @@
 import type {
-  FieldArrayPath,
   FieldPath,
   FieldValues,
   FormStore,
@@ -31,14 +30,12 @@ type FieldValuesOptions<TInitialValue> = {
 export function getFieldValues<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
-  TInitialValue extends [] | object
+  TInitialValue extends Array<any> | Record<string, any>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  names: TFieldName[],
+  form: FormStore<TFieldValues, TResponseData>,
+  names: FieldPath<TFieldValues>[],
   options: FieldValuesOptions<TInitialValue>
-): TInitialValue extends [] ? Array<any> : Record<string, any> {
+): TInitialValue extends Array<any> ? Array<any> : Record<string, any> {
   // Destructure options
   const {
     initialValue,

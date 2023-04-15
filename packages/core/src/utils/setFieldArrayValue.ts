@@ -34,16 +34,10 @@ type ValueOptions<
 export function setFieldArrayValue<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
   TFieldArrayName extends FieldArrayPath<TFieldValues>
 >(
-  deps: InitializeStoreDeps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  deps: InitializeStoreDeps<TFieldValues, TResponseData>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldArrayName,
   { at: index, value }: ValueOptions<TFieldValues, TFieldArrayName>
 ): void {
@@ -63,7 +57,7 @@ export function setFieldArrayValue<
         setFieldStore(
           deps.initializeFieldStore,
           form,
-          compoundPath as TFieldName,
+          compoundPath as FieldPath<TFieldValues>,
           {
             startValue: value,
             value,
@@ -80,7 +74,7 @@ export function setFieldArrayValue<
         setFieldArrayStore(
           deps.initializeFieldArrayStore,
           form,
-          compoundPath as TFieldArrayName,
+          compoundPath as FieldArrayPath<TFieldValues>,
           {
             startItems: [...items],
             items,

@@ -28,9 +28,7 @@ import { getInitialFieldStore } from './getInitialFieldStore';
  */
 export function getInitialStores<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
   loader: Signal<InitialValues<TFieldValues>>,
   action?: Maybe<
@@ -40,15 +38,12 @@ export function getInitialStores<
       true
     >
   >
-): [
-  FieldsStore<TFieldValues, TFieldName>,
-  FieldArraysStore<TFieldValues, TFieldArrayName>
-] {
+): [FieldsStore<TFieldValues>, FieldArraysStore<TFieldValues>] {
   // Create function to get value of field or field array
-  function getActionValue(
+  function getActionValue<TFieldName extends FieldPath<TFieldValues>>(
     name: TFieldName
   ): Maybe<FieldPathValue<TFieldValues, TFieldName>>;
-  function getActionValue(
+  function getActionValue<TFieldArrayName extends FieldArrayPath<TFieldValues>>(
     name: TFieldArrayName
   ): Maybe<FieldArrayPathValue<TFieldValues, TFieldArrayName>>;
   function getActionValue(name: any): any {
@@ -59,15 +54,16 @@ export function getInitialStores<
   const generateItems = () => getUniqueId();
 
   // Create function to get error of field
-  const getActionError = (name: TFieldName | TFieldArrayName): string =>
-    action?.value?.errors[name] || '';
+  const getActionError = <
+    TFieldName extends FieldPath<TFieldValues>,
+    TFieldArrayName extends FieldArrayPath<TFieldValues>
+  >(
+    name: TFieldName | TFieldArrayName
+  ): string => action?.value?.errors[name] || '';
 
   // Create recursive function to create initial stores
   const createInitialStores = (
-    stores: [
-      Partial<FieldsStore<TFieldValues, TFieldName>>,
-      Partial<FieldArraysStore<TFieldValues, TFieldArrayName>>
-    ],
+    stores: [FieldsStore<TFieldValues>, FieldArraysStore<TFieldValues>],
     data: object,
     prevPath?: Maybe<string>
   ) =>
@@ -77,29 +73,31 @@ export function getInitialStores<
 
       // Add initial store of field
       if (!value || typeof value !== 'object' || Array.isArray(value)) {
-        stores[0][compoundPath as TFieldName] = getInitialFieldStore(
-          compoundPath as TFieldName,
-          {
+        stores[0][compoundPath as FieldPath<TFieldValues>] =
+          getInitialFieldStore(compoundPath as FieldPath<TFieldValues>, {
             initialValue: value,
-            value: getActionValue(compoundPath as TFieldName) ?? value,
-            error: getActionError(compoundPath as TFieldName),
-          }
-        );
+            value:
+              getActionValue(compoundPath as FieldPath<TFieldValues>) ?? value,
+            error: getActionError(compoundPath as FieldPath<TFieldValues>),
+          });
       }
 
       // Add initial store of field array
       if (Array.isArray(value)) {
         const initialItems = value.map(generateItems);
-        stores[1][compoundPath as TFieldArrayName] = getInitialFieldArrayStore(
-          compoundPath as TFieldArrayName,
-          {
-            initialItems,
-            items: getActionValue(compoundPath as TFieldArrayName)?.map(
-              generateItems
-            ) || [...initialItems],
-            error: getActionError(compoundPath as TFieldArrayName),
-          }
-        );
+        stores[1][compoundPath as FieldArrayPath<TFieldValues>] =
+          getInitialFieldArrayStore(
+            compoundPath as FieldArrayPath<TFieldValues>,
+            {
+              initialItems,
+              items: getActionValue(
+                compoundPath as FieldArrayPath<TFieldValues>
+              )?.map(generateItems) || [...initialItems],
+              error: getActionError(
+                compoundPath as FieldArrayPath<TFieldValues>
+              ),
+            }
+          );
       }
 
       // Add stores of nested fields and field arrays
@@ -113,7 +111,7 @@ export function getInitialStores<
 
   // Create and return initial stores
   return createInitialStores([{}, {}], loader.value) as [
-    FieldsStore<TFieldValues, TFieldName>,
-    FieldArraysStore<TFieldValues, TFieldArrayName>
+    FieldsStore<TFieldValues>,
+    FieldArraysStore<TFieldValues>
   ];
 }

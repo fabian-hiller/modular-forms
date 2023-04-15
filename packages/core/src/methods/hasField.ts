@@ -1,5 +1,4 @@
 import type {
-  FieldArrayPath,
   FieldPath,
   FieldValues,
   FormStore,
@@ -25,12 +24,10 @@ type FieldOptions = Partial<{
  */
 export function hasField<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName | string,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldPath<TFieldValues>,
   options: Maybe<FieldOptions> = {}
 ): boolean {
   // Destructure options and set default values
@@ -42,7 +39,7 @@ export function hasField<
   } = options;
 
   // Get store of specified field
-  const field = getFieldStore(form, name as TFieldName);
+  const field = getFieldStore(form, name);
 
   // If field is not present, set listener to be notified when a new field is
   // added

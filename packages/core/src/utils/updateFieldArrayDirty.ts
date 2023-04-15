@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayStore,
-  FieldPath,
   FieldValues,
   FormStore,
   ResponseData,
@@ -16,12 +15,10 @@ import { updateFormDirty } from './updateFormDirty';
  */
 export function updateFieldArrayDirty<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  fieldArray: FieldArrayStore<TFieldValues, TFieldArrayName>
+  form: FormStore<TFieldValues, TResponseData>,
+  fieldArray: FieldArrayStore<TFieldValues, FieldArrayPath<TFieldValues>>
 ): void {
   // Check if field array is dirty
   const dirty =

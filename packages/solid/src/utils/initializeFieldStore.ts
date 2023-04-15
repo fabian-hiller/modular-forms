@@ -1,5 +1,4 @@
 import type {
-  FieldArrayPath,
   FieldElement,
   FieldPath,
   FieldPathValue,
@@ -23,10 +22,9 @@ import type { FieldStore } from '../types';
 export function initializeFieldStore<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   name: TFieldName
 ): FieldStore<TFieldValues, TFieldName> {
   // Initialize store on first request

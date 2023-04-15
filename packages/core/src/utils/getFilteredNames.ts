@@ -23,15 +23,16 @@ import { getFieldNames } from './getFieldNames';
 export function getFilteredNames<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>,
   TOptions extends Record<string, any>
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   arg2?: Maybe<
-    TFieldName | TFieldArrayName | (TFieldName | TFieldArrayName)[] | TOptions
+    | FieldPath<TFieldValues>
+    | FieldArrayPath<TFieldValues>
+    | (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[]
+    | TOptions
   >
-): [TFieldName[], TFieldArrayName[]] {
+): [FieldPath<TFieldValues>[], FieldArrayPath<TFieldValues>[]] {
   // Get all field and field array names of form
   const allFieldNames = getFieldNames(form);
   const allFieldArrayNames = getFieldArrayNames(form);
@@ -62,15 +63,21 @@ export function getFilteredNames<
 
             // If it is name of a field, add it to field name set
           } else {
-            fieldNames.add(name as TFieldName);
+            fieldNames.add(name as FieldPath<TFieldValues>);
           }
 
           // Return tuple
           return tuple;
         },
-        [new Set(), new Set()] as [Set<TFieldName>, Set<TFieldArrayName>]
+        [new Set(), new Set()] as [
+          Set<FieldPath<TFieldValues>>,
+          Set<FieldArrayPath<TFieldValues>>
+        ]
       )
-      .map((set) => [...set]) as [TFieldName[], TFieldArrayName[]];
+      .map((set) => [...set]) as [
+      FieldPath<TFieldValues>[],
+      FieldArrayPath<TFieldValues>[]
+    ];
   }
 
   // Otherwise return every field and field array name

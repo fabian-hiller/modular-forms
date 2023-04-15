@@ -2,8 +2,6 @@ import { validate } from '../methods';
 import type {
   FieldValues,
   ResponseData,
-  FieldPath,
-  FieldArrayPath,
   FormStore,
   ReactivityDeps,
 } from '../types';
@@ -31,12 +29,10 @@ type SubmitOptions = Partial<{
  */
 export async function handleSubmit<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
   deps: ReactivityDeps,
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
+  form: FormStore<TFieldValues, TResponseData>,
   action: () => Promise<any>,
   options: SubmitOptions
 ): Promise<void> {

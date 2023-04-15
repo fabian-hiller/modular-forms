@@ -1,6 +1,4 @@
 import type {
-  FieldArrayPath,
-  FieldPath,
   FieldValues,
   MaybePromise,
   ResponseData,
@@ -32,11 +30,9 @@ export type SubmitHandler<TFieldValues extends FieldValues> = (
  */
 export type FormProps<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 > = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
-  of: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>;
+  of: FormStore<TFieldValues, TResponseData>;
   onSubmit: SubmitHandler<TFieldValues>;
   keepResponse?: boolean;
   shouldActive?: boolean;
@@ -52,12 +48,8 @@ export type FormProps<
  */
 export function Form<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
->(
-  props: FormProps<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
-): JSX.Element {
+  TResponseData extends ResponseData
+>(props: FormProps<TFieldValues, TResponseData>): JSX.Element {
   // Split props between local, options and other
   const [local, options, other] = splitProps(
     props,

@@ -17,20 +17,18 @@ import type {
  */
 export function getFieldAndArrayStores<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>
+  form: FormStore<TFieldValues, TResponseData>
 ): (
-  | FieldStore<TFieldValues, TFieldName>
-  | FieldArrayStore<TFieldValues, TFieldArrayName>
+  | FieldStore<TFieldValues, FieldPath<TFieldValues>>
+  | FieldArrayStore<TFieldValues, FieldArrayPath<TFieldValues>>
 )[] {
   return [
     ...Object.values(form.internal.fields),
     ...Object.values(form.internal.fieldArrays),
   ] as (
-    | FieldStore<TFieldValues, TFieldName>
-    | FieldArrayStore<TFieldValues, TFieldArrayName>
+    | FieldStore<TFieldValues, FieldPath<TFieldValues>>
+    | FieldArrayStore<TFieldValues, FieldArrayPath<TFieldValues>>
   )[];
 }

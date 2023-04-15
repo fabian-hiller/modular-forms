@@ -20,12 +20,10 @@ import { batch, untrack } from 'solid-js';
  */
 export function setError<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>,
-  TFieldArrayName extends FieldArrayPath<TFieldValues>
+  TResponseData extends ResponseData
 >(
-  form: FormStore<TFieldValues, TResponseData, TFieldName, TFieldArrayName>,
-  name: TFieldName | TFieldArrayName,
+  form: FormStore<TFieldValues, TResponseData>,
+  name: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
   error: string,
   options?: Maybe<ErrorOptions>
 ): void {
