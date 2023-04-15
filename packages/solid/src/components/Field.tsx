@@ -87,15 +87,20 @@ export function Field<
   const getField = createMemo(() => initializeFieldStore(props.of, props.name));
 
   // Create lifecycle of field
-  createEffect(() => {
-    handleLifecycle({ cleanup }, { store: getField(), ...props });
-  });
+  createEffect(() =>
+    handleLifecycle(
+      { batch, untrack, cleanup },
+      { store: getField(), ...props }
+    )
+  );
 
   return (
     <>
       {props.children(getField(), {
         name: props.name,
-        autoFocus: !!getField().error,
+        get autoFocus() {
+          return !!getField().error;
+        },
         ref(element) {
           getField().internal.elements.push(element);
 

@@ -57,9 +57,12 @@ export function FieldArray<
   );
 
   // Create lifecycle of field
-  createEffect(() => {
-    handleLifecycle({ cleanup }, { store: getFieldArray(), ...props });
-  });
+  createEffect(() =>
+    handleLifecycle(
+      { batch, untrack, cleanup },
+      { store: getFieldArray(), ...props }
+    )
+  );
 
   return <>{props.children(getFieldArray())}</>;
 }
