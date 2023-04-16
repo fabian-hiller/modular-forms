@@ -1,16 +1,17 @@
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import type { FieldProps, FormProps, FieldArrayProps } from '../components';
+import { Field, Form, FieldArray } from '../components';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
   FieldValues,
+  FormOptions,
+  FormStore,
   MaybeValue,
   PartialKey,
   ResponseData,
-} from '@modular-forms/core';
-import type { FieldProps, FormProps, FieldArrayProps } from '../components';
-import { Field, Form, FieldArray } from '../components';
-import type { FormOptions, FormStore } from '../types';
+} from '../types';
 import { useFormStore } from './useFormStore';
 
 /**

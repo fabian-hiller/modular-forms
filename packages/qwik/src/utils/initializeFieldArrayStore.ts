@@ -1,11 +1,11 @@
 import type {
   FieldArrayPath,
+  FieldArrayStore,
   FieldValues,
   FormStore,
   ResponseData,
-} from '@modular-forms/core';
-import { getFieldArrayStore } from '@modular-forms/core';
-import type { FieldArrayStore } from '../types';
+} from '../types';
+import { getFieldArrayStore } from './getFieldArrayStore';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 
 /**

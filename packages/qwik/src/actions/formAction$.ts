@@ -6,15 +6,16 @@ import {
 } from '@builder.io/qwik-city';
 import type {
   FieldValues,
-  FormErrors,
+  ResponseData,
   FormResponse,
   Maybe,
+  FormErrors,
   MaybePromise,
-  PartialValues,
-  ResponseData,
   ValidateForm,
-} from '@modular-forms/core';
-import type { FormActionStore, FormDataInfo } from '../types';
+  FormDataInfo,
+  FormActionStore,
+  PartialValues,
+} from '../types';
 import { getFormDataValues } from '../utils';
 
 /**

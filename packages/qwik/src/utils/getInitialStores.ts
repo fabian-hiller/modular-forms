@@ -8,15 +8,16 @@ import type {
   FieldPathValue,
   FieldsStore,
   FieldValues,
+  FormActionStore,
   InitialValues,
   Maybe,
   PartialValues,
   ResponseData,
-} from '@modular-forms/core';
-import { getPathValue, getUniqueId } from '@modular-forms/core';
-import type { FormActionStore } from '../types';
+} from '../types';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
 import { getInitialFieldStore } from './getInitialFieldStore';
+import { getPathValue } from './getPathValue';
+import { getUniqueId } from './getUniqueId';
 
 /**
  * Returns a tuple with the initial stores of the fields and field arrays.

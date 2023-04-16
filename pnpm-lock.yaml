@@ -45,10 +45,6 @@ importers:
         version: 3.21.4
 
   packages/qwik:
-    dependencies:
-      '@modular-forms/core':
-        specifier: workspace:^
-        version: link:../core
     devDependencies:
       '@builder.io/qwik':
         specifier: 0.100.0

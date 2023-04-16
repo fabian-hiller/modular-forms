@@ -63,8 +63,5 @@
   "peerDependencies": {
     "@builder.io/qwik": "0.100.0",
     "@builder.io/qwik-city": "0.100.0"
-  },
-  "dependencies": {
-    "@modular-forms/core": "workspace:^"
   }
 }

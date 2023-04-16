@@ -1,6 +1,10 @@
 import { useStore } from '@builder.io/qwik';
-import type { FieldValues, ResponseData } from '@modular-forms/core';
-import type { FormOptions, FormStore } from '../types';
+import type {
+  FieldValues,
+  FormOptions,
+  FormStore,
+  ResponseData,
+} from '../types';
 import { getInitialStores } from '../utils';
 
 /**

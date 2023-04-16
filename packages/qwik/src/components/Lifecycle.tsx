@@ -7,20 +7,22 @@ import {
   type QRL,
 } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import { reset } from '../methods';
 import type {
   FieldArrayPath,
   FieldArrayStore,
   FieldPath,
   FieldPathValue,
+  FieldStore,
   FieldValues,
+  FormStore,
   Maybe,
   MaybeArray,
   ResponseData,
   ValidateField,
   ValidateFieldArray,
-} from '@modular-forms/core';
-import { handleLifecycle } from '@modular-forms/core';
-import type { FieldStore, FormStore } from '../types';
+} from '../types';
+import { getUniqueId, updateFormState } from '../utils';
 
 /**
  * Value type of the lifecycle properties.
@@ -65,16 +67,73 @@ export const Lifecycle: <
     TResponseData extends ResponseData,
     TFieldName extends FieldPath<TFieldValues>,
     TFieldArrayName extends FieldArrayPath<TFieldValues>
-  >(
-    props: LifecycleProps<
-      TFieldValues,
-      TResponseData,
-      TFieldName,
-      TFieldArrayName
-    >
-  ): JSX.Element => {
+  >({
+    of: form,
+    store,
+    validate,
+    keepActive,
+    keepState,
+  }: LifecycleProps<
+    TFieldValues,
+    TResponseData,
+    TFieldName,
+    TFieldArrayName
+  >): JSX.Element => {
     // TODO: Switch back to `useTask$` once issue #3193 is fixed
-    useVisibleTask$((deps) => handleLifecycle(deps, props));
+    useVisibleTask$(({ cleanup }) => {
+      // Add validation functions
+      store.internal.validate = validate
+        ? Array.isArray(validate)
+          ? validate
+          : ([validate] as
+              | QRL<ValidateFieldArray<number[]>>[]
+              | QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[])
+        : [];
+
+      // Create unique consumer ID
+      const consumer = getUniqueId();
+
+      // Add consumer to field
+      store.internal.consumers.push(consumer);
+
+      // Mark field as active and update form state if necessary
+      if (!store.active) {
+        store.active = true;
+        updateFormState(form);
+      }
+
+      // On cleanup, remove consumer from field
+      cleanup(() => {
+        store.internal.consumers.splice(
+          store.internal.consumers.indexOf(consumer),
+          1
+        );
+
+        // Mark field as inactive if there is no other consumer
+        if (!keepActive && !store.internal.consumers.length) {
+          store.active = false;
+
+          // Reset state if it is not to be kept
+          if (!keepState) {
+            reset(form, store.name);
+
+            // Otherwise just update form state
+          } else {
+            updateFormState(form);
+          }
+        }
+
+        // Remove unmounted elements
+        if ('value' in store) {
+          setTimeout(() => {
+            store.internal.elements = store.internal.elements.filter(
+              (element) => element.isConnected
+            );
+          });
+        }
+      });
+    });
+
     return <Slot />;
   }
 );

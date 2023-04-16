@@ -1,6 +1,5 @@
 import { noSerialize } from '@builder.io/qwik';
-import type { FieldValues, Maybe, PartialValues } from '@modular-forms/core';
-import type { FormDataInfo } from '../types';
+import type { FieldValues, FormDataInfo, Maybe, PartialValues } from '../types';
 
 /**
  * Returns the values of a form data object. Information that is lost during

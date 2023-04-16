@@ -1,6 +1,5 @@
 import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
-import type { MaybeValue } from '@modular-forms/core';
-import { mimeType as validate } from '@modular-forms/core';
+import type { MaybeValue } from '../types';
 
 type Value = MaybeValue<
   | NoSerialize<Blob>
@@ -21,5 +20,13 @@ export function mimeType(
   requirement: string | string[],
   error: string
 ): QRL<(value: Value) => string> {
-  return $((value: Value) => validate(requirement, error)(value));
+  const mimeTypes = Array.isArray(requirement) ? requirement : [requirement];
+  return $((value: Value) =>
+    value &&
+    (Array.isArray(value)
+      ? [...value].some((file) => !mimeTypes.includes(file.type))
+      : !mimeTypes.includes(value.type))
+      ? error
+      : ''
+  );
 }

@@ -1,6 +1,7 @@
 import { $, type QRL } from '@builder.io/qwik';
-import type { FieldValue, Maybe } from '@modular-forms/core';
-import { required as validate } from '@modular-forms/core';
+import type { FieldValue, Maybe } from '../types';
+
+type Value<TFieldValue extends FieldValue> = Maybe<TFieldValue> | number[];
 
 /**
  * Creates a validation function that checks the existence of an input.
@@ -11,6 +12,10 @@ import { required as validate } from '@modular-forms/core';
  */
 export function required<TFieldValue extends FieldValue>(
   error: string
-): QRL<(value: Maybe<TFieldValue> | number[]) => string> {
-  return $((value: Maybe<TFieldValue> | number[]) => validate(error)(value));
+): QRL<(value: Value<TFieldValue>) => string> {
+  return $((value: Value<TFieldValue>) =>
+    (!value && value !== 0) || (Array.isArray(value) && !value.length)
+      ? error
+      : ''
+  );
 }

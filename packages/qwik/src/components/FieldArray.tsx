@@ -1,15 +1,16 @@
 import type { QRL } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import { getFieldArrayStore } from '../utils';
 import type {
   FieldArrayPath,
+  FieldArrayStore,
   FieldValues,
+  FormStore,
   Maybe,
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
-} from '@modular-forms/core';
-import { getFieldArrayStore } from '@modular-forms/core';
-import type { FieldArrayStore, FormStore } from '../types';
+} from '../types';
 import { Lifecycle } from './Lifecycle';
 
 /**
@@ -43,10 +44,7 @@ export function FieldArray<
   ...props
 }: FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>): JSX.Element {
   // Get store of specified field
-  const fieldArray = getFieldArrayStore(props.of, name) as FieldArrayStore<
-    TFieldValues,
-    TFieldArrayName
-  >;
+  const fieldArray = getFieldArrayStore(props.of, name)!;
 
   return (
     <Lifecycle key={name} store={fieldArray} {...props}>

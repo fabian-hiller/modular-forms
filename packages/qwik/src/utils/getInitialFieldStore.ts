@@ -1,12 +1,12 @@
 import type {
   FieldPath,
   FieldPathValue,
+  FieldStore,
   FieldValue,
   FieldValues,
   Maybe,
-} from '@modular-forms/core';
-import { isFieldDirty } from '@modular-forms/core';
-import type { FieldStore } from '../types';
+} from '../types';
+import { isFieldDirty } from './isFieldDirty';
 
 /**
  * Value type of the initial field state.

@@ -2,12 +2,25 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldValues,
+  FormStore,
+  Maybe,
   ResponseData,
-  ValueOptions,
-} from '@modular-forms/core';
-import { setValue as setValueMethod } from '@modular-forms/core';
-import type { FormStore } from '../types';
-import { initializeFieldStore } from '../utils';
+} from '../types';
+import {
+  initializeFieldStore,
+  updateFieldDirty,
+  validateIfRequired,
+} from '../utils';
+
+/**
+ * Value type of the set value options.
+ */
+export type SetValueOptions = Partial<{
+  shouldTouched: boolean;
+  shouldDirty: boolean;
+  shouldValidate: boolean;
+  shouldFocus: boolean;
+}>;
 
 /**
  * Sets the value of the specified field.
@@ -25,7 +38,35 @@ export function setValue<
   form: FormStore<TFieldValues, TResponseData>,
   name: TFieldName,
   value: FieldPathValue<TFieldValues, TFieldName>,
-  options: ValueOptions
+  {
+    shouldTouched = true,
+    shouldDirty = true,
+    shouldValidate = true,
+    shouldFocus = true,
+  }: Maybe<SetValueOptions> = {}
 ): void {
-  setValueMethod({ initializeFieldStore }, form, name, value, options);
+  // Initialize store of specified field
+  const field = initializeFieldStore(form, name);
+
+  // Set new value
+  field.value = value;
+
+  // Update touched if set to "true"
+  if (shouldTouched) {
+    field.touched = true;
+    form.touched = true;
+  }
+
+  // Update dirty if set to "true"
+  if (shouldDirty) {
+    updateFieldDirty(form, field);
+  }
+
+  // Validate if set to "true" and necessary
+  if (shouldValidate) {
+    validateIfRequired(form, field, name, {
+      on: ['touched', 'input'],
+      shouldFocus,
+    });
+  }
 }

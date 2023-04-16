@@ -1,6 +1,5 @@
 import { $, type QRL } from '@builder.io/qwik';
-import type { MaybeValue } from '@modular-forms/core';
-import { maxRange as validate } from '@modular-forms/core';
+import type { MaybeValue } from '../types';
 
 type Value = MaybeValue<string | number | Date>;
 
@@ -16,5 +15,7 @@ export function maxRange(
   requirement: string | number | Date,
   error: string
 ): QRL<(value: Value) => string> {
-  return $((value: Value) => validate(requirement, error)(value));
+  return $((value: Value) =>
+    (value || value === 0) && value! > requirement ? error : ''
+  );
 }

@@ -1,5 +1,4 @@
-import type { FieldArrayPath, FieldValues } from '@modular-forms/core';
-import type { FieldArrayStore } from '../types';
+import type { FieldArrayPath, FieldArrayStore, FieldValues } from '../types';
 
 /**
  * Value type of the initial field array state.

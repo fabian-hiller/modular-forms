@@ -1,12 +1,7 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
-import type {
-  FieldValue,
-  Maybe,
-  MaybeFunction,
-  ValidateField,
-} from '@modular-forms/core';
-import { zodField } from '@modular-forms/core';
 import type { ZodType } from 'zod';
+import type { FieldValue, MaybeFunction, ValidateField, Maybe } from '../types';
+import { getParsedZodSchema } from '../utils';
 
 /**
  * See {@link zodField$}
@@ -14,7 +9,10 @@ import type { ZodType } from 'zod';
 export function zodFieldQrl<TFieldValue extends FieldValue>(
   schema: QRL<MaybeFunction<ZodType<any, any, TFieldValue>>>
 ): QRL<ValidateField<TFieldValue>> {
-  return $((value: Maybe<TFieldValue>) => zodField(schema)(value));
+  return $(async (value: Maybe<TFieldValue>) => {
+    const result = await getParsedZodSchema(schema, value);
+    return result.success ? '' : result.error.issues[0].message;
+  });
 }
 
 /**

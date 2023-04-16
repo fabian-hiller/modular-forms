@@ -4,29 +4,30 @@ import type {
   QwikFocusEvent,
   QRL,
 } from '@builder.io/qwik';
-import { $, noSerialize } from '@builder.io/qwik';
+import { $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import {
+  getElementInput,
+  getFieldStore,
+  updateFieldValue,
+  validateIfRequired,
+} from '../utils';
 import type {
   FieldElement,
   FieldPath,
   FieldPathValue,
+  FieldStore,
   FieldType,
   FieldValues,
+  FormStore,
   Maybe,
   MaybeArray,
   MaybeValue,
   PartialKey,
   ResponseData,
   ValidateField,
-} from '@modular-forms/core';
-import {
-  getElementInput,
-  getFieldStore,
-  updateFieldValue,
-  validateIfRequired,
-} from '@modular-forms/core';
-import type { FieldStore, FormStore } from '../types';
+} from '../types';
 import { Lifecycle } from './Lifecycle';
 
 /**
@@ -90,10 +91,7 @@ export function Field<
   const { of: form } = props;
 
   // Get store of specified field
-  const field = getFieldStore(form, name) as FieldStore<
-    TFieldValues,
-    TFieldName
-  >;
+  const field = getFieldStore(form, name)!;
 
   return (
     <Lifecycle key={name} store={field} {...props}>
@@ -105,22 +103,21 @@ export function Field<
         }),
         onInput$: $((_: Event, element: FieldElement) => {
           updateFieldValue(
-            {},
             form,
             field,
             name,
-            getElementInput(element, field, type, noSerialize)
+            getElementInput(element, field, type)
           );
         }),
         onChange$: $(() => {
-          validateIfRequired({}, form, field, name, {
+          validateIfRequired(form, field, name, {
             on: ['change'],
           });
         }),
         onBlur$: $(() => {
           field.touched = true;
           form.touched = true;
-          validateIfRequired({}, form, field, name, {
+          validateIfRequired(form, field, name, {
             on: ['touched', 'blur'],
           });
         }),

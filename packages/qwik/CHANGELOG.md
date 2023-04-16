@@ -4,10 +4,13 @@ All notable changes to the library will be documented in this file.
 
 ## vX.X.X (Month DD, YYYY)
 
+> Note: The package has been refactored and not every change is listed here. Please create an [issue](https://github.com/fabian-hiller/modular-forms/issues/new) if you encounter problems.
+
 - Remove `active` property from RawFieldState and RawFieldArrayState type
 - Remove unnecessary code from `Field` component
 - Add log statement for unknown errors to `formAction$` (issue #50)
 - Remove deprecated `custom`, `minFiles`, `maxFiles`, `minNumber` and `maxNumber` validation function
+- Refactor `getValues` and remove `getArrayValues` method
 
 ## v0.8.1 (April 07, 2023)
 

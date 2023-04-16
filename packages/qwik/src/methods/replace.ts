@@ -1,12 +1,22 @@
 import type {
   FieldArrayPath,
+  FieldArrayPathValue,
   FieldValues,
-  ReplaceOptions,
+  FormStore,
   ResponseData,
-} from '@modular-forms/core';
-import { replace as replaceMethod } from '@modular-forms/core';
-import type { FormStore } from '../types';
-import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
+} from '../types';
+import { getFieldArrayStore, getUniqueId, setFieldArrayValue } from '../utils';
+
+/**
+ * Value type of the replace options.
+ */
+export type ReplaceOptions<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = {
+  at: number;
+  value: FieldArrayPathValue<TFieldValues, TFieldArrayName>[number];
+};
 
 /**
  * Replaces a item of the field array.
@@ -24,10 +34,32 @@ export function replace<
   name: TFieldArrayName,
   options: ReplaceOptions<TFieldValues, TFieldArrayName>
 ): void {
-  replaceMethod(
-    { initializeFieldStore, initializeFieldArrayStore },
-    form,
-    name,
-    options
-  );
+  // Get store of specified field array
+  const fieldArray = getFieldArrayStore(form, name);
+
+  // Continue if specified field array exists
+  if (fieldArray) {
+    // Destructure options
+    const { at: index } = options;
+
+    // Get last index of field array
+    const lastIndex = fieldArray.items.length - 1;
+
+    // Continue if specified index is valid
+    if (index >= 0 && index <= lastIndex) {
+      // Replace value of field array
+      setFieldArrayValue(form, name, options);
+
+      // Replace item at field array
+      fieldArray.items[index] = getUniqueId();
+
+      // Set touched at field array and form to true
+      fieldArray.touched = true;
+      form.touched = true;
+
+      // Set dirty at field array and form to true
+      fieldArray.dirty = true;
+      form.dirty = true;
+    }
+  }
 }

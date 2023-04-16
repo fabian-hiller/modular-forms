@@ -1,12 +1,13 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
+import type { ZodType } from 'zod';
 import type {
   FieldValues,
   MaybeFunction,
-  PartialValues,
   ValidateForm,
-} from '@modular-forms/core';
-import { zodForm } from '@modular-forms/core';
-import type { ZodType } from 'zod';
+  PartialValues,
+  FormErrors,
+} from '../types';
+import { getParsedZodSchema } from '../utils';
 
 /**
  * See {@link zodForm$}
@@ -14,7 +15,18 @@ import type { ZodType } from 'zod';
 export function zodFormQrl<TFieldValues extends FieldValues>(
   schema: QRL<MaybeFunction<ZodType<any, any, TFieldValues>>>
 ): QRL<ValidateForm<TFieldValues>> {
-  return $((values: PartialValues<TFieldValues>) => zodForm(schema)(values));
+  return $(async (values: PartialValues<TFieldValues>) => {
+    const result = await getParsedZodSchema(schema, values);
+    return result.success
+      ? {}
+      : (result.error.issues.reduce<any>((errors, error) => {
+          const path = error.path.join('.');
+          if (!errors[path]) {
+            errors[path] = error.message;
+          }
+          return errors;
+        }, {}) as FormErrors<TFieldValues>);
+  });
 }
 
 /**

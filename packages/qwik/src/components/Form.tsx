@@ -1,19 +1,20 @@
 import type { QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import { getValues, setError, validate } from '../methods';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldValues,
+  FormActionStore,
+  FormStore,
   Maybe,
   MaybePromise,
   MaybeQRL,
   PartialValues,
   ResponseData,
-} from '@modular-forms/core';
-import { setErrorResponse } from '@modular-forms/core';
-import { getValues, setError, validate } from '../methods';
-import type { FormActionStore, FormStore } from '../types';
+} from '../types';
+import { setErrorResponse } from '../utils';
 
 /**
  * Function type to handle the submission of the form.
