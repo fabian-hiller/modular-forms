@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.9.0 (April 18, 2023)
 
 > Note: The package has been refactored and not every change is listed here. Please create an [issue](https://github.com/fabian-hiller/modular-forms/issues/new) if you encounter problems.
 
