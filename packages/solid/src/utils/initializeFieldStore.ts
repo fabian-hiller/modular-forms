@@ -1,15 +1,16 @@
+import { createSignal } from 'solid-js';
 import type {
   FieldElement,
   FieldPath,
   FieldPathValue,
   FieldValues,
   FormStore,
+  InternalFieldStore,
   Maybe,
   ResponseData,
-} from '@modular-forms/core';
-import { getFieldStore, getPathValue } from '@modular-forms/core';
-import { createSignal } from 'solid-js';
-import type { FieldStore } from '../types';
+} from '../types';
+import { getFieldStore } from './getFieldStore';
+import { getPathValue } from './getPathValue';
 
 /**
  * Initializes and returns the store of a field.
@@ -26,11 +27,11 @@ export function initializeFieldStore<
 >(
   form: FormStore<TFieldValues, TResponseData>,
   name: TFieldName
-): FieldStore<TFieldValues, TFieldName> {
+): InternalFieldStore<TFieldValues, TFieldName> {
   // Initialize store on first request
   if (!getFieldStore(form, name)) {
     // Get initial value of field
-    const initialValue = getPathValue(name, form.internal.initialValues!);
+    const initialValue = getPathValue(name, form.internal.initialValues);
 
     // Create signals of field store
     const [getElements, setElements] = createSignal<FieldElement[]>([]);
@@ -53,63 +54,31 @@ export function initializeFieldStore<
 
     // Add store of field to form
     form.internal.fields[name] = {
-      internal: {
-        get initialValue() {
-          return getInitialValue();
-        },
-        set initialValue(value) {
-          setInitialValue(() => value);
-        },
-        get startValue() {
-          return getStartValue();
-        },
-        set startValue(value) {
-          setStartValue(() => value);
-        },
-        get elements() {
-          return getElements();
-        },
-        set elements(value) {
-          setElements(value);
-        },
-        validate: [],
-        consumers: [],
-      },
-      name,
-      get value() {
-        return getValue();
-      },
-      set value(value) {
-        setValue(() => value);
-      },
-      get error() {
-        return getError();
-      },
-      set error(value) {
-        setError(value);
-      },
-      get active() {
-        return getActive();
-      },
-      set active(value) {
-        setActive(value);
-      },
-      get touched() {
-        return getTouched();
-      },
-      set touched(value) {
-        setTouched(value);
-      },
-      get dirty() {
-        return getDirty();
-      },
-      set dirty(value) {
-        setDirty(value);
-      },
+      // Signals
+      getElements,
+      setElements,
+      getInitialValue,
+      setInitialValue,
+      getStartValue,
+      setStartValue,
+      getValue,
+      setValue,
+      getError,
+      setError,
+      getActive,
+      setActive,
+      getTouched,
+      setTouched,
+      getDirty,
+      setDirty,
+
+      // Other
+      validate: [],
+      consumers: new Set(),
     };
 
     // Add name of field to form
-    form.internal.fieldNames = [...form.internal.fieldNames!, name];
+    form.internal.setFieldNames((names) => [...names, name]);
   }
 
   // Return store of field

@@ -1,17 +1,17 @@
+import { mergeProps, type JSX } from 'solid-js';
+import type { FormProps, FieldProps, FieldArrayProps } from '../components';
+import { Form, Field, FieldArray } from '../components';
 import type {
   FieldArrayPath,
   FieldPath,
   FieldPathValue,
   FieldValues,
+  FormOptions,
+  FormStore,
   MaybeValue,
   PartialKey,
   ResponseData,
-} from '@modular-forms/core';
-import { mergeProps } from 'solid-js';
-import type { JSX } from 'solid-js/jsx-runtime';
-import type { FormProps, FieldProps, FieldArrayProps } from '../components';
-import { Form, Field, FieldArray } from '../components';
-import type { FormOptions, FormStore } from '../types';
+} from '../types';
 import { createFormStore } from './createFormStore';
 
 /**

@@ -1,5 +1,3 @@
-import { untrack } from '@builder.io/qwik';
-import { getValues } from '.';
 import type {
   FieldValues,
   ResponseData,
@@ -19,6 +17,7 @@ import {
   updateFormInvalid,
 } from '../utils';
 import { focus } from './focus';
+import { getValues } from './getValues';
 
 /**
  * Value type of the validate options.
@@ -108,9 +107,7 @@ export async function validate<
 
   // Run form validation function
   const formErrors: FormErrors<TFieldValues> = form.internal.validate
-    ? await form.internal.validate(
-        untrack(() => getValues(form, { shouldActive }))
-      )
+    ? await form.internal.validate(getValues(form, { shouldActive }))
     : {};
 
   // Create valid variable
@@ -124,7 +121,7 @@ export async function validate<
         const field = getFieldStore(form, name)!;
 
         // Continue if field corresponds to filter options
-        if (!shouldActive || untrack(() => field.active)) {
+        if (!shouldActive || field.active) {
           // Create local error variable
           let localError: string | undefined;
 
@@ -162,7 +159,7 @@ export async function validate<
         const fieldArray = getFieldArrayStore(form, name)!;
 
         // Continue if field array corresponds to filter options
-        if (!shouldActive || untrack(() => fieldArray.active)) {
+        if (!shouldActive || fieldArray.active) {
           // Create local error variable
           let localError = '';
 

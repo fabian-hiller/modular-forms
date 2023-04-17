@@ -22,6 +22,7 @@ export type HasFieldOptions = Partial<{
  *
  * @param form The form of the field.
  * @param name The name of the field.
+ * @param options The field options.
  *
  * @returns Whether the field is included.
  */

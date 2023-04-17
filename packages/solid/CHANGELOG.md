@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+> Note: The package has been revised and refactored and it would be too complicated to mention every change here. Please create an [issue](https://github.com/fabian-hiller/modular-forms/issues/new) if you encounter problems.
+
 ## v0.11.0 (March 16, 2023)
 
 - Rename `Response` type to `FormResponse`

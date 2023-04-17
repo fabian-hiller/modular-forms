@@ -1,11 +1,11 @@
+import { batch, type JSX, splitProps } from 'solid-js';
+import { getValues, validate } from '../methods';
 import type {
   FieldValues,
+  FormStore,
   MaybePromise,
   ResponseData,
-} from '@modular-forms/core';
-import { getValues, handleSubmit } from '@modular-forms/core';
-import { batch, type JSX, splitProps, untrack } from 'solid-js';
-import type { FormStore } from '../types';
+} from '../types';
 
 /**
  * Value type of the submit event object.
@@ -76,13 +76,35 @@ export function Form<
         // eslint-disable-next-line solid/reactivity
         const { of: form, onSubmit } = local;
 
-        // Handle submission and execute user action
-        await handleSubmit(
-          { batch, untrack },
-          form,
-          () => onSubmit(getValues(form, options) as TFieldValues, event),
-          options
-        );
+        batch(() => {
+          // Reset response if it is not to be kept
+          if (!options.keepResponse) {
+            form.internal.setResponse({});
+          }
+
+          // Increase submit count and set submitted and submitting to "true"
+          form.internal.setSubmitCount((count) => count + 1);
+          form.internal.setSubmitted(true);
+          form.internal.setSubmitting(true);
+        });
+
+        // Try to run submit actions if form is valid
+        try {
+          if (await validate(form, options)) {
+            await onSubmit(getValues(form, options) as TFieldValues, event);
+          }
+
+          // If an error occurred, set error response
+        } catch (error: any) {
+          form.internal.setResponse({
+            status: 'error',
+            message: error?.message || 'An unknown error has occurred.',
+          });
+
+          // Finally set submitting back to "false"
+        } finally {
+          form.internal.setSubmitting(false);
+        }
       }}
     />
   );

@@ -22,6 +22,7 @@ export type HasFieldArrayOptions = Partial<{
  *
  * @param form The form of the field array.
  * @param name The name of the field array.
+ * @param options The field array options.
  *
  * @returns Whether the field array is included.
  */

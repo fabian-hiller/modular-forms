@@ -1,17 +1,15 @@
-export {
-  custom,
-  email,
-  maxLength,
-  maxRange,
-  maxSize,
-  maxTotalSize,
-  mimeType,
-  minLength,
-  minRange,
-  minSize,
-  minTotalSize,
-  pattern,
-  required,
-  url,
-  value,
-} from '@modular-forms/core';
+export * from './custom';
+export * from './email';
+export * from './maxLength';
+export * from './maxRange';
+export * from './maxSize';
+export * from './maxTotalSize';
+export * from './mimeType';
+export * from './minLength';
+export * from './minRange';
+export * from './minSize';
+export * from './minTotalSize';
+export * from './pattern';
+export * from './required';
+export * from './url';
+export * from './value';

@@ -1,14 +1,24 @@
-import type {
-  ErrorOptions,
-  FieldArrayPath,
-  FieldPath,
-  FieldValues,
-  FormStore,
-  Maybe,
-  ResponseData,
-} from '@modular-forms/core';
-import { setError as setErrorMethod } from '@modular-forms/core';
 import { batch, untrack } from 'solid-js';
+import type {
+  FieldValues,
+  ResponseData,
+  FormStore,
+  FieldPath,
+  FieldArrayPath,
+  Maybe,
+} from '../types';
+import { getFieldArrayStore, getFieldStore, updateFormInvalid } from '../utils';
+import { focus } from './focus';
+
+/**
+ * Value type of the set error options.
+ */
+export type SetErrorOptions = Partial<{
+  shouldActive: boolean;
+  shouldTouched: boolean;
+  shouldDirty: boolean;
+  shouldFocus: boolean;
+}>;
 
 /**
  * Sets the error of the specified field or field array.
@@ -25,7 +35,37 @@ export function setError<
   form: FormStore<TFieldValues, TResponseData>,
   name: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
   error: string,
-  options?: Maybe<ErrorOptions>
+  {
+    shouldActive = true,
+    shouldTouched = false,
+    shouldDirty = false,
+    shouldFocus = !!error,
+  }: Maybe<SetErrorOptions> = {}
 ): void {
-  batch(() => untrack(() => setErrorMethod(form, name, error, options)));
+  batch(() => {
+    untrack(() => {
+      for (const fieldOrFieldArray of [
+        getFieldStore(form, name as FieldPath<TFieldValues>),
+        getFieldArrayStore(form, name as FieldArrayPath<TFieldValues>),
+      ]) {
+        if (
+          fieldOrFieldArray &&
+          (!shouldActive || fieldOrFieldArray.getActive()) &&
+          (!shouldTouched || fieldOrFieldArray.getTouched()) &&
+          (!shouldDirty || fieldOrFieldArray.getDirty())
+        ) {
+          // Set error to field or field array
+          fieldOrFieldArray.setError(error);
+
+          // Focus element if set to "true"
+          if (error && 'getValue' in fieldOrFieldArray && shouldFocus) {
+            focus(form, name as FieldPath<TFieldValues>);
+          }
+        }
+      }
+    });
+
+    // Update invalid state of form
+    updateFormInvalid(form, !!error);
+  });
 }

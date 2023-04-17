@@ -1,13 +1,14 @@
+import { createSignal } from 'solid-js';
 import type {
-  ResponseData,
-  FormResponse,
-  FieldValues,
   FieldArrayPath,
   FieldPath,
+  FieldValues,
+  FormOptions,
+  FormResponse,
+  FormStore,
   PartialValues,
-} from '@modular-forms/core';
-import { createSignal } from 'solid-js';
-import type { FormOptions, FormStore } from '../types';
+  ResponseData,
+} from '../types';
 
 /**
  * Creates and returns the store of the form.
@@ -47,79 +48,69 @@ export function createFormStore<
   // Return form functions and state
   return {
     internal: {
+      // Props
       initialValues,
-      fields: {},
-      get fieldNames() {
-        return getFieldNames();
-      },
-      set fieldNames(value) {
-        setFieldNames(value);
-      },
-      fieldArrays: {},
-      get fieldArrayNames() {
-        return getFieldArrayNames();
-      },
-      set fieldArrayNames(value) {
-        setFieldArrayNames(value);
-      },
       validate,
-      validators: [],
       validateOn,
       revalidateOn,
+
+      // Signals
+      getFieldNames,
+      setFieldNames,
+      getFieldArrayNames,
+      setFieldArrayNames,
+      getElement,
+      setElement,
+      getSubmitCount,
+      setSubmitCount,
+      getSubmitting,
+      setSubmitting,
+      getSubmitted,
+      setSubmitted,
+      getValidating,
+      setValidating,
+      getTouched,
+      setTouched,
+      getDirty,
+      setDirty,
+      getInvalid,
+      setInvalid,
+      getResponse,
+      setResponse,
+
+      // Stores
+      fields: {},
+      fieldArrays: {},
+
+      // Other
+      validators: new Set(),
     },
     get element() {
       return getElement();
     },
-    set element(value) {
-      setElement(value);
-    },
     get submitCount() {
       return getSubmitCount();
-    },
-    set submitCount(value) {
-      setSubmitCount(value);
     },
     get submitting() {
       return getSubmitting();
     },
-    set submitting(value) {
-      setSubmitting(value);
-    },
     get submitted() {
       return getSubmitted();
-    },
-    set submitted(value) {
-      setSubmitted(value);
     },
     get validating() {
       return getValidating();
     },
-    set validating(value) {
-      setValidating(value);
-    },
     get touched() {
       return getTouched();
-    },
-    set touched(value) {
-      setTouched(value);
     },
     get dirty() {
       return getDirty();
     },
-    set dirty(value) {
-      setDirty(value);
-    },
     get invalid() {
       return getInvalid();
     },
-    set invalid(value) {
-      setInvalid(value);
-    },
     get response() {
       return getResponse();
-    },
-    set response(value) {
-      setResponse(value);
     },
   };
 }

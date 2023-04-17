@@ -69,7 +69,7 @@ export function getValues<
   TResponseData extends ResponseData
 >(
   form: FormStore<TFieldValues, TResponseData>,
-  names?: (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[],
+  names: (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[],
   options?: Maybe<GetValuesOptions>
 ): PartialValues<TFieldValues>;
 

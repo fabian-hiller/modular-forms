@@ -109,7 +109,7 @@ export function reset<
   // Check if only a single field should be reset
   const resetSingleField = typeof arg2 === 'string' && fieldNames.length === 1;
 
-  // Check if entire form shoukd be reset
+  // Check if entire form should be reset
   const resetEntireForm = !resetSingleField && !Array.isArray(arg2);
 
   // Get options object

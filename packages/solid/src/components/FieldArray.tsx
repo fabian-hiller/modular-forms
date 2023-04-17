@@ -1,23 +1,30 @@
+import { createMemo, mergeProps, type JSX } from 'solid-js';
+import { createLifecycle } from '../primitives';
 import type {
   FieldArrayPath,
   FieldValues,
+  FormStore,
   Maybe,
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
-} from '@modular-forms/core';
-import { handleLifecycle } from '@modular-forms/core';
-import {
-  batch,
-  createEffect,
-  createMemo,
-  mergeProps,
-  onCleanup as cleanup,
-  untrack,
-  type JSX,
-} from 'solid-js';
-import type { FieldArrayStore, FormStore } from '../types';
+} from '../types';
 import { initializeFieldArrayStore } from '../utils';
+
+/**
+ * Value type ot the field store.
+ */
+export type FieldArrayStore<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = {
+  get name(): TFieldArrayName;
+  get items(): number[];
+  get error(): string;
+  get active(): boolean;
+  get touched(): boolean;
+  get dirty(): boolean;
+};
 
 /**
  * Value type of the field array props.
@@ -31,7 +38,6 @@ export type FieldArrayProps<
   name: TFieldArrayName;
   children: (
     store: FieldArrayStore<TFieldValues, TFieldArrayName>
-    // name: TFieldArrayName
   ) => JSX.Element;
   validate?: Maybe<MaybeArray<ValidateFieldArray<number[]>>>;
   keepActive?: Maybe<boolean>;
@@ -53,14 +59,32 @@ export function FieldArray<
     initializeFieldArrayStore(props.of, props.name)
   );
 
-  // Create lifecycle of field
-  createEffect(() =>
-    handleLifecycle(
-      { batch, untrack, cleanup },
-      // eslint-disable-next-line solid/reactivity
-      mergeProps({ store: getFieldArray() }, props)
-    )
-  );
+  // Create lifecycle of field array
+  // eslint-disable-next-line solid/reactivity
+  createLifecycle(mergeProps({ getStore: getFieldArray }, props));
 
-  return <>{props.children(getFieldArray())}</>;
+  return (
+    <>
+      {props.children({
+        get name() {
+          return props.name;
+        },
+        get items() {
+          return getFieldArray().getItems();
+        },
+        get error() {
+          return getFieldArray().getError();
+        },
+        get active() {
+          return getFieldArray().getActive();
+        },
+        get touched() {
+          return getFieldArray().getTouched();
+        },
+        get dirty() {
+          return getFieldArray().getDirty();
+        },
+      })}
+    </>
+  );
 }

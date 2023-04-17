@@ -1,13 +1,23 @@
+import { batch, untrack } from 'solid-js';
 import type {
   FieldArrayPath,
+  FieldArrayPathValue,
   FieldValues,
-  ReplaceOptions,
+  FormStore,
   ResponseData,
-} from '@modular-forms/core';
-import { replace as replaceMethod } from '@modular-forms/core';
-import { batch, untrack } from 'solid-js';
-import type { FormStore } from '../types';
-import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
+} from '../types';
+import { getFieldArrayStore, getUniqueId, setFieldArrayValue } from '../utils';
+
+/**
+ * Value type of the replace options.
+ */
+export type ReplaceOptions<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues>
+> = {
+  at: number;
+  value: FieldArrayPathValue<TFieldValues, TFieldArrayName>[number];
+};
 
 /**
  * Replaces a item of the field array.
@@ -25,14 +35,40 @@ export function replace<
   name: TFieldArrayName,
   options: ReplaceOptions<TFieldValues, TFieldArrayName>
 ): void {
-  batch(() =>
-    untrack(() =>
-      replaceMethod(
-        { initializeFieldStore, initializeFieldArrayStore },
-        form,
-        name,
-        options
-      )
-    )
-  );
+  // Get store of specified field array
+  const fieldArray = getFieldArrayStore(form, name);
+
+  // Continue if specified field array exists
+  if (fieldArray) {
+    untrack(() => {
+      // Destructure options
+      const { at: index } = options;
+
+      // Get last index of field array
+      const lastIndex = fieldArray.getItems().length - 1;
+
+      // Continue if specified index is valid
+      if (index >= 0 && index <= lastIndex) {
+        batch(() => {
+          // Replace value of field array
+          setFieldArrayValue(form, name, options);
+
+          // Replace item at field array
+          fieldArray.setItems((prevItems) => {
+            const nextItems = [...prevItems];
+            nextItems[index] = getUniqueId();
+            return nextItems;
+          });
+
+          // Set touched at field array and form to true
+          fieldArray.setTouched(true);
+          form.internal.setTouched(true);
+
+          // Set dirty at field array and form to true
+          fieldArray.setDirty(true);
+          form.internal.setDirty(true);
+        });
+      }
+    });
+  }
 }

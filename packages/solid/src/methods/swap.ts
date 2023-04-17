@@ -1,13 +1,30 @@
+import { batch, untrack } from 'solid-js';
 import type {
   FieldArrayPath,
+  FieldPath,
   FieldValues,
+  FormStore,
+  RawFieldArrayState,
+  RawFieldState,
   ResponseData,
-  SwapOptions,
-} from '@modular-forms/core';
-import { swap as swapMethod } from '@modular-forms/core';
-import { batch, untrack } from 'solid-js';
-import type { FormStore } from '../types';
-import { initializeFieldArrayStore, initializeFieldStore } from '../utils';
+} from '../types';
+import {
+  getFieldArrayState,
+  getFieldArrayStore,
+  getFieldState,
+  getPathIndex,
+  setFieldArrayState,
+  setFieldState,
+  updateFieldArrayDirty,
+} from '../utils';
+
+/**
+ * Value type of the replace options.
+ */
+export type SwapOptions = {
+  at: number;
+  and: number;
+};
 
 /**
  * Swaps two fields of a field array by their index.
@@ -22,16 +39,96 @@ export function swap<
 >(
   form: FormStore<TFieldValues, TResponseData>,
   name: FieldArrayPath<TFieldValues>,
-  options: SwapOptions
+  { at: index1, and: index2 }: SwapOptions
 ): void {
-  batch(() =>
-    untrack(() =>
-      swapMethod(
-        { initializeFieldStore, initializeFieldArrayStore },
-        form,
-        name,
-        options
-      )
-    )
-  );
+  // Get store of specified field array
+  const fieldArray = getFieldArrayStore(form, name);
+
+  // Continue if specified field array exists
+  if (fieldArray) {
+    untrack(() => {
+      // Get last index of field array
+      const lastIndex = fieldArray.getItems().length - 1;
+
+      // Continue if specified indexes are valid
+      if (
+        index1 >= 0 &&
+        index1 <= lastIndex &&
+        index2 >= 0 &&
+        index2 <= lastIndex &&
+        index1 !== index2
+      ) {
+        // Create prefix for each index
+        const index1Prefix = `${name}.${index1}`;
+        const index2Prefix = `${name}.${index2}`;
+
+        // Create field and field array state map
+        const fieldStateMap = new Map<
+          FieldPath<TFieldValues>,
+          RawFieldState<TFieldValues, FieldPath<TFieldValues>>
+        >();
+        const fieldArrayStateMap = new Map<
+          FieldArrayPath<TFieldValues>,
+          RawFieldArrayState
+        >();
+
+        // Create filter name function
+        const filterName = <T extends string>(value: T) =>
+          value.startsWith(`${name}.`) &&
+          [index1, index2].includes(getPathIndex(name, value));
+
+        // Create swap index function
+        const swapIndex = <T extends string>(value: T): T =>
+          (value.startsWith(index1Prefix)
+            ? value.replace(index1Prefix, index2Prefix)
+            : value.replace(index2Prefix, index1Prefix)) as T;
+
+        // Add state of each required field to map
+        form.internal
+          .getFieldNames()
+          .filter(filterName)
+          .forEach((fieldName) =>
+            fieldStateMap.set(fieldName, getFieldState(form, fieldName)!)
+          );
+
+        // Add state of each required field array to map
+        form.internal
+          .getFieldArrayNames()
+          .filter(filterName)
+          .forEach((fieldArrayName) =>
+            fieldArrayStateMap.set(
+              fieldArrayName,
+              getFieldArrayState(form, fieldArrayName)!
+            )
+          );
+
+        batch(() => {
+          // Finally swap state of fields
+          fieldStateMap.forEach((fieldState, fieldName) =>
+            setFieldState(form, swapIndex(fieldName), fieldState)
+          );
+
+          // Finally swap state of field arrays
+          fieldArrayStateMap.forEach((fieldArrayState, fieldArrayName) =>
+            setFieldArrayState(form, swapIndex(fieldArrayName), fieldArrayState)
+          );
+
+          // Swap items of field array
+          fieldArray.setItems((prevItems) => {
+            const nextItems = [...prevItems];
+            nextItems[index1] = prevItems[index2];
+            nextItems[index2] = prevItems[index1];
+            return nextItems;
+          });
+
+          // Set touched at field array and form to true;
+          fieldArray.setTouched(true);
+          form.internal.setTouched(true);
+
+          // Update dirty state at field array and form
+          updateFieldArrayDirty(form, fieldArray);
+        });
+      }
+    });
+  }
 }

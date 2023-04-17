@@ -1,13 +1,12 @@
 import type {
-  ErrorOptions,
-  FieldArrayPath,
-  FieldPath,
   FieldValues,
-  FormStore,
-  Maybe,
   ResponseData,
-} from '@modular-forms/core';
-import { setError } from './setError';
+  FormStore,
+  FieldPath,
+  FieldArrayPath,
+  Maybe,
+} from '../types';
+import { setError, type SetErrorOptions } from './setError';
 
 /**
  * Clears the error of the specified field or field array.
@@ -22,7 +21,7 @@ export function clearError<
 >(
   form: FormStore<TFieldValues, TResponseData>,
   name: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
-  options?: Maybe<ErrorOptions>
+  options?: Maybe<SetErrorOptions>
 ): void {
   setError(form, name, '', options);
 }

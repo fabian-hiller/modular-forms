@@ -81,10 +81,6 @@ importers:
         version: 3.21.4
 
   packages/solid:
-    dependencies:
-      '@modular-forms/core':
-        specifier: workspace:^
-        version: link:../core
     devDependencies:
       '@types/eslint':
         specifier: ^8.37.0

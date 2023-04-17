@@ -1,7 +1,6 @@
 import { untrack } from 'solid-js';
-import type { FieldPath, FieldValues, ResponseData } from '@modular-forms/core';
-import { focus as focusMethod } from '@modular-forms/core';
-import type { FormStore } from '../types';
+import type { FieldPath, FieldValues, FormStore, ResponseData } from '../types';
+import { getFieldStore } from '../utils';
 
 /**
  * Focuses the specified field of the form.
@@ -16,5 +15,5 @@ export function focus<
   form: FormStore<TFieldValues, TResponseData>,
   name: FieldPath<TFieldValues>
 ): void {
-  untrack(() => focusMethod(form, name));
+  untrack(() => getFieldStore(form, name)?.getElements()[0]?.focus());
 }
