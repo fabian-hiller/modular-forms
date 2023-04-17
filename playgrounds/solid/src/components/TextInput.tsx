@@ -34,9 +34,13 @@ export function TextInput(props: TextInputProps) {
   ]);
 
   // Create memoized value
-  const getValue = createMemo<string | number>(
+  const getValue = createMemo<string | number | undefined>(
     (prevValue) =>
-      !Number.isNaN(props.value) && props.value ? props.value : prevValue,
+      props.value === undefined
+        ? ''
+        : !Number.isNaN(props.value)
+        ? props.value
+        : prevValue,
     ''
   );
 
