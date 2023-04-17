@@ -13,7 +13,7 @@ During the development of Modular Forms, we paid special attention to input vali
 
 To keep the bundle size small, validation is optional and modular. If your form requires validation, just import the validation functions you need. Another advantage is that you can define the validation globally for the whole form or fine-granularly for each field individually. You can even combine the both methods.
 
-> Note that the validation of Modular Forms, except for server actions, takes place in the browser and can be manipulated by the user. Make sure that the values are validated again on the server before you process them or store them in your database.
+> Note that the validation of Modular Forms, except for <A href="/guides/handle-submission">server actions</A>, takes place in the browser and can be manipulated by the user. Make sure that the values are validated again on the server before you process them or store them in your database.
 
 ## Validation functions
 
@@ -32,49 +32,39 @@ Also you have the possibility to set your own error message and access the curre
 <Solid block>
 
 ```tsx
-import {
-  createForm,
-  Form,
-  Field,
-  required,
-  email,
-  minLength,
-} from '@modular-forms/solid';
-import { loginUser } from '../api';
+import { createForm, email, minLength, required } from '@modular-forms/solid';
 
 type LoginForm = { … };
 
 export default function App() {
-  const loginForm = createForm<LoginForm>();
+  const [loginForm, { Form, Field }] = createForm<LoginForm>();
 
   return (
-    <Form of={loginForm} onSubmit={loginUser}>
+    <Form>
       <Field
-        of={loginForm}
         name="email"
         validate={[
           required('Please enter your email.'),
           email('The email address is badly formatted.'),
         ]}
       >
-        {(field) => (
+        {(field, props) => (
           <>
-            <input {...field.props} type="email" required />
+            <input {...props} type="email" required />
             {field.error && <div>{field.error}</div>}
           </>
         )}
       </Field>
       <Field
-        of={loginForm}
         name="password"
         validate={[
           required('Please enter your password.'),
           minLength(8, 'You password must have 8 characters or more.'),
         ]}
       >
-        {(field) => (
+        {(field, props) => (
           <>
-            <input {...field.props} type="password" required />
+            <input {...props} type="password" required />
             {field.error && <div>{field.error}</div>}
           </>
         )}
@@ -160,7 +150,6 @@ Use <A href="/api/zodForm">`zodForm`</A> to define the validation for the whole 
 ```tsx
 import { createForm, Form, Field, zodForm } from '@modular-forms/solid';
 import { z } from 'zod';
-import { loginUser } from '../api';
 
 const schema = z.object({
   email: z
@@ -174,24 +163,24 @@ const schema = z.object({
 });
 
 export default function App() {
-  const loginForm = createForm<z.input<typeof schema>>({
+  const [loginForm, { Form, Field }] = createForm<z.input<typeof schema>>({
     validate: zodForm(schema),
   });
 
   return (
-    <Form of={loginForm} onSubmit={loginUser}>
-      <Field of={loginForm} name="email">
-        {(field) => (
+    <Form>
+      <Field name="email">
+        {(field, props) => (
           <>
-            <input {...field.props} type="email" required />
+            <input {...props} type="email" required />
             {field.error && <div>{field.error}</div>}
           </>
         )}
       </Field>
-      <Field of={loginForm} name="password">
-        {(field) => (
+      <Field name="password">
+        {(field, props) => (
           <>
-            <input {...field.props} type="password" required />
+            <input {...props} type="password" required />
             {field.error && <div>{field.error}</div>}
           </>
         )}

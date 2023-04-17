@@ -1,6 +1,5 @@
 import { A } from 'solid-start';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>setValues</Title>
 <Description>
@@ -8,8 +7,6 @@ import { getFramework } from '~/utils';
 </Description>
 
 # setValues
-
-<Qwik block>
 
 Sets multiple values of the form or a field array at once.
 
@@ -23,7 +20,7 @@ setValues(form, name, values, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
 - `values` <Property {...properties.values} />
 - `options` <Property {...properties.options} />
@@ -40,15 +37,14 @@ By default, the fields are validated according to the rules defined in the `opti
 
 By default, a field is focused when an error occurs during validation. To change this behavior you can set `shouldFocus` to `false`.
 
-</Qwik>
-
-<Solid block>
-
-> This page is exclusively for the Qwik library of Modular Forms.
-
-</Solid>
-
 export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
+    },
+  },
   values: {
     type: [
       {
@@ -92,23 +88,5 @@ export const properties = {
   shouldFocus: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
-  },
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-  },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
-    },
   },
 };

@@ -10,25 +10,6 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 Headless form field that provides reactive properties and state.
 
-<Solid block>
-
-```tsx
-<Field
-  of={…}
-  name={…}
-  initialValue={…}
-  validate={…}
-  keepActive={…}
-  keepState={…}
->
-  children
-</Field>
-```
-
-</Solid>
-
-<Qwik block>
-
 ```tsx
 <Field
   of={…}
@@ -42,47 +23,19 @@ Headless form field that provides reactive properties and state.
 </Field>
 ```
 
-</Qwik>
-
 ## Properties
 
-<Solid block>
-
-- `of` <Property {...properties.solid.of} />
+- `of` <Property {...properties.of} />
 - `name` <Property type="string" />
-- `initialValue` <Property {...properties.solid.initialValue} />
+- `type` <Property {...properties.type} />
 - `validate` <Property {...properties.validate} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
-- `children` <Property {...properties.solid.children} />
-
-</Solid>
-
-<Qwik block>
-
-- `of` <Property {...properties.qwik.of} />
-- `name` <Property type="string" />
-- `type` <Property {...properties.qwik.type} />
-- `validate` <Property {...properties.validate} />
-- `keepActive` <Property {...properties.keepActive} />
-- `keepState` <Property {...properties.keepState} />
-- `children` <Property {...properties.qwik.children} />
-
-</Qwik>
+- `children` <Property {...properties.children} />
 
 ### Explanation
 
-<Solid block>
-
-The `initialValue` you define directly at a field has the highest specificity and overrides initial values you set at <A href="/api/createForm">`createForm`</A> and <A href="/api/reset">`reset`</A>. If the `initialValue` is reactive, changing the value will update the initial value of the field. Note that the value is enclosed in an array so that we can also detect `undefined` as a value.
-
-</Solid>
-
-<Qwik block>
-
 The value of the `type` property must match the data type of the field. Depending on this specification, the value of a native HTML form field is captured differently, making your fields fully type-safe.
-
-</Qwik>
 
 For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
 
@@ -91,23 +44,49 @@ Fields automatically detect if they are still in use and update their status acc
 By default, the state of an inactive field is maintained. If you want a field to be reset when it becomes inactive, you can set `keepState` to `false`.
 
 export const properties = {
+  of: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
+    },
+  },
+  type: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        [
+          { type: 'string', value: 'string' },
+          { type: 'string', value: 'string[]' },
+          { type: 'string', value: 'number' },
+          { type: 'string', value: 'boolean' },
+          { type: 'string', value: 'submit' },
+          { type: 'string', value: 'File' },
+          { type: 'string', value: 'File[]' },
+          { type: 'string', value: 'Date' },
+        ],
+      ],
+    },
+  },
   validate: {
-    type: [
-      {
-        type: 'custom',
-        name: 'ValidateField',
-        href: '/api/ValidateField',
-      },
-      {
-        type: 'array',
-        item: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
           type: 'custom',
-          name: 'ValidateField',
-          href: '/api/ValidateField',
+          name: 'MaybeArray',
+          generics: [
+            {
+              type: 'custom',
+              name: 'ValidateField',
+              href: '/api/ValidateField',
+            },
+          ],
         },
-      },
-      'undefined',
-    ],
+      ],
+    },
   },
   keepActive: {
     type: 'boolean',
@@ -117,90 +96,28 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  solid: {
-    of: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-    initialValue: {
-      type: [
-        {
-          type: 'tuple',
-          items: [
-            {
-              type: 'custom',
-              name: 'FieldValue',
-              href: '/api/FieldValue',
-            },
-          ],
-        },
-        'undefined',
-      ],
-    },
-    children: {
-      type: {
-        type: 'function',
-        params: [
-          {
-            name: 'field',
-            type: {
-              type: 'custom',
-              name: 'FieldState',
-              href: '/api/FieldState',
-            },
-          },
-        ],
-        return: { type: 'custom', name: 'JSX.Element' },
-      },
-    },
-  },
-  qwik: {
-    of: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
-    },
+  children: {
     type: {
-      type: [
-        { type: 'string', value: 'string' },
-        { type: 'string', value: 'string[]' },
-        { type: 'string', value: 'number' },
-        { type: 'string', value: 'boolean' },
-        { type: 'string', value: 'submit' },
-        { type: 'string', value: 'File' },
-        { type: 'string', value: 'File[]' },
-        { type: 'string', value: 'Date' },
-        'undefined',
+      type: 'function',
+      params: [
+        {
+          name: 'field',
+          type: {
+            type: 'custom',
+            name: 'FieldStore',
+            href: '/api/FieldStore',
+          },
+        },
+        {
+          name: 'props',
+          type: {
+            type: 'custom',
+            name: 'FieldElementProps',
+            href: '/api/FieldElementProps',
+          },
+        },
       ],
-    },
-    children: {
-      type: {
-        type: 'function',
-        params: [
-          {
-            name: 'field',
-            type: {
-              type: 'custom',
-              name: 'FieldState',
-              href: '/api/FieldState',
-            },
-          },
-          {
-            name: 'props',
-            type: {
-              type: 'custom',
-              name: 'FieldElementProps',
-              href: '/api/FieldElementProps',
-            },
-          },
-        ],
-        return: { type: 'custom', name: 'JSX.Element' },
-      },
+      return: { type: 'custom', name: 'JSX.Element' },
     },
   },
 };

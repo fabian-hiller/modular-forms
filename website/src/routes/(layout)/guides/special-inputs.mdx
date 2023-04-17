@@ -21,10 +21,10 @@ A simple checkbox represents a boolean and is `true` when checked or `false` oth
 <Solid block>
 
 ```tsx
-<Field of={specialForm} name="cookies">
-  {(field) => (
+<Field name="cookies" type="boolean">
+  {(field, props) => (
     <label>
-      <input {...field.props} type="checkbox" checked={field.value} />
+      <input {...props} type="checkbox" checked={field.value} />
       Yes, I want cookies
     </label>
   )}
@@ -61,11 +61,11 @@ However, you can also use multiple checkboxes to represent an array of strings. 
   ]}
 >
   {({ label, value }) => (
-    <Field of={specialForm} name="fruits">
-      {(field) => (
+    <Field name="fruits" type="string[]">
+      {(field, props) => (
         <label>
           <input
-            {...field.props}
+            {...props}
             type="checkbox"
             value={value}
             checked={field.value?.includes(value)}
@@ -115,9 +115,9 @@ An HTML `<select />` element allows you to select a string from a predefined lis
 <Solid block>
 
 ```tsx
-<Field of={specialForm} name="framework">
-  {(field) => (
-    <select {...field.props}>
+<Field name="framework">
+  {(field, props) => (
+    <select {...props}>
       <For
         each={[
           { label: 'React', value: 'react' },
@@ -165,10 +165,10 @@ However, if you set the `multiple` attribute, multiple options can be selected m
 <Solid block>
 
 ```tsx
-<Field of={specialForm} name="framework">
-  {(field) => (
+<Field name="framework" type="string[]">
+  {(field, props) => (
     // Set "multiple" to "true"
-    <select {...field.props} multiple>
+    <select {...props} multiple>
       <For
         each={[
           { label: 'React', value: 'react' },

@@ -1,6 +1,5 @@
 import { A } from 'solid-start';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>setValue</Title>
 <Description>Sets the value of the specified field.</Description>
@@ -15,7 +14,7 @@ setValue(form, name, value, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
 - `value` <Property {...properties.value} />
 - `options` <Property {...properties.options} />
@@ -33,6 +32,13 @@ By default, the field is validated according to the rules defined in the `option
 By default, the field is focused when an error occurs during validation. To change this behavior you can set `shouldFocus` to `false`.
 
 export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
+    },
+  },
   value: {
     type: {
       type: 'custom',
@@ -59,23 +65,5 @@ export const properties = {
   shouldFocus: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
-  },
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-  },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
-    },
   },
 };

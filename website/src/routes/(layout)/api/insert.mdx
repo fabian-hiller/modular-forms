@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>insert</Title>
 <Description>Inserts a new item into the field array.</Description>
@@ -14,75 +13,39 @@ insert(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
-- `options` <Property {...properties[getFramework()]?.options} />
+- `options` <Property {...properties.options} />
   - `at` <Property type={["number", "undefined"]} />
-  - `value` <Property {...properties[getFramework()]?.value} />
+  - `value` <Property {...properties.value} />
 
 ### Explanation
 
 With `at` you define the index where the item should be inserted. The action will only be executed if you define a valid index. If you don't specify an index, the item will be added at the end.
 
 export const properties = {
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-    options: {
-      type: 'object',
-      defaultValue: { type: 'object', entries: [] },
-    },
-    value: {
-      type: [
-        {
-          type: 'custom',
-          name: 'DeepPartial',
-          generics: [
-            {
-              type: 'custom',
-              name: 'FieldValues',
-              href: '/api/FieldValues',
-            },
-          ],
-        },
-        {
-          type: 'custom',
-          name: 'FieldValue',
-          href: '/api/FieldValue',
-        },
-        'undefined',
-      ],
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
     },
   },
-  qwik: {
-    form: {
-      type: {
+  options: {
+    type: 'object',
+  },
+  value: {
+    type: [
+      {
         type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
+        name: 'FieldValue',
+        href: '/api/FieldValue',
       },
-    },
-    options: {
-      type: 'object',
-    },
-    value: {
-      type: [
-        {
-          type: 'custom',
-          name: 'FieldValues',
-          href: '/api/FieldValues',
-        },
-        {
-          type: 'custom',
-          name: 'FieldValue',
-          href: '/api/FieldValue',
-        },
-      ],
-    },
+      {
+        type: 'custom',
+        name: 'FieldValues',
+        href: '/api/FieldValues',
+      },
+    ],
   },
 };

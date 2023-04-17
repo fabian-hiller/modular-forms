@@ -5,41 +5,25 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 # ResponseData
 
-<Qwik block>
-
 Type that defines the response data the form.
 
 ## Definition
 
 - `ResponseData` <Property {...properties.ResponseData} />
 
-</Qwik>
-
-<Solid block>
-
-> This page is exclusively for the Qwik library of Modular Forms.
-
-</Solid>
-
 export const properties = {
   ResponseData: {
-    type: {
-      type: 'custom',
-      name: 'Maybe',
-      generics: [
-        [
-          {
-            type: 'custom',
-            name: 'Record',
-            generics: ['string', 'any'],
-          },
-          {
-            type: 'custom',
-            name: 'Array',
-            generics: ['any'],
-          },
-        ],
-      ],
-    },
+    type: [
+      {
+        type: 'custom',
+        name: 'Record',
+        generics: ['string', 'any'],
+      },
+      {
+        type: 'custom',
+        name: 'Array',
+        generics: ['any'],
+      },
+    ],
   },
 };

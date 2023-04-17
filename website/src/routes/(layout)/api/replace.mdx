@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>replace</Title>
 <Description>Replaces a item of the field array.</Description>
@@ -14,68 +13,36 @@ replace(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
 - `options` <Property type="object" />
   - `at` <Property type="number" />
-  - `value` <Property {...properties[getFramework()]?.value} />
+  - `value` <Property {...properties.value} />
 
 ### Explanation
 
 With `at` you define the index of the item to be replaced. The action will only be executed if you define a valid index.
 
 export const properties = {
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-    value: {
-      type: [
-        {
-          type: 'custom',
-          name: 'DeepPartial',
-          generics: [
-            {
-              type: 'custom',
-              name: 'FieldValues',
-              href: '/api/FieldValues',
-            },
-          ],
-        },
-        {
-          type: 'custom',
-          name: 'FieldValue',
-          href: '/api/FieldValue',
-        },
-        'undefined',
-      ],
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
     },
   },
-  qwik: {
-    form: {
-      type: {
+  value: {
+    type: [
+      {
         type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
+        name: 'FieldValue',
+        href: '/api/FieldValue',
       },
-    },
-    value: {
-      type: [
-        {
-          type: 'custom',
-          name: 'FieldValues',
-          href: '/api/FieldValues',
-        },
-        {
-          type: 'custom',
-          name: 'FieldValue',
-          href: '/api/FieldValue',
-        },
-      ],
-    },
+      {
+        type: 'custom',
+        name: 'FieldValues',
+        href: '/api/FieldValues',
+      },
+    ],
   },
 };

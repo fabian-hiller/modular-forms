@@ -1,23 +1,30 @@
+import { A } from 'solid-start';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>createForm</Title>
 <Description>
-  Creates the core of a modular form that contains its reactive state.
+  Creates and returns the store of the form as well as a linked Form, Field and
+  FieldArray component.
 </Description>
 
 # createForm
 
 <Solid block>
 
-Creates the core of a modular form that contains its reactive state.
+Creates and returns the store of the form as well as a linked Form, Field and FieldArray component.
 
 ```ts
-const form = createForm<Values>(options);
+const [form, { Form, Field, FieldArray }] = createForm<Values, ResponseData>(
+  options
+);
 ```
+
+> If you prefer to use the library as modular as possible, you can use the <A href="/api/createFormStore">`createFormStore`</A> hook instead.
 
 ## Generic
 
 - `Values` <Property {...properties.Values} />
+- `ResponseData` <Property {...properties.ResponseData} />
 
 ### Explanation
 
@@ -28,18 +35,17 @@ If you use TypeScript, you should define your field values. This way the library
 ## Parameter
 
 - `options` <Property {...properties.options} />
-  - `initialValues` <Property {...properties.initialValues} />
-  - `validateOn` <Property {...properties.validateOn} />
-  - `revalidateOn` <Property {...properties.revalidateOn} />
-  - `validate` <Property {...properties.validate} />
-
-### Explanation
-
-With `validateOn` and `revalidateOn` you can define your validation strategy. `validateOn` defines the time of the first validation and `revalidateOn` defines when the validation is performed again. If you set `validateOn` to `'submit'`, you set the validation strategy at the form level. In this case `revalidateOn` is applied whenever the form has already been submitted once. For all other values it refers to a single field. In this case `revalidateOn` is applied if an error has already occurred.
 
 ## Return
 
 - `form` <Property {...properties.form} />
+- `Form` <Property {...properties.Form} />
+- `Field` <Property {...properties.Field} />
+- `FieldArray` <Property {...properties.FieldArray} />
+
+### Explanation
+
+Since the <A href="/api/Form">`Form`</A>, <A href="/api/Form">`Field`</A> and <A href="/api/Form">`FieldArray`</A> components are already linked to your form, you don't need to add the `of` property.
 
 </Solid>
 
@@ -53,68 +59,39 @@ export const properties = {
   Values: {
     type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
   },
-  options: {
-    type: 'object',
-    defaultValue: { type: 'object', entries: [] },
-  },
-  initialValues: {
+  ResponseData: {
     type: {
       type: 'custom',
-      name: 'DeepPartial',
+      name: 'Maybe',
       generics: [
-        { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '/api/ResponseData',
+        },
       ],
     },
-    defaultValue: { type: 'object', entries: [] },
+    defaultValue: 'undefined',
   },
-  validateOn: {
-    type: [
-      { type: 'string', value: 'touched' },
-      { type: 'string', value: 'input' },
-      { type: 'string', value: 'change' },
-      { type: 'string', value: 'blur' },
-      { type: 'string', value: 'submit' },
-    ],
-    defaultValue: { type: 'string', value: 'submit' },
-  },
-  revalidateOn: {
-    type: [
-      { type: 'string', value: 'touched' },
-      { type: 'string', value: 'input' },
-      { type: 'string', value: 'change' },
-      { type: 'string', value: 'blur' },
-      { type: 'string', value: 'submit' },
-    ],
-    defaultValue: { type: 'string', value: 'input' },
-  },
-  validate: {
-    type: [
-      {
-        type: 'function',
-        params: [
-          {
-            name: 'values',
-            type: {
-              type: 'custom',
-              name: 'DeepPartial',
-              generics: [
-                {
-                  type: 'custom',
-                  name: 'FieldValues',
-                  href: '/api/FieldValues',
-                },
-              ],
-            },
-          },
-        ],
-        return: [
-          { type: 'custom', name: 'FormErrors', href: '/api/FormErrors' },
-        ],
-      },
-      'undefined',
-    ],
+  options: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        { type: 'custom', name: 'FormOptions', href: '/api/FormOptions' },
+      ],
+    },
   },
   form: {
-    type: { type: 'custom', name: 'FormState', href: '/api/FormState' },
+    type: { type: 'custom', name: 'FormStore', href: '/api/FormStore' },
+  },
+  Form: {
+    type: { type: 'custom', name: 'Form', href: '/api/Form' },
+  },
+  Field: {
+    type: { type: 'custom', name: 'Field', href: '/api/Field' },
+  },
+  FieldArray: {
+    type: { type: 'custom', name: 'FieldArray', href: '/api/FieldArray' },
   },
 };

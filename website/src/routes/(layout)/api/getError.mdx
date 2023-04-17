@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>getError</Title>
 <Description>
@@ -16,7 +15,7 @@ const error = getError(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
 - `options` <Property {...properties.options} />
   - `shouldActive` <Property {...properties.shouldActive} />
@@ -53,24 +52,17 @@ export const properties = {
     defaultValue: { type: 'boolean', value: false },
   },
   error: {
-    type: ['string', 'undefined'],
-  },
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: ['string'],
     },
   },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
     },
   },
 };

@@ -34,7 +34,11 @@ export const properties = {
         params: [
           {
             name: 'value',
-            type: ['string', 'number', 'null', 'undefined'],
+            type: {
+              type: 'custom',
+              name: 'MaybeValue',
+              generics: [['string', 'number']],
+            },
           },
         ],
         return: 'string',
@@ -52,7 +56,11 @@ export const properties = {
             params: [
               {
                 name: 'value',
-                type: ['string', 'number', 'null', 'undefined'],
+                type: {
+                  type: 'custom',
+                  name: 'MaybeValue',
+                  generics: [['string', 'number']],
+                },
               },
             ],
             return: 'string',

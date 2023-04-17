@@ -17,7 +17,7 @@ const validate = maxRange(requirement, error);
 
 ## Parameters
 
-- `requirement` <Property {...properties[getFramework()]?.requirement} />
+- `requirement` <Property {...properties.requirement} />
 - `error` <Property type="string" />
 
 ## Return
@@ -25,15 +25,23 @@ const validate = maxRange(requirement, error);
 - `validate` <Property {...properties[getFramework()]?.validate} />
 
 export const properties = {
+  requirement: {
+    type: ['string', 'number', { type: 'custom', name: 'Date' }],
+  },
   solid: {
-    requirement: { type: 'string' },
     validate: {
       type: {
         type: 'function',
         params: [
           {
             name: 'value',
-            type: ['string', 'null', 'undefined'],
+            type: {
+              type: 'custom',
+              name: 'MaybeValue',
+              generics: [
+                ['string', 'number', { type: 'custom', name: 'Date' }],
+              ],
+            },
           },
         ],
         return: 'string',
@@ -41,9 +49,6 @@ export const properties = {
     },
   },
   qwik: {
-    requirement: {
-      type: ['string', 'number', { type: 'custom', name: 'Date' }],
-    },
     validate: {
       type: {
         type: 'custom',
@@ -54,12 +59,13 @@ export const properties = {
             params: [
               {
                 name: 'value',
-                type: [
-                  'string',
-                  { type: 'custom', name: 'Date' },
-                  'null',
-                  'undefined',
-                ],
+                type: {
+                  type: 'custom',
+                  name: 'MaybeValue',
+                  generics: [
+                    ['string', 'number', { type: 'custom', name: 'Date' }],
+                  ],
+                },
               },
             ],
             return: 'string',

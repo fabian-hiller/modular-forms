@@ -25,10 +25,7 @@ export const properties = {
             type: { type: 'array', item: 'number' },
           },
         ],
-        return: [
-          'string',
-          { type: 'custom', name: 'Promise', generics: ['string'] },
-        ],
+        return: { type: 'custom', name: 'MaybePromise', generics: ['string'] },
       },
     },
   },
@@ -46,10 +43,11 @@ export const properties = {
                 type: { type: 'array', item: 'number' },
               },
             ],
-            return: [
-              'string',
-              { type: 'custom', name: 'Promise', generics: ['string'] },
-            ],
+            return: {
+              type: 'custom',
+              name: 'MaybePromise',
+              generics: ['string'],
+            },
           },
         ],
       },

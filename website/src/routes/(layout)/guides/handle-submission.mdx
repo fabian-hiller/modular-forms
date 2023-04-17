@@ -24,7 +24,7 @@ To make your form work even if JavaScript is disabled in your user's browser, we
 > The integration of actions is still under development. We expect to finish the integration in the coming weeks. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
 
 ```tsx
-import { createForm, Form, SubmitHandler } from '@modular-forms/solid';
+import { createForm, SubmitHandler } from '@modular-forms/solid';
 import { createRouteAction } from 'solid-start';
 import { createServerAction$ } from 'solid-start/server';
 
@@ -43,7 +43,7 @@ export default function App() {
     }
   );
 
-  const loginForm = createForm<LoginForm>({
+  const [loginForm, { Form, Field }] = createForm<LoginForm>({
     action: serverAction, // or "routeAction"
   });
 
@@ -53,7 +53,6 @@ export default function App() {
 
   return (
     <Form
-      of={loginForm}
       action={runServerAction} // or "runRouteAction"
       onSubmit={handleSubmit}
     >

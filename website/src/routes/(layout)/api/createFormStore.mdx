@@ -1,19 +1,19 @@
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
-<Title>useFormStore</Title>
+<Title>createFormStore</Title>
 <Description>Creates and returns the store of the form.</Description>
 
-# useFormStore
+# createFormStore
 
-<Qwik block>
+<Solid block>
 
 Creates and returns the store of the form.
 
 ```ts
-const form = useFormStore<Values, ResponseData>(options);
+const form = createFormStore<Values>(options);
 ```
 
-## Generics
+## Generic
 
 - `Values` <Property {...properties.Values} />
 - `ResponseData` <Property {...properties.ResponseData} />
@@ -32,13 +32,13 @@ If you use TypeScript, you should define your field values. This way the library
 
 - `form` <Property {...properties.form} />
 
-</Qwik>
-
-<Solid block>
-
-> This page is exclusively for the Qwik library of Modular Forms.
-
 </Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
 
 export const properties = {
   Values: {
@@ -59,7 +59,13 @@ export const properties = {
     defaultValue: 'undefined',
   },
   options: {
-    type: { type: 'custom', name: 'FormOptions', href: '/api/FormOptions' },
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        { type: 'custom', name: 'FormOptions', href: '/api/FormOptions' },
+      ],
+    },
   },
   form: {
     type: { type: 'custom', name: 'FormStore', href: '/api/FormStore' },

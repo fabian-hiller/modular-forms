@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>validate</Title>
 <Description>
@@ -15,18 +14,18 @@ Validates the entire form, several fields and field arrays or a single field or 
 // Validate the entire form
 validate(form, options);
 
-// Validate several fields and field arrays
-validate(form, names, options);
-
 // Validate a singel field or field array
 validate(form, name, options);
+
+// Validate several fields and field arrays
+validate(form, names, options);
 ```
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
-- `names` <Property {...properties.names} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
+- `names` <Property {...properties.names} />
 - `options` <Property {...properties.options} />
   - `shouldActive` <Property {...properties.shouldActive} />
   - `shouldFocus` <Property {...properties.shouldFocus} />
@@ -38,6 +37,13 @@ In addition to the names of the fields, you can also specify the name of a field
 By default, only the active fields are validated and the first field where an error occurs during the validation is focused. To change this behavior you can set `shouldActive` and/or `shouldFocus` to `false`.
 
 export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
+    },
+  },
   names: {
     type: {
       type: 'array',
@@ -55,23 +61,5 @@ export const properties = {
   shouldFocus: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
-  },
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-  },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
-    },
   },
 };

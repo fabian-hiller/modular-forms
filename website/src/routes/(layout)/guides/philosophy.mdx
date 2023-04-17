@@ -47,7 +47,7 @@ With other form libraries, the bundle size has always been a thorn in my side. S
 
 With Modular Forms I thought a lot about keeping the bundle size as small as possible. On the other hand, extensive functionality was also important to me. It should be possible to implement any form, no matter how complex, with Modular Forms. Therefore, it was clear that the bundle size must be based on the required functionality.
 
-The reason why many form libraries put everything into a single component or hook is that basically every functionality needs access to the state of the form. Therefore, it is natural to locate all the functionality next to the state and return it together. Modular Forms breaks exactly this approach with a fully modular design. By using <Solid><A href="/api/createForm">`createForm`</A></Solid><Qwik><A href="/api/useFormStore">`useFormStore`</A></Qwik> to create only the state of the form and simply passing it as a property or parameter to other components or methods, you only need to import the code you actually need.
+The reason why many form libraries put everything into a single component or hook is that basically every functionality needs access to the state of the form. Therefore, it is natural to locate all the functionality next to the state and return it together. Modular Forms breaks exactly this approach with a fully modular design. By using <Solid><A href="/api/createForm">`createForm`</A></Solid><Qwik><A href="/api/useForm">`useForm`</A></Qwik> to create only the state of the form and simply passing it as a parameter to various methods, you only need to import the code you actually need.
 
 ## Input validation
 

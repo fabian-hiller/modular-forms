@@ -62,7 +62,17 @@ export const properties = {
     type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
   },
   ResponseData: {
-    type: { type: 'custom', name: 'ResponseData', href: '/api/ResponseData' },
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '/api/ResponseData',
+        },
+      ],
+    },
     defaultValue: 'undefined',
   },
   action: {
@@ -96,32 +106,38 @@ export const properties = {
     },
   },
   validate: {
-    type: [
-      {
-        type: 'Custom',
-        name: 'QRL',
-        generics: [
-          {
-            type: 'custom',
-            name: 'ValidateForm',
-            href: '/api/ValidateForm',
-          },
-        ],
-      },
-      'undefined',
-    ],
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'Custom',
+          name: 'QRL',
+          generics: [
+            {
+              type: 'custom',
+              name: 'ValidateForm',
+              href: '/api/ValidateForm',
+            },
+          ],
+        },
+      ],
+    },
   },
   options: {
     type: 'object',
     defaultValue: { type: 'object', entries: [] },
   },
   paths: {
-    type: [
-      {
-        type: 'array',
-        item: 'string',
-      },
-      'undefined',
-    ],
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'array',
+          item: 'string',
+        },
+      ],
+    },
   },
 };

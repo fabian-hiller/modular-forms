@@ -27,34 +27,49 @@ Type that defines the return of a form action.
 
 export const properties = {
   status: {
-    type: [
-      { type: 'string', value: 'info' },
-      { type: 'string', value: 'error' },
-      { type: 'string', value: 'success' },
-      'undefined',
-    ],
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        [
+          { type: 'string', value: 'info' },
+          { type: 'string', value: 'error' },
+          { type: 'string', value: 'success' },
+        ],
+      ],
+    },
   },
   message: {
-    type: ['string', 'undefined'],
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: ['string'],
+    },
   },
   errors: {
-    type: [
-      {
-        type: 'custom',
-        name: 'FormErrors',
-        href: '/api/FormErrors',
-      },
-      'undefined',
-    ],
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'FormErrors',
+          href: '/api/FormErrors',
+        },
+      ],
+    },
   },
   data: {
-    type: [
-      {
-        type: 'custom',
-        name: 'ResponseData',
-        href: '/api/ResponseData',
-      },
-      'undefined',
-    ],
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '/api/ResponseData',
+        },
+      ],
+    },
   },
 };

@@ -34,12 +34,16 @@ export const properties = {
         params: [
           {
             name: 'value',
-            type: [
-              { type: 'custom', name: 'File' },
-              { type: 'custom', name: 'FileList' },
-              'null',
-              'undefined',
-            ],
+            type: {
+              type: 'custom',
+              name: 'MaybeValue',
+              generics: [
+                [
+                  { type: 'custom', name: 'File' },
+                  { type: 'array', item: { type: 'custom', name: 'File' } },
+                ],
+              ],
+            },
           },
         ],
         return: 'string',
@@ -57,12 +61,16 @@ export const properties = {
             params: [
               {
                 name: 'value',
-                type: [
-                  { type: 'custom', name: 'File' },
-                  { type: 'custom', name: 'FileList' },
-                  'null',
-                  'undefined',
-                ],
+                type: {
+                  type: 'custom',
+                  name: 'MaybeValue',
+                  generics: [
+                    [
+                      { type: 'custom', name: 'File' },
+                      { type: 'array', item: { type: 'custom', name: 'File' } },
+                    ],
+                  ],
+                },
               },
             ],
             return: 'string',

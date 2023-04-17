@@ -150,10 +150,7 @@ export const properties = {
           },
           { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
         ],
-        return: [
-          'void',
-          { type: 'custom', name: 'Promise', generics: ['void'] },
-        ],
+        return: { type: 'custom', name: 'MaybePromise', generics: ['void'] },
       },
     },
   },
@@ -191,10 +188,7 @@ export const properties = {
             },
           },
         ],
-        return: [
-          'void',
-          { type: 'custom', name: 'Promise', generics: ['void'] },
-        ],
+        return: { type: 'custom', name: 'MaybePromise', generics: ['void'] },
       },
     },
     encType: {

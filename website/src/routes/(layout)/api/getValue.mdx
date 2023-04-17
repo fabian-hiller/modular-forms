@@ -1,5 +1,4 @@
 import { Description, Property, Solid, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>getValue</Title>
 <Description>Returns the value of the specified field.</Description>
@@ -14,14 +13,13 @@ const value = getValue(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
 - `options` <Property {...properties.options} />
   - `shouldActive` <Property {...properties.shouldActive} />
   - `shouldTouched` <Property {...properties.shouldTouched} />
   - `shouldDirty` <Property {...properties.shouldDirty} />
   - `shouldValid` <Property {...properties.shouldValid} />
-  - `typeValidated` <Property {...properties.typeValidated} />
 
 ### Explanation
 
@@ -31,17 +29,18 @@ If you want `undefined` to be returned when the field is not touched, not dirty 
 
 `shouldActive`, `shouldTouched`, `shouldDirty` and `shouldValid` act like a kind of filter and can be combined with each other.
 
-<Solid block>
-
-`typeValidated` is for TypeScript users only. By default, the value is returned as maybe `undefined` because we have no way of knowing whether you actually used the specified field and whether your user's input is valid. If you are sure that the returned value matches your type definition of the form values, for example because they have been validated before, you can tell us to cast it to your type definition by setting `typeValidated` to `true`.
-
-</Solid>
-
 ## Return
 
 - `value` <Property {...properties.value} />
 
 export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
+    },
+  },
   options: {
     type: 'object',
     defaultValue: { type: 'object', entries: [] },
@@ -67,31 +66,16 @@ export const properties = {
     defaultValue: { type: 'boolean', value: false },
   },
   value: {
-    type: [
-      {
-        type: 'custom',
-        name: 'FieldValue',
-        href: '/api/FieldValue',
-      },
-      'undefined',
-    ],
-  },
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-  },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'FieldValue',
+          href: '/api/FieldValue',
+        },
+      ],
     },
   },
 };

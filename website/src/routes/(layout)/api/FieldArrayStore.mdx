@@ -5,8 +5,6 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 # FieldArrayStore
 
-<Qwik block>
-
 Type that defines the state of a form field array.
 
 ## Definition
@@ -23,12 +21,4 @@ Type that defines the state of a form field array.
 
 The `items` do not contain the value of the fields, but only a random unique number. You should pass this value in the loop to the first JSX element as `key` property.
 
-The state properties of the field array are reactive and can be used, for example, in the JSX area or the `useTask$` hook.
-
-</Qwik>
-
-<Solid block>
-
-> This page is exclusively for the Qwik library of Modular Forms.
-
-</Solid>
+The state properties of the field array are reactive and can be used, for example, in the JSX area or the <Solid>`createEffect` primitive</Solid><Qwik>`useTask$` hook</Qwik>.

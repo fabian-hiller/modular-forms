@@ -1,13 +1,11 @@
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import { Description, Property, Title } from '~/components';
 
 <Title>FieldStore</Title>
-<Description>Type that defines the state of a form field.</Description>
+<Description>Type that defines the store of a form field.</Description>
 
 # FieldStore
 
-<Qwik block>
-
-Type that defines the state of a form field.
+Type that defines the store of a form field.
 
 ## Definition
 
@@ -20,14 +18,6 @@ Type that defines the state of a form field.
   - `dirty` <Property type="boolean" />
 
 The state properties of the field are reactive and can be used, for example, in the JSX area or the `useTask$` hook.
-
-</Qwik>
-
-<Solid block>
-
-> This page is exclusively for the Qwik library of Modular Forms.
-
-</Solid>
 
 export const properties = {
   value: {

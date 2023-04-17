@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>hasField</Title>
 <Description>
@@ -16,7 +15,7 @@ const value = hasField(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
 - `options` <Property {...properties.options} />
   - `shouldActive` <Property {...properties.shouldActive} />
@@ -37,6 +36,13 @@ If you want `false` to be returned when the field is not touched, not dirty and/
 - `value` <Property type="boolean" />
 
 export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
+    },
+  },
   options: {
     type: 'object',
     defaultValue: { type: 'object', entries: [] },
@@ -56,23 +62,5 @@ export const properties = {
   shouldValid: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
-  },
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-  },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
-    },
   },
 };

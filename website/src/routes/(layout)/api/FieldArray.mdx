@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>FieldArray</Title>
 <Description>
@@ -23,7 +22,7 @@ Headless field array that provides reactive properties and state.
 - `validate` <Property {...properties.validate} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
-- `children` <Property {...properties[getFramework()]?.children} />
+- `children` <Property {...properties.children} />
 
 ### Explanation
 
@@ -42,22 +41,23 @@ export const properties = {
     },
   },
   validate: {
-    type: [
-      {
-        type: 'custom',
-        name: 'ValidateFieldArray',
-        href: '/api/ValidateFieldArray',
-      },
-      {
-        type: 'array',
-        item: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
           type: 'custom',
-          name: 'ValidateFieldArray',
-          href: '/api/ValidateFieldArray',
+          name: 'MaybeArray',
+          generics: [
+            {
+              type: 'custom',
+              name: 'ValidateFieldArray',
+              href: '/api/ValidateFieldArray',
+            },
+          ],
         },
-      },
-      'undefined',
-    ],
+      ],
+    },
   },
   keepActive: {
     type: 'boolean',
@@ -67,40 +67,20 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  solid: {
-    children: {
-      type: {
-        type: 'function',
-        params: [
-          {
-            name: 'fieldArray',
-            type: {
-              type: 'custom',
-              name: 'FieldArrayState',
-              href: '/api/FieldArrayState',
-            },
+  children: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'fieldArray',
+          type: {
+            type: 'custom',
+            name: 'FieldArrayStore',
+            href: '/api/FieldArrayStore',
           },
-        ],
-        return: { type: 'custom', name: 'JSX.Element' },
-      },
-    },
-  },
-  qwik: {
-    children: {
-      type: {
-        type: 'function',
-        params: [
-          {
-            name: 'fieldArray',
-            type: {
-              type: 'custom',
-              name: 'FieldArrayStore',
-              href: '/api/FieldArrayStore',
-            },
-          },
-        ],
-        return: { type: 'custom', name: 'JSX.Element' },
-      },
+        },
+      ],
+      return: { type: 'custom', name: 'JSX.Element' },
     },
   },
 };

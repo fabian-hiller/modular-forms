@@ -18,16 +18,16 @@ export const properties = {
       params: [
         {
           name: 'value',
-          type: [
-            { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
-            'undefined',
-          ],
+          type: {
+            type: 'custom',
+            name: 'Maybe',
+            generics: [
+              { type: 'custom', name: 'FieldValue', href: '/api/FieldValue' },
+            ],
+          },
         },
       ],
-      return: [
-        'string',
-        { type: 'custom', name: 'Promise', generics: ['string'] },
-      ],
+      return: { type: 'custom', name: 'MaybePromise', generics: ['string'] },
     },
   },
 };

@@ -31,7 +31,7 @@ type SpecialForm = {
     string: string;
   };
   file: {
-    list: FileList;
+    list: File[];
     item: File;
   };
 };
@@ -64,17 +64,7 @@ type SpecialForm = {
 
 > It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
 
-<Solid block>
-
-It is important that you use the correct HTML input element for the respective data type. For booleans you have to use `<input type="checkbox" />`, for numbers `<input type="number" />` and for files `<input type="file" />`. More details and special cases can be found in the <A href="/guides/special-inputs">special inputs</A>, <A href="/guides/nested-fields">nested fields</A> and <A href="/guides/field-arrays">field arrays</A> guide.
-
-</Solid>
-
-<Qwik block>
-
 When selecting the respective types of your fields, keep in mind that an HTML input element can usually represent different types of data. For example, `<input type="date" />` can return a string, date or number. With Modular Forms you can freely choose the data type that best suits your needs. More details and special cases can be found in the <A href="/guides/special-inputs">special inputs</A>, <A href="/guides/nested-fields">nested fields</A> and <A href="/guides/field-arrays">field arrays</A> guide.
-
-</Qwik>
 
 If you prefer to derive your type definition from a schema, you can optionally use <a href="https://github.com/colinhacks/zod" target="_blank" rel="noreferrer">Zod</a> for that. Below is an example:
 
@@ -95,7 +85,7 @@ const specialSchema = z.object({
     string: z.string(),
   }),
   file: z.object({
-    list: z.custom<FileList>(),
+    list: z.custom<File[]>(),
     item: z.custom<File>(),
   }),
 });

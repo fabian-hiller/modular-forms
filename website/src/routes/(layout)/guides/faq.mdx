@@ -23,10 +23,4 @@ Yes, Modular Forms works with <a href="https://start.solidjs.com" target="_blank
 
 Yes, this information should be about right. The <A href="/playground">playground</A> on this website uses almost the entire functionality of Modular Forms through the various examples, coming to a bundle size of 4.7 KB. However, the size also depends on how much your bundler divides the library into small chunks.
 
-## Can we remove the `of` prop from the <A href="/api/Field">`Field`</A> component?
-
-Technically it is possible, e.g. with the context API, to remove the `of` property from the <A href="/api/Field">`Field`</A> component. However, this would have the disadvantage that the type safety is lost and also the autocompletion in the editor no longer works, since this information comes from the return value of the <A href="/api/createForm">`createForm`</A> primitive.
-
-As the name implies, this is a modular library, which means that only the code you use ends up in your bundle. This reduces the bundle size to a minimum and provides better performance since the browser has to process less JavaScript. Of course, this has not only advantages. One tradeoff of this is that we have to pass the return value of <A href="/api/createForm">`createForm`</A> to the other primitives, components, and methods, since it contains the state and type information. I think it is worth it and in my eyes it improves the readability of the code.
-
 </Solid>

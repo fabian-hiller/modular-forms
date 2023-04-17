@@ -26,7 +26,14 @@ export const properties = {
         'null',
         'undefined',
         { type: 'custom', name: 'File' },
-        { type: 'custom', name: 'FileList' },
+        {
+          type: 'array',
+          item: {
+            type: 'custom',
+            name: 'File',
+          },
+        },
+        { type: 'custom', name: 'Date' },
       ],
     },
   },
@@ -39,13 +46,41 @@ export const properties = {
         'boolean',
         'null',
         'undefined',
-        { type: 'custom', name: 'File' },
         {
-          type: 'array',
-          item: {
-            type: 'custom',
-            name: 'File',
-          },
+          type: 'custom',
+          name: 'NoSerialize',
+          generics: [{ type: 'custom', name: 'Blob' }],
+        },
+        {
+          type: 'custom',
+          name: 'NoSerialize',
+          generics: [{ type: 'custom', name: 'File' }],
+        },
+        {
+          type: 'custom',
+          name: 'NoSerialize',
+          generics: [
+            {
+              type: 'array',
+              item: {
+                type: 'custom',
+                name: 'Blob',
+              },
+            },
+          ],
+        },
+        {
+          type: 'custom',
+          name: 'NoSerialize',
+          generics: [
+            {
+              type: 'array',
+              item: {
+                type: 'custom',
+                name: 'File',
+              },
+            },
+          ],
         },
         { type: 'custom', name: 'Date' },
       ],

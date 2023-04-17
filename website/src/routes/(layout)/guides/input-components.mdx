@@ -19,19 +19,15 @@ Currently, your fields might look something like this:
 <Solid block>
 
 ```tsx
-<Field
-  of={loginForm}
-  name="email"
-  validate={…}
->
-  {(field) => (
+<Field name="email" validate={…}>
+  {(field, props) => (
     <div>
       <label for={field.name}>Email</label>
       <input
-        {...field.props}
+        {...props}
         id={field.name}
-        type="email"
         value={props.value || ''}
+        type="email"
         required
       />
       {field.error && <div>{field.error}</div>}
@@ -71,14 +67,10 @@ Our goal is to develop a `TextInput` component so that the code ends up looking 
 <Solid block>
 
 ```tsx
-<Field
-  of={loginForm}
-  name="email"
-  validate={…}
->
-  {(field) => (
+<Field name="email" validate={…}>
+  {(field, props) => (
     <TextInput
-      {...field.props}
+      {...props}
       type="email"
       label="Email"
       value={field.value}
@@ -121,10 +113,10 @@ import { JSX } from 'solid-js';
 
 type TextInputProps = {
   name: string;
-  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
   label?: string;
   placeholder?: string;
-  value: string | number | undefined;
+  value: string | undefined;
   error: string;
   required?: boolean;
   ref: (element: HTMLInputElement) => void;
@@ -147,7 +139,7 @@ import {
 
 type TextInputProps = {
   name: string;
-  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
   label?: string;
   placeholder?: string;
   value: string | undefined;
@@ -295,10 +287,10 @@ import { JSX, splitProps } from 'solid-js';
 
 type TextInputProps = {
   name: string;
-  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
   label?: string;
   placeholder?: string;
-  value: string | number | undefined;
+  value: string | undefined;
   error: string;
   required?: boolean;
   ref: (element: HTMLInputElement) => void;
@@ -343,7 +335,7 @@ import {
 
 type TextInputProps = {
   name: string;
-  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
   label?: string;
   placeholder?: string;
   value: string | undefined;

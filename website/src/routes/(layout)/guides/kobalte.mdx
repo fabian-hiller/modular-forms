@@ -30,10 +30,10 @@ import { type JSX, Show, splitProps } from 'solid-js';
 
 type TextFieldProps = {
   name: string;
-  type?: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
+  type?: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
   label?: string;
   placeholder?: string;
-  value: string | number | undefined;
+  value: string | undefined;
   error: string;
   required?: boolean;
   multiline?: boolean;
@@ -76,14 +76,10 @@ export function TextField(props: TextFieldProps) {
 After adding your own styles, you can use the component together with Modular Forms as follows:
 
 ```tsx
-<Field
-  of={loginForm}
-  name="email"
-  validate={…}
->
-  {(field) => (
+<Field name="email" validate={…}>
+  {(field, props) => (
     <TextField
-      {...field.props}
+      {...props}
       type="email"
       label="Email"
       placeholder="jane@example.com"

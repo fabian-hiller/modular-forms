@@ -19,10 +19,10 @@ For a text input field you simply add the `value` attribute<Solid>{' '}and pass 
 <Solid block>
 
 ```tsx
-<Field of={contactForm} name="firstName">
-  {(field) => (
+<Field name="firstName">
+  {(field, props) => (
     <input
-      {...field.props}
+      {...props}
       type="text"
       // Pass value or empty string
       value={field.value || ''}
@@ -45,11 +45,29 @@ For a text input field you simply add the `value` attribute<Solid>{' '}and pass 
 
 > The HTML `<input type="file" />` element is an exception because it cannot be controlled. However, you have the possibility to control the UI around it. For inspiration you can use the code of our <a href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${getFramework()}/src/components/FileInput.tsx`} target="\_blank" rel="noreferrer">`FileInput`</a> component from our <A href="/playground/special">playground</A>.
 
-<Qwik block>
-
 ## Numbers and dates
 
 To make the fields of numbers and dates controlled, further steps are required. Since not every input into an `<input type="number" />` field is a valid number, for example when typing floating numbers, the value may be `NaN` in between. You have to catch this case, otherwise the whole input will be removed when `NaN` is passed. It is best to encapsulate this logic in a separate component as described <A href="/guides/input-components">here</A>.
+
+<Solid block>
+
+```tsx
+import { createMemo } from 'solid-js';
+
+type NumberInputProps = { … };
+
+export function NumberInput(props: NumberInputProps) {
+  // Update memo if value is not `NaN`
+  const getValue = createMemo<number | undefined>((prevValue) =>
+    !Number.isNaN(props.value) ? props.value : prevValue
+  );
+  return <input {...props} type="number" value={getValue()} />;
+}
+```
+
+</Solid>
+
+<Qwik block>
 
 ```tsx
 import { component$, useTask$, … } from '@builder.io/qwik';
@@ -70,7 +88,34 @@ export const NumberInput = component$(
 );
 ```
 
-A date or a number representing a date must be converted to a string before it can be passed to an `<input type="date" />` field, for example. Since it is a calculated value, you can use `useComputed$` for this.
+</Qwik>
+
+A date or a number representing a date must be converted to a string before it can be passed to an `<input type="date" />` field, for example. Since it is a calculated value, you can use <Solid>`createMemo`</Solid><Qwik>`useComputed$`</Qwik> for this.
+
+<Solid block>
+
+```tsx
+import { createMemo } from 'solid-js';
+
+type DateInputProps = { … };
+
+export function DateInput(props: DateInputProps) {
+  // Transform date or number to string
+  const getValue = createMemo<string | undefined>(() =>
+    props.value &&
+    !Number.isNaN(
+      typeof props.value === 'number' ? props.value : props.value.getTime()
+    )
+      ? new Date(props.value).toISOString().split('T', 1)[0]
+      : undefined
+  );
+  return <input {...props} type="date" value={getValue()} />;
+}
+```
+
+</Solid>
+
+<Qwik block>
 
 ```tsx
 import { component$, useComputed$, … } from '@builder.io/qwik';

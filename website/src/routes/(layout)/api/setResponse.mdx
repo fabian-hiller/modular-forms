@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>setResponse</Title>
 <Description>Sets the response of the form.</Description>
@@ -14,7 +13,7 @@ setResponse(form, response, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `response` <Property {...properties.response} />
 - `options` <Property {...properties.options} />
   - `duration` <Property {...properties.duration} />
@@ -24,6 +23,13 @@ setResponse(form, response, options);
 If you want the `response` to be automatically reset after a certain time, you can add a `duration` in milliseconds to the `options`. If the response changes in the meantime of the specified duration, the reset will be skipped.
 
 export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
+    },
+  },
   response: {
     type: { type: 'custom', name: 'FormResponse', href: '/api/FormResponse' },
   },
@@ -32,24 +38,10 @@ export const properties = {
     defaultValue: { type: 'object', entries: [] },
   },
   duration: {
-    type: ['number', 'undefined'],
-  },
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-  },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: ['number'],
     },
   },
 };

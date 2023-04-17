@@ -1,12 +1,10 @@
 import { A } from 'solid-start';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import { Description, Property, Title } from '~/components';
 
 <Title>FormStore</Title>
 <Description>Type that defines the store of a form.</Description>
 
 # FormStore
-
-<Qwik block>
 
 Type that defines the store of a form.
 
@@ -31,17 +29,13 @@ The properties of the form are reactive and can be used, for example, in the JSX
 
 Errors that occur when submitting the form are made accessible via the `response` object. In conjunction with the <A href="/api/setResponse">`setResponse`</A> method, you can also use `response` to display custom feedback to your user.
 
-</Qwik>
-
-<Solid block>
-
-> This page is exclusively for the Qwik library of Modular Forms.
-
-</Solid>
-
 export const properties = {
   element: {
-    type: [{ type: 'custom', name: 'HTMLFormElement' }, 'undefined'],
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [{ type: 'custom', name: 'HTMLFormElement' }],
+    },
   },
   response: {
     type: { type: 'custom', name: 'FormResponse', href: '/api/FormResponse' },

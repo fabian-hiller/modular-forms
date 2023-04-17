@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
 
 <Title>move</Title>
 <Description>
@@ -17,7 +16,7 @@ move(form, name, options);
 
 ## Parameters
 
-- `form` <Property {...properties[getFramework()]?.form} />
+- `form` <Property {...properties.form} />
 - `name` <Property type="string" />
 - `options` <Property type="object" />
   - `from` <Property type="number" />
@@ -28,22 +27,11 @@ move(form, name, options);
 With `from` you set the index of the item to be moved to the index defined under `to`. The action is executed only if both indexes are valid.
 
 export const properties = {
-  solid: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormState',
-        href: '/api/FormState',
-      },
-    },
-  },
-  qwik: {
-    form: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '/api/FormStore',
-      },
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '/api/FormStore',
     },
   },
 };

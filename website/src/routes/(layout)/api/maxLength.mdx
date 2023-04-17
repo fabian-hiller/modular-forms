@@ -31,13 +31,17 @@ export const properties = {
         params: [
           {
             name: 'value',
-            type: [
-              'string',
-              { type: 'array', item: 'string' },
-              { type: 'array', item: 'number' },
-              'null',
-              'undefined',
-            ],
+            type: {
+              type: 'custom',
+              name: 'MaybeValue',
+              generics: [
+                [
+                  'string',
+                  { type: 'array', item: 'string' },
+                  { type: 'array', item: 'number' },
+                ],
+              ],
+            },
           },
         ],
         return: 'string',
@@ -55,13 +59,17 @@ export const properties = {
             params: [
               {
                 name: 'value',
-                type: [
-                  'string',
-                  { type: 'array', item: 'string' },
-                  { type: 'array', item: 'number' },
-                  'null',
-                  'undefined',
-                ],
+                type: {
+                  type: 'custom',
+                  name: 'MaybeValue',
+                  generics: [
+                    [
+                      'string',
+                      { type: 'array', item: 'string' },
+                      { type: 'array', item: 'number' },
+                    ],
+                  ],
+                },
               },
             ],
             return: 'string',

@@ -3,11 +3,11 @@ import type {
   FieldValues,
   FieldPath,
   FieldPathValue,
-  InitialValues,
   ResponseData,
   FormStore,
   Maybe,
   FieldArrayPath,
+  PartialValues,
 } from '../types';
 import {
   getFilteredNames,
@@ -27,7 +27,7 @@ export type ResetOptions<
   TFieldName extends FieldPath<TFieldValues>
 > = Partial<{
   initialValue: FieldPathValue<TFieldValues, TFieldName>;
-  initialValues: InitialValues<TFieldValues>;
+  initialValues: PartialValues<TFieldValues>;
   keepResponse: boolean;
   keepSubmitCount: boolean;
   keepSubmitted: boolean;

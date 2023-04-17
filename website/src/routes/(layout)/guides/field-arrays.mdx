@@ -33,16 +33,16 @@ As with nested fields, you use dot notation for the name of each field. It is im
 <Solid block>
 
 ```tsx
-<FieldArray of={todoForm} name="todos">
+<FieldArray name="todos">
   {(fieldArray) => (
     <For each={fieldArray.items}>
       {(_, index) => (
         <div>
-          <Field of={todoForm} name={`todos.${index()}.label`}>
-            {(field) => <input {...field.props} type="text" />}
+          <Field name={`todos.${index()}.label`}>
+            {(field, props) => <input {...props} type="text" />}
           </Field>
-          <Field of={todoForm} name={`todos.${index()}.deadline`}>
-            {(field) => <input {...field.props} type="date" />}
+          <Field name={`todos.${index()}.deadline`}>
+            {(field, props) => <input {...props} type="date" />}
           </Field>
         </div>
       )}
@@ -89,16 +89,16 @@ If you need to nest multiple field arrays, dot notation can get complicated when
 <Solid block>
 
 ```tsx
-<FieldArray of={todoForm} name="todos">
+<FieldArray name="todos">
   {(fieldArray) => (
     <For each={fieldArray.items}>
       {(_, index) => (
         <div>
-          <Field of={todoForm} name={`${fieldArray.name}.${index()}.label`}>
-            {(field) => <input {...field.props} type="text" />}
+          <Field name={`${fieldArray.name}.${index()}.label`}>
+            {(field, props) => <input {...props} type="text" />}
           </Field>
-          <Field of={todoForm} name={`${fieldArray.name}.${index()}.deadline`}>
-            {(field) => <input {...field.props} type="date" />}
+          <Field name={`${fieldArray.name}.${index()}.deadline`}>
+            {(field, props) => <input {...props} type="date" />}
           </Field>
         </div>
       )}

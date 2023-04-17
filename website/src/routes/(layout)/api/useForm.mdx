@@ -60,7 +60,17 @@ export const properties = {
     type: { type: 'custom', name: 'FieldValues', href: '/api/FieldValues' },
   },
   ResponseData: {
-    type: { type: 'custom', name: 'ResponseData', href: '/api/ResponseData' },
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '/api/ResponseData',
+        },
+      ],
+    },
     defaultValue: 'undefined',
   },
   options: {
