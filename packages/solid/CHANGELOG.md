@@ -2,9 +2,9 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.12.0 (April 18, 2023)
 
-> Note: The package has been revised and refactored and it would be too complicated to mention every change here. Please look at the [release notes](https://github.com/fabian-hiller/modular-forms/releases/tag/vX.X.X-solid) and create an [issue](https://github.com/fabian-hiller/modular-forms/issues/new) if you encounter problems.
+> Note: The package has been revised and refactored and it would be too complicated to mention every change here. Please look at the [release notes](https://github.com/fabian-hiller/modular-forms/releases/tag/v0.12.0-solid) and create an [issue](https://github.com/fabian-hiller/modular-forms/issues/new) if you encounter problems.
 
 - Rename `createForm` primitive to `createFormStore`
 - Add `createForm` primitive with linked components
