@@ -1,8 +1,5 @@
 import {
   createForm,
-  Field,
-  FieldArray,
-  Form,
   insert,
   move,
   remove,
@@ -29,7 +26,7 @@ const initialValues = {
   items: [
     {
       label: 'Item 1',
-      options: ['Option 1'],
+      options: ['Option 1', 'Option 2'],
     },
     {
       label: 'Item 2',
@@ -40,7 +37,9 @@ const initialValues = {
 
 export default function NestedPage() {
   // Create nested form
-  const nestedForm = createForm<NestedForm>({ initialValues });
+  const [nestedForm, { Form, Field, FieldArray }] = createForm<NestedForm>({
+    initialValues,
+  });
 
   return (
     <>
@@ -48,26 +47,22 @@ export default function NestedPage() {
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"
-        of={nestedForm}
         onSubmit={(values) => alert(JSON.stringify(values, null, 4))}
       >
         <FormHeader of={nestedForm} heading="Nested form" />
 
         <div class="space-y-5 px-8 lg:px-10">
-          <FieldArray of={nestedForm} name="items">
+          <FieldArray name="items">
             {(fieldArray) => (
               <>
                 <For each={fieldArray.items}>
                   {(_, index) => (
                     <div class="flex-1 space-y-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 py-6 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700">
                       <div class="flex space-x-5 px-6">
-                        <Field
-                          of={nestedForm}
-                          name={`${fieldArray.name}.${index()}.label`}
-                        >
-                          {(field) => (
+                        <Field name={`${fieldArray.name}.${index()}.label`}>
+                          {(field, props) => (
                             <TextInput
-                              {...field.props}
+                              {...props}
                               value={field.value}
                               error={field.error}
                               type="text"
@@ -94,7 +89,6 @@ export default function NestedPage() {
                       />
 
                       <FieldArray
-                        of={nestedForm}
                         name={`${fieldArray.name}.${index()}.options`}
                       >
                         {(fieldArray) => (
@@ -102,13 +96,10 @@ export default function NestedPage() {
                             <For each={fieldArray.items}>
                               {(_, index) => (
                                 <div class="flex space-x-5">
-                                  <Field
-                                    of={nestedForm}
-                                    name={`${fieldArray.name}.${index()}`}
-                                  >
-                                    {(field) => (
+                                  <Field name={`${fieldArray.name}.${index()}`}>
+                                    {(field, props) => (
                                       <TextInput
-                                        {...field.props}
+                                        {...props}
                                         value={field.value}
                                         error={field.error}
                                         class="flex-1"
@@ -138,7 +129,9 @@ export default function NestedPage() {
                                 color="green"
                                 label="Add option"
                                 onClick={() =>
-                                  insert(nestedForm, fieldArray.name)
+                                  insert(nestedForm, fieldArray.name, {
+                                    value: '',
+                                  })
                                 }
                               />
                               <ColorButton
@@ -147,7 +140,7 @@ export default function NestedPage() {
                                 onClick={() =>
                                   move(nestedForm, fieldArray.name, {
                                     from: 0,
-                                    to: fieldArray.length - 1,
+                                    to: fieldArray.items.length - 1,
                                   })
                                 }
                               />
@@ -173,7 +166,11 @@ export default function NestedPage() {
                   <ColorButton
                     color="green"
                     label="Add item"
-                    onClick={() => insert(nestedForm, fieldArray.name)}
+                    onClick={() =>
+                      insert(nestedForm, fieldArray.name, {
+                        value: { label: '', options: [''] },
+                      })
+                    }
                   />
                   <ColorButton
                     color="yellow"
@@ -181,7 +178,7 @@ export default function NestedPage() {
                     onClick={() =>
                       move(nestedForm, fieldArray.name, {
                         from: 0,
-                        to: fieldArray.length - 1,
+                        to: fieldArray.items.length - 1,
                       })
                     }
                   />
@@ -196,7 +193,10 @@ export default function NestedPage() {
                     color="blue"
                     label="Replace first"
                     onClick={() =>
-                      replace(nestedForm, fieldArray.name, { at: 0 })
+                      replace(nestedForm, fieldArray.name, {
+                        at: 0,
+                        value: { label: '', options: [''] },
+                      })
                     }
                   />
                 </div>

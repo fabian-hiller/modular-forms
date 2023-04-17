@@ -1,8 +1,8 @@
-import { FormState, reset } from '@modular-forms/solid';
+import { FormStore, reset } from '@modular-forms/solid';
 import { ActionButton } from './ActionButton';
 
 type FormFooterProps = {
-  of: FormState<any>;
+  of: FormStore<any, any>;
 };
 
 /**

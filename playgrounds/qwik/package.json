@@ -24,6 +24,7 @@
     "qwik": "qwik"
   },
   "dependencies": {
+    "@modular-forms/core": "workspace:*",
     "@modular-forms/qwik": "workspace:*",
     "clsx": "^1.2.1"
   },

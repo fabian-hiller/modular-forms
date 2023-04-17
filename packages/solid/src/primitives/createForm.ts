@@ -50,7 +50,7 @@ export function createForm<
   }
 ] {
   // Create form store
-  const form = createFormStore(options);
+  const form = createFormStore<TFieldValues, TResponseData>(options);
 
   // Return form store and linked components
   return [

@@ -1,4 +1,4 @@
-import { createForm, Field, Form } from '@modular-forms/solid';
+import { createForm } from '@modular-forms/solid';
 import { For, onMount } from 'solid-js';
 import {
   FormHeader,
@@ -24,14 +24,14 @@ type SpecialForm = {
     string: string;
   };
   file: {
-    list: FileList;
+    list: File[];
     item: File;
   };
 };
 
 export default function SpecialPage() {
   // Create special form
-  const specialForm = createForm<SpecialForm>();
+  const [specialForm, { Form, Field }] = createForm<SpecialForm>();
 
   // Set special form in form context
   onMount(() => useForm().set(specialForm));
@@ -42,15 +42,14 @@ export default function SpecialPage() {
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"
-        of={specialForm}
         onSubmit={(values) => alert(JSON.stringify(values, null, 4))}
       >
         <FormHeader of={specialForm} heading="Special form" />
         <div class="space-y-8 md:space-y-10 lg:space-y-12">
-          <Field of={specialForm} name="number">
-            {(field) => (
+          <Field name="number" type="number">
+            {(field, props) => (
               <TextInput
-                {...field.props}
+                {...props}
                 value={field.value}
                 error={field.error}
                 type="number"
@@ -59,10 +58,10 @@ export default function SpecialPage() {
             )}
           </Field>
 
-          <Field of={specialForm} name="range">
-            {(field) => (
+          <Field name="range" type="number">
+            {(field, props) => (
               <Slider
-                {...field.props}
+                {...props}
                 value={field.value}
                 error={field.error}
                 label="Range"
@@ -83,10 +82,10 @@ export default function SpecialPage() {
               ]}
             >
               {({ label, value }) => (
-                <Field of={specialForm} name="checkbox.array">
-                  {(field) => (
+                <Field name="checkbox.array" type="string[]">
+                  {(field, props) => (
                     <Checkbox
-                      {...field.props}
+                      {...props}
                       label={label}
                       value={value}
                       checked={field.value?.includes(value)}
@@ -99,10 +98,10 @@ export default function SpecialPage() {
             </For>
           </div>
 
-          <Field of={specialForm} name="checkbox.boolean">
-            {(field) => (
+          <Field name="checkbox.boolean" type="boolean">
+            {(field, props) => (
               <Checkbox
-                {...field.props}
+                {...props}
                 checked={field.value}
                 error={field.error}
                 label="Checkbox boolean"
@@ -110,10 +109,10 @@ export default function SpecialPage() {
             )}
           </Field>
 
-          <Field of={specialForm} name="select.array">
-            {(field) => (
+          <Field name="select.array" type="string[]">
+            {(field, props) => (
               <Select
-                {...field.props}
+                {...props}
                 value={field.value}
                 options={[
                   { label: 'Option 1', value: 'option_1' },
@@ -127,10 +126,10 @@ export default function SpecialPage() {
             )}
           </Field>
 
-          <Field of={specialForm} name="select.string">
-            {(field) => (
+          <Field name="select.string">
+            {(field, props) => (
               <Select
-                {...field.props}
+                {...props}
                 value={field.value}
                 options={[
                   { label: 'Option 1', value: 'option_1' },
@@ -143,10 +142,10 @@ export default function SpecialPage() {
             )}
           </Field>
 
-          <Field of={specialForm} name="file.list">
-            {(field) => (
+          <Field name="file.list" type="File[]">
+            {(field, props) => (
               <FileInput
-                {...field.props}
+                {...props}
                 value={field.value}
                 error={field.error}
                 label="File list"
@@ -155,10 +154,10 @@ export default function SpecialPage() {
             )}
           </Field>
 
-          <Field of={specialForm} name="file.item">
-            {(field) => (
+          <Field name="file.item" type="File">
+            {(field, props) => (
               <FileInput
-                {...field.props}
+                {...props}
                 value={field.value}
                 error={field.error}
                 label="File item"

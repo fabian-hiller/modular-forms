@@ -50,7 +50,7 @@ export function useForm<
   }
 ] {
   // Use form store
-  const form = useFormStore(options);
+  const form = useFormStore<TFieldValues, TResponseData>(options);
 
   // Return form store and linked components
   return [

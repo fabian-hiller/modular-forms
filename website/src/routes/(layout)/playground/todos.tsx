@@ -1,8 +1,5 @@
 import {
   createForm,
-  Field,
-  FieldArray,
-  Form,
   insert,
   maxLength,
   move,
@@ -47,7 +44,9 @@ const initialValues = {
 
 export default function TodosPage() {
   // Create todo form
-  const todoForm = createForm<TodoForm>({ initialValues });
+  const [todoForm, { Form, Field, FieldArray }] = createForm<TodoForm>({
+    initialValues,
+  });
 
   // Set todo form in form context
   onMount(() => useForm().set(todoForm));
@@ -58,20 +57,15 @@ export default function TodosPage() {
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"
-        of={todoForm}
         onSubmit={(values) => alert(JSON.stringify(values, null, 4))}
       >
         <FormHeader of={todoForm} heading="Todo form" />
 
         <div class="space-y-8 md:space-y-10 lg:space-y-12">
-          <Field
-            of={todoForm}
-            name="heading"
-            validate={required('Please enter a heading.')}
-          >
-            {(field) => (
+          <Field name="heading" validate={required('Please enter a heading.')}>
+            {(field, props) => (
               <TextInput
-                {...field.props}
+                {...props}
                 value={field.value}
                 error={field.error}
                 type="text"
@@ -83,7 +77,6 @@ export default function TodosPage() {
           </Field>
 
           <FieldArray
-            of={todoForm}
             name="todos"
             validate={[
               required('Please add at least one todo.'),
@@ -105,13 +98,12 @@ export default function TodosPage() {
                       {(_, index) => (
                         <div class="flex flex-wrap gap-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700">
                           <Field
-                            of={todoForm}
                             name={`todos.${index()}.label`}
                             validate={required('Please enter a label.')}
                           >
-                            {(field) => (
+                            {(field, props) => (
                               <TextInput
-                                {...field.props}
+                                {...props}
                                 class="w-full md:w-auto md:flex-1"
                                 value={field.value}
                                 error={field.error}
@@ -124,13 +116,12 @@ export default function TodosPage() {
                           </Field>
 
                           <Field
-                            of={todoForm}
                             name={`todos.${index()}.deadline`}
                             validate={required('Please enter a deadline.')}
                           >
-                            {(field) => (
+                            {(field, props) => (
                               <TextInput
-                                {...field.props}
+                                {...props}
                                 class="flex-1"
                                 type="date"
                                 value={field.value}
@@ -160,7 +151,11 @@ export default function TodosPage() {
                   <ColorButton
                     color="green"
                     label="Add new"
-                    onClick={() => insert(todoForm, 'todos')}
+                    onClick={() =>
+                      insert(todoForm, 'todos', {
+                        value: { label: '', deadline: '' },
+                      })
+                    }
                   />
                   <ColorButton
                     color="yellow"
@@ -168,7 +163,7 @@ export default function TodosPage() {
                     onClick={() =>
                       move(todoForm, 'todos', {
                         from: 0,
-                        to: fieldArray.length - 1,
+                        to: fieldArray.items.length - 1,
                       })
                     }
                   />
@@ -180,7 +175,12 @@ export default function TodosPage() {
                   <ColorButton
                     color="blue"
                     label="Replace first"
-                    onClick={() => replace(todoForm, 'todos', { at: 0 })}
+                    onClick={() =>
+                      replace(todoForm, 'todos', {
+                        at: 0,
+                        value: { label: '', deadline: '' },
+                      })
+                    }
                   />
                 </div>
               </div>

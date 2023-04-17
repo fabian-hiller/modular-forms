@@ -6,7 +6,7 @@ import { InputLabel } from './InputLabel';
 type FileInputProps = {
   ref: (element: HTMLInputElement) => void;
   name: string;
-  value?: FileList | File;
+  value?: File[] | File;
   onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
   onChange: JSX.EventHandler<HTMLInputElement, Event>;
   onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>;
@@ -34,9 +34,9 @@ export function FileInput(props: FileInputProps) {
 
   // Create file list
   const getFiles = createMemo(() =>
-    props.value && typeof props.value === 'object'
-      ? 'length' in props.value
-        ? Array.from(props.value)
+    props.value
+      ? Array.isArray(props.value)
+        ? props.value
         : [props.value]
       : []
   );

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { JSX, splitProps } from 'solid-js';
+import { createMemo, JSX, splitProps } from 'solid-js';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
@@ -24,6 +24,7 @@ type TextInputProps = {
  * displayed in or around the field to communicate the entry requirements.
  */
 export function TextInput(props: TextInputProps) {
+  // Split input element props
   const [, inputProps] = splitProps(props, [
     'class',
     'value',
@@ -31,6 +32,14 @@ export function TextInput(props: TextInputProps) {
     'error',
     'padding',
   ]);
+
+  // Create memoized value
+  const getValue = createMemo<string | number>(
+    (prevValue) =>
+      !Number.isNaN(props.value) && props.value ? props.value : prevValue,
+    ''
+  );
+
   return (
     <div class={clsx(!props.padding && 'px-8 lg:px-10', props.class)}>
       <InputLabel
@@ -47,7 +56,7 @@ export function TextInput(props: TextInputProps) {
             : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50'
         )}
         id={props.name}
-        value={props.value || ''}
+        value={getValue()}
         aria-invalid={!!props.error}
         aria-errormessage={`${props.name}-error`}
       />

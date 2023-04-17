@@ -2,7 +2,7 @@ import {
   getValues,
   FieldValue,
   FieldValues,
-  FormState,
+  FormStore,
 } from '@modular-forms/solid';
 import clsx from 'clsx';
 import { createMemo, For, Show } from 'solid-js';
@@ -10,7 +10,7 @@ import { useLocation } from 'solid-start';
 import { isSolid } from '~/utils';
 
 type DebuggerProps = {
-  of: FormState<any> | undefined;
+  of: FormStore<any, any> | undefined;
 };
 
 /**
@@ -136,7 +136,7 @@ export function Debugger(props: DebuggerProps) {
 
 type FieldValuesProps = {
   class?: string;
-  values: FieldValue[] | FieldValues | FieldValues[];
+  values: FieldValues | (FieldValue | FieldValues)[];
 };
 
 /**
@@ -153,14 +153,14 @@ function FieldValueList(props: FieldValuesProps) {
                 !value ||
                 typeof value !== 'object' ||
                 value instanceof File ||
-                value instanceof FileList,
+                value instanceof Date,
             })}
           >
             <span>{key}:</span>
             {!value ||
             typeof value !== 'object' ||
             value instanceof File ||
-            value instanceof FileList ? (
+            value instanceof Date ? (
               <span
                 class={clsx('overflow-hidden text-ellipsis whitespace-nowrap', {
                   'text-yellow-600 dark:text-amber-200':
@@ -170,15 +170,10 @@ function FieldValueList(props: FieldValuesProps) {
                   'text-red-600 dark:text-red-400': value === false,
                   'text-emerald-600 dark:text-emerald-400': value === true,
                   'text-teal-600 dark:text-teal-400': value === null,
-                  'text-sky-600 dark:text-sky-400':
-                    value instanceof File || value instanceof FileList,
+                  'text-sky-600 dark:text-sky-400': value instanceof File,
                 })}
               >
-                {value instanceof File
-                  ? value.name
-                  : value instanceof FileList
-                  ? `${value.length} files`
-                  : String(value)}
+                {value instanceof File ? value.name : String(value)}
               </span>
             ) : (
               <FieldValueList class="ml-2 mt-3" values={value} />

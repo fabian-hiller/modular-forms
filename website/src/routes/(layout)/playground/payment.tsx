@@ -1,8 +1,6 @@
 import {
   createForm,
   email,
-  Field,
-  Form,
   getValue,
   pattern,
   required,
@@ -30,7 +28,9 @@ const initialValues = {
 
 export default function PaymentPage() {
   // Create payment form
-  const paymentForm = createForm<PaymentForm>({ initialValues });
+  const [paymentForm, { Form, Field }] = createForm<PaymentForm>({
+    initialValues,
+  });
 
   // Set payment form in form context
   onMount(() => useForm().set(paymentForm));
@@ -41,19 +41,14 @@ export default function PaymentPage() {
 
       <Form
         class="space-y-12 md:space-y-14 lg:space-y-16"
-        of={paymentForm}
         onSubmit={(values) => alert(JSON.stringify(values, null, 4))}
       >
         <FormHeader of={paymentForm} heading="Payment form" />
         <div class="space-y-8 md:space-y-10 lg:space-y-12">
-          <Field
-            of={paymentForm}
-            name="owner"
-            validate={required('Please enter your name.')}
-          >
-            {(field) => (
+          <Field name="owner" validate={required('Please enter your name.')}>
+            {(field, props) => (
               <TextInput
-                {...field.props}
+                {...props}
                 value={field.value}
                 error={field.error}
                 type="text"
@@ -64,13 +59,12 @@ export default function PaymentPage() {
             )}
           </Field>
           <Field
-            of={paymentForm}
             name="type"
             validate={required('Please select the payment type.')}
           >
-            {(field) => (
+            {(field, props) => (
               <Select
-                {...field.props}
+                {...props}
                 value={field.value}
                 options={[
                   { label: 'Card', value: 'card' },
@@ -86,7 +80,6 @@ export default function PaymentPage() {
           <Switch>
             <Match when={getValue(paymentForm, 'type') === 'card'}>
               <Field
-                of={paymentForm}
                 name="card.number"
                 validate={[
                   required('Please enter your card number.'),
@@ -96,9 +89,9 @@ export default function PaymentPage() {
                   ),
                 ]}
               >
-                {(field) => (
+                {(field, props) => (
                   <TextInput
-                    {...field.props}
+                    {...props}
                     value={field.value}
                     error={field.error}
                     type="text"
@@ -109,7 +102,6 @@ export default function PaymentPage() {
                 )}
               </Field>
               <Field
-                of={paymentForm}
                 name="card.expiration"
                 validate={[
                   required('Please enter your card number.'),
@@ -119,9 +111,9 @@ export default function PaymentPage() {
                   ),
                 ]}
               >
-                {(field) => (
+                {(field, props) => (
                   <TextInput
-                    {...field.props}
+                    {...props}
                     value={field.value}
                     error={field.error}
                     type="text"
@@ -134,16 +126,15 @@ export default function PaymentPage() {
             </Match>
             <Match when={getValue(paymentForm, 'type') === 'paypal'}>
               <Field
-                of={paymentForm}
                 name="paypal.email"
                 validate={[
                   required('Please enter your PayPal email.'),
                   email('The email address is badly formatted.'),
                 ]}
               >
-                {(field) => (
+                {(field, props) => (
                   <TextInput
-                    {...field.props}
+                    {...props}
                     value={field.value}
                     error={field.error}
                     type="email"
