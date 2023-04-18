@@ -12,6 +12,7 @@ All notable changes to the library will be documented in this file.
 - Add `type` property to `Field` component
 - Change behaviour of controlled `<input type="number" />`
 - Make `value` required on `insert` and `replace` method
+- Remove `minFiles`, `maxFiles`, `minNumber` and `maxNumber` validation function
 
 ## v0.11.0 (March 16, 2023)
 
