@@ -27,20 +27,17 @@ export default function LoginPage() {
               email('The email address is badly formatted.'),
             ]}
           >
-            {(field, props) => {
-              console.log('Field children', field.name);
-              return (
-                <TextInput
-                  {...props}
-                  value={field.value}
-                  error={field.error}
-                  type="email"
-                  label="Email"
-                  placeholder="example@email.com"
-                  required
-                />
-              );
-            }}
+            {(field, props) => (
+              <TextInput
+                {...props}
+                value={field.value}
+                error={field.error}
+                type="email"
+                label="Email"
+                placeholder="example@email.com"
+                required
+              />
+            )}
           </Field>
           <Field
             name="password"
