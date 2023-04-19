@@ -1,8 +1,11 @@
+import { HttpStatusCode } from 'solid-start/server';
 import { ActionButton, ButtonGroup, Description, Title } from '~/components';
 
 export default function NotFoundPage() {
   return (
     <>
+      <HttpStatusCode code={404} />
+
       <Title>Page not found</Title>
       <Description>
         Sorry, the page you are looking for could not be found. You can write us
@@ -15,22 +18,23 @@ export default function NotFoundPage() {
           <h1>Page not found</h1>
           <p>
             Sorry, the page you are looking for could not be found. You can
-            write us a message if you can't find what you are looking for or
-            return to the home page.
+            create an issue if you can't find what you are looking for or return
+            to the home page.
           </p>
 
           <ButtonGroup>
             <ActionButton
               variant="primary"
-              label="Home page"
+              label="Create issue"
               type="link"
-              href="/"
+              href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`}
+              target="_blank"
             />
             <ActionButton
               variant="secondary"
-              label="Contact us"
+              label="Home page"
               type="link"
-              href="/legal/imprint"
+              href="/"
             />
           </ButtonGroup>
         </article>
