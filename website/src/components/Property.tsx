@@ -170,8 +170,10 @@ export function Property(props: PropertyProps) {
                   <For each={type.params}>
                     {(param, index) => (
                       <>
-                        {index() > 0 && ', '}
-                        {param.name}:{' '}
+                        <span>
+                          {index() > 0 && ', '}
+                          {param.name}:{' '}
+                        </span>
                         <Property type={param.type} padding="none" />
                       </>
                     )}
