@@ -66,15 +66,6 @@ export function getFramework() {
 }
 
 /**
- * Sets the currently selected framework.
- *
- * @param framework The framework to bet set.
- */
-export function setFramework(framework: Framework) {
-  return useFramework()[1](framework);
-}
-
-/**
  * Returns whether SolidJS is currently selected as framework.
  *
  * @returns Whether SolidJS is selected.

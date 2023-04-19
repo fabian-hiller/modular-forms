@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { createSignal, For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { A, useLocation } from 'solid-start';
-import { frameworks, getFramework, setFramework } from '~/contexts';
+import { frameworks, getFramework, useFramework } from '~/contexts';
 import { AngleDownIcon, QwikIcon, SolidIcon } from '~/icons';
 
 type FrameworkPickerProps = {
@@ -15,6 +15,9 @@ type FrameworkPickerProps = {
  * Allows the user to navigate between frameworks.
  */
 export function FrameworkPicker(props: FrameworkPickerProps) {
+  // Use framework
+  const [, setFramework] = useFramework();
+
   // Create open and element signal
   const [getOpen, setOpen] = createSignal(false);
   const [getElement, setElement] = createSignal<HTMLDivElement>();
