@@ -6,7 +6,7 @@ import { Navigation, NavItemProps } from './Navigation';
 import { SideBar } from './SideBar';
 
 type DocsLayoutProps = {
-  items: NavItemProps[];
+  items: (NavItemProps | false)[];
   lowerCase?: boolean;
 };
 
@@ -19,10 +19,10 @@ export function DocsLayout(props: DocsLayoutProps) {
 
   // Create navigation items
   const getNavItems = createMemo(() =>
-    props.items.reduce<string[]>(
+    (props.items.filter((item) => item) as NavItemProps[]).reduce<string[]>(
       (list, { items }) => [
         ...list,
-        ...items.map(
+        ...(items.filter((item) => item) as string[]).map(
           (item) =>
             `${location.pathname
               .split('/')

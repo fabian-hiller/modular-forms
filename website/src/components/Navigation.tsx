@@ -2,7 +2,7 @@ import { createEffect, createSignal, For } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 
 type NavigationProps = {
-  items: NavItemProps[];
+  items: (NavItemProps | false)[];
   lowerCase?: boolean;
 };
 
@@ -14,7 +14,7 @@ export function Navigation(props: NavigationProps) {
   return (
     <nav class="px-8 py-9 lg:w-60 lg:py-0 2xl:w-72">
       <ul class="space-y-9 lg:space-y-12">
-        <For each={props.items}>
+        <For each={props.items.filter((item) => item) as NavItemProps[]}>
           {(item) => <NavItem {...item} lowerCase={props.lowerCase} />}
         </For>
       </ul>
@@ -24,7 +24,7 @@ export function Navigation(props: NavigationProps) {
 
 export type NavItemProps = {
   heading: string;
-  items: string[];
+  items: (string | false)[];
   lowerCase?: boolean;
 };
 
@@ -67,7 +67,7 @@ function NavItem(props: NavItemProps) {
           class="space-y-5 border-l-2 border-l-slate-200 dark:border-l-slate-800"
           ref={setListElement}
         >
-          <For each={props.items}>
+          <For each={props.items.filter((item) => item) as string[]}>
             {(item) => (
               <li>
                 <A

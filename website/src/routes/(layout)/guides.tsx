@@ -26,18 +26,14 @@ export default function GuidesLayout() {
           items: [
             'Controlled fields',
             'Special inputs',
-            isQwik() ? 'Enhanced forms' : undefined,
+            isQwik() && 'Enhanced forms',
             'Nested fields',
             'Field arrays',
-          ].filter((item) => item) as string[],
+          ],
         },
         {
           heading: 'Others',
-          items: [
-            'TypeScript',
-            isSolid() ? 'Kobalte' : undefined,
-            'FAQ',
-          ].filter((item) => item) as string[],
+          items: ['TypeScript', isSolid() && 'Kobalte', 'FAQ'],
         },
       ]}
       lowerCase
