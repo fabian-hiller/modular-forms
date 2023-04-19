@@ -12,7 +12,7 @@ type NavigationProps = {
  */
 export function Navigation(props: NavigationProps) {
   return (
-    <nav class="px-8 py-9 lg:w-60 lg:py-0 2xl:w-72">
+    <nav class="px-8 lg:w-60 2xl:w-72">
       <ul class="space-y-9 lg:space-y-12">
         <For each={props.items.filter((item) => item) as NavItemProps[]}>
           {(item) => <NavItem {...item} lowerCase={props.lowerCase} />}

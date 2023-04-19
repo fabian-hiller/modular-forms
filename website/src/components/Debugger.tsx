@@ -6,8 +6,10 @@ import {
 } from '@modular-forms/solid';
 import clsx from 'clsx';
 import { createMemo, For, Show } from 'solid-js';
-import { useLocation } from 'solid-start';
+import { useLocation, useParams } from 'solid-start';
+import { Framework, frameworks } from '~/contexts';
 import { isSolid } from '~/utils';
+import { FrameworkPicker } from './FrameworkPicker';
 
 type DebuggerProps = {
   of: FormStore<any, any> | undefined;
@@ -18,6 +20,9 @@ type DebuggerProps = {
  * development.
  */
 export function Debugger(props: DebuggerProps) {
+  // Use params
+  const params = useParams();
+
   // Get values of form
   const values = createMemo(() => props.of && getValues(props.of));
 
@@ -25,44 +30,47 @@ export function Debugger(props: DebuggerProps) {
   const getPath = createMemo(() => useLocation().pathname.split('/').pop());
 
   return (
-    <div class="space-y-9 px-8 py-9 lg:mx-8 lg:max-h-[60vh] lg:w-72 lg:overflow-y-auto lg:overscroll-contain lg:rounded-3xl lg:border-2 lg:border-slate-200 lg:p-10 lg:dark:border-slate-800">
-      <div class="space-y-6">
+    <div class="space-y-9 px-8 lg:mx-8 lg:max-h-[60vh] lg:w-72 lg:overflow-y-auto lg:overscroll-contain lg:rounded-3xl lg:border-2 lg:border-slate-200 lg:p-10 lg:dark:border-slate-800">
+      <div>
         <h3 class="text-xl font-medium text-slate-900 dark:text-slate-200">
           Debugger
         </h3>
-        <p>
-          See code on{' '}
-          <a
-            class="text-sky-600 dark:text-sky-400"
-            href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${
-              isSolid()
-                ? `solid/src/routes/${getPath()}.tsx`
-                : `qwik/src/routes/(default)/${getPath()}/index.tsx`
-            }`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>{' '}
-          or{' '}
-          <a
-            class="text-sky-600 dark:text-sky-400"
-            href={
-              isSolid()
-                ? `${
-                    import.meta.env.VITE_STACKBLITZ_SOLID_URL
-                  }?file=src/routes/${getPath()}.tsx`
-                : `${
-                    import.meta.env.VITE_STACKBLITZ_QWIK_URL
-                  }?file=src/routes/${getPath()}/index.tsx`
-            }
-            target="_blank"
-            rel="noreferrer"
-          >
-            Stackblitz
-          </a>
-          .
-        </p>
+        <FrameworkPicker class="mt-6 w-full" />
+        <Show when={frameworks.includes(params.framework as Framework)}>
+          <p class="mt-4">
+            See code on{' '}
+            <a
+              class="text-sky-600 dark:text-sky-400"
+              href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${
+                params.framework === 'solid'
+                  ? `solid/src/routes/${getPath()}.tsx`
+                  : `qwik/src/routes/(default)/${getPath()}/index.tsx`
+              }`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>{' '}
+            or{' '}
+            <a
+              class="text-sky-600 dark:text-sky-400"
+              href={
+                isSolid()
+                  ? `${
+                      import.meta.env.VITE_STACKBLITZ_SOLID_URL
+                    }?file=src/routes/${getPath()}.tsx`
+                  : `${
+                      import.meta.env.VITE_STACKBLITZ_QWIK_URL
+                    }?file=src/routes/${getPath()}/index.tsx`
+              }
+              target="_blank"
+              rel="noreferrer"
+            >
+              Stackblitz
+            </a>
+            .
+          </p>
+        </Show>
       </div>
       <div class="space-y-6">
         <h4 class="text-lg font-medium text-slate-900 dark:text-slate-200">

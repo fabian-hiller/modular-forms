@@ -1,6 +1,7 @@
 import { createMemo, Show } from 'solid-js';
 import { Outlet, useLocation } from 'solid-start';
 import { ArrowLeftIcon, ArrowRightIcon, PenIcon } from '~/icons';
+import { FrameworkPicker } from './FrameworkPicker';
 import { IconButton } from './IconButton';
 import { Navigation, NavItemProps } from './Navigation';
 import { SideBar } from './SideBar';
@@ -58,7 +59,10 @@ export function DocsLayout(props: DocsLayoutProps) {
           />
         }
       >
-        <Navigation {...props} />
+        <div class="space-y-9 lg:space-y-12">
+          <FrameworkPicker class="mx-8 w-48" />
+          <Navigation {...props} />
+        </div>
       </SideBar>
 
       <main class="relative flex-1 py-12 md:py-20 lg:w-px lg:py-32 lg:pl-9">

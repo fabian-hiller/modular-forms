@@ -53,7 +53,7 @@ export function SideBar(props: SideBarProps) {
         {/* Children */}
         <div
           class={clsx(
-            'absolute bottom-full max-h-[60vh] w-full origin-bottom translate-y-0.5 overflow-auto overscroll-contain border-t-2 border-t-slate-200 bg-white duration-200 dark:border-t-slate-800 dark:bg-gray-900 lg:static lg:max-h-full lg:w-auto lg:translate-y-0 lg:border-none lg:py-32',
+            'absolute bottom-full max-h-[60vh] w-full origin-bottom translate-y-0.5 overflow-auto overscroll-contain border-t-2 border-t-slate-200 bg-white py-9 duration-200 dark:border-t-slate-800 dark:bg-gray-900 lg:static lg:max-h-full lg:w-auto lg:translate-y-0 lg:border-none lg:py-32',
             !getOpen() && 'invisible scale-y-0 lg:visible lg:scale-y-100'
           )}
         >
