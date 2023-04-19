@@ -34,6 +34,7 @@
     "@types/mapbox__rehype-prism": "^0.8.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.23",
+    "rehype-slug": "^5.1.0",
     "rollup": "3.20.6",
     "solid-start-netlify": "^0.2.26",
     "solid-start-node": "^0.2.26",
