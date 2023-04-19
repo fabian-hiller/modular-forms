@@ -1,12 +1,11 @@
-import clsx from 'clsx';
-import { JSX } from 'solid-js';
+import { JSX, Show } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { getFramework, type Framework } from '~/contexts';
 
 type FrameworkProps = {
-  block?: boolean;
   framework: Framework;
   children: JSX.Element;
+  block?: boolean;
 };
 
 /**
@@ -14,11 +13,8 @@ type FrameworkProps = {
  */
 function Framework(props: FrameworkProps) {
   return (
-    <Dynamic
-      class={clsx('framework', getFramework() !== props.framework && 'hidden')}
-      component={props.block ? 'div' : 'span'}
-    >
-      {props.children}
+    <Dynamic class="framework" component={props.block ? 'div' : 'span'}>
+      <Show when={props.framework === getFramework()}>{props.children}</Show>
     </Dynamic>
   );
 }
