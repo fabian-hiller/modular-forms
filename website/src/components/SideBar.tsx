@@ -1,7 +1,7 @@
 import { makeEventListener } from '@solid-primitives/event-listener';
 import { isClient } from '@solid-primitives/utils';
 import clsx from 'clsx';
-import { createEffect, createSignal, JSX, on } from 'solid-js';
+import { createEffect, createSignal, JSX, on, Show } from 'solid-js';
 import { useLocation } from 'solid-start';
 import { AngleUpIcon } from '~/icons';
 
@@ -61,9 +61,7 @@ export function SideBar(props: SideBarProps) {
         </div>
 
         {/* Buttons */}
-        {props.buttons && (
-          <div class="mr-4 flex space-x-6 lg:hidden">{props.buttons}</div>
-        )}
+        {props.buttons}
 
         {/* Toggle */}
         <button

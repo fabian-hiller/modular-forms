@@ -52,11 +52,13 @@ export function DocsLayout(props: DocsLayoutProps) {
       {/* Side bar navigation */}
       <SideBar
         buttons={
-          <NavButtons
-            pageIndex={getNavIndex()}
-            prevPage={getPrevPage()}
-            nextPage={getNextPage()}
-          />
+          <div class="mr-4 flex space-x-6 lg:hidden">
+            <NavButtons
+              pageIndex={getNavIndex()}
+              prevPage={getPrevPage()}
+              nextPage={getNextPage()}
+            />
+          </div>
         }
       >
         <div class="space-y-9 lg:space-y-12">
