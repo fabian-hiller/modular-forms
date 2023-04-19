@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>SubmitHandler</Title>
 <Description>
@@ -12,7 +12,7 @@ Type that defines the submission handler function of the form.
 
 ## Definition
 
-- `SubmitHandler` <Property {...properties[getFramework()]?.SubmitHandler} />
+- `SubmitHandler` <Property {...properties[getFramework()].SubmitHandler} />
 
 export const properties = {
   solid: {

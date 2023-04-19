@@ -1,6 +1,6 @@
 import { A } from 'solid-start';
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>FieldValue</Title>
 <Description>Type that defines the value of a field.</Description>
@@ -11,7 +11,7 @@ Type that defines the value of a field.
 
 ## Definition
 
-- `FieldValue` <Property {...properties[getFramework()]?.FieldValue} />
+- `FieldValue` <Property {...properties[getFramework()].FieldValue} />
 
 > Make sure to use the correct input fields with the correct setting for the respective values. You can find instructions <A href="../../guides/special-inputs">here</A>.
 

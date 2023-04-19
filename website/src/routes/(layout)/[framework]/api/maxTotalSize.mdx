@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>maxTotalSize</Title>
 <Description>
@@ -21,7 +21,7 @@ const validate = maxTotalSize(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()]?.validate} />
+- `validate` <Property {...properties[getFramework()].validate} />
 
 export const properties = {
   solid: {

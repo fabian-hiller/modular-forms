@@ -1,5 +1,5 @@
 import { Description, Property, Qwik, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>maxRange</Title>
 <Description>
@@ -22,7 +22,7 @@ const validate = maxRange(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()]?.validate} />
+- `validate` <Property {...properties[getFramework()].validate} />
 
 export const properties = {
   requirement: {

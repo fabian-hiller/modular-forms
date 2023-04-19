@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>ValidateFieldArray</Title>
 <Description>
@@ -12,7 +12,7 @@ Type that defines the validation function of a field array.
 
 ## Definition
 
-- `ValidateFieldArray` <Property {...properties[getFramework()]?.ValidateFieldArray} />
+- `ValidateFieldArray` <Property {...properties[getFramework()].ValidateFieldArray} />
 
 export const properties = {
   solid: {

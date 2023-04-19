@@ -1,5 +1,5 @@
 import { Description, Property, Qwik, Solid, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>FieldElementProps</Title>
 <Description>Type that defines the element properties of a field.</Description>
@@ -15,7 +15,7 @@ Type that defines the element properties of a field.
 - `FieldElementProps` <Property type="object" />
   - `name` <Property type="string" />
   - `autoFocus` <Property type="boolean" />
-  - `ref` <Property {...properties[getFramework()]?.ref} />
+  - `ref` <Property {...properties[getFramework()].ref} />
   - `onInput` <Property {...properties.solid.onInput} />
   - `onChange` <Property {...properties.solid.onChange} />
   - `onBlur` <Property {...properties.solid.onBlur} />
@@ -27,7 +27,7 @@ Type that defines the element properties of a field.
 - `FieldElementProps` <Property type="object" />
   - `name` <Property type="string" />
   - `autoFocus` <Property type="boolean" />
-  - `ref` <Property {...properties[getFramework()]?.ref} />
+  - `ref` <Property {...properties[getFramework()].ref} />
   - `onInput$` <Property {...properties.qwik.onInput$} />
   - `onChange$` <Property {...properties.qwik.onChange$} />
   - `onBlur$` <Property {...properties.qwik.onBlur$} />

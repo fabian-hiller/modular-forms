@@ -1,11 +1,8 @@
 import { ActionButton, ButtonGroup, Description, Title } from '~/components';
-import { useFramework } from '~/contexts';
+import { getFramework } from '~/contexts';
 import { LogoIcon } from '~/icons';
 
 export default function HomePage() {
-  // Use framework
-  const [getFramework] = useFramework();
-
   return (
     <>
       <Title>Modular Forms: The modular and type-safe form library</Title>

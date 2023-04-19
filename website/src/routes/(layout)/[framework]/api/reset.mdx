@@ -1,6 +1,6 @@
 import { A } from 'solid-start';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>reset</Title>
 <Description>
@@ -29,7 +29,7 @@ reset(form, names, options);
 - `name` <Property type="string" />
 - `names` <Property {...properties.names} />
 - `options` <Property {...properties.options} />
-  - `initialValues` <Property {...properties[getFramework()]?.initialValues} />
+  - `initialValues` <Property {...properties[getFramework()].initialValues} />
   - `initialValue` <Property {...properties.initialValue} />
   - `keepResponse` <Property {...properties.keepResponse} />
   - `keepSubmitCount` <Property {...properties.keepSubmitCount} />

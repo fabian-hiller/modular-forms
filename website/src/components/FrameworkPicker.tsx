@@ -1,10 +1,10 @@
 import { makeEventListener } from '@solid-primitives/event-listener';
 import { isClient } from '@solid-primitives/utils';
 import clsx from 'clsx';
-import { createSignal, For, Show } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import { A, useLocation, useParams } from 'solid-start';
-import { Framework, frameworks, useFramework } from '~/contexts';
+import { A, useLocation } from 'solid-start';
+import { frameworks, getFramework, setFramework } from '~/contexts';
 import { AngleDownIcon, QwikIcon, SolidIcon } from '~/icons';
 
 type FrameworkPickerProps = {
@@ -15,10 +15,6 @@ type FrameworkPickerProps = {
  * Allows the user to navigate between frameworks.
  */
 export function FrameworkPicker(props: FrameworkPickerProps) {
-  // Use params and framework
-  const params = useParams();
-  const [, setFramework] = useFramework();
-
   // Create open and element signal
   const [getOpen, setOpen] = createSignal(false);
   const [getElement, setElement] = createSignal<HTMLDivElement>();
@@ -61,15 +57,10 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
         onClick={() => setOpen((open) => !open)}
       >
         <div class="flex">
-          <Show
-            when={frameworks.includes(params.framework as Framework)}
-            fallback="Framework..."
-          >
-            <Dynamic class="mr-2.5 h-6" component={getIcon(params.framework)} />
-            <div class="text-slate-900 dark:text-slate-200">
-              {getName(params.framework)}
-            </div>
-          </Show>
+          <Dynamic class="mr-2.5 h-6" component={getIcon(getFramework())} />
+          <div class="text-slate-900 dark:text-slate-200">
+            {getName(getFramework())}
+          </div>
         </div>
         <AngleDownIcon class="h-5" />
       </button>
@@ -81,9 +72,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
         aria-hidden={!getOpen()}
       >
         <For
-          each={frameworks.filter(
-            (framework) => framework !== params.framework
-          )}
+          each={frameworks.filter((framework) => framework !== getFramework())}
         >
           {(framework) => (
             <A

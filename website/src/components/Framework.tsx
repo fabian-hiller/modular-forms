@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 import { JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import { type Framework } from '~/contexts';
-import { getFramework } from '~/utils';
+import { getFramework, type Framework } from '~/contexts';
 
 type FrameworkProps = {
   block?: boolean;

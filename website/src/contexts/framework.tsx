@@ -55,3 +55,39 @@ export function FrameworkProvider(props: FrameworkProviderProps) {
 export function useFramework() {
   return useContext(FrameworkContext)!;
 }
+
+/**
+ * Returns the currently selected framework.
+ *
+ * @returns The selected framework.
+ */
+export function getFramework() {
+  return useFramework()[0]();
+}
+
+/**
+ * Sets the currently selected framework.
+ *
+ * @param framework The framework to bet set.
+ */
+export function setFramework(framework: Framework) {
+  return useFramework()[1](framework);
+}
+
+/**
+ * Returns whether SolidJS is currently selected as framework.
+ *
+ * @returns Whether SolidJS is selected.
+ */
+export function isSolid() {
+  return getFramework() === 'solid';
+}
+
+/**
+ * Returns whether Qwik is currently selected as framework.
+ *
+ * @returns Whether Qwik is selected.
+ */
+export function isQwik() {
+  return getFramework() === 'qwik';
+}

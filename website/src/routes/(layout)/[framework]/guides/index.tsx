@@ -1,5 +1,4 @@
-import { Navigate } from 'solid-start';
-import { redirect } from '~/utils';
+import { Navigate, redirect } from 'solid-start';
 
 export function GET() {
   return redirect('introduction');

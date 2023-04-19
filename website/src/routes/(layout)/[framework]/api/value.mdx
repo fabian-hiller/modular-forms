@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>value</Title>
 <Description>
@@ -21,7 +21,7 @@ const validate = value(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()]?.validate} />
+- `validate` <Property {...properties[getFramework()].validate} />
 
 export const properties = {
   requirement: {

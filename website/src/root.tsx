@@ -17,7 +17,7 @@ import '~/styles/components.css';
 import '~/styles/fonts.css';
 import '~/styles/pace.css';
 import '~/styles/utilities.css';
-import { disableTransitions } from './utils';
+import { disableTransitions } from '~/utils';
 
 export default function Root() {
   // Disable CSS transitions while window is resized

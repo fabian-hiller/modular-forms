@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/utils';
+import { getFramework } from '~/contexts';
 
 <Title>email</Title>
 <Description>
@@ -20,7 +20,7 @@ const validate = email(error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()]?.validate} />
+- `validate` <Property {...properties[getFramework()].validate} />
 
 export const properties = {
   solid: {

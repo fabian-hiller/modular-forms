@@ -1,5 +1,5 @@
 import { DocsLayout } from '~/components';
-import { isQwik, isSolid } from '~/utils';
+import { isQwik, isSolid } from '~/contexts';
 
 export default function GuidesLayout() {
   return (

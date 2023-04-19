@@ -1,5 +1,5 @@
-import { DocsLayout, NavItemProps } from '~/components';
-import { isQwik, isSolid } from '~/utils';
+import { DocsLayout } from '~/components';
+import { isQwik, isSolid } from '~/contexts';
 
 export default function ApiLayout() {
   return (

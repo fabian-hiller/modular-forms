@@ -3,7 +3,7 @@ import { isClient } from '@solid-primitives/utils';
 import clsx from 'clsx';
 import { createSignal, For } from 'solid-js';
 import { A } from 'solid-start';
-import { useFramework } from '~/contexts';
+import { getFramework } from '~/contexts';
 import { GitHubIcon, LogoIcon } from '~/icons';
 import { Hamburger } from './Hamburger';
 import { ThemeToggle } from './ThemeToggle';
@@ -12,9 +12,6 @@ import { ThemeToggle } from './ThemeToggle';
  * Sticky header with logo, main navigation and theme toogle.
  */
 export function Header() {
-  // Use framework
-  const [getFramework] = useFramework();
-
   // Create menu open and window scrolled signal
   const [getMenuOpen, setMenuOpen] = createSignal(false);
   const [getWindowScrolled, setWindowScrolled] = createSignal(false);
