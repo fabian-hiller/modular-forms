@@ -1,0 +1,51 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>insert</Title>
+<Description>Inserts a new item into the field array.</Description>
+
+# insert
+
+Inserts a new item into the field array.
+
+```ts
+insert(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `at` <Property type={["number", "undefined"]} />
+  - `value` <Property {...properties.value} />
+
+### Explanation
+
+With `at` you define the index where the item should be inserted. The action will only be executed if you define a valid index. If you don't specify an index, the item will be added at the end.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+  options: {
+    type: 'object',
+  },
+  value: {
+    type: [
+      {
+        type: 'custom',
+        name: 'FieldValue',
+        href: '../FieldValue',
+      },
+      {
+        type: 'custom',
+        name: 'FieldValues',
+        href: '../FieldValues',
+      },
+    ],
+  },
+};

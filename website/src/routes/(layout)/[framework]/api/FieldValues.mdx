@@ -1,0 +1,44 @@
+import { A } from 'solid-start';
+import { Description, Property, Title } from '~/components';
+
+<Title>FieldValues</Title>
+<Description>Type that defines the field values of a form.</Description>
+
+# FieldValues
+
+Type that defines the field values of a form.
+
+## Definition
+
+- `FieldValues` <Property {...properties.FieldValues} />
+
+> When defining your field values, make sure that the individual values are compatible with the respective input element. You can learn more about this <A href="../../guides/special-inputs">here</A>.
+
+export const properties = {
+  FieldValues: {
+    type: {
+      type: 'object',
+      entries: [
+        {
+          key: { name: 'name', type: 'string' },
+          value: [
+            { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
+            {
+              type: 'array',
+              item: {
+                type: 'custom',
+                name: 'FieldValue',
+                href: '../FieldValue',
+              },
+            },
+            { type: 'custom', name: 'FieldValues' },
+            {
+              type: 'array',
+              item: { type: 'custom', name: 'FieldValues' },
+            },
+          ],
+        },
+      ],
+    },
+  },
+};

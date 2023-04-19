@@ -1,0 +1,97 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>createForm</Title>
+<Description>
+  Creates and returns the store of the form as well as a linked Form, Field and
+  FieldArray component.
+</Description>
+
+# createForm
+
+<Solid block>
+
+Creates and returns the store of the form as well as a linked Form, Field and FieldArray component.
+
+```ts
+const [form, { Form, Field, FieldArray }] = createForm<Values, ResponseData>(
+  options
+);
+```
+
+> If you prefer to use the library as modular as possible, you can use the <A href="../createFormStore">`createFormStore`</A> hook instead.
+
+## Generic
+
+- `Values` <Property {...properties.Values} />
+- `ResponseData` <Property {...properties.ResponseData} />
+
+### Explanation
+
+If you use TypeScript, you should define your field values. This way the library knows exactly which fields your form has and what values they expect. It also allows autocompletion and TypeScript notifies you of typos.
+
+> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
+
+## Parameter
+
+- `options` <Property {...properties.options} />
+
+## Return
+
+- `form` <Property {...properties.form} />
+- `Form` <Property {...properties.Form} />
+- `Field` <Property {...properties.Field} />
+- `FieldArray` <Property {...properties.FieldArray} />
+
+### Explanation
+
+Since the <A href="../Form">`Form`</A>, <A href="../Form">`Field`</A> and <A href="../Form">`FieldArray`</A> components are already linked to your form, you don't need to add the `of` property.
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '../FieldValues' },
+  },
+  ResponseData: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '../ResponseData',
+        },
+      ],
+    },
+    defaultValue: 'undefined',
+  },
+  options: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        { type: 'custom', name: 'FormOptions', href: '../FormOptions' },
+      ],
+    },
+  },
+  form: {
+    type: { type: 'custom', name: 'FormStore', href: '../FormStore' },
+  },
+  Form: {
+    type: { type: 'custom', name: 'Form', href: '../Form' },
+  },
+  Field: {
+    type: { type: 'custom', name: 'Field', href: '../Field' },
+  },
+  FieldArray: {
+    type: { type: 'custom', name: 'FieldArray', href: '../FieldArray' },
+  },
+};

@@ -1,29 +1,26 @@
 import { useRouteData, Outlet } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
 import { Header, Footer } from '~/components';
-import { Framework, FrameworkProvider } from '~/contexts';
+import { Framework, FrameworkProvider, frameworks } from '~/contexts';
 import { frameworkCookie } from '~/cookies';
 
 export function routeData() {
   return {
-    getFramework: createServerData$<Framework>(async (_, { request }) => {
+    getCookie: createServerData$<Framework>(async (_, { request }) => {
       const framework = await frameworkCookie.parse(
         request.headers.get('Cookie')
       );
-      if (framework === 'solid' || framework === 'qwik') {
-        return framework;
-      }
-      return 'solid';
+      return frameworks.includes(framework) ? framework : 'solid';
     }),
   };
 }
 
 export default function Layout() {
   // Use route data
-  const { getFramework } = useRouteData<typeof routeData>();
+  const { getCookie } = useRouteData<typeof routeData>();
 
   return (
-    <FrameworkProvider framework={getFramework()!}>
+    <FrameworkProvider cookie={getCookie()!}>
       <Header />
       <Outlet />
       <Footer />

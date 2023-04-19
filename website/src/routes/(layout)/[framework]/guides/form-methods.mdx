@@ -1,0 +1,21 @@
+import { A } from 'solid-start';
+import { Description, Title } from '~/components';
+
+<Title>Form methods</Title>
+<Description>
+  To retrieve the values of your form or to make changes to the form, the
+  library provides you with several methods. These apply either to the entire
+  form or to individual fields.
+</Description>
+
+# Form methods
+
+To retrieve the values of your form or to make changes to the form, the library provides you with several methods. These apply either to the entire form or to individual fields.
+
+With <A href="../../api/reset">`reset`</A>, for example, you can reset the form or update the initial values. With <A href="../../api/setResponse">`setResponse`</A> you can output information, general errors or success messages to the user.
+
+To retrieve all or individual values of form fields use <A href="../../api/getValues">`getValues`</A> or <A href="../../api/getValue">`getValue`</A>. To manually update the value of a field or set an error use <A href="../../api/setValue">`setValue`</A> and <A href="../../api/setError">`setError`</A>. If you want to validate a field manually, use the <A href="../../api/validate">`validate`</A> method.
+
+For each method, pass your form as the first parameter. This leads to a readable API and allows a modular design. You can find an overview of all methods in our <A href="../../api">API reference</A>.
+
+> Do you like Modular Forms so far? It would be a great honor for us to get a star from you on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>!

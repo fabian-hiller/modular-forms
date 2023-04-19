@@ -1,0 +1,170 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+import { getFramework } from '~/utils';
+
+<Title>reset</Title>
+<Description>
+  Resets the entire form, several fields and field arrays or a singel field or
+  field array.
+</Description>
+
+# reset
+
+Resets the entire form, several fields and field arrays or a singel field or field array.
+
+```ts
+// Reset the entire form
+reset(form, options);
+
+// Reset a singel field or field array
+reset(form, name, options);
+
+// Reset several fields and field arrays
+reset(form, names, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `names` <Property {...properties.names} />
+- `options` <Property {...properties.options} />
+  - `initialValues` <Property {...properties[getFramework()]?.initialValues} />
+  - `initialValue` <Property {...properties.initialValue} />
+  - `keepResponse` <Property {...properties.keepResponse} />
+  - `keepSubmitCount` <Property {...properties.keepSubmitCount} />
+  - `keepSubmitted` <Property {...properties.keepSubmitted} />
+  - `keepValues` <Property {...properties.keepValues} />
+  - `keepDirtyValues` <Property {...properties.keepDirtyValues} />
+  - `keepItems` <Property {...properties.keepItems} />
+  - `keepDirtyItems` <Property {...properties.keepDirtyItems} />
+  - `keepErrors` <Property {...properties.keepErrors} />
+  - `keepTouched` <Property {...properties.keepTouched} />
+  - `keepDirty` <Property {...properties.keepDirty} />
+
+### Explanation
+
+In addition to the names of the fields, you can also specify the name of a field array under `names` or `name`. In this case, the field array and the fields and field arrays it contains will be reset.
+
+When you reset the entire form or several fields, you can specify new `initialValues` that override the <Solid>`initialValues`</Solid><Qwik>`loader`</Qwik> you <Solid>may</Solid> specified in the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><Qwik><A href="../useForm">`useForm`</A> hook</Qwik>.
+
+When you reset a single field, you can specify a new `initialValue` that override the initial value you <Solid>may</Solid> set in the <Solid>`initialValues`</Solid><Qwik>`loader`</Qwik> of the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><Qwik><A href="../useForm">`useForm`</A> hook</Qwik>.
+
+By default, the `response`, `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepResponse`, `keepSubmitCount` and/or `keepSubmitted` to `true`.
+
+By default, the `value`, `items`, `error`, `touched` and `dirty` state of each field and field array are reset. To change this behavior you can set `keepValues`, `keepDirtyValues`, `keepItems`, `keepDirtyItems`, `keepErrors`, `keepTouched` and/or `keepDirty` to `true`.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+  names: {
+    type: {
+      type: 'array',
+      item: 'string',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  initialValue: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'FieldValue',
+          href: '../FieldValue',
+        },
+      ],
+    },
+  },
+  keepResponse: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepSubmitCount: {
+    type: 'boolean',
+    defaultValue: [{ type: 'boolean', value: false }],
+  },
+  keepSubmitted: {
+    type: 'boolean',
+    defaultValue: [{ type: 'boolean', value: false }],
+  },
+  keepValues: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepDirtyValues: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepItems: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepDirtyItems: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepErrors: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  keepDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  solid: {
+    initialValues: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'PartialValues',
+            generics: [
+              {
+                type: 'custom',
+                name: 'FieldValues',
+                href: '../FieldValues',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  qwik: {
+    initialValues: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'InitialValues',
+            generics: [
+              {
+                type: 'custom',
+                name: 'FieldValues',
+                href: '../FieldValues',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+};

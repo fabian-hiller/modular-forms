@@ -1,0 +1,211 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>Form</Title>
+<Description>
+  Form element that takes care of validation and simplifies submission.
+</Description>
+
+# Form
+
+Form element that takes care of validation and simplifies submission.
+
+<Solid block>
+
+```tsx
+<Form
+  of={…}
+  onSubmit={…}
+  keepResponse={…}
+  shouldActive={…}
+  shouldTouched={…}
+  shouldDirty={…}
+  shouldFocus={…}
+>
+  children
+</Form>
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Form
+  of={…}
+  onSubmit$={…}
+  encType={…}
+  reloadDocument={…}
+  keepResponse={…}
+  shouldActive={…}
+  shouldTouched={…}
+  shouldDirty={…}
+  shouldFocus={…}
+>
+  children
+</Form>
+```
+
+</Qwik>
+
+## Properties
+
+<Solid block>
+
+- `of` <Property {...properties.solid.of} />
+- `onSubmit` <Property {...properties.solid.onSubmit} />
+- `keepResponse` <Property {...properties.keepResponse} />
+- `shouldActive` <Property {...properties.shouldActive} />
+- `shouldTouched` <Property {...properties.shouldTouched} />
+- `shouldDirty` <Property {...properties.shouldDirty} />
+- `shouldFocus` <Property {...properties.shouldFocus} />
+- `children` <Property {...properties.children} />
+
+</Solid>
+
+<Qwik block>
+
+- `of` <Property {...properties.qwik.of} />
+- `onSubmit$` <Property {...properties.qwik.onSubmit$} />
+- `encType` <Property {...properties.qwik.encType} />
+- `reloadDocument` <Property {...properties.qwik.reloadDocument} />
+- `keepResponse` <Property {...properties.keepResponse} />
+- `shouldActive` <Property {...properties.shouldActive} />
+- `shouldTouched` <Property {...properties.shouldTouched} />
+- `shouldDirty` <Property {...properties.shouldDirty} />
+- `shouldFocus` <Property {...properties.shouldFocus} />
+- `children` <Property {...properties.children} />
+
+</Qwik>
+
+> Besides the specified properties, you can pass any other property of an HTML form element.
+
+### Explanation
+
+<Solid block>
+
+When the form is submitted, `event.preventDefault()` is executed by default to prevent the window from reloading so that the values can also be processed directly in the browser and the state of the form is preserved.
+
+</Solid>
+
+Before executing the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
+
+Errors thrown by the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <Solid><A href="../FormStore">`FormStore`</A></Solid><Qwik><A href="../FormStore">`FormStore`</A></Qwik> object to display them to your user.
+
+<Qwik block>
+
+If JavaScript is available, we use `preventdefault:submit` to prevent the page from being reloaded and send the data to the server as JSON via JavaScript using the Fetch API. To change this, you can set `encType` to send the data as `FormData` and `reloadDocument` to not prevent the page from reloading.
+
+</Qwik>
+
+By default, the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
+
+By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
+
+export const properties = {
+  keepResponse: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldFocus: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  children: {
+    type: { type: 'custom', name: 'JSX.Element' },
+  },
+  solid: {
+    of: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '../FormStore',
+      },
+    },
+    onSubmit: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'values',
+            type: {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '../FieldValues',
+            },
+          },
+          { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
+        ],
+        return: { type: 'custom', name: 'MaybePromise', generics: ['void'] },
+      },
+    },
+  },
+  qwik: {
+    of: {
+      type: {
+        type: 'custom',
+        name: 'FormStore',
+        href: '../FormStore',
+      },
+    },
+    onSubmit$: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'values',
+            type: {
+              type: 'custom',
+              name: 'FieldValues',
+              href: '../FieldValues',
+            },
+          },
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'QwikSubmitEvent',
+              generics: [
+                {
+                  type: 'custom',
+                  name: 'HTMLFormElement',
+                },
+              ],
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'MaybePromise', generics: ['void'] },
+      },
+    },
+    encType: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        generics: [
+          [
+            { type: 'string', value: 'application/x-www-form-urlencoded' },
+            { type: 'string', value: 'multipart/form-data' },
+          ],
+        ],
+      },
+    },
+    reloadDocument: {
+      type: 'boolean',
+      defaultValue: { type: 'boolean', value: false },
+    },
+  },
+};

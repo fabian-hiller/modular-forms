@@ -1,0 +1,42 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>setError</Title>
+<Description>Sets the error of the specified field or field array.</Description>
+
+# setError
+
+Sets the error of the specified field or field array.
+
+```ts
+setError(form, name, error, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `error` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `shouldFocus` <Property {...properties.shouldFocus} />
+
+### Explanation
+
+If you have specified the name of a field, its HTML element is focused by default to make it easier for the user to respond to the error. To change this behavior, you can set `shouldFocus` to `false`.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldFocus: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+};

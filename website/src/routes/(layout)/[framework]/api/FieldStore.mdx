@@ -1,0 +1,30 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>FieldStore</Title>
+<Description>Type that defines the store of a form field.</Description>
+
+# FieldStore
+
+Type that defines the store of a form field.
+
+## Definition
+
+- `FieldStore` <Property type="object" />
+  - `name` <Property type="string" />
+  - `value` <Property {...properties.value} />
+  - `error` <Property type="string" />
+  - `active` <Property type="boolean" />
+  - `touched` <Property type="boolean" />
+  - `dirty` <Property type="boolean" />
+
+The state properties of the field are reactive and can be used, for example, in the JSX area or the `useTask$` hook.
+
+export const properties = {
+  value: {
+    type: {
+      type: 'custom',
+      name: 'FieldValue',
+      href: '../FieldValue',
+    },
+  },
+};

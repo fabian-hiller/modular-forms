@@ -1,0 +1,37 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>move</Title>
+<Description>
+  Moves a field of the field array to a new position and rearranges all fields
+  in between.
+</Description>
+
+# move
+
+Moves a field of the field array to a new position and rearranges all fields in between.
+
+```ts
+move(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property type="object" />
+  - `from` <Property type="number" />
+  - `to` <Property type="number" />
+
+### Explanation
+
+With `from` you set the index of the item to be moved to the index defined under `to`. The action is executed only if both indexes are valid.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+};

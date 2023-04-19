@@ -1,7 +1,11 @@
 import { ActionButton, ButtonGroup, Description, Title } from '~/components';
+import { useFramework } from '~/contexts';
 import { LogoIcon } from '~/icons';
 
 export default function HomePage() {
+  // Use framework
+  const [getFramework] = useFramework();
+
   return (
     <>
       <Title>Modular Forms: The modular and type-safe form library</Title>
@@ -24,13 +28,13 @@ export default function HomePage() {
             variant="primary"
             label="Get started"
             type="link"
-            href="/guides"
+            href={`/${getFramework()}/guides`}
           />
           <ActionButton
             variant="secondary"
             label="Playground"
             type="link"
-            href="/playground"
+            href={`/${getFramework()}/playground`}
           />
         </ButtonGroup>
       </main>

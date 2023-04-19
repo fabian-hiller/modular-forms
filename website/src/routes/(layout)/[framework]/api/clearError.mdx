@@ -1,0 +1,29 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>clearError</Title>
+<Description>
+  Clears the error of the specified field or field array.
+</Description>
+
+# clearError
+
+Clears the error of the specified field or field array.
+
+```ts
+clearError(form, name);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+};

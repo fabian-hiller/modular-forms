@@ -7,16 +7,19 @@ import {
   Setter,
   useContext,
 } from 'solid-js';
+import { useLocation } from 'solid-start';
 import { frameworkCookie } from '~/cookies';
 
 export type Framework = 'solid' | 'qwik';
+
+export const frameworks: Framework[] = ['solid', 'qwik'];
 
 // Create framework context
 const FrameworkContext =
   createContext<[accessor: Accessor<Framework>, setter: Setter<Framework>]>();
 
 type FrameworkProviderProps = {
-  framework: Framework;
+  cookie: Framework;
   children: JSX.Element;
 };
 
@@ -25,7 +28,12 @@ type FrameworkProviderProps = {
  */
 export function FrameworkProvider(props: FrameworkProviderProps) {
   // Create framework signal
-  const [getFramework, setFramework] = createSignal<Framework>(props.framework);
+  const [getFramework, setFramework] = createSignal<Framework>(
+    (() => {
+      const param = useLocation().pathname.split('/')[1] as Framework;
+      return frameworks.includes(param) ? param : props.cookie;
+    })()
+  );
 
   // Update cookie when framework changes
   createEffect(async () => {

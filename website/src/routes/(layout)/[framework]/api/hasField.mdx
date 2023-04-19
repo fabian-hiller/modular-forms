@@ -1,0 +1,66 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>hasField</Title>
+<Description>
+  Checks if the specified field is included in the form.
+</Description>
+
+# hasField
+
+Checks if the specified field is included in the form.
+
+```ts
+const value = hasField(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property {...properties.options} />
+  - `shouldActive` <Property {...properties.shouldActive} />
+  - `shouldTouched` <Property {...properties.shouldTouched} />
+  - `shouldDirty` <Property {...properties.shouldDirty} />
+  - `shouldValid` <Property {...properties.shouldValid} />
+
+### Explanation
+
+By default `false` is returned if the field is inactive. To change this behavior you can set `shouldActive` to `false`.
+
+If you want `false` to be returned when the field is not touched, not dirty and/or not valid, you can set `shouldTouched`, `shouldDirty` and/or `shouldValid` to `true`.
+
+`shouldActive`, `shouldTouched`, `shouldDirty` and `shouldValid` act like a kind of filter and can be combined with each other.
+
+## Return
+
+- `value` <Property type="boolean" />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldValid: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+};

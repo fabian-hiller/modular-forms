@@ -1,0 +1,47 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>setResponse</Title>
+<Description>Sets the response of the form.</Description>
+
+# setResponse
+
+Sets the response of the form.
+
+```ts
+setResponse(form, response, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `response` <Property {...properties.response} />
+- `options` <Property {...properties.options} />
+  - `duration` <Property {...properties.duration} />
+
+### Explanation
+
+If you want the `response` to be automatically reset after a certain time, you can add a `duration` in milliseconds to the `options`. If the response changes in the meantime of the specified duration, the reset will be skipped.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+  response: {
+    type: { type: 'custom', name: 'FormResponse', href: '../FormResponse' },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  duration: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: ['number'],
+    },
+  },
+};

@@ -1,0 +1,51 @@
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>FormResponse</Title>
+<Description>Type that defines the response of a form.</Description>
+
+# FormResponse
+
+Type that defines the response of a form.
+
+## Definition
+
+- `FormResponse` <Property type="object" />
+  - `status` <Property {...properties.status} />
+  - `message` <Property {...properties.message} />
+  - `data` <Property {...properties.data} />
+
+export const properties = {
+  status: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        [
+          { type: 'string', value: 'info' },
+          { type: 'string', value: 'error' },
+          { type: 'string', value: 'success' },
+        ],
+      ],
+    },
+  },
+  message: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [['string']],
+    },
+  },
+  data: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '../ResponseData',
+        },
+      ],
+    },
+  },
+};

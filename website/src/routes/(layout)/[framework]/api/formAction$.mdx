@@ -1,0 +1,143 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>formAction$</Title>
+<Description>
+  Creates an action for progressively enhanced forms that handles validation and
+  submission on the server.
+</Description>
+
+# formAction$
+
+<Qwik block>
+
+Creates an action for progressively enhanced forms that handles validation and submission on the server.
+
+```ts
+// Form action for simple forms
+formAction$<Values, ResponseData>(action, validate);
+
+// Form actions for complex forms
+formAction$<Values, ResponseData>(action, options);
+```
+
+## Generics
+
+- `Values` <Property {...properties.Values} />
+- `ResponseData` <Property {...properties.ResponseData} />
+
+### Explanation
+
+If you use TypeScript, you should define your field values. This way the library knows exactly which fields your form has and what values they expect. It also allows autocompletion and TypeScript notifies you of typos.
+
+> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
+
+## Parameters
+
+- `action` <Property {...properties.action} />
+- `validate` <Property {...properties.validate} />
+- `options` <Property {...properties.options} />
+  - `validate` <Property {...properties.validate} />
+  - `arrays` <Property {...properties.paths} />
+  - `booleans` <Property {...properties.paths} />
+  - `files` <Property {...properties.paths} />
+  - `numbers` <Property {...properties.paths} />
+
+### Explanation
+
+The `action` function is only executed if the form values have passed the validation. Since `validate` is executed on the server, the validation cannot be manipulated by the user. You can use the `action` function to process the form values and store them in a database, for example. Also you can manipulate the state of the form action via the return value or send a message to the client via the <A href="../FormResponse">`FormResponse`</A> object.
+
+Using `arrays`, `booleans`, `files` and `numbers` you can suplement information that is lost when submitting the form without JavaScript. You can find more about this <A href="../../guides/enhanced-forms">here</A>.
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '../FieldValues' },
+  },
+  ResponseData: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '../ResponseData',
+        },
+      ],
+    },
+    defaultValue: 'undefined',
+  },
+  action: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'values',
+          type: {
+            type: 'custom',
+            name: 'FieldValues',
+            href: '../FieldValues',
+          },
+        },
+        { name: 'event', type: { type: 'custom', name: 'RequestEventAction' } },
+      ],
+      return: {
+        type: 'custom',
+        name: 'MaybePromise',
+        generics: [
+          [
+            {
+              type: 'custom',
+              name: 'FormActionResult',
+              href: '../FormActionResult',
+            },
+            'void',
+          ],
+        ],
+      },
+    },
+  },
+  validate: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'Custom',
+          name: 'QRL',
+          generics: [
+            {
+              type: 'custom',
+              name: 'ValidateForm',
+              href: '../ValidateForm',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  paths: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'array',
+          item: 'string',
+        },
+      ],
+    },
+  },
+};

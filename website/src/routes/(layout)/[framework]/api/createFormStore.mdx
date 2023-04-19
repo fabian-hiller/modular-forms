@@ -1,0 +1,73 @@
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>createFormStore</Title>
+<Description>Creates and returns the store of the form.</Description>
+
+# createFormStore
+
+<Solid block>
+
+Creates and returns the store of the form.
+
+```ts
+const form = createFormStore<Values>(options);
+```
+
+## Generic
+
+- `Values` <Property {...properties.Values} />
+- `ResponseData` <Property {...properties.ResponseData} />
+
+### Explanation
+
+If you use TypeScript, you should define your field values. This way the library knows exactly which fields your form has and what values they expect. It also allows autocompletion and TypeScript notifies you of typos.
+
+> It is recommended to use `type` instead of `interface` as this currently requires an explicit index signature in TypeScript. More about this <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/2#issuecomment-1321178563`} target="\_blank" rel="noreferrer">here</a>.
+
+## Parameter
+
+- `options` <Property {...properties.options} />
+
+## Return
+
+- `form` <Property {...properties.form} />
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '../FieldValues' },
+  },
+  ResponseData: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        {
+          type: 'custom',
+          name: 'ResponseData',
+          href: '../ResponseData',
+        },
+      ],
+    },
+    defaultValue: 'undefined',
+  },
+  options: {
+    type: {
+      type: 'custom',
+      name: 'Maybe',
+      generics: [
+        { type: 'custom', name: 'FormOptions', href: '../FormOptions' },
+      ],
+    },
+  },
+  form: {
+    type: { type: 'custom', name: 'FormStore', href: '../FormStore' },
+  },
+};

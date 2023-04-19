@@ -3,8 +3,8 @@ import { isClient } from '@solid-primitives/utils';
 import clsx from 'clsx';
 import { createSignal, For } from 'solid-js';
 import { A } from 'solid-start';
+import { useFramework } from '~/contexts';
 import { GitHubIcon, LogoIcon } from '~/icons';
-import { FrameworkToggle } from './FrameworkToggle';
 import { Hamburger } from './Hamburger';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -12,6 +12,9 @@ import { ThemeToggle } from './ThemeToggle';
  * Sticky header with logo, main navigation and theme toogle.
  */
 export function Header() {
+  // Use framework
+  const [getFramework] = useFramework();
+
   // Create menu open and window scrolled signal
   const [getMenuOpen, setMenuOpen] = createSignal(false);
   const [getWindowScrolled, setWindowScrolled] = createSignal(false);
@@ -62,16 +65,16 @@ export function Header() {
         {/* Main menu */}
         <nav
           class={clsx(
-            'absolute top-full flex max-h-[60vh] w-full origin-top -translate-y-0.5 flex-col overflow-y-auto border-b-2 border-b-slate-200 bg-white pt-4 pb-8 duration-200 dark:border-b-slate-800 dark:bg-gray-900 lg:static lg:top-auto lg:w-auto lg:translate-y-0 lg:flex-row lg:space-x-10 lg:overflow-visible lg:border-none lg:bg-transparent lg:p-0 lg:dark:bg-transparent',
+            'absolute top-full flex max-h-[60vh] w-full origin-top -translate-y-0.5 flex-col overflow-y-auto border-b-2 border-b-slate-200 bg-white pb-8 pt-4 duration-200 dark:border-b-slate-800 dark:bg-gray-900 lg:static lg:top-auto lg:w-auto lg:translate-y-0 lg:flex-row lg:space-x-10 lg:overflow-visible lg:border-none lg:bg-transparent lg:p-0 lg:dark:bg-transparent',
             !getMenuOpen() && 'invisible scale-y-0 lg:visible lg:scale-y-100'
           )}
           id="main-menu"
         >
           <For
             each={[
-              { label: 'Guides', href: '/guides' },
-              { label: 'API reference', href: '/api' },
-              { label: 'Playground', href: '/playground' },
+              { label: 'Guides', href: `/${getFramework()}/guides` },
+              { label: 'API reference', href: `/${getFramework()}/api` },
+              { label: 'Playground', href: `/${getFramework()}/playground` },
             ]}
           >
             {({ label, href }) => (
@@ -98,7 +101,6 @@ export function Header() {
             class="hidden lg:mx-4 lg:block lg:h-5 lg:w-0.5 lg:rounded-full lg:bg-slate-200 lg:dark:bg-slate-800"
             role="separator"
           />
-          <FrameworkToggle />
           <a
             class="p-4 transition-colors hover:text-slate-900 dark:hover:text-slate-200"
             href={import.meta.env.VITE_GITHUB_URL}

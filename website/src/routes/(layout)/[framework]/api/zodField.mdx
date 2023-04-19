@@ -1,0 +1,68 @@
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>zodField</Title>
+<Description>
+  Creates a validation functions that parses the Zod schema of a field.
+</Description>
+
+# zodField
+
+<Solid block>
+
+Creates a validation functions that parses the Zod schema of a field.
+
+```ts
+const validate = zodField(schema);
+```
+
+## Parameters
+
+- `schema` <Property {...properties.schema} />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+</Solid>
+
+<Qwik block>
+
+> This page is exclusively for the SolidJS library of Modular Forms.
+
+</Qwik>
+
+export const properties = {
+  schema: {
+    type: {
+      type: 'custom',
+      name: 'ZodType',
+      generics: [
+        {
+          type: 'custom',
+          name: 'any',
+        },
+        {
+          type: 'custom',
+          name: 'any',
+        },
+        {
+          type: 'custom',
+          name: 'FieldValue',
+          href: '../FieldValue',
+        },
+      ],
+    },
+  },
+  validate: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
+        },
+      ],
+      return: 'string',
+    },
+  },
+};

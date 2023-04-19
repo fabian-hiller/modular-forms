@@ -1,0 +1,48 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>replace</Title>
+<Description>Replaces a item of the field array.</Description>
+
+# replace
+
+Replaces a item of the field array.
+
+```ts
+replace(form, name, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `name` <Property type="string" />
+- `options` <Property type="object" />
+  - `at` <Property type="number" />
+  - `value` <Property {...properties.value} />
+
+### Explanation
+
+With `at` you define the index of the item to be replaced. The action will only be executed if you define a valid index.
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+  value: {
+    type: [
+      {
+        type: 'custom',
+        name: 'FieldValue',
+        href: '../FieldValue',
+      },
+      {
+        type: 'custom',
+        name: 'FieldValues',
+        href: '../FieldValues',
+      },
+    ],
+  },
+};

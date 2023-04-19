@@ -1,0 +1,38 @@
+import { A } from 'solid-start';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>FormActionStore</Title>
+<Description>Type that defines the action store of a form.</Description>
+
+# FormActionStore
+
+<Qwik block>
+
+Type that defines the action store of a form.
+
+## Definition
+
+- `FormActionStore` <Property type="object" />
+  - `values` <Property {...properties.values} />
+  - `errors` <Property {...properties.errors} />
+  - `response` <Property {...properties.response} />
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  values: {
+    type: { type: 'custom', name: 'FieldValues', href: '../FieldValues' },
+  },
+  errors: {
+    type: { type: 'custom', name: 'FormErrors', href: '../FormErrors' },
+  },
+  response: {
+    type: { type: 'custom', name: 'FormResponse', href: '../FormResponse' },
+  },
+};

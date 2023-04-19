@@ -1,0 +1,80 @@
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>custom$</Title>
+<Description>Creates a custom validation function.</Description>
+
+# custom$
+
+<Qwik block>
+
+Creates a custom validation function.
+
+```ts
+const validate = custom$(requirement, error);
+```
+
+## Parameters
+
+- `requirement` <Property {...properties.requirement} />
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties.validate} />
+
+</Qwik>
+
+<Solid block>
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  requirement: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'value',
+          type: {
+            type: 'custom',
+            name: 'Maybe',
+            generics: [
+              { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
+            ],
+          },
+        },
+      ],
+      return: { type: 'custom', name: 'MaybePromise', generics: ['boolean'] },
+    },
+  },
+  validate: {
+    type: {
+      type: 'custom',
+      name: 'QRL',
+      generics: [
+        {
+          type: 'function',
+          params: [
+            {
+              name: 'value',
+              type: {
+                type: 'custom',
+                name: 'Maybe',
+                generics: [
+                  {
+                    type: 'custom',
+                    name: 'FieldValue',
+                    href: '../FieldValue',
+                  },
+                ],
+              },
+            },
+          ],
+          return: { type: 'custom', name: 'Promise', generics: ['string'] },
+        },
+      ],
+    },
+  },
+};

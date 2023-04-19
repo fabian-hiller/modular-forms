@@ -1,0 +1,70 @@
+import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/utils';
+
+<Title>required</Title>
+<Description>
+  Creates a validation function that checks the existence of an input.
+</Description>
+
+# required
+
+Creates a validation function that checks the existence of an input.
+
+```ts
+const validate = required(error);
+```
+
+## Parameter
+
+- `error` <Property type="string" />
+
+## Return
+
+- `validate` <Property {...properties[getFramework()]?.validate} />
+
+export const properties = {
+  solid: {
+    validate: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: [
+              { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
+              { type: 'array', item: 'number' },
+            ],
+          },
+        ],
+        return: 'string',
+      },
+    },
+  },
+  qwik: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'function',
+            params: [
+              {
+                name: 'value',
+                type: [
+                  {
+                    type: 'custom',
+                    name: 'FieldValue',
+                    href: '../FieldValue',
+                  },
+                  { type: 'array', item: 'number' },
+                ],
+              },
+            ],
+            return: 'string',
+          },
+        ],
+      },
+    },
+  },
+};

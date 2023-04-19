@@ -1,0 +1,85 @@
+import { A } from 'solid-start';
+import { Description, Qwik, Solid, Title } from '~/components';
+
+<Title>TypeScript</Title>
+<Description>
+  Since the library is written in TypeScript and we put a lot of emphasis on the
+  development experience, you can expect maximum TypeScript support.
+</Description>
+
+# TypeScript
+
+Since the library is written in TypeScript and we put a lot of emphasis on the development experience, you can expect maximum TypeScript support.
+
+For example, to pass your form to another component via props, you can use the <A href="../../api/FormStore">`FormStore`</A> type to get type safety. Most of the types you can import can be found in our <A href="../../api">API reference</A>.
+
+<Solid block>
+
+```tsx
+import { createForm, Form, type FormStore, Field } from '@modular-forms/solid';
+
+type LoginForm = {
+  email: string;
+  password: string;
+}
+
+export function LoginPage() {
+  const loginForm = createFormStore<LoginForm>();
+  return <FormContent loginForm={loginForm} />
+}
+
+type FormContentProps {
+  loginForm: FormStore<LoginForm>;
+}
+
+function FormContent(props: FormContentProps) {
+  return (
+    <Form of={props.loginForm}>
+      <Field of={props.loginForm} name="email">
+        {(field, props) => <input {...props} type="email" />}
+      </Field>
+      <Field of={props.loginForm} name="password">
+        {(field, props) => <input {...props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+import { component$ } from "@builder.io/qwik";
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { useFormStore, Form, type FormStore, Field } from '@modular-forms/solid';
+
+type LoginForm = { … };
+
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
+
+export default component$(() => {
+  const loginForm = useFormStore<LoginForm>({ loader: useFormLoader() });
+  return <FormContent loginForm={loginForm} />
+});
+
+type FormContentProps {
+  loginForm: FormStore<LoginForm>;
+}
+
+const FormContent = component$(({ loginForm }) => (
+  <Form of={loginForm}>
+    <Field of={loginForm} name="email">
+      {(field, props) => <input {...props} type="email" />}
+    </Field>
+    <Field of={loginForm} name="password">
+      {(field, props) => <input {...props} type="password" />}
+    </Field>
+    <input type="submit" />
+  </Form>
+));
+```
+
+</Qwik>
