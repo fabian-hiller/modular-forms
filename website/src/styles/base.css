@@ -13,7 +13,7 @@
 
   /* Typography */
   article :is(h1, h2, h3, h4) {
-    @apply font-medium leading-normal text-slate-900 dark:text-slate-200 md:leading-normal lg:leading-normal;
+    @apply scroll-mt-24 font-medium leading-normal text-slate-900 dark:text-slate-200 md:scroll-mt-32 md:leading-normal lg:scroll-mt-48 lg:leading-normal;
   }
   article h1 {
     @apply text-2xl md:text-3xl lg:text-4xl;
@@ -63,7 +63,7 @@
     @apply overflow-x-auto rounded-2xl border-2 border-slate-200 p-5 leading-relaxed text-slate-700 dark:border-slate-800 dark:text-slate-300 md:text-lg md:leading-relaxed lg:rounded-3xl lg:border-[3px] lg:p-10 lg:text-xl lg:leading-relaxed;
   }
   article :not(pre) > code {
-    @apply rounded-lg bg-slate-100 py-1 px-2 text-slate-700 dark:bg-gray-800 dark:text-slate-300;
+    @apply rounded-lg bg-slate-100 px-2 py-1 text-slate-700 dark:bg-gray-800 dark:text-slate-300;
   }
   article p > code {
     @apply whitespace-nowrap;
