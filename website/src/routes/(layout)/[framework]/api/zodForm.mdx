@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'solid-start/server';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>zodForm</Title>
@@ -26,6 +27,8 @@ const validate = zodForm(schema);
 </Solid>
 
 <Qwik block>
+
+<HttpStatusCode code={404} />
 
 > This page is exclusively for the SolidJS library of Modular Forms.
 

@@ -1,4 +1,5 @@
 import { A } from 'solid-start';
+import { HttpStatusCode } from 'solid-start/server';
 import { Description, Qwik, Solid, Title } from '~/components';
 
 <Title>Kobalte</Title>
@@ -96,6 +97,8 @@ After adding your own styles, you can use the component together with Modular Fo
 </Solid>
 
 <Qwik block>
+
+<HttpStatusCode code={404} />
 
 > This page is exclusively for the SolidJS library of Modular Forms.
 

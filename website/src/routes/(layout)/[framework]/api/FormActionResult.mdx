@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'solid-start/server';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>FormActionResult</Title>
@@ -20,6 +21,8 @@ Type that defines the return of a form action.
 </Qwik>
 
 <Solid block>
+
+<HttpStatusCode code={404} />
 
 > This page is exclusively for the Qwik library of Modular Forms.
 

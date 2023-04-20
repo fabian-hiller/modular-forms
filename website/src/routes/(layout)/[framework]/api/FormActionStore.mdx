@@ -1,4 +1,5 @@
 import { A } from 'solid-start';
+import { HttpStatusCode } from 'solid-start/server';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>FormActionStore</Title>
@@ -20,6 +21,8 @@ Type that defines the action store of a form.
 </Qwik>
 
 <Solid block>
+
+<HttpStatusCode code={404} />
 
 > This page is exclusively for the Qwik library of Modular Forms.
 

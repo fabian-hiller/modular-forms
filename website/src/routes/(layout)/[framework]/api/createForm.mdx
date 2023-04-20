@@ -1,4 +1,5 @@
 import { A } from 'solid-start';
+import { HttpStatusCode } from 'solid-start/server';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 <Title>createForm</Title>
@@ -50,6 +51,8 @@ Since the <A href="../Form">`Form`</A>, <A href="../Form">`Field`</A> and <A hre
 </Solid>
 
 <Qwik block>
+
+<HttpStatusCode code={404} />
 
 > This page is exclusively for the SolidJS library of Modular Forms.
 
