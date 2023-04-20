@@ -4,6 +4,7 @@ export * from './Checkbox';
 export * from './ColorButton';
 export * from './Debugger';
 export * from './Description';
+export * from './DocSearch';
 export * from './DocsLayout';
 export * from './FileInput';
 export * from './Footer';

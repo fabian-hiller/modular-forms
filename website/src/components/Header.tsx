@@ -5,6 +5,7 @@ import { createSignal, For } from 'solid-js';
 import { A } from 'solid-start';
 import { getFramework } from '~/contexts';
 import { GitHubIcon, LogoIcon } from '~/icons';
+import { DocSearch } from './DocSearch';
 import { Hamburger } from './Hamburger';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -93,6 +94,7 @@ export function Header() {
             active={getMenuOpen()}
             onClick={() => setMenuOpen((menuOpen) => !menuOpen)}
           />
+          <DocSearch />
           <ThemeToggle />
           <div
             class="hidden lg:mx-4 lg:block lg:h-5 lg:w-0.5 lg:rounded-full lg:bg-slate-200 lg:dark:bg-slate-800"

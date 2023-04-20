@@ -198,6 +198,12 @@ importers:
 
   website:
     dependencies:
+      '@docsearch/css':
+        specifier: ^3.3.3
+        version: 3.3.3
+      '@docsearch/js':
+        specifier: ^3.3.3
+        version: 3.3.3(@algolia/client-search@4.17.0)
       '@modular-forms/solid':
         specifier: workspace:*
         version: link:../packages/solid
@@ -270,6 +276,117 @@ importers:
         version: 3.2.5
 
 packages:
+
+  /@algolia/autocomplete-core@1.7.4:
+    resolution: {integrity: sha512-daoLpQ3ps/VTMRZDEBfU8ixXd+amZcNJ4QSP3IERGyzqnL5Ch8uSRFt/4G8pUvW9c3o6GA4vtVv4I4lmnkdXyg==}
+    dependencies:
+      '@algolia/autocomplete-shared': 1.7.4
+    dev: false
+
+  /@algolia/autocomplete-preset-algolia@1.7.4(@algolia/client-search@4.17.0)(algoliasearch@4.17.0):
+    resolution: {integrity: sha512-s37hrvLEIfcmKY8VU9LsAXgm2yfmkdHT3DnA3SgHaY93yjZ2qL57wzb5QweVkYuEBZkT2PIREvRoLXC2sxTbpQ==}
+    peerDependencies:
+      '@algolia/client-search': '>= 4.9.1 < 6'
+      algoliasearch: '>= 4.9.1 < 6'
+    dependencies:
+      '@algolia/autocomplete-shared': 1.7.4
+      '@algolia/client-search': 4.17.0
+      algoliasearch: 4.17.0
+    dev: false
+
+  /@algolia/autocomplete-shared@1.7.4:
+    resolution: {integrity: sha512-2VGCk7I9tA9Ge73Km99+Qg87w0wzW4tgUruvWAn/gfey1ZXgmxZtyIRBebk35R1O8TbK77wujVtCnpsGpRy1kg==}
+    dev: false
+
+  /@algolia/cache-browser-local-storage@4.17.0:
+    resolution: {integrity: sha512-myRSRZDIMYB8uCkO+lb40YKiYHi0fjpWRtJpR/dgkaiBlSD0plRyB6lLOh1XIfmMcSeBOqDE7y9m8xZMrXYfyQ==}
+    dependencies:
+      '@algolia/cache-common': 4.17.0
+    dev: false
+
+  /@algolia/cache-common@4.17.0:
+    resolution: {integrity: sha512-g8mXzkrcUBIPZaulAuqE7xyHhLAYAcF2xSch7d9dABheybaU3U91LjBX6eJTEB7XVhEsgK4Smi27vWtAJRhIKQ==}
+    dev: false
+
+  /@algolia/cache-in-memory@4.17.0:
+    resolution: {integrity: sha512-PT32ciC/xI8z919d0oknWVu3kMfTlhQn3MKxDln3pkn+yA7F7xrxSALysxquv+MhFfNAcrtQ/oVvQVBAQSHtdw==}
+    dependencies:
+      '@algolia/cache-common': 4.17.0
+    dev: false
+
+  /@algolia/client-account@4.17.0:
+    resolution: {integrity: sha512-sSEHx9GA6m7wrlsSMNBGfyzlIfDT2fkz2u7jqfCCd6JEEwmxt8emGmxAU/0qBfbhRSuGvzojoLJlr83BSZAKjA==}
+    dependencies:
+      '@algolia/client-common': 4.17.0
+      '@algolia/client-search': 4.17.0
+      '@algolia/transporter': 4.17.0
+    dev: false
+
+  /@algolia/client-analytics@4.17.0:
+    resolution: {integrity: sha512-84ooP8QA3mQ958hQ9wozk7hFUbAO+81CX1CjAuerxBqjKIInh1fOhXKTaku05O/GHBvcfExpPLIQuSuLYziBXQ==}
+    dependencies:
+      '@algolia/client-common': 4.17.0
+      '@algolia/client-search': 4.17.0
+      '@algolia/requester-common': 4.17.0
+      '@algolia/transporter': 4.17.0
+    dev: false
+
+  /@algolia/client-common@4.17.0:
+    resolution: {integrity: sha512-jHMks0ZFicf8nRDn6ma8DNNsdwGgP/NKiAAL9z6rS7CymJ7L0+QqTJl3rYxRW7TmBhsUH40wqzmrG6aMIN/DrQ==}
+    dependencies:
+      '@algolia/requester-common': 4.17.0
+      '@algolia/transporter': 4.17.0
+    dev: false
+
+  /@algolia/client-personalization@4.17.0:
+    resolution: {integrity: sha512-RMzN4dZLIta1YuwT7QC9o+OeGz2cU6eTOlGNE/6RcUBLOU3l9tkCOdln5dPE2jp8GZXPl2yk54b2nSs1+pAjqw==}
+    dependencies:
+      '@algolia/client-common': 4.17.0
+      '@algolia/requester-common': 4.17.0
+      '@algolia/transporter': 4.17.0
+    dev: false
+
+  /@algolia/client-search@4.17.0:
+    resolution: {integrity: sha512-x4P2wKrrRIXszT8gb7eWsMHNNHAJs0wE7/uqbufm4tZenAp+hwU/hq5KVsY50v+PfwM0LcDwwn/1DroujsTFoA==}
+    dependencies:
+      '@algolia/client-common': 4.17.0
+      '@algolia/requester-common': 4.17.0
+      '@algolia/transporter': 4.17.0
+    dev: false
+
+  /@algolia/logger-common@4.17.0:
+    resolution: {integrity: sha512-DGuoZqpTmIKJFDeyAJ7M8E/LOenIjWiOsg1XJ1OqAU/eofp49JfqXxbfgctlVZVmDABIyOz8LqEoJ6ZP4DTyvw==}
+    dev: false
+
+  /@algolia/logger-console@4.17.0:
+    resolution: {integrity: sha512-zMPvugQV/gbXUvWBCzihw6m7oxIKp48w37QBIUu/XqQQfxhjoOE9xyfJr1KldUt5FrYOKZJVsJaEjTsu+bIgQg==}
+    dependencies:
+      '@algolia/logger-common': 4.17.0
+    dev: false
+
+  /@algolia/requester-browser-xhr@4.17.0:
+    resolution: {integrity: sha512-aSOX/smauyTkP21Pf52pJ1O2LmNFJ5iHRIzEeTh0mwBeADO4GdG94cAWDILFA9rNblq/nK3EDh3+UyHHjplZ1A==}
+    dependencies:
+      '@algolia/requester-common': 4.17.0
+    dev: false
+
+  /@algolia/requester-common@4.17.0:
+    resolution: {integrity: sha512-XJjmWFEUlHu0ijvcHBoixuXfEoiRUdyzQM6YwTuB8usJNIgShua8ouFlRWF8iCeag0vZZiUm4S2WCVBPkdxFgg==}
+    dev: false
+
+  /@algolia/requester-node-http@4.17.0:
+    resolution: {integrity: sha512-bpb/wDA1aC6WxxM8v7TsFspB7yBN3nqCGs2H1OADolQR/hiAIjAxusbuMxVbRFOdaUvAIqioIIkWvZdpYNIn8w==}
+    dependencies:
+      '@algolia/requester-common': 4.17.0
+    dev: false
+
+  /@algolia/transporter@4.17.0:
+    resolution: {integrity: sha512-6xL6H6fe+Fi0AEP3ziSgC+G04RK37iRb4uUUqVAH9WPYFI8g+LYFq6iv5HS8Cbuc5TTut+Bwj6G+dh/asdb9uA==}
+    dependencies:
+      '@algolia/cache-common': 4.17.0
+      '@algolia/logger-common': 4.17.0
+      '@algolia/requester-common': 4.17.0
+    dev: false
 
   /@ampproject/remapping@2.2.0:
     resolution: {integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==}
@@ -1406,6 +1523,44 @@ packages:
       undici: 5.21.2
     dev: true
 
+  /@docsearch/css@3.3.3:
+    resolution: {integrity: sha512-6SCwI7P8ao+se1TUsdZ7B4XzL+gqeQZnBc+2EONZlcVa0dVrk0NjETxozFKgMv0eEGH8QzP1fkN+A1rH61l4eg==}
+    dev: false
+
+  /@docsearch/js@3.3.3(@algolia/client-search@4.17.0):
+    resolution: {integrity: sha512-2xAv2GFuHzzmG0SSZgf8wHX0qZX8n9Y1ZirKUk5Wrdc+vH9CL837x2hZIUdwcPZI9caBA+/CzxsS68O4waYjUQ==}
+    dependencies:
+      '@docsearch/react': 3.3.3(@algolia/client-search@4.17.0)
+      preact: 10.13.2
+    transitivePeerDependencies:
+      - '@algolia/client-search'
+      - '@types/react'
+      - react
+      - react-dom
+    dev: false
+
+  /@docsearch/react@3.3.3(@algolia/client-search@4.17.0):
+    resolution: {integrity: sha512-pLa0cxnl+G0FuIDuYlW+EBK6Rw2jwLw9B1RHIeS4N4s2VhsfJ/wzeCi3CWcs5yVfxLd5ZK50t//TMA5e79YT7Q==}
+    peerDependencies:
+      '@types/react': '>= 16.8.0 < 19.0.0'
+      react: '>= 16.8.0 < 19.0.0'
+      react-dom: '>= 16.8.0 < 19.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@algolia/autocomplete-core': 1.7.4
+      '@algolia/autocomplete-preset-algolia': 1.7.4(@algolia/client-search@4.17.0)(algoliasearch@4.17.0)
+      '@docsearch/css': 3.3.3
+      algoliasearch: 4.17.0
+    transitivePeerDependencies:
+      - '@algolia/client-search'
+    dev: false
+
   /@esbuild/android-arm64@0.17.12:
     resolution: {integrity: sha512-WQ9p5oiXXYJ33F2EkE3r0FRDFVpEdcDiwNX3u7Xaibxfx6vQE0Sb8ytrfQsA5WO6kDn6mDfKLh6KrPBjvkk7xA==}
     engines: {node: '>=12'}
@@ -2535,6 +2690,25 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
     dev: true
+
+  /algoliasearch@4.17.0:
+    resolution: {integrity: sha512-JMRh2Mw6sEnVMiz6+APsi7lx9a2jiDFF+WUtANaUVCv6uSU9UOLdo5h9K3pdP6frRRybaM2fX8b1u0nqICS9aA==}
+    dependencies:
+      '@algolia/cache-browser-local-storage': 4.17.0
+      '@algolia/cache-common': 4.17.0
+      '@algolia/cache-in-memory': 4.17.0
+      '@algolia/client-account': 4.17.0
+      '@algolia/client-analytics': 4.17.0
+      '@algolia/client-common': 4.17.0
+      '@algolia/client-personalization': 4.17.0
+      '@algolia/client-search': 4.17.0
+      '@algolia/logger-common': 4.17.0
+      '@algolia/logger-console': 4.17.0
+      '@algolia/requester-browser-xhr': 4.17.0
+      '@algolia/requester-common': 4.17.0
+      '@algolia/requester-node-http': 4.17.0
+      '@algolia/transporter': 4.17.0
+    dev: false
 
   /ansi-align@2.0.0:
     resolution: {integrity: sha512-TdlOggdA/zURfMYa7ABC66j+oqfMew58KpJMbUlH3bcZP1b+cBHIHDDn5uH9INsxrHBPjsqM0tDB4jPTF/vgJA==}
@@ -6344,6 +6518,10 @@ packages:
       nanoid: 3.3.6
       picocolors: 1.0.0
       source-map-js: 1.0.2
+
+  /preact@10.13.2:
+    resolution: {integrity: sha512-q44QFLhOhty2Bd0Y46fnYW0gD/cbVM9dUVtNTDKPcdXSMA7jfY+Jpd6rk3GB0lcQss0z5s/6CmVP0Z/hV+g6pw==}
+    dev: false
 
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}

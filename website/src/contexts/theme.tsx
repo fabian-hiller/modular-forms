@@ -34,7 +34,8 @@ export function ThemeProvider(props: ThemeProviderProps) {
   // Add or remove "dark" class when theme changes
   createEffect(() => {
     // Destructure document element
-    const { classList } = document.documentElement;
+    const { documentElement } = document;
+    const { classList } = documentElement;
 
     // Disable CSS transitions while changing theme
     disableTransitions();
@@ -42,8 +43,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
     // Add or remove "dark" class
     if (getTheme() === 'dark') {
       classList.add('dark');
+      documentElement.setAttribute('data-theme', 'dark');
     } else {
       classList.remove('dark');
+      documentElement.removeAttribute('data-theme');
     }
   });
 
