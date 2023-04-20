@@ -51,6 +51,12 @@ export function Head() {
           }
         `}
       />
+      <script
+        async
+        src="https://umami.modularforms.dev/script.js"
+        data-website-id="5ecc9373-5795-4410-b878-ef92d10138f5"
+        data-domains="modularforms.dev"
+      />
     </SolidHead>
   );
 }
