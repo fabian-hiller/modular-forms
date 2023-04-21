@@ -78,7 +78,7 @@ export function Header() {
             {({ label, href }) => (
               <A
                 class="px-8 py-3 text-lg transition-colors hover:text-slate-900 dark:hover:text-slate-200 lg:px-3 lg:text-[17px] lg:font-medium"
-                activeClass="docsearch-menu-item text-slate-900 dark:text-slate-200"
+                activeClass="docsearch-lvl0 text-slate-900 dark:text-slate-200"
                 href={href}
                 onClick={() => setMenuOpen(false)}
               >

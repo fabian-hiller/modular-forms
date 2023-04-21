@@ -1,4 +1,5 @@
-import { createEffect, createSignal, For } from 'solid-js';
+import clsx from 'clsx';
+import { createEffect, createMemo, createSignal, For } from 'solid-js';
 import { A, useLocation } from 'solid-start';
 
 type NavigationProps = {
@@ -32,6 +33,9 @@ export type NavItemProps = {
  * Single navigation main point that displays a heading and a navigation list.
  */
 function NavItem(props: NavItemProps) {
+  // Use location
+  const location = useLocation();
+
   // Create list element and indicator style signal
   const [getListElement, setListElement] = createSignal<HTMLUListElement>();
   const [getIndicatorStyle, setIndicatorStyle] = createSignal<{
@@ -43,7 +47,7 @@ function NavItem(props: NavItemProps) {
   createEffect(() => {
     // Get active list element by pathname and href
     const activeElement = [...getListElement()!.children].find((e) =>
-      (e.children[0] as HTMLAnchorElement).href.endsWith(useLocation().pathname)
+      (e.children[0] as HTMLAnchorElement).href.endsWith(location.pathname)
     ) as HTMLLIElement | undefined;
 
     // Update indicator style to active element or reset it to undefined
@@ -57,9 +61,23 @@ function NavItem(props: NavItemProps) {
     );
   });
 
+  // Create memo of items
+  const getItems = createMemo(() =>
+    (props.items.filter((item) => item) as string[]).map((label) => ({
+      slug: (props.lowerCase ? label.toLowerCase() : label).replace(/ /g, '-'),
+      label,
+    }))
+  );
+
   return (
     <li class="space-y-6">
-      <h4 class="text-lg font-medium text-slate-900 dark:text-slate-200">
+      <h4
+        class={clsx(
+          'text-lg font-medium text-slate-900 dark:text-slate-200',
+          getItems().some(({ slug }) => location.pathname.endsWith(slug)) &&
+            'docsearch-lvl1'
+        )}
+      >
         {props.heading}
       </h4>
       <div class="relative">
@@ -67,20 +85,17 @@ function NavItem(props: NavItemProps) {
           class="space-y-5 border-l-2 border-l-slate-200 dark:border-l-slate-800"
           ref={setListElement}
         >
-          <For each={props.items.filter((item) => item) as string[]}>
-            {(item) => (
+          <For each={getItems()}>
+            {({ slug, label }) => (
               <li>
                 <A
                   class="relative -left-0.5 block border-l-2 border-l-transparent pl-4 transition-colors hover:border-l-slate-400 hover:dark:border-l-slate-600"
                   inactiveClass="hover:text-slate-800 dark:hover:text-slate-300"
                   activeClass="text-sky-600 dark:text-sky-400"
-                  href={(props.lowerCase ? item.toLowerCase() : item).replace(
-                    / /g,
-                    '-'
-                  )}
+                  href={slug}
                   end
                 >
-                  {item}
+                  {label}
                 </A>
               </li>
             )}

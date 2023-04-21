@@ -61,7 +61,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
       >
         <div class="flex">
           <Dynamic class="mr-2.5 h-6" component={getIcon(getFramework())} />
-          <div class="docsearch-framework text-slate-900 dark:text-slate-200">
+          <div class="text-slate-900 dark:text-slate-200">
             {getName(getFramework())}
           </div>
         </div>
