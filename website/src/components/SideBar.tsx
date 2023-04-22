@@ -72,10 +72,7 @@ export function SideBar(props: SideBarProps) {
           aria-controls="side-bar"
         >
           <AngleUpIcon
-            class={clsx(
-              'h-6 duration-200 md:h-[26px]',
-              getOpen() && 'scale-[-1]'
-            )}
+            class={clsx('h-5 duration-200 md:h-6', getOpen() && 'scale-[-1]')}
           />
         </button>
       </div>

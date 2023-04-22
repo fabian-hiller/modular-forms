@@ -79,7 +79,7 @@ export function Select(props: SelectProps) {
           </For>
         </select>
         <Show when={!props.multiple}>
-          <AngleDownIcon class="pointer-events-none absolute right-6 h-5 lg:right-8 lg:h-6" />
+          <AngleDownIcon class="pointer-events-none absolute right-6 h-4 lg:right-8 lg:h-5" />
         </Show>
       </div>
       <InputError name={props.name} error={props.error} />

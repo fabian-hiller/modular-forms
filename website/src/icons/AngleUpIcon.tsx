@@ -3,7 +3,7 @@ import { JSX } from 'solid-js';
 export function AngleUpIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   return (
     <svg
-      viewBox="0 0 36 48"
+      viewBox="0 0 44 48"
       role="img"
       aria-label="Angle up icon"
       fill="none"
@@ -13,7 +13,7 @@ export function AngleUpIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
       stroke-width={4}
       {...props}
     >
-      <path d="M4.15 30.96 18.07 17l13.76 13.96" />
+      <path d="m3.27 33.45 18.84-18.9 18.62 18.9" />
     </svg>
   );
 }

@@ -37,7 +37,7 @@ export function IconButton(props: IconButtonProps) {
           >
             <Show
               when={renderProps.loading}
-              fallback={<props.icon class="h-5" />}
+              fallback={<props.icon class="h-[18px]" />}
             >
               <Spinner label={`${props.label} is loading`} />
             </Show>

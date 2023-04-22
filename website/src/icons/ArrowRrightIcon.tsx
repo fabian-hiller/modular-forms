@@ -3,7 +3,7 @@ import { JSX } from 'solid-js';
 export function ArrowRightIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   return (
     <svg
-      viewBox="0 0 45 48"
+      viewBox="0 0 48 48"
       role="img"
       aria-label="Arrow right icon"
       fill="none"
@@ -13,8 +13,8 @@ export function ArrowRightIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
       stroke-width={4}
       {...props}
     >
-      <path d="M3.58 23.98h37.33" />
-      <path d="m27.56 37.88 13.97-13.92L27.56 10.2" />
+      <path d="M3.1 23.93h41.13" />
+      <path d="M29.51 39.25 44.9 23.91 29.51 8.75" />
     </svg>
   );
 }

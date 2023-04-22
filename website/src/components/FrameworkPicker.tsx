@@ -65,7 +65,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
             {getName(getFramework())}
           </div>
         </div>
-        <AngleDownIcon class="h-5" />
+        <AngleDownIcon class="h-4" />
       </button>
       <nav
         class={clsx(
