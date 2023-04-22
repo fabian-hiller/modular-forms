@@ -56,10 +56,10 @@ export function Select(props: SelectProps) {
         <select
           {...selectProps}
           class={clsx(
-            'w-full appearance-none space-y-2 rounded-2xl border-2 bg-transparent px-5 outline-none md:text-lg lg:space-y-3 lg:px-6 lg:text-xl',
+            'w-full appearance-none space-y-2 rounded-2xl border-2 bg-transparent px-5 outline-none focus:ring-4 md:text-lg lg:space-y-3 lg:px-6 lg:text-xl',
             props.error
-              ? 'border-red-600/50 dark:border-red-400/50'
-              : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50',
+              ? 'border-red-500/25 hover:border-red-500/40 focus:border-red-500/50 focus:ring-red-500/10 dark:border-red-400/25 dark:hover:border-red-400/40 dark:focus:border-red-400/50 dark:focus:ring-red-400/10'
+              : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 focus:ring-sky-600/10 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50 dark:focus:ring-sky-400/10',
             props.multiple ? 'py-5' : 'h-14 md:h-16 lg:h-[70px]',
             props.placeholder && !props.value?.length && 'text-slate-500'
           )}

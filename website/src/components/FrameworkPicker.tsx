@@ -6,6 +6,7 @@ import { Dynamic } from 'solid-js/web';
 import { A, useLocation } from 'solid-start';
 import { frameworks, getFramework, useFramework } from '~/contexts';
 import { AngleDownIcon, QwikIcon, SolidIcon } from '~/icons';
+import { createFocusTrap } from '~/primitives';
 
 type FrameworkPickerProps = {
   class?: string;
@@ -21,6 +22,9 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
   // Create open and element signal
   const [getOpen, setOpen] = createSignal(false);
   const [getElement, setElement] = createSignal<HTMLDivElement>();
+
+  // Create focus trap for picker
+  createFocusTrap(getElement, getOpen);
 
   // Close picker when clicked outside
   if (isClient) {
@@ -55,12 +59,15 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
   return (
     <div class={clsx('relative', props.class)} ref={setElement}>
       <button
-        class="flex h-12 w-full items-center justify-between rounded-xl border-2 border-slate-200 px-3.5 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50"
+        class="flex h-12 w-full items-center justify-between rounded-xl border-2 border-slate-200 px-3.5 outline-none hover:border-slate-300 focus:border-sky-600/50 focus:ring-4 focus:ring-sky-600/10 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50 dark:focus:ring-sky-400/10"
         type="button"
         onClick={() => setOpen((open) => !open)}
       >
-        <div class="flex">
-          <Dynamic class="mr-2.5 h-6" component={getIcon(getFramework())} />
+        <div class="flex items-center">
+          <Dynamic
+            class="mr-2.5 h-[22px]"
+            component={getIcon(getFramework())}
+          />
           <div class="text-slate-900 dark:text-slate-200">
             {getName(getFramework())}
           </div>
@@ -79,14 +86,14 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
         >
           {(framework) => (
             <A
-              class="flex space-x-2.5 px-3.5 py-3 hover:text-slate-900 dark:hover:text-slate-200"
+              class="focus-ring flex items-center space-x-2.5 rounded-xl px-3.5 py-3 hover:text-slate-900 dark:hover:text-slate-200"
               href={getPathname(framework)}
               onClick={() => {
                 setOpen(false);
                 setFramework(framework);
               }}
             >
-              <Dynamic class="mr-2.5 h-6" component={getIcon(framework)} />
+              <Dynamic class="mr-2.5 h-[22px]" component={getIcon(framework)} />
               {getName(framework)}
             </A>
           )}

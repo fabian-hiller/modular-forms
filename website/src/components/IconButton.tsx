@@ -19,9 +19,10 @@ export function IconButton(props: IconButtonProps) {
   return (
     <UnstyledButton
       class={clsx(
-        'group flex items-center gap-x-4 md:gap-x-6 lg:gap-x-8',
+        'focus-ring group flex items-center rounded-xl',
         props.align === 'right' && 'flex-row-reverse'
       )}
+      aria-label={props.label}
       {...props}
     >
       {(renderProps) => (
@@ -42,14 +43,15 @@ export function IconButton(props: IconButtonProps) {
               <Spinner label={`${props.label} is loading`} />
             </Show>
           </div>
-          <div
-            class={clsx(
-              'transition-colors group-hover:text-slate-700 dark:group-hover:text-slate-200 md:text-lg lg:text-xl',
-              props.hideLabel && 'hidden'
-            )}
-          >
-            {props.label}
-          </div>
+          <Show when={!props.hideLabel}>
+            <div
+              class={clsx(
+                'mx-4 transition-colors group-hover:text-slate-700 dark:group-hover:text-slate-200 md:mx-6 md:text-lg lg:mx-8 lg:text-xl'
+              )}
+            >
+              {props.label}
+            </div>
+          </Show>
         </>
       )}
     </UnstyledButton>

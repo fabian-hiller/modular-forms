@@ -48,10 +48,13 @@ export function FileInput(props: FileInputProps) {
         label={props.label}
         required={props.required}
       />
-      <label
+      <div
         class={clsx(
-          'relative flex min-h-[96px] w-full items-center justify-center rounded-2xl border-[3px] border-dashed border-slate-200 p-8 text-center focus-within:border-sky-600/50 hover:border-slate-300 dark:border-slate-800 dark:focus-within:border-sky-400/50 dark:hover:border-slate-700 md:min-h-[112px] md:text-lg lg:min-h-[128px] lg:p-10 lg:text-xl',
-          !getFiles().length && 'text-slate-500'
+          'relative flex min-h-[96px] w-full items-center justify-center rounded-2xl border-[3px] border-dashed p-8 text-center focus-within:ring-4 md:min-h-[112px] md:text-lg lg:min-h-[128px] lg:p-10 lg:text-xl',
+          !getFiles().length && 'text-slate-500',
+          props.error
+            ? 'border-red-500/25 focus-within:border-red-500/50 focus-within:ring-red-500/10 hover:border-red-500/40 dark:border-red-400/25 dark:focus-within:border-red-400/50 dark:focus-within:ring-red-400/10 dark:hover:border-red-400/40'
+            : 'border-slate-200 focus-within:border-sky-500/50 focus-within:ring-sky-500/10 hover:border-slate-300 dark:border-slate-800 dark:focus-within:border-sky-400/50 dark:focus-within:ring-sky-400/10 dark:hover:border-slate-700'
         )}
       >
         <Show
@@ -71,7 +74,7 @@ export function FileInput(props: FileInputProps) {
           aria-invalid={!!props.error}
           aria-errormessage={`${props.name}-error`}
         />
-      </label>
+      </div>
       <InputError name={props.name} error={props.error} />
     </div>
   );

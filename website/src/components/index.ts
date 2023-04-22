@@ -23,4 +23,5 @@ export * from './SideBar';
 export * from './Slider';
 export * from './Tabs';
 export * from './TextInput';
+export * from './TextLink';
 export * from './Title';

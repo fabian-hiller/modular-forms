@@ -34,7 +34,7 @@ export function Checkbox(props: CheckboxProps) {
       <label class="flex select-none space-x-4 font-medium md:text-lg lg:text-xl">
         <input
           {...inputProps}
-          class="mt-1 h-4 w-4 cursor-pointer lg:mt-1 lg:h-5 lg:w-5"
+          class="focus-ring mt-1 h-4 w-4 cursor-pointer lg:mt-1 lg:h-5 lg:w-5"
           type="checkbox"
           id={props.name}
           value={props.value || ''}

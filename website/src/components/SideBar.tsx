@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { createEffect, createSignal, JSX, on, Show } from 'solid-js';
 import { useLocation } from 'solid-start';
 import { AngleUpIcon } from '~/icons';
+import { createFocusTrap } from '~/primitives';
 
 type SideBarProps = {
   children: JSX.Element;
@@ -15,8 +16,12 @@ type SideBarProps = {
  * displayed on the side next to the main content on larger ones.
  */
 export function SideBar(props: SideBarProps) {
-  // Create open signal
+  // Create open and element signal
   const [getOpen, setOpen] = createSignal(false);
+  const [getElement, setElement] = createSignal<HTMLElement>();
+
+  // Create focus trap for sidebar
+  createFocusTrap(getElement, getOpen);
 
   // Close side bar when location pathname changes
   createEffect(
@@ -39,6 +44,7 @@ export function SideBar(props: SideBarProps) {
         'sticky bottom-0 h-14 md:h-16 lg:top-[70px] lg:h-auto lg:max-h-[calc(100vh-70px)]',
         getOpen() ? 'z-30' : 'z-10'
       )}
+      ref={setElement}
     >
       {/* Content */}
       <div
@@ -50,31 +56,39 @@ export function SideBar(props: SideBarProps) {
         )}
         id="side-bar"
       >
-        {/* Children */}
-        <div
-          class={clsx(
-            'absolute bottom-full max-h-[60vh] w-full origin-bottom translate-y-0.5 overflow-auto overscroll-contain border-t-2 border-t-slate-200 bg-white py-9 duration-200 dark:border-t-slate-800 dark:bg-gray-900 lg:static lg:max-h-full lg:w-auto lg:translate-y-0 lg:border-none lg:py-32',
-            !getOpen() && 'invisible scale-y-0 lg:visible lg:scale-y-100'
-          )}
-        >
-          {props.children}
-        </div>
-
         {/* Buttons */}
         {props.buttons}
 
         {/* Toggle */}
         <button
-          class="p-4 hover:text-slate-900 dark:hover:text-slate-200 lg:hidden"
+          class="focus-ring m-1 box-content flex h-5 w-5 justify-center rounded-xl p-2.5 hover:text-slate-900 dark:hover:text-slate-200 md:h-6 md:w-6 lg:hidden"
           onClick={() => setOpen((open) => !open)}
           aria-expanded={getOpen()}
           aria-label={`${getOpen() ? 'Close' : 'Open'} side bar`}
           aria-controls="side-bar"
         >
           <AngleUpIcon
-            class={clsx('h-5 duration-200 md:h-6', getOpen() && 'scale-[-1]')}
+            class={clsx('h-full duration-200', getOpen() && '-rotate-180')}
           />
         </button>
+
+        {/* Children */}
+        <div
+          class={clsx(
+            'absolute bottom-full max-h-[60vh] w-full origin-bottom overflow-auto overscroll-contain border-t-2 border-t-slate-200 bg-white py-9 duration-200 dark:border-t-slate-800 dark:bg-gray-900 lg:static lg:max-h-full lg:w-auto lg:translate-y-0 lg:border-none lg:py-32',
+            !getOpen() && 'invisible scale-y-0 lg:visible lg:scale-y-100'
+          )}
+        >
+          {props.children}
+        </div>
+
+        {/* Gradient overlay */}
+        <div
+          class={clsx(
+            'pointer-events-none fixed bottom-full h-14 w-full origin-bottom translate-y-0.5 bg-gradient-to-b from-transparent to-white duration-300 dark:to-gray-900 lg:hidden',
+            !getOpen() && 'invisible scale-y-0'
+          )}
+        />
       </div>
 
       {/* Background overlay */}

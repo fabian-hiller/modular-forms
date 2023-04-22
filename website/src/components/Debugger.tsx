@@ -9,6 +9,7 @@ import { createMemo, For, Show } from 'solid-js';
 import { useLocation } from 'solid-start';
 import { getFramework } from '~/contexts';
 import { FrameworkPicker } from './FrameworkPicker';
+import { TextLink } from './TextLink';
 
 type DebuggerProps = {
   of: FormStore<any, any> | undefined;
@@ -34,21 +35,20 @@ export function Debugger(props: DebuggerProps) {
         <FrameworkPicker class="mt-6 w-full" />
         <p class="mt-4">
           See code on{' '}
-          <a
-            class="text-sky-600 dark:text-sky-400"
+          <TextLink
             href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${
               getFramework() === 'solid'
                 ? `solid/src/routes/${getPath()}.tsx`
                 : `qwik/src/routes/(default)/${getPath()}/index.tsx`
             }`}
             target="_blank"
-            rel="noreferrer"
+            colored
+            underlined
           >
             GitHub
-          </a>{' '}
+          </TextLink>{' '}
           or{' '}
-          <a
-            class="text-sky-600 dark:text-sky-400"
+          <TextLink
             href={
               getFramework() === 'solid'
                 ? `${
@@ -59,10 +59,11 @@ export function Debugger(props: DebuggerProps) {
                   }?file=src/routes/${getPath()}/index.tsx`
             }
             target="_blank"
-            rel="noreferrer"
+            colored
+            underlined
           >
             Stackblitz
-          </a>
+          </TextLink>
           .
         </p>
       </div>

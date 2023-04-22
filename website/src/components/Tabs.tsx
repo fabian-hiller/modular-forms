@@ -35,8 +35,8 @@ export function Tabs(props: TabsProps) {
     setIndicatorStyle(
       activeElement
         ? {
-            left: `${activeElement.offsetLeft || 0}px`,
-            width: `${activeElement.offsetWidth || 0}px`,
+            left: `${activeElement.offsetLeft + 8 || 0}px`,
+            width: `${activeElement.offsetWidth - 16 || 0}px`,
           }
         : undefined
     );
@@ -50,23 +50,34 @@ export function Tabs(props: TabsProps) {
     makeEventListener(window, 'resize', updateIndicatorStyle);
   }
 
+  /**
+   * Scrolls the current target into the view.
+   *
+   * @param event A mouse event.
+   */
+  const scrollIntoView = ({
+    currentTarget,
+  }: {
+    currentTarget: HTMLAnchorElement;
+  }) => {
+    currentTarget.scrollIntoView({
+      block: 'nearest',
+      inline: 'center',
+    });
+  };
+
   return (
-    <div class="scrollbar-none flex scroll-px-8 overflow-x-auto scroll-smooth px-8">
+    <div class="scrollbar-none -mt-4 flex scroll-px-8 overflow-x-auto scroll-smooth px-8">
       <div class="relative flex-1 border-b-2 border-b-slate-200 dark:border-b-slate-800">
-        <nav class="flex space-x-8 lg:space-x-14" ref={setNavElement}>
+        <nav class="-mx-2 flex space-x-4 lg:space-x-10" ref={setNavElement}>
           <For each={props.items}>
             {(item) => (
               <A
-                class="block pb-4 lg:text-lg"
+                class="focus-ring my-2 block rounded-lg p-2 lg:text-lg"
                 inactiveClass="hover:text-slate-900 dark:hover:text-slate-200"
                 activeClass="text-sky-600 dark:text-sky-400"
                 href={item.toLowerCase().replace(/ /g, '-')}
-                onClick={(event) =>
-                  event.currentTarget.scrollIntoView({
-                    block: 'nearest',
-                    inline: 'center',
-                  })
-                }
+                onClick={scrollIntoView}
               >
                 {item}
               </A>

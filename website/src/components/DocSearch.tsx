@@ -20,13 +20,13 @@ export function DocSearch() {
   return (
     <div>
       <button
-        class="box-content h-5 w-5 p-4 transition-colors hover:text-slate-900 dark:hover:text-slate-200 md:h-[22px] md:w-[22px] lg:h-6 lg:w-6"
+        class="focus-ring box-content flex h-5 w-5 justify-center rounded-lg p-2 transition-colors hover:text-slate-900 dark:hover:text-slate-200 md:h-[22px] md:w-[22px] lg:h-6 lg:w-6"
         type="button"
         // Trigger hidden Algolia DocSearch button
         onClick={() => getElement()!.querySelector('button')?.click()}
         aria-label="Open search"
       >
-        <SearchIcon />
+        <SearchIcon class="h-full" />
       </button>
       <div id="docsearch" class="hidden" ref={setElement} />
     </div>

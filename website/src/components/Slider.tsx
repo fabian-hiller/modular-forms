@@ -40,7 +40,7 @@ export function Slider(props: SliderProps) {
       />
       <input
         {...inputProps}
-        class="w-full"
+        class="focus-ring w-full rounded"
         type="range"
         id={props.name}
         value={props.value}

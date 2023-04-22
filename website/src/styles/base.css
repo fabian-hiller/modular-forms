@@ -1,14 +1,27 @@
 @tailwind base;
 @layer base {
-  /* Special */
-  .disable-transitions,
-  .disable-transitions * {
-    transition: none !important;
+  /* Disable tap highlight color */
+  html {
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Reset appearance */
   [type='date'] {
     @apply flex appearance-none items-center justify-start;
+  }
+  [type='search']::-webkit-search-cancel-button {
+    @apply hidden;
+  }
+
+  /* Disable transitions */
+  .disable-transitions,
+  .disable-transitions * {
+    transition: none !important;
+  }
+
+  /* Focus ring */
+  .focus-ring {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-600/50 focus-visible:ring-4 focus-visible:ring-sky-600/10 focus-visible:ring-offset-[3px] focus-visible:ring-offset-white dark:focus-visible:outline-sky-400/50 dark:focus-visible:ring-sky-400/10 dark:focus-visible:ring-offset-gray-900;
   }
 
   /* Typography */
@@ -38,7 +51,7 @@
 
   /* Links */
   article a {
-    @apply text-sky-600 underline decoration-slate-400 decoration-dashed underline-offset-[3px] dark:text-sky-400 dark:decoration-slate-600;
+    @apply focus-ring rounded-md text-sky-600 underline decoration-slate-400 decoration-dashed underline-offset-[3px] focus-visible:outline-offset-4 focus-visible:ring-offset-[6px] dark:text-sky-400 dark:decoration-slate-600;
   }
 
   /* Lists */

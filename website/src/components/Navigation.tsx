@@ -89,7 +89,7 @@ function NavItem(props: NavItemProps) {
             {({ slug, label }) => (
               <li>
                 <A
-                  class="relative -left-0.5 block border-l-2 border-l-transparent pl-4 transition-colors hover:border-l-slate-400 hover:dark:border-l-slate-600"
+                  class="focus-ring relative -left-0.5 block border-l-2 border-l-transparent pl-4 transition-colors hover:border-l-slate-400 focus-visible:rounded-md hover:dark:border-l-slate-600"
                   inactiveClass="hover:text-slate-800 dark:hover:text-slate-300"
                   activeClass="text-sky-600 dark:text-sky-400"
                   href={slug}

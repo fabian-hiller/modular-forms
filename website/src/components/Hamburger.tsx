@@ -12,7 +12,10 @@ type HamburgerProps = {
 export function Hamburger(props: HamburgerProps) {
   return (
     <button
-      class={clsx('group p-4 lg:hidden', !props.active && 'rotate-180')}
+      class={clsx(
+        'focus-ring group rounded-lg p-2',
+        !props.active && 'rotate-180'
+      )}
       onClick={props.onClick}
       aria-expanded={props.active}
       aria-label={`${props.active ? 'Close' : 'Open'} main menu`}
