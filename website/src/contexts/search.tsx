@@ -107,7 +107,7 @@ export function SearchProvider(props: SearchProviderProps) {
   const [getModalElement, setModalElement] = createSignal<HTMLDivElement>();
   const [getInputElement, setInputElement] = createSignal<HTMLInputElement>();
 
-  // Create storage, resent and result signal
+  // Create storage, recent, result and clicked signal
   const storageOptions = {
     serializer: (value: any) => JSON.stringify(value),
     deserializer: (value: string) => JSON.parse(value),
@@ -123,6 +123,7 @@ export function SearchProvider(props: SearchProviderProps) {
     storageOptions
   );
   const [getResult, setResult] = createSignal<SearchItem[]>([]);
+  const [getClicked, setClicked] = createSignal<SearchItem>();
 
   // Create focus trap when search is open
   createFocusTrap(getModalElement, getOpen);
@@ -137,11 +138,19 @@ export function SearchProvider(props: SearchProviderProps) {
           getInputElement()!.focus();
           document.body.style.overflow = 'hidden';
 
-          // Reset state and background scrolling when search is closed
+          // Otherwise when search is closed, add clicked item to recent and
+          // reset state and background scrolling
         } else {
+          const item = getClicked();
+          if (item) {
+            setRecent((current) =>
+              [item, ...current!.filter((i) => i !== item)].slice(0, 6)
+            );
+          }
           setInput('');
           setActiveIndex(0);
           setResult([]);
+          setClicked();
           document.body.style.overflow = '';
         }
       },
@@ -290,16 +299,6 @@ export function SearchProvider(props: SearchProviderProps) {
    */
   const getSearchItems = () => (getInput() ? getResult() : getRecent()!);
 
-  /**
-   * Adds a item to the recent list.
-   *
-   * @param item The new item.
-   */
-  const addRecent = (item: SearchItem) =>
-    setRecent((current) =>
-      [item, ...current!.filter((i) => i !== item)].slice(0, 6)
-    );
-
   // Add event listener to handle keydown events
   if (isClient) {
     makeEventListener(window, 'keydown', ({ metaKey, key }) => {
@@ -327,20 +326,36 @@ export function SearchProvider(props: SearchProviderProps) {
         if (key === 'Enter') {
           const item = getSearchItems()[getActiveIndex()];
           if (item) {
-            navigate(item.path);
-            addRecent(item);
+            if (item.path === location.pathname) {
+              setOpen(false);
+            } else {
+              navigate(item.path);
+            }
+            setClicked(item);
           }
         }
       }
     });
   }
 
+  /**
+   * Handles the click on a search item.
+   *
+   * @param item Clicked item.
+   */
+  const handleClick = (item: SearchItem) => {
+    if (item.path === location.pathname) {
+      setOpen(false);
+    }
+    setClicked(item);
+  };
+
   return (
     <SearchContext.Provider value={[getOpen, setOpen]}>
       {props.children}
       <Show when={getOpen()}>
         <div
-          class="fixed left-0 top-0 z-50 h-screen w-screen lg:p-48"
+          class="fixed left-0 top-0 z-40 h-screen w-screen lg:p-48"
           ref={setModalElement}
         >
           <div class="flex h-full w-full flex-col bg-white/90 backdrop-blur-sm dark:bg-gray-900/90 lg:mx-auto lg:h-auto lg:max-h-full lg:max-w-3xl lg:rounded-3xl lg:bg-white lg:backdrop-blur-none lg:dark:bg-gray-900">
@@ -442,7 +457,7 @@ export function SearchProvider(props: SearchProviderProps) {
                               {...item}
                               active={getIndex() === getActiveIndex()}
                               makeActive={() => setActiveIndex(getIndex())}
-                              onClick={() => addRecent(item)}
+                              onClick={() => handleClick(item)}
                             />
                           </li>
                         );
@@ -462,7 +477,7 @@ export function SearchProvider(props: SearchProviderProps) {
                             {...item}
                             active={getIndex() === getActiveIndex()}
                             makeActive={() => setActiveIndex(getIndex())}
-                            onClick={() => addRecent(item)}
+                            onClick={() => handleClick(item)}
                             recent
                           />
                         </li>
