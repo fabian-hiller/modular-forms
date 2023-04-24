@@ -1,13 +1,14 @@
 import { makeEventListener } from '@solid-primitives/event-listener';
 import { isClient } from '@solid-primitives/utils';
 import clsx from 'clsx';
-import { createSignal, For } from 'solid-js';
-import { A } from 'solid-start';
+import { createEffect, createSignal, For, on } from 'solid-js';
+import { A, useLocation } from 'solid-start';
 import { getFramework } from '~/contexts';
-import { GitHubIcon, LogoIcon } from '~/icons';
+import { LogoIcon } from '~/icons';
 import { createFocusTrap } from '~/primitives';
-import { DocSearch } from './DocSearch';
+import { GitHubIconLink } from './GitHubIconLink';
 import { Hamburger } from './Hamburger';
+import { SearchToggle } from './SearchToggle';
 import { ThemeToggle } from './ThemeToggle';
 
 /**
@@ -21,6 +22,15 @@ export function Header() {
 
   // Create focus trap for menu
   createFocusTrap(getElement, getMenuOpen);
+
+  // Close menu when location pathname changes
+  createEffect(
+    on(
+      () => useLocation().pathname,
+      () => setMenuOpen(false),
+      { defer: true }
+    )
+  );
 
   if (isClient) {
     // Close menu when window width is changed to desktop
@@ -59,7 +69,6 @@ export function Header() {
           <A
             class="focus-ring inline-flex w-full items-center rounded-lg p-2 font-medium transition-colors hover:text-slate-900 dark:hover:text-slate-200 md:w-auto md:text-lg lg:text-xl"
             href="/"
-            onClick={() => setMenuOpen(false)}
           >
             <LogoIcon class="mr-2 h-6 shrink-0 md:h-7 lg:h-8" />
             <div class="truncate">Modular Forms</div>
@@ -68,9 +77,9 @@ export function Header() {
 
         {/* Icon buttons (mobile) */}
         <div class="flex items-center space-x-4 lg:hidden">
-          <GitHubLink />
+          <GitHubIconLink />
           <ThemeToggle />
-          <DocSearch />
+          <SearchToggle />
           <Hamburger
             active={getMenuOpen()}
             onClick={() => setMenuOpen((menuOpen) => !menuOpen)}
@@ -97,7 +106,6 @@ export function Header() {
                 class="focus-ring mx-4 rounded-lg px-4 py-3 text-lg transition-colors hover:text-slate-900 dark:hover:text-slate-200 lg:px-3 lg:py-2 lg:text-[17px] lg:font-medium"
                 activeClass="docsearch-lvl0 text-slate-900 dark:text-slate-200"
                 href={href}
-                onClick={() => setMenuOpen(false)}
               >
                 {label}
               </A>
@@ -107,13 +115,13 @@ export function Header() {
 
         {/* Icon buttons (desktop) */}
         <div class="hidden lg:flex lg:w-56 lg:items-center lg:justify-end lg:space-x-6">
-          <DocSearch />
+          <SearchToggle />
           <ThemeToggle />
           <div
             class="lg:block lg:h-5 lg:w-0.5 lg:rounded-full lg:bg-slate-200 lg:dark:bg-slate-800"
             role="separator"
           />
-          <GitHubLink />
+          <GitHubIconLink />
         </div>
       </div>
 
@@ -126,21 +134,5 @@ export function Header() {
         onClick={() => setMenuOpen(false)}
       />
     </header>
-  );
-}
-
-/**
- * GitHub icon pointing to our repository.
- */
-function GitHubLink() {
-  return (
-    <a
-      class="focus-ring box-content h-5 w-5 rounded-lg p-2 transition-colors hover:text-slate-900 dark:hover:text-slate-200 md:h-[22px] md:w-[22px] lg:h-6 lg:w-6"
-      href={import.meta.env.VITE_GITHUB_URL}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <GitHubIcon class="h-full" />
-    </a>
   );
 }

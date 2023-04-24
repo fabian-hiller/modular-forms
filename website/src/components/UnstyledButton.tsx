@@ -1,10 +1,18 @@
-import { createSignal, JSX, Match, Switch } from 'solid-js';
+import {
+  Accessor,
+  batch,
+  createSignal,
+  JSX,
+  Match,
+  splitProps,
+  Switch,
+} from 'solid-js';
 import { A } from 'solid-start';
 
 export type DefaultButtonProps =
   | {
       type: 'button';
-      onClick: () => unknown | Promise<unknown>;
+      onClick: () => any | Promise<any>;
     }
   | {
       type: 'submit';
@@ -19,7 +27,8 @@ export type DefaultButtonProps =
 
 type UnstyledButtonProps = DefaultButtonProps & {
   class?: string;
-  children: (renderProps: { loading?: boolean }) => JSX.Element;
+  children: (getLoading: Accessor<boolean>) => JSX.Element;
+  'aria-label'?: string;
 };
 
 /**
@@ -27,34 +36,37 @@ type UnstyledButtonProps = DefaultButtonProps & {
  * build more complex components on top of it.
  */
 export function UnstyledButton(props: UnstyledButtonProps) {
-  // Create loading signal
+  // Create loading signal and split aria props
   const [getLoading, setLoading] = createSignal(false);
+  const [ariaProps] = splitProps(props, ['aria-label']);
 
   return (
     <Switch>
       {/* Link button */}
-      <Match when={props.type === 'link' && props} keyed>
-        {(link) => (
+      <Match when={props.type === 'link' && props}>
+        {(getProps) => (
           <A
-            class={props.class}
-            href={link.href}
-            download={link.download}
-            target={link.target}
-            rel={link.target === '_blank' ? 'noreferrer' : undefined}
+            {...ariaProps}
+            class={getProps().class}
+            href={getProps().href}
+            download={getProps().download}
+            target={getProps().target}
+            rel={getProps().target === '_blank' ? 'noreferrer' : undefined}
           >
-            {props.children({})}
+            {props.children(() => false)}
           </A>
         )}
       </Match>
 
       {/* Normal button */}
-      <Match when={props.type === 'button' && props} keyed>
-        {(buttton) => (
+      <Match when={props.type === 'button' && props}>
+        {(getProps) => (
           <button
+            {...ariaProps}
             class={props.class}
             type="button"
             onClick={() => {
-              const result = buttton.onClick();
+              const result = getProps().onClick();
               // Start and stop loading if function is async
               if (Promise.resolve(result) === result) {
                 setLoading(true);
@@ -65,24 +77,21 @@ export function UnstyledButton(props: UnstyledButtonProps) {
             }}
             disabled={getLoading()}
           >
-            {props.children({
-              get loading() {
-                return getLoading();
-              },
-            })}
+            {props.children(getLoading)}
           </button>
         )}
       </Match>
 
       {/* Submit button */}
-      <Match when={props.type === 'submit' && props} keyed>
-        {(submit) => (
-          <button class={props.class} type="submit" disabled={submit.loading}>
-            {props.children({
-              get loading() {
-                return submit.loading;
-              },
-            })}
+      <Match when={props.type === 'submit' && props}>
+        {(getProps) => (
+          <button
+            {...ariaProps}
+            class={props.class}
+            type="submit"
+            disabled={getProps().loading}
+          >
+            {props.children(() => !!getProps().loading)}
           </button>
         )}
       </Match>

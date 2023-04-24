@@ -25,7 +25,7 @@ export function IconButton(props: IconButtonProps) {
       aria-label={props.label}
       {...props}
     >
-      {(renderProps) => (
+      {(getLoading) => (
         <>
           <div
             class={clsx(
@@ -37,7 +37,7 @@ export function IconButton(props: IconButtonProps) {
             )}
           >
             <Show
-              when={renderProps.loading}
+              when={getLoading()}
               fallback={<props.icon class="h-[18px]" />}
             >
               <Spinner label={`${props.label} is loading`} />

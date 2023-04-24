@@ -24,8 +24,8 @@ export function ActionButton(props: ActionButtonProps) {
       )}
       {...props}
     >
-      {(renderProps) => (
-        <Show when={renderProps.loading} fallback={props.label}>
+      {(getLoading) => (
+        <Show when={getLoading()} fallback={props.label}>
           <Spinner label={`${props.label} is loading`} />
         </Show>
       )}

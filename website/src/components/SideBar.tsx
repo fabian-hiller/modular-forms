@@ -27,7 +27,8 @@ export function SideBar(props: SideBarProps) {
   createEffect(
     on(
       () => useLocation().pathname,
-      () => setOpen(false)
+      () => setOpen(false),
+      { defer: true }
     )
   );
 

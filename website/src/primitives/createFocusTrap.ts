@@ -28,8 +28,8 @@ export function createFocusTrap(
         // Query focusable elements
         const elements = [
           ...rootElement.querySelectorAll<
-            HTMLAnchorElement | HTMLButtonElement
-          >('a, button'),
+            HTMLAnchorElement | HTMLButtonElement | HTMLInputElement
+          >('a, button, input'),
         ].filter((element) => element.offsetParent !== null);
 
         // Get first and last focusable element

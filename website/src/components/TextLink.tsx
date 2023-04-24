@@ -1,9 +1,10 @@
 import clsx from 'clsx';
+import { JSX } from 'solid-js';
 import { A } from 'solid-start';
 
 type TextLinkProps = {
   class?: string;
-  children: string;
+  children: JSX.Element;
   href: string;
   download?: boolean | string;
   target?: '_blank';

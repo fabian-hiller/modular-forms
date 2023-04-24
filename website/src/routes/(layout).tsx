@@ -1,7 +1,12 @@
 import { useRouteData, Outlet } from 'solid-start';
 import { createServerData$ } from 'solid-start/server';
-import { Header, Footer } from '~/components';
-import { Framework, FrameworkProvider, frameworks } from '~/contexts';
+import { Header, Footer, RoutingIndicator } from '~/components';
+import {
+  Framework,
+  FrameworkProvider,
+  frameworks,
+  SearchProvider,
+} from '~/contexts';
 import { frameworkCookie } from '~/cookies';
 
 export function routeData() {
@@ -21,9 +26,12 @@ export default function Layout() {
 
   return (
     <FrameworkProvider cookie={getCookie()!}>
-      <Header />
-      <Outlet />
-      <Footer />
+      <SearchProvider>
+        <RoutingIndicator />
+        <Header />
+        <Outlet />
+        <Footer />
+      </SearchProvider>
     </FrameworkProvider>
   );
 }
