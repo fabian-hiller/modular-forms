@@ -33,6 +33,7 @@ Form element that takes care of validation and simplifies submission.
 ```tsx
 <Form
   of={…}
+  action={…}
   onSubmit$={…}
   encType={…}
   reloadDocument={…}
@@ -66,6 +67,7 @@ Form element that takes care of validation and simplifies submission.
 <Qwik block>
 
 - `of` <Property {...properties.qwik.of} />
+- `action` <Property {...properties.qwik.action} />
 - `onSubmit$` <Property {...properties.qwik.onSubmit$} />
 - `encType` <Property {...properties.qwik.encType} />
 - `reloadDocument` <Property {...properties.qwik.reloadDocument} />
@@ -160,6 +162,38 @@ export const properties = {
         type: 'custom',
         name: 'FormStore',
         href: '../FormStore',
+      },
+    },
+    action: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'ActionStore',
+            generics: [
+              {
+                type: 'custom',
+                name: 'FormActionStore',
+                href: '../FormActionStore',
+              },
+              {
+                type: 'custom',
+                name: 'PartialValues',
+                href: '../FormActionStore',
+                generics: [
+                  {
+                    type: 'custom',
+                    name: 'FieldValues',
+                    href: '../FieldValues',
+                  },
+                ],
+              },
+              { type: 'boolean', value: true },
+            ],
+          },
+        ],
       },
     },
     onSubmit$: {
