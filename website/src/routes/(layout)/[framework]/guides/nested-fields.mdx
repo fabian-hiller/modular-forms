@@ -10,6 +10,8 @@ import { Description, Qwik, Solid, Title } from '~/components';
 
 To add a little more structure to a complex form or to match the values of the form to your database, you can also nest your form fields in objects as deep as you like.
 
+## Type definition
+
 For example, in the example below, the first and last name are grouped under the object with the key `name`.
 
 ```ts
@@ -22,6 +24,8 @@ type ContactForm = {
   message: string;
 };
 ```
+
+## Dot notation
 
 When creating a nested field, use dot notation for the name to refer to the field. If you're using TypeScript, your editor should be able to autocomplete the name for you.
 

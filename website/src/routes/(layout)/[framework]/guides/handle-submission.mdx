@@ -11,6 +11,8 @@ import { Description, Qwik, Solid, Title } from '~/components';
 
 Now your first form is almost ready. There is only one little thing missing and that is the data processing when the form is submitted.
 
+## Form actions
+
 To make your form work even if JavaScript is disabled in your user's browser, we recommend using actions. Optionally, you can also perform the data processing on the client with <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> or use both in parallel.
 
 <Qwik block>
@@ -22,6 +24,12 @@ To make your form work even if JavaScript is disabled in your user's browser, we
 <Solid block>
 
 > The integration of actions is still under development. We expect to finish the integration in the coming weeks. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
+
+</Solid>
+
+### Code example
+
+<Solid block>
 
 ```tsx
 import { createForm, SubmitHandler } from '@modular-forms/solid';
@@ -102,9 +110,17 @@ export default component$(() => {
 
 </Qwik>
 
+### Prevent default
+
 When the form is submitted, `event.preventDefault()` is executed by default to prevent the window from reloading so that the values can also be processed directly in the browser and the state of the form is preserved.
 
-While the form is being submitted, you can use `loginForm.submitting` to display a loading animation and disable the submit button. Furthermore, using the `shouldDirty` property of the <A href="../../api/Form">`Form`</A> component, you have the option to have the form return only modified values. This reduces network traffic, for example if you only want to update values that have changed in your database.
+### Loading animation
+
+While the form is being submitted, you can use `loginForm.submitting` to display a loading animation and disable the submit button.
+
+### Only dirty values
+
+Using the `shouldDirty` property of the <A href="../../api/Form">`Form`</A> component, you have the option to have the form return only modified values. This reduces network traffic, for example if you only want to update values that have changed in your database.
 
 <Qwik block>
 
@@ -123,6 +139,8 @@ export const useFormAction = formAction$<LoginForm>((values) => {
 });
 ```
 
+### Specific field errors
+
 You also have the option to add an error message to individual fields. This can be important if you want to do special validations manually in `formAction$`.
 
 ```ts
@@ -135,6 +153,29 @@ export const useFormAction = formAction$<LoginForm>((values) => {
     };
   }
 });
+```
+
+## Return custom data
+
+If you process form values with actions, you may wonder how to return individual data to your component. For example, the ID of a user after login.
+
+To do this, first add a second generic to <A href="../../api/formAction$">`formAction$`</A> and <A href="../../api/useForm">`useForm`</A> that defines your individual data and makes it type safe. Then you can return this data in `formAction$` via the `data` key to access it afterwards with `loginForm.response.data` in your component.
+
+```ts
+type ResponseData = {
+  userId: string;
+};
+
+export const useFormAction = formAction$<LoginForm, ResponseData>(
+  async (values) => {
+    const userId = await loginUser(values);
+    return {
+      status: 'success',
+      message: 'You are now logged in.',
+      data: { userId },
+    };
+  }
+);
 ```
 
 </Qwik>

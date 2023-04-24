@@ -9,25 +9,11 @@ import { Description, Qwik, Solid, Title } from '~/components';
 
 # Create your form
 
-<Solid block>
-
-Like SolidJS, the library consists of primitives and components. To create a form you use the <A href="../../api/createForm">`createForm`</A> primitive.
-
-It returns a tuple containing the store of the form in the first place and an object with the <A href="../../api/Form">`Form`</A>, <A href="../../api/Field">`Field`</A> and <A href="../../api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
-
-```tsx
-import { createForm } from '@modular-forms/solid';
-
-type LoginForm = { … };
-
-export default function App() {
-  const [loginForm, { Form, Field, FieldArray }] = createForm<LoginForm>();
-}
-```
-
-</Solid>
+Modular Forms consists of <Solid>primitives</Solid><Qwik>hooks</Qwik>, components and methods. To create a form you use the <Solid><A href="../../api/createForm">`createForm`</A> primitive</Solid><Qwik><A href="../../api/useForm">`useForm`</A> hook</Qwik>.
 
 <Qwik block>
+
+## Initial values
 
 In Qwik, a form starts with its initial values returned via `routeLoader$`. With this information we can initialize the store of your form and enable Qwik to reliably start rendering your website on the server. We also use the initial values later to check if the value of a field has changed.
 
@@ -48,7 +34,31 @@ export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
 }));
 ```
 
-This is followed by the <A href="../../api/useForm">`useForm`</A> hook, to which you then pass your loader. The hook returns a tuple containing the store of the form in the first place and an object with the <A href="../../api/Form">`Form`</A>, <A href="../../api/Field">`Field`</A> and <A href="../../api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
+</Qwik>
+
+<Solid block>
+
+## Form primitive
+
+The <A href="../../api/createForm">`createForm`</A> primitive returns a tuple containing the store of the form in the first place and an object with the <A href="../../api/Form">`Form`</A>, <A href="../../api/Field">`Field`</A> and <A href="../../api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
+
+```tsx
+import { createForm } from '@modular-forms/solid';
+
+type LoginForm = { … };
+
+export default function App() {
+  const [loginForm, { Form, Field, FieldArray }] = createForm<LoginForm>();
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+## Form hook
+
+The initial values are followed by the <A href="../../api/useForm">`useForm`</A> hook, to which you then pass your loader. The hook returns a tuple containing the store of the form in the first place and an object with the <A href="../../api/Form">`Form`</A>, <A href="../../api/Field">`Field`</A> and <A href="../../api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
 
 ```tsx
 import { component$ } from "@builder.io/qwik";
@@ -68,9 +78,15 @@ export default component$(() => {
 
 </Qwik>
 
+### Destructuring
+
 You do not have to destructure the object with the components, as you can see in the next code example. In this way, the tuple allows you to freely name the two return values. This can be useful, for example, when a page contains multiple forms.
 
+### Components
+
 The returned <A href="../../api/Form">`Form`</A>, <A href="../../api/Field">`Field`</A> and <A href="../../api/FieldArray">`FieldArray`</A> component are already connected with the store of your form. Also, if you are using TypeScript, they are aware of your fields and their data types, which gives you the benefit of type safety and autocompletion.
+
+## JSX code
 
 In the JSX part of your component you start with the <A href="../../api/Form">`Form`</A> component. It encloses the fields of your form and through its properties you can define what happens when the form is submitted. More on this later.
 

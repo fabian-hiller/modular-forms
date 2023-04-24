@@ -14,6 +14,8 @@ To make your code more readable, we recommend that you develop your own input co
 
 > If you're already a bit more experienced, you can use the input components we developed for our <A href="/playground">playground</A> as a starting point. You can find the code in our GitHub repository <a href={`${import.meta.env.VITE_GITHUB_URL}/tree/main/playgrounds/${getFramework()}/src/components`} target="\_blank" rel="noreferrer">here</a>.
 
+## Why input components?
+
 Currently, your fields might look something like this:
 
 <Solid block>
@@ -161,6 +163,8 @@ type TextInputProps = {
 
 </Qwik>
 
+### Component function
+
 <Solid block>
 
 In the next step, add the component function to the file and use Solid's `splitProps` utility to separate the properties of the HTML `<input />` element from the rest.
@@ -199,6 +203,8 @@ export const TextInput = component$(
 ```
 
 </Qwik>
+
+### JSX code
 
 After that, next you can add the JSX code to the return statement.
 
@@ -270,6 +276,8 @@ export const TextInput = component$(
 
 </Qwik>
 
+### Next steps
+
 You can now build on this code and add CSS, for example. You can also follow the procedure to create other components such as `Checkbox`, `Slider`, `Select` and `FileInput`.
 
 <Solid block>
@@ -277,6 +285,8 @@ You can now build on this code and add CSS, for example. You can also follow the
 > Tip: To make things easier and speed up development, you can build your components on top of the UI toolkit <a href="https://kobalte.dev/" target="_blank" rel="noreferrer">Kobalte</a>. You can find a guide <A href="../kobalte">here</A>.
 
 </Solid>
+
+### Final code
 
 Below is an overview of the entire code of the `TextInput` component.
 

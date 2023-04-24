@@ -19,7 +19,11 @@ import { Description, Qwik, Solid, Title } from '~/components';
 
 Modular Forms makes it easy to create progressively enhanced forms that work in the browser without JavaScript. And best of all, you don't have to compromise on functionality. Input validation works as usual and the first field with an error will still be focused automatically.
 
-However, there are a few small things to keep in mind during development. First, you need to pass a schema to `formAction$` with `zodForm$` so that we can also validate the submitted data on the server. Since the validation in this case is server-side, it cannot be manipulated by the user.
+## Server-side validation
+
+There are a few small things to keep in mind during development. First, you need to pass a schema to <A href="../../api/formAction$">`formAction$`</A> with <A href="../../api/zodForm$">`zodForm$`</A> so that we can also validate the submitted data on the server. Since the validation in this case is server-side, it cannot be manipulated by the user.
+
+## Special data types
 
 Second, depending on the complexity of your form, you may need to suplement information that would be lost during submission without JavaScript. We use this information to transform the submitted data so that it fits your schema and can be validated.
 
@@ -40,13 +44,19 @@ export const useFormAction = formAction$<SpecialForm>(
 );
 ```
 
+### Send files to server
+
 If your form also processes files, as in the example above, you must also set the `encType` property in the <A href="../../api/Form">`Form`</A> component so that the browser transfers the files to the server as `Blob`.
 
 ```tsx
 <Form encType="multipart/form-data">…</Form>
 ```
 
+### Restore date objects
+
 Also you need to set the `encType` property when working with native date objects. This is because when JavaScript is enabled in the browser, we send the data to the server as JSON and do not suplement it there. By setting the `encType` property, you tell Modular Forms to submit the data as `FormData` and to suplement it server-side. In this process we then convert it back to a native date object.
+
+### Complex code examples
 
 Not every website needs progressively enhanced forms. However, if yours does, you can find more code examples in our <a href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/qwik/src/routes/actions`} target="\_blank" rel="noreferrer">GitHub</a> repository and <a href={import.meta.env.VITE_STACKBLITZ_QWIK_ACTIONS_URL} target="\_blank" rel="noreferrer">StackBlitz</a> playground.
 

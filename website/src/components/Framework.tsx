@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { JSX, Show } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { getFramework, type Framework } from '~/contexts';
@@ -13,7 +14,10 @@ type FrameworkProps = {
  */
 function Framework(props: FrameworkProps) {
   return (
-    <Dynamic class="framework" component={props.block ? 'div' : 'span'}>
+    <Dynamic
+      class={props.block ? 'framework' : undefined}
+      component={props.block ? 'div' : 'span'}
+    >
       <Show when={props.framework === getFramework()}>{props.children}</Show>
     </Dynamic>
   );

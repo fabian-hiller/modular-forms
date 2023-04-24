@@ -14,6 +14,8 @@ A somewhat more special case are dynamically generated form fields based on an a
 
 > In our <A href="/playground/todos">playground</A> you can take a look at a form with a field array and test them out.
 
+## Create a field array
+
 In the following example we create a field array for a todo form with the following fields:
 
 ```ts
@@ -26,9 +28,7 @@ type TodoForm = {
 };
 ```
 
-To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that the `For` component uses to detect when an item is added, moved, or removed.
-
-As with nested fields, you use dot notation for the name of each field. It is important that you use the index <Solid>signal of the `For` component</Solid><Qwik>of the loop</Qwik> to specify the index of the field, so that they are updated when the items are changed.
+To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that <Solid>the `For` component</Solid><Qwik>Qwik</Qwik> uses to detect when an item is added, moved, or removed.
 
 <Solid block>
 
@@ -74,7 +74,35 @@ As with nested fields, you use dot notation for the name of each field. It is im
 
 </Qwik>
 
+### Validation
+
 As with fields, you can also validate field arrays with the `validate` attribute. For example, to limit the length of the array you can use the <A href="../../api/maxLength">`maxLength`</A> function.
+
+### Dot notation
+
+As with nested fields, you use dot notation for the name of each field. It is important that you use the index <Solid>signal of the `For` component</Solid><Qwik>of the loop</Qwik> to specify the index of the field, so that they are updated when the items are changed.
+
+<Solid block>
+
+```tsx
+<Field name={`todos.${index()}.label`}>
+  {(field, props) => <input {...props} type="text" />}
+</Field>
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field name={`todos.${index)}.label`}>
+  {(field, props) => <input {...props} type="text" />}
+</Field>
+```
+
+</Qwik>
+
+## Use array methods
 
 Now you can use the <A href="../../api/insert">`insert`</A>, <A href="../../api/move">`move`</A>, <A href="../../api/remove">`remove`</A>, <A href="../../api/replace">`replace`</A> and <A href="../../api/swap">`swap`</A> method to make changes to the field array. For example, to move the first item forward by two positions, use the <A href="../../api/move">`move`</A> method. It will automatically take care of rearranging all the fields in between.
 
@@ -83,6 +111,8 @@ move(todoForm, 'todos', { from: 0, to: 2 });
 ```
 
 For more details on the other methods, see the <A href="../../api">API Reference</A>.
+
+## Nested field arrays
 
 If you need to nest multiple field arrays, dot notation can get complicated when specifying a field name. To solve this problem, you can use the name of the field array dynamically.
 
