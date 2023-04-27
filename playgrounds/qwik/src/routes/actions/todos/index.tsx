@@ -16,7 +16,7 @@ import {
   useForm,
   zodForm$,
   formAction$,
-  getArrayValues,
+  getValues,
 } from '@modular-forms/qwik';
 import {
   TextInput,
@@ -263,7 +263,7 @@ export default component$(() => {
               onClick$={() =>
                 move(todoForm, 'todos', {
                   from: 0,
-                  to: getArrayValues(todoForm, 'todos').length! - 1,
+                  to: getValues(todoForm, 'todos').length! - 1,
                 })
               }
             />

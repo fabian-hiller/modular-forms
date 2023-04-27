@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Expandable } from './Expandable';
 
 type ResponseProps = {
-  of: FormStore<any, any, any, any>;
+  of: FormStore<any, any>;
   class?: string;
 };
 
@@ -15,7 +15,7 @@ type ResponseProps = {
  */
 export const Response = component$(({ of: form, ...props }: ResponseProps) => {
   // Use frozen response signal
-  const frozenResponse = useSignal<FormResponse>();
+  const frozenResponse = useSignal<FormResponse<any>>();
 
   // Freeze response while element collapses to prevent UI from jumping
   useTask$(({ track, cleanup }) => {

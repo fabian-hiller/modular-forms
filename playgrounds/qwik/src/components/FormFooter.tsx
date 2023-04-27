@@ -4,7 +4,7 @@ import { type FormStore, reset } from '@modular-forms/qwik';
 import { ActionButton } from './ActionButton';
 
 type FormFooterProps = {
-  of: FormStore<any, any, any, any>;
+  of: FormStore<any, any>;
   resetAction?: ActionStore<void, Record<string, any>>;
   form?: string;
 };
