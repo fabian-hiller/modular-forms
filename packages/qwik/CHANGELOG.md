@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.10.0 (April 27, 2023)
 
 - Upgrade Qwik and Qwik City peer dependency
 
