@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.12.1 (April 29, 2023)
 
 - Fix update bug in `getValues` method when adding new fields or array items (issue #60)
 
