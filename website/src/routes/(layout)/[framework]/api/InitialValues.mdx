@@ -1,0 +1,35 @@
+import { A } from 'solid-start';
+import { HttpStatusCode } from 'solid-start/server';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>InitialValues</Title>
+<Description>
+  Utility type that transforms `FieldValues` to the initial required field
+  values.
+</Description>
+
+# InitialValues
+
+<Qwik block>
+
+Utility type that transforms <A href="../FieldValues">`FieldValues`</A> to the initial required field values.
+
+## Generic
+
+- `Values` <Property {...properties.Values} />
+
+</Qwik>
+
+<Solid block>
+
+<HttpStatusCode code={404} />
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '../FieldValues' },
+  },
+};

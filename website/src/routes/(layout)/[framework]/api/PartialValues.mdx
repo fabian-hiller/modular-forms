@@ -1,0 +1,21 @@
+import { A } from 'solid-start';
+import { Description, Property, Title } from '~/components';
+
+<Title>PartialValues</Title>
+<Description>
+  Utility type that transforms `FieldValues` to deep partial field values.
+</Description>
+
+# PartialValues
+
+Utility type that transforms <A href="../FieldValues">`FieldValues`</A> to deep partial field values.
+
+## Generic
+
+- `Values` <Property {...properties.Values} />
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '../FieldValues' },
+  },
+};

@@ -84,6 +84,8 @@ export default function ApiLayout() {
             'FormOptions',
             'FormResponse',
             'FormStore',
+            isQwik() && 'InitialValues',
+            'PartialValues',
             'ResponseData',
             'SubmitHandler',
             'ValidateField',
