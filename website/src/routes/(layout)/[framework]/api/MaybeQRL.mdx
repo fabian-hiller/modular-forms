@@ -1,0 +1,47 @@
+import { HttpStatusCode } from 'solid-start/server';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>MaybeQRL</Title>
+<Description>
+  Utility type that transforms a type into a maybe QRL type.
+</Description>
+
+# MaybeQRL
+
+<Qwik block>
+
+Utility type that transforms a type into a maybe `QRL` type.
+
+## Generic
+
+- `Value` <Property {...properties.Value} />
+
+## Return
+
+- `Type` <Property {...properties.Type} />
+
+</Qwik>
+
+<Solid block>
+
+<HttpStatusCode code={404} />
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  Value: {
+    type: 'any',
+  },
+  Type: {
+    type: [
+      { type: 'custom', name: 'Value' },
+      {
+        type: 'custom',
+        name: 'QRL',
+        generics: [{ type: 'custom', name: 'Value' }],
+      },
+    ],
+  },
+};

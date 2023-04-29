@@ -43,13 +43,19 @@ export const properties = {
           type: {
             type: 'custom',
             name: 'Maybe',
+            href: '../Maybe',
             generics: [
               { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
             ],
           },
         },
       ],
-      return: { type: 'custom', name: 'MaybePromise', generics: ['boolean'] },
+      return: {
+        type: 'custom',
+        name: 'MaybePromise',
+        href: '../MaybePromise',
+        generics: ['boolean'],
+      },
     },
   },
   validate: {
@@ -61,6 +67,7 @@ export const properties = {
           type: {
             type: 'custom',
             name: 'Maybe',
+            href: '../Maybe',
             generics: [
               { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
             ],

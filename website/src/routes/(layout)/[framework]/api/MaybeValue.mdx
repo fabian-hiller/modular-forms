@@ -1,0 +1,27 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>MaybeValue</Title>
+<Description>
+  Utility type that transforms a type into a maybe null or undefined type.
+</Description>
+
+# MaybeValue
+
+Utility type that transforms a type into a maybe `null` or `undefined` type.
+
+## Generic
+
+- `Value` <Property {...properties.Value} />
+
+## Return
+
+- `Type` <Property {...properties.Type} />
+
+export const properties = {
+  Value: {
+    type: 'any',
+  },
+  Type: {
+    type: [{ type: 'custom', name: 'Value' }, 'null', 'undefined'],
+  },
+};

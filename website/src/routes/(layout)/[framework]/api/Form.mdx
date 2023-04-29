@@ -152,7 +152,12 @@ export const properties = {
           },
           { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
         ],
-        return: { type: 'custom', name: 'MaybePromise', generics: ['void'] },
+        return: {
+          type: 'custom',
+          name: 'MaybePromise',
+          href: '../MaybePromise',
+          generics: ['void'],
+        },
       },
     },
   },
@@ -168,6 +173,7 @@ export const properties = {
       type: {
         type: 'custom',
         name: 'Maybe',
+        href: '../Maybe',
         generics: [
           {
             type: 'custom',
@@ -222,13 +228,19 @@ export const properties = {
             },
           },
         ],
-        return: { type: 'custom', name: 'MaybePromise', generics: ['void'] },
+        return: {
+          type: 'custom',
+          name: 'MaybePromise',
+          href: '../MaybePromise',
+          generics: ['void'],
+        },
       },
     },
     encType: {
       type: {
         type: 'custom',
         name: 'Maybe',
+        href: '../Maybe',
         generics: [
           [
             { type: 'string', value: 'application/x-www-form-urlencoded' },

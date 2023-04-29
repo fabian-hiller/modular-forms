@@ -21,13 +21,19 @@ export const properties = {
           type: {
             type: 'custom',
             name: 'Maybe',
+            href: '../Maybe',
             generics: [
               { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
             ],
           },
         },
       ],
-      return: { type: 'custom', name: 'MaybePromise', generics: ['string'] },
+      return: {
+        type: 'custom',
+        name: 'MaybePromise',
+        href: '../MaybePromise',
+        generics: ['string'],
+      },
     },
   },
 };

@@ -1,0 +1,34 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>MaybePromise</Title>
+<Description>
+  Utility type that transforms a type into a maybe Promise type.
+</Description>
+
+# MaybePromise
+
+Utility type that transforms a type into a maybe `Promise` type.
+
+## Generic
+
+- `Value` <Property {...properties.Value} />
+
+## Return
+
+- `Type` <Property {...properties.Type} />
+
+export const properties = {
+  Value: {
+    type: 'any',
+  },
+  Type: {
+    type: [
+      { type: 'custom', name: 'Value' },
+      {
+        type: 'custom',
+        name: 'Promise',
+        generics: [{ type: 'custom', name: 'Value' }],
+      },
+    ],
+  },
+};
