@@ -70,6 +70,12 @@ export function move<
           }
         };
 
+        // Create function to sort by path index
+        const sortPathIndex = (
+          pathA: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
+          pathB: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
+        ) => getPathIndex(name, pathA) - getPathIndex(name, pathB);
+
         // Create function to get previous index name
         const getPrevIndexName = <T extends string>(
           fieldOrFieldArrayName: T,
@@ -95,11 +101,11 @@ export function move<
         const fieldNames = form.internal
           .getFieldNames()
           .filter(filterName)
-          .sort();
+          .sort(sortPathIndex);
         const fieldArrayNames = form.internal
           .getFieldArrayNames()
           .filter(filterName)
-          .sort();
+          .sort(sortPathIndex);
 
         // Reverse names if "from" index is greater than "to" index
         if (fromIndex > toIndex) {

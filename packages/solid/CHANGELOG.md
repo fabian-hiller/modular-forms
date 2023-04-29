@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix sorting bug in `insert`, `move` and `remove` method (issue #61)
+
 ## v0.12.1 (April 29, 2023)
 
 - Fix update bug in `getValues` method when adding new fields or array items (issue #60)

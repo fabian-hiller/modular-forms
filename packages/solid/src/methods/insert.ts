@@ -2,6 +2,7 @@ import { batch, untrack } from 'solid-js';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
+  FieldPath,
   FieldValues,
   FormStore,
   Maybe,
@@ -69,6 +70,12 @@ export function insert<
               value.startsWith(`${name}.`) &&
               getPathIndex(name, value) >= index;
 
+            // Create function to sort by path index
+            const sortPathIndex = (
+              pathA: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
+              pathB: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
+            ) => getPathIndex(name, pathA) - getPathIndex(name, pathB);
+
             // Create function to get next index name
             const getNextIndexName = <T extends string>(
               fieldOrFieldArrayName: T,
@@ -83,7 +90,7 @@ export function insert<
             form.internal
               .getFieldNames()
               .filter(filterName)
-              .sort()
+              .sort(sortPathIndex)
               .reverse()
               .forEach((fieldName) => {
                 setFieldState(
@@ -97,7 +104,7 @@ export function insert<
             form.internal
               .getFieldArrayNames()
               .filter(filterName)
-              .sort()
+              .sort(sortPathIndex)
               .reverse()
               .forEach((fieldArrayName) => {
                 setFieldArrayState(

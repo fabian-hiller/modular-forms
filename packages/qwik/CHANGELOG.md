@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix sorting bug in `insert`, `move` and `remove` method (issue #61)
+
 ## v0.10.0 (April 27, 2023)
 
 - Upgrade Qwik and Qwik City peer dependency

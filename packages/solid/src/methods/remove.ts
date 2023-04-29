@@ -1,6 +1,7 @@
 import { batch, untrack } from 'solid-js';
 import type {
   FieldArrayPath,
+  FieldPath,
   FieldValues,
   FormStore,
   ResponseData,
@@ -53,6 +54,12 @@ export function remove<
         const filterName = (value: string) =>
           value.startsWith(`${name}.`) && getPathIndex(name, value) > index;
 
+        // Create function to sort by path index
+        const sortPathIndex = (
+          pathA: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
+          pathB: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
+        ) => getPathIndex(name, pathA) - getPathIndex(name, pathB);
+
         // Create function to get previous index name
         const getPrevIndexName = <T extends string>(
           fieldOrFieldArrayName: T,
@@ -68,7 +75,7 @@ export function remove<
           form.internal
             .getFieldNames()
             .filter(filterName)
-            .sort()
+            .sort(sortPathIndex)
             .forEach((fieldName) => {
               setFieldState(
                 form,
@@ -81,7 +88,7 @@ export function remove<
           form.internal
             .getFieldArrayNames()
             .filter(filterName)
-            .sort()
+            .sort(sortPathIndex)
             .forEach((fieldArrayName) => {
               setFieldArrayState(
                 form,
