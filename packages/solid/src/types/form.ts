@@ -59,15 +59,6 @@ export type FieldArraysStore<TFieldValues extends FieldValues> = {
 };
 
 /**
- * Value type of the initial field values.
- */
-export type InitialValues<TValue> = TValue extends string[] | File[]
-  ? TValue
-  : TValue extends FieldValue
-  ? Maybe<TValue>
-  : { [Key in keyof Required<TValue>]: InitialValues<TValue[Key]> };
-
-/**
  * Value type of the partial field values.
  */
 export type PartialValues<TValue> = TValue extends string[] | File[]
