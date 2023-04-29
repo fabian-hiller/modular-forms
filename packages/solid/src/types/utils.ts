@@ -39,8 +39,3 @@ export type MaybePromise<T> = T | Promise<T>;
  * Returns an optional array type.
  */
 export type MaybeArray<T> = T | T[];
-
-/**
- * Returns an optional function type.
- */
-export type MaybeFunction<T> = T | (() => T);
