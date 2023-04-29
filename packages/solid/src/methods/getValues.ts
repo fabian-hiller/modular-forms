@@ -8,7 +8,12 @@ import type {
   PartialValues,
   ResponseData,
 } from '../types';
-import { getFieldStore, getFilteredNames, getOptions } from '../utils';
+import {
+  getFieldArrayStore,
+  getFieldStore,
+  getFilteredNames,
+  getOptions,
+} from '../utils';
 
 /**
  * Value type of the get values options.
@@ -85,6 +90,9 @@ export function getValues<
   >,
   arg3?: Maybe<GetValuesOptions>
 ): PartialValues<TFieldValues> {
+  // Get filtered field names to get value from
+  const [fieldNames, fieldArrayNames] = getFilteredNames(form, arg2);
+
   // Destructure options and set default values
   const {
     shouldActive = true,
@@ -93,8 +101,21 @@ export function getValues<
     shouldValid = false,
   } = getOptions(arg2, arg3);
 
+  // If no field or field array name is specified, set listener to be notified
+  // when a new field is added
+  if (typeof arg2 !== 'string' && !Array.isArray(arg2)) {
+    form.internal.getFieldNames();
+
+    // Otherwise if a field array is included, set listener to be notified when
+    // a new field array items is added
+  } else {
+    fieldArrayNames.forEach((fieldArrayName) =>
+      getFieldArrayStore(form, fieldArrayName)!.getItems()
+    );
+  }
+
   // Create and return values of form or field array
-  return getFilteredNames(form, arg2)[0].reduce<any>(
+  return fieldNames.reduce<any>(
     (values, name) => {
       // Get store of specified field
       const field = getFieldStore(form, name)!;
