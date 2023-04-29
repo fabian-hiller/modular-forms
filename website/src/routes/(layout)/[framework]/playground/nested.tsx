@@ -1,3 +1,4 @@
+import { createAutoAnimate } from '@formkit/auto-animate/solid';
 import {
   createForm,
   insert,
@@ -55,10 +56,13 @@ export default function NestedPage() {
       >
         <FormHeader of={nestedForm} heading="Nested form" />
 
-        <div class="space-y-5 px-8 lg:px-10">
-          <FieldArray name="items">
-            {(fieldArray) => (
-              <>
+        <FieldArray name="items">
+          {(fieldArray) => {
+            // Animate items of field array
+            const [setItemsElement] = createAutoAnimate();
+
+            return (
+              <div class="space-y-5 px-8 lg:px-10" ref={setItemsElement}>
                 <For each={fieldArray.items}>
                   {(_, index) => (
                     <div class="flex-1 space-y-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 py-6 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700">
@@ -82,7 +86,9 @@ export default function NestedPage() {
                           label="Delete"
                           width="auto"
                           onClick={() =>
-                            remove(nestedForm, fieldArray.name, { at: index() })
+                            remove(nestedForm, fieldArray.name, {
+                              at: index(),
+                            })
                           }
                         />
                       </div>
@@ -95,72 +101,79 @@ export default function NestedPage() {
                       <FieldArray
                         name={`${fieldArray.name}.${index()}.options`}
                       >
-                        {(fieldArray) => (
-                          <div class="space-y-5 px-6">
-                            <For each={fieldArray.items}>
-                              {(_, index) => (
-                                <div class="flex space-x-5">
-                                  <Field name={`${fieldArray.name}.${index()}`}>
-                                    {(field, props) => (
-                                      <TextInput
-                                        {...props}
-                                        value={field.value}
-                                        error={field.error}
-                                        class="flex-1"
-                                        type="text"
-                                        placeholder="Enter option"
-                                        padding="none"
-                                      />
-                                    )}
-                                  </Field>
+                        {(fieldArray) => {
+                          // Animate items of field array
+                          const [setOptionsElement] = createAutoAnimate();
 
-                                  <ColorButton
-                                    color="red"
-                                    label="Delete"
-                                    width="auto"
-                                    onClick={() =>
-                                      remove(nestedForm, fieldArray.name, {
-                                        at: index(),
-                                      })
-                                    }
-                                  />
-                                </div>
-                              )}
-                            </For>
+                          return (
+                            <div class="space-y-5 px-6" ref={setOptionsElement}>
+                              <For each={fieldArray.items}>
+                                {(_, index) => (
+                                  <div class="flex space-x-5">
+                                    <Field
+                                      name={`${fieldArray.name}.${index()}`}
+                                    >
+                                      {(field, props) => (
+                                        <TextInput
+                                          {...props}
+                                          value={field.value}
+                                          error={field.error}
+                                          class="flex-1"
+                                          type="text"
+                                          placeholder="Enter option"
+                                          padding="none"
+                                        />
+                                      )}
+                                    </Field>
 
-                            <div class="flex flex-wrap gap-4">
-                              <ColorButton
-                                color="green"
-                                label="Add option"
-                                onClick={() =>
-                                  insert(nestedForm, fieldArray.name, {
-                                    value: '',
-                                  })
-                                }
-                              />
-                              <ColorButton
-                                color="yellow"
-                                label="Move first to end"
-                                onClick={() =>
-                                  move(nestedForm, fieldArray.name, {
-                                    from: 0,
-                                    to: fieldArray.items.length - 1,
-                                  })
-                                }
-                              />
-                              <ColorButton
-                                color="purple"
-                                label="Swap first two"
-                                onClick={() =>
-                                  swap(nestedForm, fieldArray.name, {
-                                    at: 0,
-                                    and: 1,
-                                  })
-                                }
-                              />
+                                    <ColorButton
+                                      color="red"
+                                      label="Delete"
+                                      width="auto"
+                                      onClick={() =>
+                                        remove(nestedForm, fieldArray.name, {
+                                          at: index(),
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </For>
+
+                              <div class="flex flex-wrap gap-4">
+                                <ColorButton
+                                  color="green"
+                                  label="Add option"
+                                  onClick={() =>
+                                    insert(nestedForm, fieldArray.name, {
+                                      value: '',
+                                    })
+                                  }
+                                />
+                                <ColorButton
+                                  color="yellow"
+                                  label="Move first to end"
+                                  onClick={() =>
+                                    move(nestedForm, fieldArray.name, {
+                                      from: 0,
+                                      to: fieldArray.items.length - 1,
+                                    })
+                                  }
+                                />
+                                <ColorButton
+                                  color="purple"
+                                  label="Swap first two"
+                                  onClick={() =>
+                                    swap(nestedForm, fieldArray.name, {
+                                      at: 0,
+                                      and: 1,
+                                    })
+                                  }
+                                />
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          );
+                        }}
                       </FieldArray>
                     </div>
                   )}
@@ -204,10 +217,10 @@ export default function NestedPage() {
                     }
                   />
                 </div>
-              </>
-            )}
-          </FieldArray>
-        </div>
+              </div>
+            );
+          }}
+        </FieldArray>
 
         <FormFooter of={nestedForm} />
       </Form>

@@ -204,6 +204,9 @@ importers:
       '@docsearch/js':
         specifier: ^3.3.3
         version: 3.3.3(@algolia/client-search@4.17.0)
+      '@formkit/auto-animate':
+        specifier: 1.0.0-beta.6
+        version: 1.0.0-beta.6
       '@modular-forms/solid':
         specifier: workspace:*
         version: link:../packages/solid
@@ -1493,7 +1496,7 @@ packages:
     peerDependencies:
       '@builder.io/qwik': '>=0.22.0'
     dependencies:
-      '@builder.io/qwik': 0.104.0(undici@5.21.0)
+      '@builder.io/qwik': 0.104.0(undici@5.21.2)
       '@mdx-js/mdx': 2.3.0
       '@types/mdx': 2.0.4
       source-map: 0.7.4
@@ -1995,6 +1998,10 @@ packages:
     resolution: {integrity: sha512-x5vzdtOOGgFVDCUs81QRB2+liax8rFg3+7hqM+QhBG0/G3F1ZsoYl97UrqgHgQ9KKT7G6c4V+aTUCgu/n22v1A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@formkit/auto-animate@1.0.0-beta.6:
+    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
+    dev: false
 
   /@hapi/hoek@9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
