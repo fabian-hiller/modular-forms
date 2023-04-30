@@ -11,9 +11,13 @@ import { Description, Qwik, Solid, Title } from '~/components';
 
 As a SolidJS user, you can rely on <a href="https://kobalte.dev/" target="_blank" rel="noreferrer">Kobalte's</a> pre-built but unstyled components to create your own components faster and with great accessibility. In this guide I show a few code examples.
 
+## Get started
+
 The idea is that you can copy the code examples, add your own CSS and then use the components with Modular Forms to create your forms. Please let us know via the <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issues</a> if you run into any problems with the implementation or if any of the code samples are out of date.
 
 > To understand the code examples, it may help to read the guide about <A href="../input-components">input components</A> beforehand.
+
+### Installation
 
 To get started, first add Kobalte to your project via `npm`, `yarn` or `pnpm`:
 
@@ -23,21 +27,22 @@ npm install @kobalte/core
 
 ## Text Field
 
-We start with the <a href="https://kobalte.dev/docs/core/components/text-field" target="_blank" rel="noreferrer">Text Field</a> from Kobalte. Add the file `TextField.tsx` to your components directory and copy the following code into it:
+To capture a text input we use the <a href="https://kobalte.dev/docs/core/components/text-field" target="_blank" rel="noreferrer">Text Field</a> component of Kobalte. Add the file `TextField.tsx` to your components directory and copy the following code into it:
 
 ```tsx
-import { TextField } from '@kobalte/core';
+import { TextField as Kobalte } from '@kobalte/core';
 import { type JSX, Show, splitProps } from 'solid-js';
 
 type TextFieldProps = {
   name: string;
-  type?: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
-  label?: string;
-  placeholder?: string;
+  type?: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date' | undefined;
+  label?: string | undefined;
+  placeholder?: string | undefined;
   value: string | undefined;
   error: string;
-  required?: boolean;
-  multiline?: boolean;
+  multiline?: boolean | undefined;
+  required?: boolean | undefined;
+  disabled?: boolean | undefined;
   ref: (element: HTMLInputElement | HTMLTextAreaElement) => void;
   onInput: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, InputEvent>;
   onChange: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, Event>;
@@ -45,31 +50,27 @@ type TextFieldProps = {
 };
 
 export function TextField(props: TextFieldProps) {
-  const [fieldProps] = splitProps(props, [
-    'placeholder',
-    'ref',
-    'onInput',
-    'onChange',
-    'onBlur',
-  ]);
+  const [rootProps, inputProps] = splitProps(
+    props,
+    ['name', 'value', 'required', 'disabled'],
+    ['placeholder', 'ref', 'onInput', 'onChange', 'onBlur']
+  );
   return (
-    <TextField.Root
-      name={props.name}
-      value={props.value}
+    <Kobalte.Root
+      {...rootProps}
       validationState={props.error ? 'invalid' : 'valid'}
-      isRequired={props.required}
     >
       <Show when={props.label}>
-        <TextField.Label>{props.label}</TextField.Label>
+        <Kobalte.Label>{props.label}</Kobalte.Label>
       </Show>
       <Show
         when={props.multiline}
-        fallback={<TextField.Input {...fieldProps} type={props.type} />}
+        fallback={<Kobalte.Input {...inputProps} type={props.type} />}
       >
-        <TextField.TextArea {...fieldProps} autoResize />
+        <Kobalte.TextArea {...inputProps} autoResize />
       </Show>
-      <TextField.ErrorMessage>{props.error}</TextField.ErrorMessage>
-    </TextField.Root>
+      <Kobalte.ErrorMessage>{props.error}</Kobalte.ErrorMessage>
+    </Kobalte.Root>
   );
 }
 ```
@@ -77,7 +78,7 @@ export function TextField(props: TextFieldProps) {
 After adding your own styles, you can use the component together with Modular Forms as follows:
 
 ```tsx
-<Field name="email" validate={…}>
+<Field name="email">
   {(field, props) => (
     <TextField
       {...props}
@@ -92,7 +93,226 @@ After adding your own styles, you can use the component together with Modular Fo
 </Field>
 ```
 
-> This guide is still work in progress. More code examples will follow in the future.
+## Select
+
+To select a text value via a dropdown menu we use the <a href="https://kobalte.dev/docs/core/components/select" target="_blank" rel="noreferrer">Select</a> component of Kobalte. Add the file `Select.tsx` to your components directory and copy the following code into it:
+
+```tsx
+import { Select as Kobalte } from '@kobalte/core';
+import { type JSX, Show, splitProps } from 'solid-js';
+
+type SelectProps = {
+  name: string;
+  label?: string | undefined;
+  placeholder?: string | undefined;
+  options: { label: string; value: string }[];
+  value: string | undefined;
+  error: string;
+  required?: boolean | undefined;
+  disabled?: boolean | undefined;
+  ref: (element: HTMLSelectElement) => void;
+  onInput: JSX.EventHandler<HTMLSelectElement, InputEvent>;
+  onChange: JSX.EventHandler<HTMLSelectElement, Event>;
+  onBlur: JSX.EventHandler<HTMLSelectElement, FocusEvent>;
+};
+
+export function Select(props: SelectProps) {
+  const [rootProps, selectProps] = splitProps(
+    props,
+    ['name', 'placeholder', 'options', 'required', 'disabled'],
+    ['placeholder', 'ref', 'onInput', 'onChange', 'onBlur']
+  );
+  return (
+    <Kobalte.Root
+      {...rootProps}
+      multiple={false}
+      value={props.options.find((option) => props.value === option.value)}
+      optionValue={(option) => option.value}
+      optionTextValue={(option) => option.label}
+      validationState={props.error ? 'invalid' : 'valid'}
+      itemComponent={(props) => (
+        <Kobalte.Item item={props.item}>
+          <Kobalte.ItemLabel>{props.item.textValue}</Kobalte.ItemLabel>
+          <Kobalte.ItemIndicator>
+            {/* Add SVG icon here */}
+          </Kobalte.ItemIndicator>
+        </Kobalte.Item>
+      )}
+    >
+      <Show when={props.label}>
+        <Kobalte.Label>{props.label}</Kobalte.Label>
+      </Show>
+      <Kobalte.HiddenSelect {...selectProps} />
+      <Kobalte.Trigger>
+        <Kobalte.Value />
+        <Kobalte.Icon>{/* Add SVG icon here */}</Kobalte.Icon>
+      </Kobalte.Trigger>
+      <Kobalte.Portal>
+        <Kobalte.Content>
+          <Kobalte.Listbox />
+        </Kobalte.Content>
+      </Kobalte.Portal>
+      <Kobalte.ErrorMessage>{props.error}</Kobalte.ErrorMessage>
+    </Kobalte.Root>
+  );
+}
+```
+
+After adding your own styles, you can use the component together with Modular Forms as follows:
+
+```tsx
+<Field name="framework">
+  {(field, props) => (
+    <Select
+      {...props}
+      label="Framework"
+      options={[
+        { label: 'SolidJS', value: 'solid' },
+        { label: 'Qwik', value: 'qwik' },
+        { label: 'Preact', value: 'preact' },
+      ]}
+      value={field.value}
+      error={field.error}
+      required
+    />
+  )}
+</Field>
+```
+
+## Checkbox
+
+To capture a boolean or text value via a checkbox we use the <a href="https://kobalte.dev/docs/core/components/checkbox" target="_blank" rel="noreferrer">Checkbox</a> component of Kobalte. Add the file `Checkbox.tsx` to your components directory and copy the following code into it:
+
+```tsx
+import { Checkbox as Kobalte } from '@kobalte/core';
+import { type JSX, splitProps } from 'solid-js';
+
+type CheckboxProps = {
+  name: string;
+  label: string;
+  value?: string | undefined;
+  checked: boolean | undefined;
+  error: string;
+  required?: boolean | undefined;
+  disabled?: boolean | undefined;
+  ref: (element: HTMLInputElement) => void;
+  onInput: JSX.EventHandler<HTMLInputElement, InputEvent>;
+  onChange: JSX.EventHandler<HTMLInputElement, Event>;
+  onBlur: JSX.EventHandler<HTMLInputElement, FocusEvent>;
+};
+
+export function Checkbox(props: CheckboxProps) {
+  const [rootProps, inputProps] = splitProps(
+    props,
+    ['name', 'value', 'checked', 'required', 'disabled'],
+    ['ref', 'onInput', 'onChange', 'onBlur']
+  );
+  return (
+    <Kobalte.Root
+      {...rootProps}
+      validationState={props.error ? 'invalid' : 'valid'}
+    >
+      <Kobalte.Input {...inputProps} />
+      <Kobalte.Control>
+        <Kobalte.Indicator>{/* Add SVG icon here */}</Kobalte.Indicator>
+      </Kobalte.Control>
+      <Kobalte.Label>{props.label}</Kobalte.Label>
+    </Kobalte.Root>
+  );
+}
+```
+
+After adding your own styles, you can use the component together with Modular Forms as follows:
+
+```tsx
+<Field name="cookies" type="boolean">
+  {(field, props) => (
+    <Checkbox
+      {...props}
+      label="Yes, I want cookies"
+      checked={field.value}
+      error={field.error}
+      required
+    />
+  )}
+</Field>
+```
+
+## Radio Group
+
+For the selection of a single text value via radio buttons we use the <a href="https://kobalte.dev/docs/core/components/radio-group" target="_blank" rel="noreferrer">Radio Group</a> component of Kobalte. Add the file `RadioGroup.tsx` to your components directory and copy the following code into it:
+
+```tsx
+import { RadioGroup as Kobalte } from '@kobalte/core';
+import { type JSX, Show, splitProps, For } from 'solid-js';
+
+type RadioGroupProps = {
+  name: string;
+  label?: string | undefined;
+  options: { label: string; value: string }[];
+  value: string | undefined;
+  error: string;
+  required?: boolean | undefined;
+  disabled?: boolean | undefined;
+  ref: (element: HTMLInputElement | HTMLTextAreaElement) => void;
+  onInput: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, InputEvent>;
+  onChange: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, Event>;
+  onBlur: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, FocusEvent>;
+};
+
+export function RadioGroup(props: RadioGroupProps) {
+  const [rootProps, inputProps] = splitProps(
+    props,
+    ['name', 'value', 'required', 'disabled'],
+    ['ref', 'onInput', 'onChange', 'onBlur']
+  );
+  return (
+    <Kobalte.Root
+      {...rootProps}
+      validationState={props.error ? 'invalid' : 'valid'}
+    >
+      <Show when={props.label}>
+        <Kobalte.Label>{props.label}</Kobalte.Label>
+      </Show>
+      <div>
+        <For each={props.options}>
+          {(option) => (
+            <Kobalte.Item value={option.value}>
+              <Kobalte.ItemInput {...inputProps} />
+              <Kobalte.ItemControl>
+                <Kobalte.ItemIndicator />
+              </Kobalte.ItemControl>
+              <Kobalte.ItemLabel>{option.label}</Kobalte.ItemLabel>
+            </Kobalte.Item>
+          )}
+        </For>
+      </div>
+      <Kobalte.ErrorMessage>{props.error}</Kobalte.ErrorMessage>
+    </Kobalte.Root>
+  );
+}
+```
+
+After adding your own styles, you can use the component together with Modular Forms as follows:
+
+```tsx
+<Field name="framework">
+  {(field, props) => (
+    <RadioGroup
+      {...props}
+      label="Framework"
+      options={[
+        { label: 'SolidJS', value: 'solid' },
+        { label: 'Qwik', value: 'qwik' },
+        { label: 'Preact', value: 'preact' },
+      ]}
+      value={field.value}
+      error={field.error}
+      required
+    />
+  )}
+</Field>
+```
 
 </Solid>
 
