@@ -11,8 +11,9 @@ export function Title(props: TitleProps) {
   const location = useLocation();
   return (
     <SolidTitle>
-      {props.children}
-      {location.pathname !== '/' && ' | Modular Forms'}
+      {`${props.children}${
+        location.pathname === '/' ? '' : ' | Modular Forms'
+      }`}
     </SolidTitle>
   );
 }
