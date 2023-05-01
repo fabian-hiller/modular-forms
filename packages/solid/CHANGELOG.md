@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix bug by adding missing `transform` property to `initializeFieldStore` util
+
 ## v0.13.0 (May 01, 2023)
 
 - Add `transform` prop to `Field` component (issue #40)

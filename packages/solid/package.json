@@ -51,7 +51,7 @@
     "build": "rollup -c ./rollup.config.js",
     "format": "prettier --write .",
     "format.check": "prettier --check .",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit",
     "publish": "npm publish"
   },
   "devDependencies": {

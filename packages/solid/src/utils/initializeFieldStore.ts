@@ -74,6 +74,7 @@ export function initializeFieldStore<
 
       // Other
       validate: [],
+      transform: [],
       consumers: new Set(),
     };
 
