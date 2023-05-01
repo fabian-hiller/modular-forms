@@ -1,0 +1,65 @@
+import { HttpStatusCode } from 'solid-start/server';
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>toCustom$</Title>
+<Description>Creates a custom transformation function.</Description>
+
+# toCustom$
+
+<Qwik block>
+
+Creates a custom transformation function.
+
+```ts
+const transform = toCustom$(action, options);
+```
+
+## Parameters
+
+- `action` <Property {...properties.action} />
+- `options` <Property type="object" />
+  - `on` <Property {...properties.on} />
+
+## Return
+
+- `transform` <Property {...properties.transform} />
+
+</Qwik>
+
+<Solid block>
+
+<HttpStatusCode code={404} />
+
+> This page is exclusively for the Qwik library of Modular Forms.
+
+</Solid>
+
+export const properties = {
+  action: {
+    type: {
+      type: 'custom',
+      name: 'TransformField',
+      href: '../TransformField',
+    },
+  },
+  on: {
+    type: [
+      { type: 'string', value: 'input' },
+      { type: 'string', value: 'change' },
+      { type: 'string', value: 'blur' },
+    ],
+  },
+  transform: {
+    type: {
+      type: 'custom',
+      name: 'QRL',
+      generics: [
+        {
+          type: 'custom',
+          name: 'TransformField',
+          href: '../TransformField',
+        },
+      ],
+    },
+  },
+};

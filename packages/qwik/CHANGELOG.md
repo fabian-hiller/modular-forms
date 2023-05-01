@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `transform` prop to `Field` component
+- Add `toCustom` transformation function
+
 ## v0.10.1 (April 29, 2023)
 
 - Fix sorting bug in `insert`, `move` and `remove` method (issue #61)

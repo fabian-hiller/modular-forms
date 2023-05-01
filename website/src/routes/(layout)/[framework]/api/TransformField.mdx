@@ -1,0 +1,113 @@
+import { Description, Property, Title } from '~/components';
+import { getFramework } from '~/contexts';
+
+<Title>TransformField</Title>
+<Description>
+  Type that defines the transformation function of a field.
+</Description>
+
+# TransformField
+
+Type that defines the transformation function of a field.
+
+## Definition
+
+- `TransformField` <Property {...properties[getFramework()].TransformField} />
+
+export const properties = {
+  solid: {
+    TransformField: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: {
+              type: 'custom',
+              name: 'Maybe',
+              href: '../Maybe',
+              generics: [
+                { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
+              ],
+            },
+          },
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'FieldEvent',
+              href: '../FieldEvent',
+            },
+          },
+        ],
+        return: {
+          type: 'custom',
+          name: 'Maybe',
+          href: '../Maybe',
+          generics: [
+            {
+              type: 'custom',
+              name: 'FieldValue',
+              href: '../FieldValue',
+            },
+          ],
+        },
+      },
+    },
+  },
+  qwik: {
+    TransformField: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'value',
+            type: {
+              type: 'custom',
+              name: 'Maybe',
+              href: '../Maybe',
+              generics: [
+                { type: 'custom', name: 'FieldValue', href: '../FieldValue' },
+              ],
+            },
+          },
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'FieldEvent',
+              href: '../FieldEvent',
+            },
+          },
+          {
+            name: 'element',
+            type: {
+              type: 'custom',
+              name: 'FieldElement',
+              href: '../FieldElement',
+            },
+          },
+        ],
+        return: {
+          type: 'custom',
+          name: 'MaybePromise',
+          href: '../MaybePromise',
+          generics: [
+            {
+              type: 'custom',
+              name: 'Maybe',
+              href: '../Maybe',
+              generics: [
+                {
+                  type: 'custom',
+                  name: 'FieldValue',
+                  href: '../FieldValue',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+};

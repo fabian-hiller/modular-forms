@@ -25,6 +25,7 @@ export default function GuidesLayout() {
           heading: 'Advanced guides',
           items: [
             'Controlled fields',
+            'Transform inputs',
             'Special inputs',
             isQwik() && 'Enhanced forms',
             'Nested fields',

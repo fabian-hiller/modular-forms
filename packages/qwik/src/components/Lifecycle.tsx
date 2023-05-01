@@ -19,6 +19,7 @@ import type {
   Maybe,
   MaybeArray,
   ResponseData,
+  TransformField,
   ValidateField,
   ValidateFieldArray,
 } from '../types';
@@ -41,6 +42,9 @@ type LifecycleProps<
   validate?: Maybe<
     | MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
     | MaybeArray<QRL<ValidateFieldArray<number[]>>>
+  >;
+  transform?: Maybe<
+    MaybeArray<QRL<TransformField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
@@ -71,6 +75,7 @@ export const Lifecycle: <
     of: form,
     store,
     validate,
+    transform,
     keepActive,
     keepState,
   }: LifecycleProps<
@@ -89,6 +94,15 @@ export const Lifecycle: <
               | QRL<ValidateFieldArray<number[]>>[]
               | QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[])
         : [];
+
+      // Add transformation functions
+      if ('value' in store) {
+        store.internal.transform = transform
+          ? Array.isArray(transform)
+            ? transform
+            : [transform]
+          : [];
+      }
 
       // Create unique consumer ID
       const consumer = getUniqueId();

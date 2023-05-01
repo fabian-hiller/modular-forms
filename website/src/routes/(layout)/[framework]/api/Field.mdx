@@ -1,5 +1,6 @@
 import { A } from 'solid-start';
 import { Description, Property, Qwik, Solid, Title } from '~/components';
+import { getFramework } from '~/contexts';
 
 <Title>Field</Title>
 <Description>
@@ -16,6 +17,7 @@ Headless form field that provides reactive properties and state.
   name={…}
   type={…}
   validate={…}
+  transform={…}
   keepActive={…}
   keepState={…}
 >
@@ -28,7 +30,8 @@ Headless form field that provides reactive properties and state.
 - `of` <Property {...properties.of} />
 - `name` <Property type="string" />
 - `type` <Property {...properties.type} />
-- `validate` <Property {...properties.validate} />
+- `validate` <Property {...properties[getFramework()].validate} />
+- `transform` <Property {...properties[getFramework()].transform} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
 - `children` <Property {...properties.children} />
@@ -37,7 +40,7 @@ Headless form field that provides reactive properties and state.
 
 The value of the `type` property must match the data type of the field. Depending on this specification, the value of a native HTML form field is captured differently, making your fields fully type-safe.
 
-For `validate`, we recommend using the validation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation functions.
+For `validate` and `transform`, we recommend using the validation and transformation functions that we provide, as they make the code more readable. If necessary, you can also write your own validation and transformation functions.
 
 Fields automatically detect if they are still in use and update their status accordingly. If you don't want a field to become inactive when it is no longer in use, you can set `keepActive` to `true`.
 
@@ -67,27 +70,6 @@ export const properties = {
           { type: 'string', value: 'File[]' },
           { type: 'string', value: 'Date' },
         ],
-      ],
-    },
-  },
-  validate: {
-    type: {
-      type: 'custom',
-      name: 'Maybe',
-      href: '../Maybe',
-      generics: [
-        {
-          type: 'custom',
-          name: 'MaybeArray',
-          href: '../MaybeArray',
-          generics: [
-            {
-              type: 'custom',
-              name: 'ValidateField',
-              href: '../ValidateField',
-            },
-          ],
-        },
       ],
     },
   },
@@ -121,6 +103,106 @@ export const properties = {
         },
       ],
       return: { type: 'custom', name: 'JSX.Element' },
+    },
+  },
+  solid: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'MaybeArray',
+            href: '../MaybeArray',
+            generics: [
+              {
+                type: 'custom',
+                name: 'ValidateField',
+                href: '../ValidateField',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    transform: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'MaybeArray',
+            href: '../MaybeArray',
+            generics: [
+              {
+                type: 'custom',
+                name: 'TransformField',
+                href: '../TransformField',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  qwik: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'MaybeArray',
+            href: '../MaybeArray',
+            generics: [
+              {
+                type: 'custom',
+                name: 'QRL',
+                generics: [
+                  {
+                    type: 'custom',
+                    name: 'ValidateField',
+                    href: '../ValidateField',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    transform: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'MaybeArray',
+            href: '../MaybeArray',
+            generics: [
+              {
+                type: 'custom',
+                name: 'QRL',
+                generics: [
+                  {
+                    type: 'custom',
+                    name: 'TransformField',
+                    href: '../TransformField',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     },
   },
 };

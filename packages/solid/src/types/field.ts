@@ -3,7 +3,7 @@ import type { FieldPath, FieldPathValue } from './path';
 import type { MaybeValue, MaybePromise, Maybe } from './utils';
 
 /**
- * Value type of a field.
+ * Value type of the field value.
  */
 export type FieldValue = MaybeValue<
   string | string[] | number | boolean | File | File[] | Date
@@ -29,12 +29,19 @@ export type FieldType<T> = T extends MaybeValue<string>
   : never;
 
 /**
- * HTML element type of a field.
+ * Value type of the field element.
  */
 export type FieldElement =
   | HTMLInputElement
   | HTMLSelectElement
   | HTMLTextAreaElement;
+
+/**
+ * Value type of the field event.
+ */
+export type FieldEvent = Event & {
+  currentTarget: FieldElement;
+};
 
 /**
  * Value type of the form fields.
@@ -47,8 +54,16 @@ export type FieldValues = {
  * Function type to validate a field.
  */
 export type ValidateField<TFieldValue> = (
-  value: TFieldValue | undefined
+  value: Maybe<TFieldValue>
 ) => MaybePromise<string>;
+
+/**
+ * Function type to transform a field.
+ */
+export type TransformField<TFieldValue> = (
+  value: Maybe<TFieldValue>,
+  event: FieldEvent
+) => Maybe<TFieldValue>;
 
 /**
  * Value type ot the internal field store.
@@ -82,6 +97,7 @@ export type InternalFieldStore<
 
   // Other
   validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+  transform: TransformField<FieldPathValue<TFieldValues, TFieldName>>[];
   consumers: Set<number>;
 };
 

@@ -1,0 +1,73 @@
+import { Description, Property, Qwik, Solid, Title } from '~/components';
+
+<Title>FieldEvent</Title>
+<Description>Type that defines the HTML element of a field.</Description>
+
+# FieldEvent
+
+Type that defines the HTML element of a field.
+
+## Definition
+
+<Solid block>
+
+- `FieldEvent` <Property {...properties.solid.FieldEvent} />
+  - `currentTarget` <Property {...properties.solid.currentTarget} />
+
+</Solid>
+
+<Qwik block>
+
+- `FieldEvent` <Property {...properties.qwik.FieldEvent} />
+
+</Qwik>
+
+export const properties = {
+  solid: {
+    FieldEvent: {
+      type: {
+        type: 'custom',
+        name: 'Event',
+      },
+    },
+    currentTarget: {
+      type: {
+        type: 'custom',
+        name: 'FieldElement',
+        href: '../FieldElement',
+      },
+    },
+  },
+  qwik: {
+    FieldEvent: {
+      type: [
+        {
+          type: 'custom',
+          name: 'Event',
+        },
+        {
+          type: 'custom',
+          name: 'QwikChangeEvent',
+          generics: [
+            {
+              type: 'custom',
+              name: 'FieldElement',
+              href: '../FieldElement',
+            },
+          ],
+        },
+        {
+          type: 'custom',
+          name: 'QwikFocusEvent',
+          generics: [
+            {
+              type: 'custom',
+              name: 'FieldElement',
+              href: '../FieldElement',
+            },
+          ],
+        },
+      ],
+    },
+  },
+};

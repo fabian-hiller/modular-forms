@@ -11,6 +11,7 @@ import type {
   Maybe,
   MaybeArray,
   ResponseData,
+  TransformField,
   ValidateField,
   ValidateFieldArray,
 } from '../types';
@@ -33,6 +34,9 @@ type LifecycleProps<
     | MaybeArray<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
     | MaybeArray<ValidateFieldArray<number[]>>
   >;
+  transform?: Maybe<
+    MaybeArray<TransformField<FieldPathValue<TFieldValues, TFieldName>>>
+  >;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
 };
@@ -51,6 +55,7 @@ export function createLifecycle<
   name,
   getStore,
   validate,
+  transform,
   keepActive = false,
   keepState = true,
 }: LifecycleProps<TFieldValues, TResponseData, TFieldName>) {
@@ -66,6 +71,15 @@ export function createLifecycle<
             | ValidateFieldArray<number[]>[]
             | ValidateField<FieldPathValue<TFieldValues, TFieldName>>[])
       : [];
+
+    // Add transformation functions
+    if ('transform' in store) {
+      store.transform = transform
+        ? Array.isArray(transform)
+          ? transform
+          : [transform]
+        : [];
+    }
 
     // Create unique consumer ID
     const consumer = getUniqueId();

@@ -7,12 +7,7 @@ import type {
 import { $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
-import {
-  getElementInput,
-  getFieldStore,
-  updateFieldValue,
-  validateIfRequired,
-} from '../utils';
+import { getElementInput, getFieldStore, handleFieldEvent } from '../utils';
 import type {
   FieldElement,
   FieldPath,
@@ -26,6 +21,7 @@ import type {
   MaybeValue,
   PartialKey,
   ResponseData,
+  TransformField,
   ValidateField,
 } from '../types';
 import { Lifecycle } from './Lifecycle';
@@ -67,6 +63,9 @@ export type FieldProps<
   validate?: Maybe<
     MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
+  transform?: Maybe<
+    MaybeArray<QRL<TransformField<FieldPathValue<TFieldValues, TFieldName>>>>
+  >;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
   key?: Maybe<string | number>;
@@ -101,26 +100,30 @@ export function Field<
         ref: $((element: Element) => {
           field.internal.elements.push(element as FieldElement);
         }),
-        onInput$: $((_: Event, element: FieldElement) => {
-          updateFieldValue(
+        onInput$: $((event: Event, element: FieldElement) => {
+          handleFieldEvent(
             form,
             field,
             name,
+            event,
+            element,
+            ['touched', 'input'],
             getElementInput(element, field, type)
           );
         }),
-        onChange$: $(() => {
-          validateIfRequired(form, field, name, {
-            on: ['change'],
-          });
-        }),
-        onBlur$: $(() => {
-          field.touched = true;
-          form.touched = true;
-          validateIfRequired(form, field, name, {
-            on: ['touched', 'blur'],
-          });
-        }),
+        onChange$: $(
+          (event: QwikChangeEvent<FieldElement>, element: FieldElement) => {
+            handleFieldEvent(form, field, name, event, element, ['change']);
+          }
+        ),
+        onBlur$: $(
+          (event: QwikFocusEvent<FieldElement>, element: FieldElement) => {
+            handleFieldEvent(form, field, name, event, element, [
+              'touched',
+              'blur',
+            ]);
+          }
+        ),
       })}
     </Lifecycle>
   );

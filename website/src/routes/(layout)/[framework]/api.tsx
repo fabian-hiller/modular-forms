@@ -64,6 +64,10 @@ export default function ApiLayout() {
           ],
         },
         {
+          heading: 'Transformation',
+          items: [isSolid() ? 'toCustom' : 'toCustom$'],
+        },
+        {
           heading: 'Adapters',
           items: isSolid()
             ? ['zodField', 'zodForm']
@@ -75,6 +79,7 @@ export default function ApiLayout() {
             'FieldArrayStore',
             'FieldElement',
             'FieldElementProps',
+            'FieldEvent',
             'FieldStore',
             'FieldValue',
             'FieldValues',
@@ -94,6 +99,7 @@ export default function ApiLayout() {
             'PartialValues',
             'ResponseData',
             'SubmitHandler',
+            'TransformField',
             'ValidateField',
             'ValidateFieldArray',
             'ValidateForm',

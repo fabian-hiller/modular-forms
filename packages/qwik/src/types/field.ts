@@ -1,9 +1,14 @@
-import type { NoSerialize, QRL } from '@builder.io/qwik';
+import type {
+  NoSerialize,
+  QRL,
+  QwikChangeEvent,
+  QwikFocusEvent,
+} from '@builder.io/qwik';
 import type { FieldPath, FieldPathValue } from './path';
 import type { Maybe, MaybePromise, MaybeValue } from './utils';
 
 /**
- * Value type of a field.
+ * Value type of the field value.
  */
 export type FieldValue = MaybeValue<
   | string
@@ -37,12 +42,20 @@ export type FieldType<T> = T extends MaybeValue<string>
   : never;
 
 /**
- * HTML element type of a field.
+ * Value type of the field element.
  */
 export type FieldElement =
   | HTMLInputElement
   | HTMLSelectElement
   | HTMLTextAreaElement;
+
+/**
+ * Value type of the field event.
+ */
+export type FieldEvent =
+  | Event
+  | QwikChangeEvent<FieldElement>
+  | QwikFocusEvent<FieldElement>;
 
 /**
  * Value type of the form fields.
@@ -55,8 +68,17 @@ export type FieldValues = {
  * Function type to validate a field.
  */
 export type ValidateField<TFieldValue> = (
-  value: TFieldValue | undefined
+  value: Maybe<TFieldValue>
 ) => MaybePromise<string>;
+
+/**
+ * Function type to transform a field.
+ */
+export type TransformField<TFieldValue> = (
+  value: Maybe<TFieldValue>,
+  event: FieldEvent,
+  element: FieldElement
+) => MaybePromise<Maybe<TFieldValue>>;
 
 /**
  * Value type ot the field store.
@@ -73,6 +95,7 @@ export type InternalFieldStore<
   initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   validate: QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[];
+  transform: QRL<TransformField<FieldPathValue<TFieldValues, TFieldName>>>[];
   elements: FieldElement[];
   consumers: number[];
 };

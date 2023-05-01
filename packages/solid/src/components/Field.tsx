@@ -1,5 +1,4 @@
 import {
-  batch,
   createEffect,
   createMemo,
   type JSX,
@@ -19,13 +18,13 @@ import type {
   MaybeValue,
   PartialKey,
   ResponseData,
+  TransformField,
   ValidateField,
 } from '../types';
 import {
   getElementInput,
+  handleFieldEvent,
   initializeFieldStore,
-  updateFieldValue,
-  validateIfRequired,
 } from '../utils';
 
 /**
@@ -75,6 +74,9 @@ export type FieldProps<
   ) => JSX.Element;
   validate?: Maybe<
     MaybeArray<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
+  >;
+  transform?: Maybe<
+    MaybeArray<TransformField<FieldPathValue<TFieldValues, TFieldName>>>
   >;
   keepActive?: boolean;
   keepState?: boolean;
@@ -130,6 +132,7 @@ export function Field<
             return !!getField().getError();
           },
           ref(element) {
+            // Add element to elements
             getField().setElements((elements) => [...elements, element]);
 
             // Create effect that replaces initial input and input of field with
@@ -146,27 +149,26 @@ export function Field<
               }
             });
           },
-          onInput({ currentTarget }) {
-            updateFieldValue(
+          onInput(event) {
+            handleFieldEvent(
               props.of,
               getField(),
               props.name,
-              getElementInput(currentTarget, getField(), props.type)
+              event,
+              ['touched', 'input'],
+              getElementInput(event.currentTarget, getField(), props.type)
             );
           },
-          onChange() {
-            validateIfRequired(props.of, getField(), props.name, {
-              on: ['change'],
-            });
+          onChange(event) {
+            handleFieldEvent(props.of, getField(), props.name, event, [
+              'change',
+            ]);
           },
-          onBlur() {
-            batch(() => {
-              getField().setTouched(true);
-              props.of.internal.setTouched(true);
-              validateIfRequired(props.of, getField(), props.name, {
-                on: ['touched', 'blur'],
-              });
-            });
+          onBlur(event) {
+            handleFieldEvent(props.of, getField(), props.name, event, [
+              'touched',
+              'blur',
+            ]);
           },
         }
       )}

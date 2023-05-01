@@ -1,0 +1,251 @@
+import { A } from 'solid-start';
+import { Description, Qwik, Solid, Title } from '~/components';
+
+<Title>Transform inputs</Title>
+<Description>
+  You've probably entered your phone number into a form and, like magic, it was
+  converted into a more readable format. Learn how that works with Modular Forms
+  in this guide.
+</Description>
+
+# Transform inputs
+
+You've probably entered your phone number or bank details into a form and, like magic, it was converted into a more readable format. Learn how that works with Modular Forms in this guide.
+
+> Input transformation works only if your fields are controlled. Make sure you have read the guide to <A href="../controlled-fields">controlled fields</A> beforehand.
+
+## The transform prop
+
+The goal of input transformation is to change the user's input at a given time. Typically at the `input` or `change` event. This is made possible with the `transform` property of the <A href="../../api/Field">`Field`</A> component.
+
+As with the `validate` property, you can pass a single function or multiple functions in an array. You can use our <Solid><A href="../../api/toCustom">`toCustom`</A></Solid><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function or write your own functions based on it. More on that in a moment.
+
+<Solid block>
+
+```tsx
+<Field
+  name="phone"
+  transform={toCustom(
+    (value, event) => {
+      // Transform phone number here
+    },
+    { on: 'input' }
+  )}
+>
+  {(field, props) => (
+    <input
+      {...props}
+      type="tel"
+      placeholder="(000) 000-0000"
+      value={field.value}
+    />
+  )}
+</Field>
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field
+  name="phone"
+  transform={toCustom$(
+    (value, event, element) => {
+      // Transform phone number here
+    },
+    { on: 'input' }
+  )}
+>
+  {(field, props) => (
+    <input
+      {...props}
+      type="tel"
+      placeholder="(000) 000-0000"
+      value={field.value}
+    />
+  )}
+</Field>
+```
+
+</Qwik>
+
+### How toCustom<Qwik>$</Qwik> works
+
+The first parameter of the <Solid><A href="../../api/toCustom">`toCustom`</A></Solid><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function is executed if the current event type is the event type you specified in the second parameter. The function gives you access to the current `value`, as well as to the `event` object<Solid>, which you can use to access the reference of the `<input />` element via `event.currentTarget` if needed</Solid><Qwik> and `element` reference</Qwik>.
+
+## Create custom functions
+
+To make your code reusable and more readable, you can create your own transformation functions based on <Solid><A href="../../api/toCustom">`toCustom`</A></Solid><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik>. As promised, we show how this works, using a phone number transformation as an example.
+
+### Phone number transformation
+
+A US phone number starts with 3 numbers, surrounded by round brackets, which gives information about the area. Then, after a space, 7 more numbers follow, with a hyphen between the first three and the last four.
+
+<Solid block>
+
+```ts
+import { toCustom, TransformOptions } from '@modular-forms/solid';
+
+export function toPhoneNumber(options: TransformOptions) {
+  return toCustom<string>((value) => {
+    // Remove everything that is not a number
+    const numbers = value.replace(/\D/g, '');
+
+    // Continue if string is not empty
+    if (numbers) {
+      // Extract area, first 3 and last 4
+      const [, area, first3, last4] = numbers.match(
+        /(\d{0,3})(\d{0,3})(\d{0,4})/
+      );
+
+      // If length or first 3 is less than 1
+      if (first3.length < 1) {
+        return `(${area}`;
+      }
+
+      // If length or last 4 is less than 1
+      if (last4.length < 1) {
+        return `(${area}) ${first3}`;
+      }
+
+      // Otherwise return full US number
+      return `(${area}) ${first3}-${last4}`;
+    }
+
+    // Otherwise return an emty string
+    return '';
+  }, options);
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+```ts
+import { toCustom$, TransformOptions } from '@modular-forms/qwik';
+
+export function toPhoneNumber(options: TransformOptions) {
+  return toCustom$<string>((value) => {
+    // Remove everything that is not a number
+    const numbers = value.replace(/\D/g, '');
+
+    // Continue if string is not empty
+    if (numbers) {
+      // Extract area, first 3 and last 4
+      const [, area, first3, last4] = numbers.match(
+        /(\d{0,3})(\d{0,3})(\d{0,4})/
+      );
+
+      // If length or first 3 is less than 1
+      if (first3.length < 1) {
+        return `(${area}`;
+      }
+
+      // If length or last 4 is less than 1
+      if (last4.length < 1) {
+        return `(${area}) ${first3}`;
+      }
+
+      // Otherwise return full US number
+      return `(${area}) ${first3}-${last4}`;
+    }
+
+    // Otherwise return an emty string
+    return '';
+  }, options);
+}
+```
+
+</Qwik>
+
+### Use custom function in JSX
+
+You can now call the `toPhoneNumber` transformation function and pass it to the `transform` property as follows:
+
+```tsx
+<Field name="phone" transform={toPhoneNumber({ on: 'input' })}>
+  {(field, props) => (
+    <input
+      {...props}
+      type="tel"
+      placeholder="(000) 000-0000"
+      value={field.value}
+    />
+  )}
+</Field>
+```
+
+<Solid block>
+
+## Use input masks
+
+Another way to transform inputs are input masks and to our advantage the SolidJS community provides a suitable package for this with <a href="https://solid-primitives.netlify.app/package/input-mask" target="_blank" rel="noreferrer">`@solid-primitives/input-mask`</a>. In the following I would like to make an example.
+
+### Create an input mask
+
+To create an input mask you use the `createInputMask` primitive. As generic you pass our <A href="../../api/FieldEvent">`FieldEvent`</A> and as parameter for example a string that defines the mask. Then you can use the mask in the <A href="../../api/toCustom">`toCustom`</A> function as follows:
+
+```tsx
+import { createForm, FieldEvent, toCustom } from '@modular-forms/solid';
+import { createInputMask } from '@solid-primitives/input-mask';
+
+type DateForm = { date: string };
+
+export default function App() {
+  const [dateForm, { Form, Field }] = createForm<DateForm>();
+  const dateMask = createInputMask<FieldEvent>('99/99/9999');
+
+  return (
+    <Form>
+      <Field
+        name="date"
+        transform={toCustom((_, event) => dateMask(event), { on: 'change' })}
+      >
+        {(field, props) => (
+          <input
+            {...props}
+            type="text"
+            placeholder="01/01/2023"
+            value={field.value}
+          />
+        )}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+### Custom toInputMask function
+
+To make the code more readable you can create your own `toInputMask` function.
+
+```ts
+import { FieldEvent, toCustom, TransformOptions } from '@modular-forms/solid';
+
+export function toInputMask(
+  inputMask: (event: FieldEvent) => string,
+  options: TransformOptions
+) {
+  return toCustom((_, event) => inputMask(event), options);
+}
+```
+
+Then you can use `toInputMask` in your JSX code as follows:
+
+```tsx
+<Field name="date" transform={toInputMask(dateMask, { on: 'change' })}>
+  {(field, props) => (
+    <input
+      {...props}
+      type="text"
+      placeholder="01/01/2023"
+      value={field.value}
+    />
+  )}
+</Field>
+```
+
+</Solid>
