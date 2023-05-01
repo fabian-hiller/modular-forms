@@ -4,7 +4,7 @@ All notable changes to the library will be documented in this file.
 
 ## v0.11.0 (May 01, 2023)
 
-- Add `transform` prop to `Field` component
+- Add `transform` prop to `Field` component (issue #40)
 - Add `toCustom` transformation function
 
 ## v0.10.1 (April 29, 2023)

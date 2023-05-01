@@ -2,9 +2,9 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.13.0 (May 01, 2023)
 
-- Add `transform` prop to `Field` component
+- Add `transform` prop to `Field` component (issue #40)
 - Add `toCustom` transformation function
 - Remove unused `InitialValues` and `MaybeFunction` utility type
 
