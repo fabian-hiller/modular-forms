@@ -10,6 +10,7 @@ export * from './LogoIcon';
 export * from './NightIcon';
 export * from './PageIcon';
 export * from './PenIcon';
+export * from './PreactIcon';
 export * from './QwikIcon';
 export * from './SearchIcon';
 export * from './SolidIcon';

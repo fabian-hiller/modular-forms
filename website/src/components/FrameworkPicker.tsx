@@ -5,7 +5,7 @@ import { createSignal, For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { A, useLocation } from 'solid-start';
 import { frameworks, getFramework, useFramework } from '~/contexts';
-import { AngleDownIcon, QwikIcon, SolidIcon } from '~/icons';
+import { AngleDownIcon, PreactIcon, QwikIcon, SolidIcon } from '~/icons';
 import { createFocusTrap } from '~/primitives';
 
 type FrameworkPickerProps = {
@@ -39,13 +39,21 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
    * Returns the name of the framework.
    */
   const getName = (framework: string) =>
-    framework === 'solid' ? 'SolidJS' : 'Qwik';
+    framework === 'solid'
+      ? 'SolidJS'
+      : framework === 'qwik'
+      ? 'Qwik'
+      : 'Preact';
 
   /**
    * Returns the icon of the framework.
    */
   const getIcon = (framework: string) =>
-    framework === 'solid' ? SolidIcon : QwikIcon;
+    framework === 'solid'
+      ? SolidIcon
+      : framework === 'qwik'
+      ? QwikIcon
+      : PreactIcon;
 
   /**
    * Returns the pathname to the framework.
@@ -76,7 +84,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
       </button>
       <nav
         class={clsx(
-          'absolute z-10 w-full origin-top rounded-xl border-2 border-slate-200 bg-white/90 backdrop-blur duration-200 hover:border-slate-300 dark:border-slate-800 dark:bg-gray-900/90 dark:hover:border-slate-700',
+          'absolute z-10 w-full origin-top rounded-xl border-2 border-slate-200 bg-white/90 py-2 backdrop-blur duration-200 hover:border-slate-300 dark:border-slate-800 dark:bg-gray-900/90 dark:hover:border-slate-700',
           getOpen() ? 'translate-y-2' : 'invisible scale-y-75 opacity-0'
         )}
         aria-hidden={!getOpen()}
@@ -86,7 +94,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
         >
           {(framework) => (
             <A
-              class="focus-ring flex items-center space-x-2.5 rounded-xl px-3.5 py-3 hover:text-slate-900 dark:hover:text-slate-200"
+              class="focus-ring flex items-center space-x-2.5 rounded-xl px-3.5 py-2 hover:text-slate-900 dark:hover:text-slate-200"
               href={getPathname(framework)}
               onClick={() => {
                 setOpen(false);

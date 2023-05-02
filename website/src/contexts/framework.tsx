@@ -10,9 +10,9 @@ import {
 import { useLocation } from 'solid-start';
 import { frameworkCookie } from '~/cookies';
 
-export type Framework = 'solid' | 'qwik';
+export type Framework = 'solid' | 'qwik' | 'preact';
 
-export const frameworks: Framework[] = ['solid', 'qwik'];
+export const frameworks: Framework[] = ['solid', 'qwik', 'preact'];
 
 // Create framework context
 const FrameworkContext =

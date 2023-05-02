@@ -37,9 +37,9 @@ export function Debugger(props: DebuggerProps) {
           See code on{' '}
           <TextLink
             href={`${import.meta.env.VITE_GITHUB_PLAYGROUNDS_URL}/${
-              getFramework() === 'solid'
-                ? `solid/src/routes/${getPath()}.tsx`
-                : `qwik/src/routes/(default)/${getPath()}/index.tsx`
+              getFramework() === 'qwik'
+                ? `qwik/src/routes/(default)/${getPath()}/index.tsx`
+                : `${getFramework()}/src/routes/${getPath()}.tsx`
             }`}
             target="_blank"
             colored
@@ -50,13 +50,15 @@ export function Debugger(props: DebuggerProps) {
           or{' '}
           <TextLink
             href={
-              getFramework() === 'solid'
+              getFramework() === 'qwik'
                 ? `${
-                    import.meta.env.VITE_STACKBLITZ_SOLID_URL
-                  }?file=src/routes/${getPath()}.tsx`
-                : `${
                     import.meta.env.VITE_STACKBLITZ_QWIK_URL
                   }?file=src/routes/${getPath()}/index.tsx`
+                : `${
+                    getFramework() === 'solid'
+                      ? import.meta.env.VITE_STACKBLITZ_SOLID_URL
+                      : import.meta.env.VITE_STACKBLITZ_PREACT_URL
+                  }?file=src/routes/${getPath()}.tsx`
             }
             target="_blank"
             colored

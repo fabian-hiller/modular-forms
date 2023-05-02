@@ -7,8 +7,8 @@ export default function HomePage() {
     <>
       <Title>Modular Forms: The modular and type-safe form library</Title>
       <Description>
-        Modular Forms is a JavaScript library built on SolidJS and Qwik to
-        validate and handle various types of forms.
+        Modular Forms is a JavaScript library built on SolidJS, Qwik and Preact
+        to validate and handle various types of forms.
       </Description>
 
       <main class="flex h-full flex-1 flex-col items-center space-y-8 py-32 md:space-y-12 md:py-40 lg:justify-center lg:space-y-16">
@@ -17,7 +17,7 @@ export default function HomePage() {
           Modular Forms
         </h1>
         <p class="max-w-[400px] px-4 text-center text-lg leading-loose md:max-w-[440px] md:text-xl md:leading-loose lg:max-w-[640px] lg:text-3xl lg:leading-loose">
-          The modular and type-safe form library for SolidJS and Qwik
+          The modular and type-safe form library for SolidJS, Qwik and Preact
         </p>
 
         <ButtonGroup class="justify-center">

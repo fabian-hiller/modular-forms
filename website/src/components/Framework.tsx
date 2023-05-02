@@ -1,10 +1,9 @@
-import clsx from 'clsx';
 import { JSX, Show } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { getFramework, type Framework } from '~/contexts';
 
 type FrameworkProps = {
-  framework: Framework;
+  frameworks: Framework[];
   children: JSX.Element;
   block?: boolean;
 };
@@ -18,7 +17,9 @@ function Framework(props: FrameworkProps) {
       class={props.block ? 'framework' : undefined}
       component={props.block ? 'div' : 'span'}
     >
-      <Show when={props.framework === getFramework()}>{props.children}</Show>
+      <Show when={props.frameworks.includes(getFramework())}>
+        {props.children}
+      </Show>
     </Dynamic>
   );
 }
@@ -26,13 +27,41 @@ function Framework(props: FrameworkProps) {
 /**
  * Displays its children when SolidJS is currently selected.
  */
-export function Solid(props: Omit<FrameworkProps, 'framework'>) {
-  return <Framework {...props} framework="solid" />;
+export function Solid(props: Omit<FrameworkProps, 'frameworks'>) {
+  return <Framework {...props} frameworks={['solid']} />;
 }
 
 /**
  * Displays its children when Qwik is currently selected.
  */
-export function Qwik(props: Omit<FrameworkProps, 'framework'>) {
-  return <Framework {...props} framework="qwik" />;
+export function Qwik(props: Omit<FrameworkProps, 'frameworks'>) {
+  return <Framework {...props} frameworks={['qwik']} />;
+}
+
+/**
+ * Displays its children when Preact is currently selected.
+ */
+export function Preact(props: Omit<FrameworkProps, 'frameworks'>) {
+  return <Framework {...props} frameworks={['preact']} />;
+}
+
+/**
+ * Displays its children when SolidJS or Qwik is currently selected.
+ */
+export function SolidOrQwik(props: Omit<FrameworkProps, 'frameworks'>) {
+  return <Framework {...props} frameworks={['solid', 'qwik']} />;
+}
+
+/**
+ * Displays its children when SolidJS or Preact is currently selected.
+ */
+export function SolidOrPreact(props: Omit<FrameworkProps, 'frameworks'>) {
+  return <Framework {...props} frameworks={['solid', 'preact']} />;
+}
+
+/**
+ * Displays its children when Qwik or Preact is currently selected.
+ */
+export function QwikOrPreact(props: Omit<FrameworkProps, 'frameworks'>) {
+  return <Framework {...props} frameworks={['qwik', 'preact']} />;
 }
