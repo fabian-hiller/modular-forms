@@ -26,7 +26,6 @@ type TodoForm = {
 };
 
 const initialValues = {
-  heading: 'sdsd',
   todos: [
     {
       label: '3 cucumbers',
@@ -36,7 +35,7 @@ const initialValues = {
       label: '5 Tomatoes',
       deadline: new Date(Date.now() + 1728e5).toISOString().split('T')[0],
     },
-    // {},
+    {},
   ],
 };
 
