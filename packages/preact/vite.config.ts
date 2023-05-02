@@ -13,7 +13,7 @@ export default defineConfig(() => {
       },
       minify: false,
       rollupOptions: {
-        external: ['preact', '@preact/signals'],
+        external: ['preact', 'preact/hooks', '@preact/signals'],
       },
     },
     plugins: [preact()],

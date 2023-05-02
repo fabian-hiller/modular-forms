@@ -28,7 +28,7 @@ export function TextInput({ label, value, error, ...props }: TextInputProps) {
   const input = useSignal<string | number | undefined>(undefined);
   useSignalEffect(() => {
     if (!Number.isNaN(value.value)) {
-      input.value = value.value;
+      input.value = value.value === undefined ? '' : value.value;
     }
   });
   return (
@@ -38,12 +38,12 @@ export function TextInput({ label, value, error, ...props }: TextInputProps) {
         {...props}
         class={clsx(
           'h-14 w-full rounded-2xl border-2 bg-white px-5 outline-none placeholder:text-slate-500 dark:bg-gray-900 md:h-16 md:text-lg lg:h-[70px] lg:px-6 lg:text-xl',
-          error
+          error?.value
             ? 'border-red-600/50 dark:border-red-400/50'
             : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50'
         )}
         id={name}
-        value={input.value}
+        value={input}
         aria-invalid={!!error}
         aria-errormessage={`${name}-error`}
       />

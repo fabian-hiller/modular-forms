@@ -76,7 +76,9 @@ export function useLifecycle<
           : [transform]
         : [];
     }
+  }, [store, transform, validate]);
 
+  useEffect(() => {
     // Create unique consumer ID
     const consumer = getUniqueId();
 
@@ -120,5 +122,5 @@ export function useLifecycle<
         });
       }
     };
-  }, [form, name, store, validate, transform, keepActive, keepState]);
+  }, [form, name, store, keepActive, keepState]);
 }

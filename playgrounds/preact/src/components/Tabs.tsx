@@ -70,13 +70,13 @@ export function Tabs(props: TabsProps) {
       <div class="relative flex-1 border-b-2 border-b-slate-200 dark:border-b-slate-800">
         <nav class="flex space-x-8 lg:space-x-14" ref={navElement}>
           {props.items.map((item) => {
-            const href = `/${item.toLowerCase().replace(/ /g, '-')}/`;
+            const href = `/${item.toLowerCase().replace(/ /g, '-')}`;
             return (
               <Link
                 key={href}
                 class={clsx(
                   'block pb-4 lg:text-lg',
-                  router.path?.endsWith(href)
+                  href === router.path
                     ? 'text-sky-600 dark:text-sky-400'
                     : 'hover:text-slate-900 dark:hover:text-slate-200'
                 )}
@@ -90,7 +90,7 @@ export function Tabs(props: TabsProps) {
         </nav>
         <div
           class="absolute -bottom-0.5 m-0 h-0.5 rounded bg-sky-600 duration-200 dark:bg-sky-400"
-          style={indicatorStyle}
+          style={indicatorStyle.value}
         />
       </div>
     </div>

@@ -34,6 +34,7 @@ export function ColorButton({
           'border-red-600/20 text-red-600 hover:bg-red-600/10 dark:border-red-400/20 dark:text-red-400 dark:hover:bg-red-400/10',
         width !== 'auto' && 'w-full md:w-auto'
       )}
+      type="button"
     >
       {label}
     </button>

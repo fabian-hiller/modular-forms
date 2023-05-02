@@ -1,7 +1,13 @@
 {
-  "name": "preact",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@modular-forms/preact-playground",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Fabian Hiller",
+  "homepage": "https://modularforms.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabian-hiller/modular-forms"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",

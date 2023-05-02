@@ -29,7 +29,7 @@ export function getElementInput<
     element as HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement;
   return (
     !type || type === 'string'
-      ? value
+      ? value || ''
       : type === 'string[]'
       ? options
         ? [...options]
@@ -39,15 +39,15 @@ export function getElementInput<
         ? [...((field.value.peek() || []) as string[]), value]
         : ((field.value.peek() || []) as string[]).filter((v) => v !== value)
       : type === 'number'
-      ? valueAsNumber
+      ? valueAsNumber || NaN
       : type === 'boolean'
-      ? checked
-      : type === 'File' && files
-      ? files[0]
-      : type === 'File[]' && files
-      ? [...files]
-      : type === 'Date' && valueAsDate
-      ? valueAsDate
+      ? !!checked
+      : type === 'File'
+      ? files?.[0] || null
+      : type === 'File[]'
+      ? [...(files || [])]
+      : type === 'Date'
+      ? valueAsDate || null
       : field.value.peek()
   ) as FieldPathValue<TFieldValues, TFieldName>;
 }

@@ -6,7 +6,7 @@ import { InputLabel } from './InputLabel';
 
 type SliderProps = {
   name: string;
-  value?: number;
+  value: ReadonlySignal<number | undefined>;
   ref: Ref<HTMLInputElement>;
   onInput: JSX.GenericEventHandler<HTMLInputElement>;
   onChange: JSX.GenericEventHandler<HTMLInputElement>;
