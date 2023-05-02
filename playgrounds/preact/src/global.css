@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Disable-transitions */
+.disable-transitions,
+.disable-transitions * {
+  transition: none !important;
+}
+
+/* Reset appearance */
+[type='date'] {
+  @apply flex appearance-none items-center justify-start;
+}

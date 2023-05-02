@@ -31,7 +31,7 @@ export function createForm<
   FormStore<TFieldValues, TResponseData>,
   {
     Form: (
-      props: Omit<FormProps<TFieldValues, TResponseData>, 'of' | 'action'>
+      props: Omit<FormProps<TFieldValues, TResponseData>, 'of'>
     ) => JSX.Element;
     Field: <TFieldName extends FieldPath<TFieldValues>>(
       props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
@@ -57,7 +57,7 @@ export function createForm<
     form,
     {
       Form: (
-        props: Omit<FormProps<TFieldValues, TResponseData>, 'of' | 'action'>
+        props: Omit<FormProps<TFieldValues, TResponseData>, 'of'>
         // eslint-disable-next-line solid/reactivity
       ) => Form(mergeProps({ of: form }, props)),
       Field: <TFieldName extends FieldPath<TFieldValues>>(

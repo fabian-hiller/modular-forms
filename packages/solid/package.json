@@ -17,10 +17,9 @@
     "solidjs",
     "performance",
     "bundle-size",
-    "reactive",
-    "form-validation",
     "validation",
-    "typescript"
+    "typescript",
+    "type-safe"
   ],
   "sideEffects": false,
   "type": "module",

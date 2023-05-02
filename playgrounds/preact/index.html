@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preact Playground | Modular Forms</title>
+    <script>
+      if (!window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+  </head>
+  <body
+    class="font-lexend space-y-12 bg-white py-12 text-slate-600 dark:bg-gray-900 dark:text-slate-400 md:space-y-14 md:py-14 lg:space-y-16 lg:py-16"
+    lang="en"
+  >
+    <div id="app"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

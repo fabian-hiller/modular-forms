@@ -1,3 +1,4 @@
+import { untrack } from 'solid-js';
 import type {
   FieldArrayPath,
   FieldPath,
@@ -10,7 +11,6 @@ import type {
   ValidationMode,
 } from '../types';
 import { validate } from '../methods';
-import { untrack } from 'solid-js';
 
 /**
  * Value type of the validate otions.
