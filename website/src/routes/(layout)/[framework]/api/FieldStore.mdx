@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { isPreact } from '~/contexts';
 
 <Title>FieldStore</Title>
 <Description>Type that defines the store of a form field.</Description>
@@ -11,20 +12,89 @@ Type that defines the store of a form field.
 
 - `FieldStore` <Property type="object" />
   - `name` <Property type="string" />
-  - `value` <Property {...properties.value} />
-  - `error` <Property type="string" />
-  - `active` <Property type="boolean" />
-  - `touched` <Property type="boolean" />
-  - `dirty` <Property type="boolean" />
-
-The state properties of the field are reactive and can be used, for example, in the JSX area or the `useTask$` hook.
+  - `value` <Property {...properties[isPreact() ? 'preact' : 'default'].value} />
+  - `error` <Property {...properties[isPreact() ? 'preact' : 'default'].error} />
+  - `active` <Property {...properties[isPreact() ? 'preact' : 'default'].active} />
+  - `touched` <Property {...properties[isPreact() ? 'preact' : 'default'].touched} />
+  - `dirty` <Property {...properties[isPreact() ? 'preact' : 'default'].dirty} />
 
 export const properties = {
-  value: {
-    type: {
-      type: 'custom',
-      name: 'FieldValue',
-      href: '../FieldValue',
+  default: {
+    value: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'FieldValue',
+            href: '../FieldValue',
+          },
+        ],
+      },
+    },
+    error: {
+      type: 'string',
+    },
+    active: {
+      type: 'boolean',
+    },
+    touched: {
+      type: 'boolean',
+    },
+    dirty: {
+      type: 'boolean',
+    },
+  },
+  preact: {
+    value: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: [
+          {
+            type: 'custom',
+            name: 'Maybe',
+            href: '../Maybe',
+            generics: [
+              {
+                type: 'custom',
+                name: 'FieldValue',
+                href: '../FieldValue',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    error: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['string'],
+      },
+    },
+    active: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['boolean'],
+      },
+    },
+    touched: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['boolean'],
+      },
+    },
+    dirty: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['boolean'],
+      },
     },
   },
 };

@@ -1,6 +1,12 @@
 import { A } from 'solid-start';
 import { HttpStatusCode } from 'solid-start/server';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  QwikOrPreact,
+  Solid,
+  Title,
+} from '~/components';
 
 <Title>useForm</Title>
 <Description>
@@ -10,7 +16,7 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 # useForm
 
-<Qwik block>
+<QwikOrPreact block>
 
 Creates and returns the store of the form as well as a linked Form, Field and FieldArray component.
 
@@ -48,13 +54,13 @@ If you use TypeScript, you should define your field values. This way the library
 
 Since the <A href="../Form">`Form`</A>, <A href="../Form">`Field`</A> and <A href="../Form">`FieldArray`</A> components are already linked to your form, you don't need to add the `of` property.
 
-</Qwik>
+</QwikOrPreact>
 
 <Solid block>
 
 <HttpStatusCode code={404} />
 
-> This page is exclusively for the Qwik library of Modular Forms.
+> This page is exclusively for the Qwik and Preact library of Modular Forms.
 
 </Solid>
 

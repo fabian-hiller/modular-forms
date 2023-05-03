@@ -1,5 +1,11 @@
 import { HttpStatusCode } from 'solid-start/server';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>zodField$</Title>
 <Description>
@@ -26,13 +32,13 @@ const validate = zodField$(schema);
 
 </Qwik>
 
-<Solid block>
+<SolidOrPreact block>
 
 <HttpStatusCode code={404} />
 
 > This page is exclusively for the Qwik library of Modular Forms.
 
-</Solid>
+</SolidOrPreact>
 
 export const properties = {
   schema: {

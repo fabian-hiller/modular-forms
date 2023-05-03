@@ -1,5 +1,6 @@
 import { A } from 'solid-start';
 import { Description, Property, Title } from '~/components';
+import { isPreact } from '~/contexts';
 
 <Title>FormStore</Title>
 <Description>Type that defines the store of a form.</Description>
@@ -11,15 +12,15 @@ Type that defines the store of a form.
 ## Definition
 
 - `FormStore` <Property type="object" />
-  - `element` <Property {...properties.element} />
-  - `submitCount` <Property type="number" />
-  - `submitting` <Property type="boolean" />
-  - `submitted` <Property type="boolean" />
-  - `validating` <Property type="boolean" />
-  - `touched` <Property type="boolean" />
-  - `dirty` <Property type="boolean" />
-  - `invalid` <Property type="boolean" />
-  - `response` <Property {...properties.response} />
+  - `element` <Property {...properties[isPreact() ? 'preact' : 'default'].element} />
+  - `submitCount` <Property {...properties[isPreact() ? 'preact' : 'default'].submitCount} />
+  - `submitting` <Property {...properties[isPreact() ? 'preact' : 'default'].submitting} />
+  - `submitted` <Property {...properties[isPreact() ? 'preact' : 'default'].submitted} />
+  - `validating` <Property {...properties[isPreact() ? 'preact' : 'default'].validating} />
+  - `touched` <Property {...properties[isPreact() ? 'preact' : 'default'].touched} />
+  - `dirty` <Property {...properties[isPreact() ? 'preact' : 'default'].dirty} />
+  - `invalid` <Property {...properties[isPreact() ? 'preact' : 'default'].invalid} />
+  - `response` <Property {...properties[isPreact() ? 'preact' : 'default'].response} />
 
 > The object also contains a key named `internal` which provides API's that we need internally in the library. You should not access it. Instead, use the form, field and array methods we provide you.
 
@@ -30,15 +31,112 @@ The properties of the form are reactive and can be used, for example, in the JSX
 Errors that occur when submitting the form are made accessible via the `response` object. In conjunction with the <A href="../setResponse">`setResponse`</A> method, you can also use `response` to display custom feedback to your user.
 
 export const properties = {
-  element: {
-    type: {
-      type: 'custom',
-      name: 'Maybe',
-      href: '../Maybe',
-      generics: [{ type: 'custom', name: 'HTMLFormElement' }],
+  default: {
+    element: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [{ type: 'custom', name: 'HTMLFormElement' }],
+      },
+    },
+    submitCount: {
+      type: 'number',
+    },
+    submitting: {
+      type: 'boolean',
+    },
+    submitted: {
+      type: 'boolean',
+    },
+    validating: {
+      type: 'boolean',
+    },
+    touched: {
+      type: 'boolean',
+    },
+    dirty: {
+      type: 'boolean',
+    },
+    invalid: {
+      type: 'boolean',
+    },
+    response: {
+      type: { type: 'custom', name: 'FormResponse', href: '../FormResponse' },
     },
   },
-  response: {
-    type: { type: 'custom', name: 'FormResponse', href: '../FormResponse' },
+  preact: {
+    element: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: [
+          {
+            type: 'custom',
+            name: 'MaybeValue',
+            href: '../MaybeValue',
+            generics: [{ type: 'custom', name: 'HTMLFormElement' }],
+          },
+        ],
+      },
+    },
+    submitCount: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: ['number'],
+      },
+    },
+    submitting: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: ['boolean'],
+      },
+    },
+    submitted: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: ['boolean'],
+      },
+    },
+    validating: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: ['boolean'],
+      },
+    },
+    touched: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: ['boolean'],
+      },
+    },
+    dirty: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: ['boolean'],
+      },
+    },
+    invalid: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: ['boolean'],
+      },
+    },
+    response: {
+      type: {
+        type: 'custom',
+        name: 'Signal',
+        generics: [
+          { type: 'custom', name: 'FormResponse', href: '../FormResponse' },
+        ],
+      },
+    },
   },
 };

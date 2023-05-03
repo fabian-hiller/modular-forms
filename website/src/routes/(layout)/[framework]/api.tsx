@@ -46,7 +46,7 @@ export default function ApiLayout() {
         {
           heading: 'Validation',
           items: [
-            isSolid() ? 'custom' : 'custom$',
+            isQwik() ? 'custom$' : 'custom',
             'email',
             'maxLength',
             'maxRange',
@@ -65,13 +65,11 @@ export default function ApiLayout() {
         },
         {
           heading: 'Transformation',
-          items: [isSolid() ? 'toCustom' : 'toCustom$'],
+          items: [isQwik() ? 'toCustom$' : 'toCustom'],
         },
         {
           heading: 'Adapters',
-          items: isSolid()
-            ? ['zodField', 'zodForm']
-            : ['zodField$', 'zodForm$'],
+          items: isQwik() ? ['zodField$', 'zodForm$'] : ['zodField', 'zodForm'],
         },
         {
           heading: 'Types',

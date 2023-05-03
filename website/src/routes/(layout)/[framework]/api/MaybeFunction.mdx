@@ -1,5 +1,11 @@
 import { HttpStatusCode } from 'solid-start/server';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>MaybeFunction</Title>
 <Description>
@@ -22,13 +28,13 @@ Utility type that transforms a type into a maybe `Function` type.
 
 </Qwik>
 
-<Solid block>
+<SolidOrPreact block>
 
 <HttpStatusCode code={404} />
 
 > This page is exclusively for the Qwik library of Modular Forms.
 
-</Solid>
+</SolidOrPreact>
 
 export const properties = {
   Value: {

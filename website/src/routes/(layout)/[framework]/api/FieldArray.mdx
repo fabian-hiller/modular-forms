@@ -1,4 +1,5 @@
 import { Description, Property, Title } from '~/components';
+import { isQwik } from '~/contexts';
 
 <Title>FieldArray</Title>
 <Description>
@@ -19,7 +20,7 @@ Headless field array that provides reactive properties and state.
 
 - `of` <Property {...properties.of} />
 - `name` <Property type="string" />
-- `validate` <Property {...properties.validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
 - `children` <Property {...properties.children} />
@@ -38,27 +39,6 @@ export const properties = {
       type: 'custom',
       name: 'FormStore',
       href: '../FormStore',
-    },
-  },
-  validate: {
-    type: {
-      type: 'custom',
-      name: 'Maybe',
-      href: '../Maybe',
-      generics: [
-        {
-          type: 'custom',
-          name: 'MaybeArray',
-          href: '../MaybeArray',
-          generics: [
-            {
-              type: 'custom',
-              name: 'ValidateFieldArray',
-              href: '../ValidateFieldArray',
-            },
-          ],
-        },
-      ],
     },
   },
   keepActive: {
@@ -83,6 +63,58 @@ export const properties = {
         },
       ],
       return: { type: 'custom', name: 'JSX.Element' },
+    },
+  },
+  default: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'MaybeArray',
+            href: '../MaybeArray',
+            generics: [
+              {
+                type: 'custom',
+                name: 'ValidateFieldArray',
+                href: '../ValidateFieldArray',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  qwik: {
+    validate: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'MaybeArray',
+            href: '../MaybeArray',
+            generics: [
+              {
+                type: 'custom',
+                name: 'QRL',
+                generics: [
+                  {
+                    type: 'custom',
+                    name: 'ValidateFieldArray',
+                    href: '../ValidateFieldArray',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     },
   },
 };

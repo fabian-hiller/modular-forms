@@ -1,6 +1,5 @@
-import { A } from 'solid-start';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { Description, Property, Title } from '~/components';
+import { isQwik } from '~/contexts';
 
 <Title>Field</Title>
 <Description>
@@ -30,8 +29,8 @@ Headless form field that provides reactive properties and state.
 - `of` <Property {...properties.of} />
 - `name` <Property type="string" />
 - `type` <Property {...properties.type} />
-- `validate` <Property {...properties[getFramework()].validate} />
-- `transform` <Property {...properties[getFramework()].transform} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
+- `transform` <Property {...properties[isQwik() ? 'qwik' : 'default'].transform} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
 - `children` <Property {...properties.children} />
@@ -105,7 +104,7 @@ export const properties = {
       return: { type: 'custom', name: 'JSX.Element' },
     },
   },
-  solid: {
+  default: {
     validate: {
       type: {
         type: 'custom',

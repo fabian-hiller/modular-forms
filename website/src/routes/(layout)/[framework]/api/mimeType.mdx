@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { isQwik } from '~/contexts';
 
 <Title>mimeType</Title>
 <Description>
@@ -21,13 +21,13 @@ const validate = mimeType(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
 
 export const properties = {
   requirement: {
     type: ['string', { type: 'array', item: 'string' }],
   },
-  solid: {
+  default: {
     validate: {
       type: {
         type: 'function',

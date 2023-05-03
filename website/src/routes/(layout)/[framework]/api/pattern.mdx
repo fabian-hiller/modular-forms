@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { isQwik } from '~/contexts';
 
 <Title>pattern</Title>
 <Description>
@@ -21,7 +21,7 @@ const validate = pattern(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
 
 export const properties = {
   requirement: {
@@ -30,7 +30,7 @@ export const properties = {
       name: 'RegExp',
     },
   },
-  solid: {
+  default: {
     validate: {
       type: {
         type: 'function',

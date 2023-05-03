@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { isQwik } from '~/contexts';
 
 <Title>minTotalSize</Title>
 <Description>
@@ -21,10 +21,10 @@ const validate = minTotalSize(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
 
 export const properties = {
-  solid: {
+  default: {
     validate: {
       type: {
         type: 'function',

@@ -1,5 +1,11 @@
 import { HttpStatusCode } from 'solid-start/server';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>zodField</Title>
 <Description>
@@ -8,7 +14,7 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 # zodField
 
-<Solid block>
+<SolidOrPreact block>
 
 Creates a validation functions that parses the Zod schema of a field.
 
@@ -24,13 +30,13 @@ const validate = zodField(schema);
 
 - `validate` <Property {...properties.validate} />
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 
 <HttpStatusCode code={404} />
 
-> This page is exclusively for the SolidJS library of Modular Forms.
+> This page is exclusively for the SolidJS and Preact library of Modular Forms.
 
 </Qwik>
 

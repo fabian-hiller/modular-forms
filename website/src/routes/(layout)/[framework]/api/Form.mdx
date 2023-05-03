@@ -1,5 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
+import { isPreact } from '~/contexts';
 
 <Title>Form</Title>
 <Description>
@@ -10,7 +17,7 @@ import { Description, Property, Qwik, Solid, Title } from '~/components';
 
 Form element that takes care of validation and simplifies submission.
 
-<Solid block>
+<SolidOrPreact block>
 
 ```tsx
 <Form
@@ -26,7 +33,7 @@ Form element that takes care of validation and simplifies submission.
 </Form>
 ```
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 
@@ -51,22 +58,22 @@ Form element that takes care of validation and simplifies submission.
 
 ## Properties
 
-<Solid block>
+<SolidOrPreact block>
 
-- `of` <Property {...properties.solid.of} />
-- `onSubmit` <Property {...properties.solid.onSubmit} />
+- `of` <Property {...properties.of} />
+- `onSubmit` <Property {...properties.default.onSubmit} />
 - `keepResponse` <Property {...properties.keepResponse} />
 - `shouldActive` <Property {...properties.shouldActive} />
 - `shouldTouched` <Property {...properties.shouldTouched} />
 - `shouldDirty` <Property {...properties.shouldDirty} />
 - `shouldFocus` <Property {...properties.shouldFocus} />
-- `children` <Property {...properties.children} />
+- `children` <Property {...properties[isPreact() ? 'preact' : 'default'].children} />
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 
-- `of` <Property {...properties.qwik.of} />
+- `of` <Property {...properties.of} />
 - `action` <Property {...properties.qwik.action} />
 - `onSubmit$` <Property {...properties.qwik.onSubmit$} />
 - `encType` <Property {...properties.qwik.encType} />
@@ -76,7 +83,7 @@ Form element that takes care of validation and simplifies submission.
 - `shouldTouched` <Property {...properties.shouldTouched} />
 - `shouldDirty` <Property {...properties.shouldDirty} />
 - `shouldFocus` <Property {...properties.shouldFocus} />
-- `children` <Property {...properties.children} />
+- `children` <Property {...properties.default.children} />
 
 </Qwik>
 
@@ -84,15 +91,15 @@ Form element that takes care of validation and simplifies submission.
 
 ### Explanation
 
-<Solid block>
+<SolidOrPreact block>
 
 When the form is submitted, `event.preventDefault()` is executed by default to prevent the window from reloading so that the values can also be processed directly in the browser and the state of the form is preserved.
 
-</Solid>
+</SolidOrPreact>
 
-Before executing the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
+Before executing the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
-Errors thrown by the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <Solid><A href="../FormStore">`FormStore`</A></Solid><Qwik><A href="../FormStore">`FormStore`</A></Qwik> object to display them to your user.
+Errors thrown by the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <A href="../FormStore">`FormStore`</A> object to display them to your user.
 
 <Qwik block>
 
@@ -100,13 +107,20 @@ If JavaScript is available, we use `preventdefault:submit` to prevent the page f
 
 </Qwik>
 
-By default, the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
+By default, the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
 
-By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
 
-`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
 
 export const properties = {
+  of: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
   keepResponse: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
@@ -127,48 +141,19 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  children: {
-    type: { type: 'custom', name: 'JSX.Element' },
-  },
-  solid: {
-    of: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '../FormStore',
-      },
-    },
+  default: {
     onSubmit: {
       type: {
-        type: 'function',
-        params: [
-          {
-            name: 'values',
-            type: {
-              type: 'custom',
-              name: 'FieldValues',
-              href: '../FieldValues',
-            },
-          },
-          { name: 'event', type: { type: 'custom', name: 'SubmitEvent' } },
-        ],
-        return: {
-          type: 'custom',
-          name: 'MaybePromise',
-          href: '../MaybePromise',
-          generics: ['void'],
-        },
+        type: 'custom',
+        name: 'SubmitHandler',
+        href: '../SubmitHandler',
       },
+    },
+    children: {
+      type: { type: 'custom', name: 'JSX.Element' },
     },
   },
   qwik: {
-    of: {
-      type: {
-        type: 'custom',
-        name: 'FormStore',
-        href: '../FormStore',
-      },
-    },
     action: {
       type: {
         type: 'custom',
@@ -204,36 +189,16 @@ export const properties = {
     },
     onSubmit$: {
       type: {
-        type: 'function',
-        params: [
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
           {
-            name: 'values',
-            type: {
-              type: 'custom',
-              name: 'FieldValues',
-              href: '../FieldValues',
-            },
-          },
-          {
-            name: 'event',
-            type: {
-              type: 'custom',
-              name: 'QwikSubmitEvent',
-              generics: [
-                {
-                  type: 'custom',
-                  name: 'HTMLFormElement',
-                },
-              ],
-            },
+            type: 'custom',
+            name: 'SubmitHandler',
+            href: '../SubmitHandler',
           },
         ],
-        return: {
-          type: 'custom',
-          name: 'MaybePromise',
-          href: '../MaybePromise',
-          generics: ['void'],
-        },
       },
     },
     encType: {
@@ -252,6 +217,11 @@ export const properties = {
     reloadDocument: {
       type: 'boolean',
       defaultValue: { type: 'boolean', value: false },
+    },
+  },
+  preact: {
+    children: {
+      type: { type: 'custom', name: 'ComponentChildren' },
     },
   },
 };

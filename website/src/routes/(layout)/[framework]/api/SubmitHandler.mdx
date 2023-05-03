@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { isQwik } from '~/contexts';
 
 <Title>SubmitHandler</Title>
 <Description>
@@ -12,10 +12,10 @@ Type that defines the submission handler function of the form.
 
 ## Definition
 
-- `SubmitHandler` <Property {...properties[getFramework()].SubmitHandler} />
+- `SubmitHandler` <Property {...properties[isQwik() ? 'qwik' : 'default'].SubmitHandler} />
 
 export const properties = {
-  solid: {
+  default: {
     SubmitHandler: {
       type: {
         type: 'function',

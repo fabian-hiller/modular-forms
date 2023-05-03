@@ -82,3 +82,12 @@ export function isSolid() {
 export function isQwik() {
   return getFramework() === 'qwik';
 }
+
+/**
+ * Returns whether Preact is currently selected as framework.
+ *
+ * @returns Whether Preact is selected.
+ */
+export function isPreact() {
+  return getFramework() === 'preact';
+}

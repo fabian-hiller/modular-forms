@@ -1,4 +1,10 @@
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>FieldEvent</Title>
 <Description>Type that defines the HTML element of a field.</Description>
@@ -9,12 +15,12 @@ Type that defines the HTML element of a field.
 
 ## Definition
 
-<Solid block>
+<SolidOrPreact block>
 
-- `FieldEvent` <Property {...properties.solid.FieldEvent} />
-  - `currentTarget` <Property {...properties.solid.currentTarget} />
+- `FieldEvent` <Property {...properties.default.FieldEvent} />
+  - `currentTarget` <Property {...properties.default.currentTarget} />
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 
@@ -23,7 +29,7 @@ Type that defines the HTML element of a field.
 </Qwik>
 
 export const properties = {
-  solid: {
+  default: {
     FieldEvent: {
       type: {
         type: 'custom',

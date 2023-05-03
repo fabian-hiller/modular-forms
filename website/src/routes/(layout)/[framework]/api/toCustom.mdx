@@ -1,12 +1,18 @@
 import { HttpStatusCode } from 'solid-start/server';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>toCustom</Title>
 <Description>Creates a custom transformation function.</Description>
 
 # toCustom
 
-<Solid block>
+<SolidOrPreact block>
 
 Creates a custom transformation function.
 
@@ -24,7 +30,7 @@ const transform = toCustom(action, options);
 
 - `transform` <Property {...properties.transform} />
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 

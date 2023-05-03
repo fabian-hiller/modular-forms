@@ -1,5 +1,4 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/contexts';
 
 <Title>ValidateFieldArray</Title>
 <Description>
@@ -12,50 +11,23 @@ Type that defines the validation function of a field array.
 
 ## Definition
 
-- `ValidateFieldArray` <Property {...properties[getFramework()].ValidateFieldArray} />
+- `ValidateFieldArray` <Property {...properties.ValidateFieldArray} />
 
 export const properties = {
-  solid: {
-    ValidateFieldArray: {
-      type: {
-        type: 'function',
-        params: [
-          {
-            name: 'items',
-            type: { type: 'array', item: 'number' },
-          },
-        ],
-        return: {
-          type: 'custom',
-          name: 'MaybePromise',
-          href: '../MaybePromise',
-          generics: ['string'],
+  ValidateFieldArray: {
+    type: {
+      type: 'function',
+      params: [
+        {
+          name: 'items',
+          type: { type: 'array', item: 'number' },
         },
-      },
-    },
-  },
-  qwik: {
-    ValidateFieldArray: {
-      type: {
+      ],
+      return: {
         type: 'custom',
-        name: 'QRL',
-        generics: [
-          {
-            type: 'function',
-            params: [
-              {
-                name: 'items',
-                type: { type: 'array', item: 'number' },
-              },
-            ],
-            return: {
-              type: 'custom',
-              name: 'MaybePromise',
-              href: '../MaybePromise',
-              generics: ['string'],
-            },
-          },
-        ],
+        name: 'MaybePromise',
+        href: '../MaybePromise',
+        generics: ['string'],
       },
     },
   },

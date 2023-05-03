@@ -1,4 +1,10 @@
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>FormOptions</Title>
 <Description>Type that defines the options of a form.</Description>
@@ -9,15 +15,15 @@ Type that defines the options of a form.
 
 ## Definition
 
-<Solid block>
+<SolidOrPreact block>
 
 - `FormOptions` <Property {...properties.FormOptions} />
-  - `initialValues` <Property {...properties.solid.initialValues} />
-  - `validate` <Property {...properties.solid.validate} />
+  - `initialValues` <Property {...properties.default.initialValues} />
+  - `validate` <Property {...properties.default.validate} />
   - `validateOn` <Property {...properties.validateOn} />
   - `revalidateOn` <Property {...properties.revalidateOn} />
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 
@@ -35,7 +41,7 @@ Type that defines the options of a form.
 With `validateOn` and `revalidateOn` you can define your validation strategy. `validateOn` defines the time of the first validation and `revalidateOn` defines when the validation is performed again. If you set `validateOn` to `'submit'`, you set the validation strategy at the form level. In this case `revalidateOn` is applied whenever the form has already been submitted once. For all other values it refers to a single field. In this case `revalidateOn` is applied if an error has already occurred.
 
 export const properties = {
-  solid: {
+  default: {
     initialValues: {
       type: {
         type: 'Custom',
@@ -57,31 +63,9 @@ export const properties = {
         href: '../Maybe',
         generics: [
           {
-            type: 'function',
-            params: [
-              {
-                name: 'values',
-                type: {
-                  type: 'custom',
-                  name: 'PartialValues',
-                  href: '../PartialValues',
-                  generics: [
-                    {
-                      type: 'custom',
-                      name: 'FieldValues',
-                      href: '../FieldValues',
-                    },
-                  ],
-                },
-              },
-            ],
-            return: [
-              {
-                type: 'custom',
-                name: 'FormErrors',
-                href: '../FormErrors',
-              },
-            ],
+            type: 'custom',
+            name: 'ValidateForm',
+            href: '../ValidateForm',
           },
         ],
       },
@@ -158,31 +142,9 @@ export const properties = {
             name: 'QRL',
             generics: [
               {
-                type: 'function',
-                params: [
-                  {
-                    name: 'values',
-                    type: {
-                      type: 'custom',
-                      name: 'PartialValues',
-                      href: '../PartialValues',
-                      generics: [
-                        {
-                          type: 'custom',
-                          name: 'FieldValues',
-                          href: '../FieldValues',
-                        },
-                      ],
-                    },
-                  },
-                ],
-                return: [
-                  {
-                    type: 'custom',
-                    name: 'FormErrors',
-                    href: '../FormErrors',
-                  },
-                ],
+                type: 'custom',
+                name: 'ValidateForm',
+                href: '../ValidateForm',
               },
             ],
           },

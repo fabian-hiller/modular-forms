@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { isQwik } from '~/contexts';
 
 <Title>TransformField</Title>
 <Description>
@@ -12,10 +12,10 @@ Type that defines the transformation function of a field.
 
 ## Definition
 
-- `TransformField` <Property {...properties[getFramework()].TransformField} />
+- `TransformField` <Property {...properties[isQwik() ? 'qwik' : 'default'].TransformField} />
 
 export const properties = {
-  solid: {
+  default: {
     TransformField: {
       type: {
         type: 'function',

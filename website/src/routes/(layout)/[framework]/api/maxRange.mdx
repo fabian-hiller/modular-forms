@@ -1,5 +1,5 @@
-import { Description, Property, Qwik, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { Description, Property, Title } from '~/components';
+import { isQwik } from '~/contexts';
 
 <Title>maxRange</Title>
 <Description>
@@ -9,7 +9,7 @@ import { getFramework } from '~/contexts';
 
 # maxRange
 
-Creates a validation functions that validates the range of a string<Qwik>, number or date</Qwik>.
+Creates a validation functions that validates the range of a string, number or date.
 
 ```ts
 const validate = maxRange(requirement, error);
@@ -22,13 +22,13 @@ const validate = maxRange(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
 
 export const properties = {
   requirement: {
     type: ['string', 'number', { type: 'custom', name: 'Date' }],
   },
-  solid: {
+  default: {
     validate: {
       type: {
         type: 'function',

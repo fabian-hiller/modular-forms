@@ -1,12 +1,18 @@
 import { HttpStatusCode } from 'solid-start/server';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>custom</Title>
 <Description>Creates a custom validation function.</Description>
 
 # custom
 
-<Solid block>
+<SolidOrPreact block>
 
 Creates a custom validation function.
 
@@ -23,7 +29,7 @@ const validate = custom(requirement, error);
 
 - `validate` <Property {...properties.validate} />
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 

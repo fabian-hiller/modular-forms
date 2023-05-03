@@ -1,5 +1,11 @@
 import { HttpStatusCode } from 'solid-start/server';
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Property,
+  QwikOrPreact,
+  Solid,
+  Title,
+} from '~/components';
 
 <Title>createFormStore</Title>
 <Description>Creates and returns the store of the form.</Description>
@@ -35,13 +41,13 @@ If you use TypeScript, you should define your field values. This way the library
 
 </Solid>
 
-<Qwik block>
+<QwikOrPreact block>
 
 <HttpStatusCode code={404} />
 
 > This page is exclusively for the SolidJS library of Modular Forms.
 
-</Qwik>
+</QwikOrPreact>
 
 export const properties = {
   Values: {

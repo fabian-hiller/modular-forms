@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { getFramework } from '~/contexts';
+import { isQwik } from '~/contexts';
 
 <Title>url</Title>
 <Description>Creates a validation functions that validates a URL.</Description>
@@ -18,10 +18,10 @@ const validate = url(error);
 
 ## Return
 
-- `validate` <Property {...properties[getFramework()].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
 
 export const properties = {
-  solid: {
+  default: {
     validate: {
       type: {
         type: 'function',

@@ -1,4 +1,5 @@
-import { Description, Property, Qwik, Solid, Title } from '~/components';
+import { Description, Property, Qwik, Title } from '~/components';
+import { isPreact } from '~/contexts';
 
 <Title>FieldArrayStore</Title>
 <Description>Type that defines the state of a form field array.</Description>
@@ -11,14 +12,75 @@ Type that defines the state of a form field array.
 
 - `FieldArrayStore` <Property type="object" />
   - `name` <Property type="string" />
-  - `items` <Property type={{ type: 'array', item: 'number' }} />
-  - `error` <Property type="string" />
-  - `active` <Property type="boolean" />
-  - `touched` <Property type="boolean" />
-  - `dirty` <Property type="boolean" />
+  - `items` <Property {...properties[isPreact() ? 'preact' : 'default'].items} />
+  - `error` <Property {...properties[isPreact() ? 'preact' : 'default'].error} />
+  - `active` <Property {...properties[isPreact() ? 'preact' : 'default'].active} />
+  - `touched` <Property {...properties[isPreact() ? 'preact' : 'default'].touched} />
+  - `dirty` <Property {...properties[isPreact() ? 'preact' : 'default'].dirty} />
 
 ### Explanation
 
-The `items` do not contain the value of the fields, but only a random unique number. You should pass this value in the loop to the first JSX element as `key` property.
+The `items` do not contain the value of the fields, but only a random unique number.<Qwik> You should pass this value in the loop to the first JSX element as `key` property.</Qwik>
 
-The state properties of the field array are reactive and can be used, for example, in the JSX area or the <Solid>`createEffect` primitive</Solid><Qwik>`useTask$` hook</Qwik>.
+export const properties = {
+  default: {
+    items: {
+      type: 'array',
+      item: 'number',
+    },
+    error: {
+      type: 'string',
+    },
+    active: {
+      type: 'boolean',
+    },
+    touched: {
+      type: 'boolean',
+    },
+    dirty: {
+      type: 'boolean',
+    },
+  },
+  preact: {
+    items: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: [
+          {
+            type: 'array',
+            item: 'number',
+          },
+        ],
+      },
+    },
+    error: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['string'],
+      },
+    },
+    active: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['boolean'],
+      },
+    },
+    touched: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['boolean'],
+      },
+    },
+    dirty: {
+      type: {
+        type: 'custom',
+        name: 'ReadonlySignal',
+        generics: ['boolean'],
+      },
+    },
+  },
+};
