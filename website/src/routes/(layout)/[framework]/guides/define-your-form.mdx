@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import { Description, Qwik, SolidOrPreact, Title } from '~/components';
 
 <Title>Define your form</Title>
 <Description>
@@ -20,7 +20,7 @@ Modular Forms was designed with type safety in mind. Our API design reduces erro
 
 Below you will find the type definition of our special form from the <A href="../../playground/special">playground</A> that demonstrates different data types:
 
-<Solid block>
+<SolidOrPreact block>
 
 ```ts
 type SpecialForm = {
@@ -41,7 +41,7 @@ type SpecialForm = {
 };
 ```
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 
@@ -76,7 +76,7 @@ When selecting the respective types of your fields, keep in mind that an HTML in
 
 If you prefer to derive your type definition from a schema, you can optionally use <a href="https://github.com/colinhacks/zod" target="_blank" rel="noreferrer">Zod</a> for that. Below is an example:
 
-<Solid block>
+<SolidOrPreact block>
 
 ```ts
 import { z } from 'zod';
@@ -101,7 +101,7 @@ const specialSchema = z.object({
 type SpecialForm = z.input<typeof specialSchema>;
 ```
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 

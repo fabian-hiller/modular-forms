@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import { Description, Preact, Qwik, Solid, Title } from '~/components';
 
 <Title>Add fields to form</Title>
 <Description>
@@ -76,6 +76,32 @@ export default component$(() => {
 ```
 
 </Qwik>
+
+<Preact block>
+
+```tsx
+import { useForm } from '@modular-forms/preact';
+
+type LoginForm = { … };
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
+
+  return (
+    <Form>
+      <Field name="email">
+        {(field, props) => <input {...props} type="email" />}
+      </Field>
+      <Field name="password">
+        {(field, props) => <input {...props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Preact>
 
 > Please let us know via <A href="/legal/imprint">email</A> or the <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issues</a> on GitHub if something is unclear or you have ideas on how we can further improve the API and documentation.
 

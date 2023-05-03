@@ -1,5 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  Qwik,
+  Solid,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 import { getFramework } from '~/contexts';
 
 <Title>Controlled fields</Title>
@@ -18,7 +25,7 @@ As soon as your forms become more complex, for example you set initial values or
 
 ### Text input example
 
-For a text input field you simply add the `value` attribute<Solid>{' '}and pass the value of the field or in case of `undefined` or `null` an empty string</Solid>:
+For a text input field you simply add the `value` attribute<SolidOrPreact>{' '}and pass the value of the field or in case of `undefined` or `null` an empty string</SolidOrPreact>:
 
 <Solid block>
 
@@ -46,6 +53,23 @@ For a text input field you simply add the `value` attribute<Solid>{' '}and pass 
 ```
 
 </Qwik>
+
+<Preact block>
+
+```tsx
+<Field name="firstName">
+  {(field, props) => (
+    <input
+      {...props}
+      type="text"
+      // Pass value or empty string
+      value={useComputed(() => field.value.value || '')}
+    />
+  )}
+</Field>
+```
+
+</Preact>
 
 ### Exception for files
 
@@ -100,6 +124,30 @@ export const NumberInput = component$(
 
 </Qwik>
 
+<Preact block>
+
+```tsx
+import { useSignal, useSignalEffect } from '@preact/signals';
+import { forwardRef } from 'preact/compat';
+
+type NumberInputProps = { … };
+
+export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
+  (props, ref) => {
+    // Update signal if value is not `NaN`
+    const value = useSignal<number | undefined>(undefined);
+    useSignalEffect(() => {
+      if (!Number.isNaN(props.value.value)) {
+        value.value = props.value.value;
+      }
+    });
+    return <input {...props} ref={ref} type="number" value={value} />;
+  }
+);
+```
+
+</Preact>
+
 ### Date input example
 
 A date or a number representing a date must be converted to a string before it can be passed to an `<input type="date" />` field, for example. Since it is a calculated value, you can use <Solid>`createMemo`</Solid><Qwik>`useComputed$`</Qwik> for this.
@@ -113,13 +161,13 @@ type DateInputProps = { … };
 
 export function DateInput(props: DateInputProps) {
   // Transform date or number to string
-  const getValue = createMemo<string | undefined>(() =>
+  const getValue = createMemo(() =>
     props.value &&
     !Number.isNaN(
       typeof props.value === 'number' ? props.value : props.value.getTime()
     )
       ? new Date(props.value).toISOString().split('T', 1)[0]
-      : undefined
+      : ''
   );
   return <input {...props} type="date" value={getValue()} />;
 }
@@ -147,3 +195,31 @@ export const DateInput = component$(({ value, ...props }: DateInputProps) => {
 ```
 
 </Qwik>
+
+<Preact block>
+
+```tsx
+import { useComputed } from '@preact/signals';
+import { forwardRef } from 'preact/compat';
+
+type DateInputProps = { … };
+
+export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
+  (props, ref) => {
+    // Transform date or number to string
+    const value = useComputed(() =>
+      props.value.value &&
+      !Number.isNaN(
+        typeof props.value.value === 'number'
+          ? props.value.value
+          : props.value.value.getTime()
+      )
+        ? new Date(props.value.value).toISOString().split('T', 1)[0]
+        : ''
+    );
+    return <input {...props} ref={ref} type="date" value={value} />;
+  }
+);
+```
+
+</Preact>

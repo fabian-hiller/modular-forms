@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import { Description, Preact, Qwik, Solid, Title } from '~/components';
 
 <Title>TypeScript</Title>
 <Description>
@@ -18,7 +18,7 @@ For example, to pass your form to another component via props, you can use the <
 <Solid block>
 
 ```tsx
-import { createForm, Form, type FormStore, Field } from '@modular-forms/solid';
+import { createFormStore, Form, type FormStore, Field } from '@modular-forms/solid';
 
 type LoginForm = {
   email: string;
@@ -85,3 +85,39 @@ const FormContent = component$(({ loginForm }) => (
 ```
 
 </Qwik>
+
+<Preact block>
+
+```tsx
+import { Form, type FormStore, Field, useFormStore } from '@modular-forms/preact';
+
+type LoginForm = {
+  email: string;
+  password: string;
+}
+
+export function LoginPage() {
+  const loginForm = useFormStore<LoginForm>();
+  return <FormContent loginForm={loginForm} />
+}
+
+type FormContentProps {
+  loginForm: FormStore<LoginForm>;
+}
+
+function FormContent({ loginForm }: FormContentProps) {
+  return (
+    <Form of={loginForm}>
+      <Field of={loginForm} name="email">
+        {(field, props) => <input {...props} type="email" />}
+      </Field>
+      <Field of={loginForm} name="password">
+        {(field, props) => <input {...props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Preact>

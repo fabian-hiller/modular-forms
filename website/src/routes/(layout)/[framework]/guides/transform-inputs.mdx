@@ -1,5 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  Qwik,
+  Solid,
+  SolidOrPreact,
+  Title,
+} from '~/components';
 
 <Title>Transform inputs</Title>
 <Description>
@@ -18,9 +25,9 @@ You've probably entered your phone number or bank details into a form and, like 
 
 The goal of input transformation is to change the user's input at a given time. Typically at the `input` or `change` event. This is made possible with the `transform` property of the <A href="../../api/Field">`Field`</A> component.
 
-As with the `validate` property, you can pass a single function or multiple functions in an array. You can use our <Solid><A href="../../api/toCustom">`toCustom`</A></Solid><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function or write your own functions based on it. More on that in a moment.
+As with the `validate` property, you can pass a single function or multiple functions in an array. You can use our <SolidOrPreact><A href="../../api/toCustom">`toCustom`</A></SolidOrPreact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function or write your own functions based on it. More on that in a moment.
 
-<Solid block>
+<SolidOrPreact block>
 
 ```tsx
 <Field
@@ -43,7 +50,7 @@ As with the `validate` property, you can pass a single function or multiple func
 </Field>
 ```
 
-</Solid>
+</SolidOrPreact>
 
 <Qwik block>
 
@@ -72,11 +79,11 @@ As with the `validate` property, you can pass a single function or multiple func
 
 ### How toCustom<Qwik>$</Qwik> works
 
-The first parameter of the <Solid><A href="../../api/toCustom">`toCustom`</A></Solid><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function is executed if the current event type is the event type you specified in the second parameter. The function gives you access to the current `value`, as well as to the `event` object<Solid>, which you can use to access the reference of the `<input />` element via `event.currentTarget` if needed</Solid><Qwik> and `element` reference</Qwik>.
+The first parameter of the <SolidOrPreact><A href="../../api/toCustom">`toCustom`</A></SolidOrPreact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function is executed if the current event type is the event type you specified in the second parameter. The function gives you access to the current `value`, as well as to the `event` object<SolidOrPreact>, which you can use to access the reference of the `<input />` element via `event.currentTarget` if needed</SolidOrPreact><Qwik> and `element` reference</Qwik>.
 
 ## Create custom functions
 
-To make your code reusable and more readable, you can create your own transformation functions based on <Solid><A href="../../api/toCustom">`toCustom`</A></Solid><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik>. As promised, we show how this works, using a phone number transformation as an example.
+To make your code reusable and more readable, you can create your own transformation functions based on <SolidOrPreact><A href="../../api/toCustom">`toCustom`</A></SolidOrPreact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik>. As promised, we show how this works, using a phone number transformation as an example.
 
 ### Phone number transformation
 
@@ -159,6 +166,45 @@ export function toPhoneNumber(options: TransformOptions) {
 ```
 
 </Qwik>
+
+<Preact block>
+
+```ts
+import { toCustom, TransformOptions } from '@modular-forms/preact';
+
+export function toPhoneNumber(options: TransformOptions) {
+  return toCustom<string>((value) => {
+    // Remove everything that is not a number
+    const numbers = value.replace(/\D/g, '');
+
+    // Continue if string is not empty
+    if (numbers) {
+      // Extract area, first 3 and last 4
+      const [, area, first3, last4] = numbers.match(
+        /(\d{0,3})(\d{0,3})(\d{0,4})/
+      );
+
+      // If length or first 3 is less than 1
+      if (first3.length < 1) {
+        return `(${area}`;
+      }
+
+      // If length or last 4 is less than 1
+      if (last4.length < 1) {
+        return `(${area}) ${first3}`;
+      }
+
+      // Otherwise return full US number
+      return `(${area}) ${first3}-${last4}`;
+    }
+
+    // Otherwise return an emty string
+    return '';
+  }, options);
+}
+```
+
+</Preact>
 
 ### Use custom function in JSX
 

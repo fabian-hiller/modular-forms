@@ -1,17 +1,17 @@
 # Modular Forms
 
-Modular Forms is a JavaScript library built on [SolidJS](https://www.solidjs.com/) and [Qwik](https://qwik.builder.io/) to validate and handle various types of forms. It is type-safe, fast by default and the bundle size is small due to a modular design. Try it out in our [playground](https://modularforms.dev/playground)!
+Modular Forms is a JavaScript library built on [SolidJS](https://www.solidjs.com/), [Qwik](https://qwik.builder.io/) and [Preact](https://preactjs.com/) to validate and handle various types of forms. It is type-safe, fast by default and the bundle size is small due to a modular design. Try it out in our [playground](https://modularforms.dev/playground)!
 
 ## ✨ Highlights
 
-- Small bundle size starting at 2.5 or 0 KB
+- Small bundle size starting at 2.5 KB
 - It's fast – DOM updates are fine-grained
 - Type safety with autocompletion in editor
 - Validate everything from emails to files
 - Minimal, readable and well thought out API
 - Progressively enhanced forms with actions
 - Modular design – only use what you need
-- No dependencies – except for SolidJS or Qwik
+- No dependencies – except for the framework
 - It's headless – you define the visual
 - Supports all native HTML form fields
 

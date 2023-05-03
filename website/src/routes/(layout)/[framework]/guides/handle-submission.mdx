@@ -1,5 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  Qwik,
+  Solid,
+  SolidOrQwik,
+  Title,
+} from '~/components';
 
 <Title>Handle submission</Title>
 <Description>
@@ -11,9 +18,13 @@ import { Description, Qwik, Solid, Title } from '~/components';
 
 Now your first form is almost ready. There is only one little thing missing and that is the data processing when the form is submitted.
 
+<SolidOrQwik block>
+
 ## Form actions
 
 To make your form work even if JavaScript is disabled in your user's browser, we recommend using actions. Optionally, you can also perform the data processing on the client with <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> or use both in parallel.
+
+</SolidOrQwik>
 
 <Qwik block>
 
@@ -26,6 +37,14 @@ To make your form work even if JavaScript is disabled in your user's browser, we
 > The integration of actions is still under development. We expect to finish the integration in the coming weeks. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
 
 </Solid>
+
+<Preact block>
+
+## Submit event
+
+To process the values on submission, you need to pass a function to the `onSubmit` property of the <A href="../../api/Form">`Form`</A> component. The first parameter passed to the function are the form values and the second is the event object.
+
+</Preact>
 
 ### Code example
 
@@ -109,6 +128,26 @@ export default component$(() => {
 ```
 
 </Qwik>
+
+<Preact block>
+
+```tsx
+import { SubmitHandler, useForm } from '@modular-forms/solid';
+
+type LoginForm = { … };
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
+
+  const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
+    // Your code here
+  };
+
+  return <Form onSubmit={handleSubmit}>…</Form>;
+}
+```
+
+</Preact>
 
 ### Prevent default
 

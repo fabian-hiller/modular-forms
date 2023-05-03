@@ -1,5 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  Qwik,
+  QwikOrPreact,
+  Solid,
+  Title,
+} from '~/components';
 
 <Title>Field arrays</Title>
 <Description>
@@ -28,7 +35,7 @@ type TodoForm = {
 };
 ```
 
-To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that <Solid>the `For` component</Solid><Qwik>Qwik</Qwik> uses to detect when an item is added, moved, or removed.
+To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that <Solid>the `For` component</Solid><Qwik>Qwik</Qwik><Preact>Preact</Preact> uses to detect when an item is added, moved, or removed.
 
 <Solid block>
 
@@ -74,13 +81,34 @@ To dynamically generate the form fields for the todos, you use our <A href="../.
 
 </Qwik>
 
+<Preact block>
+
+```tsx
+<FieldArray name="todos">
+  {(fieldArray) =>
+    fieldArray.items.value.map((_, index) => (
+      <div>
+        <Field name={`todos.${index)}.label`}>
+          {(field, props) => <input {...props} type="text" />}
+        </Field>
+        <Field name={`todos.${index}.deadline`}>
+          {(field, props) => <input {...props} type="date" />}
+        </Field>
+      </div>
+    ))
+  }
+</FieldArray>
+```
+
+</Preact>
+
 ### Validation
 
 As with fields, you can also validate field arrays with the `validate` attribute. For example, to limit the length of the array you can use the <A href="../../api/maxLength">`maxLength`</A> function.
 
 ### Dot notation
 
-As with nested fields, you use dot notation for the name of each field. It is important that you use the index <Solid>signal of the `For` component</Solid><Qwik>of the loop</Qwik> to specify the index of the field, so that they are updated when the items are changed.
+As with nested fields, you use dot notation for the name of each field. It is important that you use the index <Solid>signal of the `For` component</Solid><QwikOrPreact>of the loop</QwikOrPreact> to specify the index of the field, so that they are updated when the items are changed.
 
 <Solid block>
 
@@ -92,7 +120,7 @@ As with nested fields, you use dot notation for the name of each field. It is im
 
 </Solid>
 
-<Qwik block>
+<QwikOrPreact block>
 
 ```tsx
 <Field name={`todos.${index)}.label`}>
@@ -100,7 +128,7 @@ As with nested fields, you use dot notation for the name of each field. It is im
 </Field>
 ```
 
-</Qwik>
+</QwikOrPreact>
 
 ## Use array methods
 
@@ -159,5 +187,26 @@ If you need to nest multiple field arrays, dot notation can get complicated when
 ```
 
 </Qwik>
+
+<Preact block>
+
+```tsx
+<FieldArray name="todos">
+  {(fieldArray) =>
+    fieldArray.items.value.map((_, index) => (
+      <div>
+        <Field name={`${fieldArray.name}.${index)}.label`}>
+          {(field, props) => <input {...props} type="text" />}
+        </Field>
+        <Field name={`${fieldArray.name}.${index}.deadline`}>
+          {(field, props) => <input {...props} type="date" />}
+        </Field>
+      </div>
+    ))
+  }
+</FieldArray>
+```
+
+</Preact>
 
 You can nest field arrays as deeply as you like. You will also find a suitable example of this on our <A href="/playground/nested">playground</A>.

@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import { Description, Solid, SolidOrPreact, Title } from '~/components';
 
 <Title>FAQ</Title>
 <Description>
@@ -19,8 +19,12 @@ Yes, Modular Forms works with <a href="https://start.solidjs.com" target="_blank
 
 > Currently, it seems that the implementation is more difficult than expected. You can find the latest information <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/3`} target="\_blank" rel="noreferrer">here</a> on GitHub.
 
+</Solid>
+
+<SolidOrPreact block>
+
 ## Does the bundle size really start at 2.5 KB?
 
 Yes, this information should be about right. The <A href="/playground">playground</A> on this website uses almost the entire functionality of Modular Forms through the various examples, coming to a bundle size of 4.7 KB. However, the size also depends on how much your bundler divides the library into small chunks.
 
-</Solid>
+</SolidOrPreact>

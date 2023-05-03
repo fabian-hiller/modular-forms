@@ -1,5 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  Qwik,
+  QwikOrPreact,
+  Solid,
+  Title,
+} from '~/components';
 
 <Title>Validate your fields</Title>
 <Description>
@@ -137,9 +144,57 @@ export default component$(() => {
 
 </Qwik>
 
+<Preact block>
+
+```tsx
+import { email, minLength, required, useForm } from '@modular-forms/preact';
+
+type LoginForm = { … };
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
+
+  return (
+    <Form>
+      <Field
+        name="email"
+        validate={[
+          required('Please enter your email.'),
+          email('The email address is badly formatted.'),
+        ]}
+      >
+        {(field, props) => (
+          <>
+            <input {...props} type="email" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <Field
+        name="password"
+        validate={[
+          required('Please enter your password.'),
+          minLength(8, 'You password must have 8 characters or more.'),
+        ]}
+      >
+        {(field, props) => (
+          <>
+            <input {...props} type="password" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Preact>
+
 ### Times of validation
 
-By default, the first validation is done when the form is submitted for the first time and from there on, a revalidation is triggered after each user input. You can change this behavior using the `validateOn` and `revalidateOn` option of the <Solid><A href="../../api/createForm">`createForm`</A> primitive</Solid><Qwik><A href="../../api/useForm">`useForm`</A> hook</Qwik>.
+By default, the first validation is done when the form is submitted for the first time and from there on, a revalidation is triggered after each user input. You can change this behavior using the `validateOn` and `revalidateOn` option of the <Solid><A href="../../api/createForm">`createForm`</A> primitive</Solid><QwikOrPreact><A href="../../api/useForm">`useForm`</A> hook</QwikOrPreact>.
 
 ## Schema validation
 
@@ -150,7 +205,7 @@ Use <A href="../../api/zodForm">`zodForm`</A> to define the validation for the w
 <Solid block>
 
 ```tsx
-import { createForm, Form, Field, zodForm } from '@modular-forms/solid';
+import { createForm, zodForm } from '@modular-forms/solid';
 import { z } from 'zod';
 
 const schema = z.object({
@@ -248,3 +303,51 @@ export default component$(() => {
 ```
 
 </Qwik>
+
+<Preact block>
+
+```tsx
+import { useForm, zodForm } from '@modular-forms/preact';
+import { z } from 'zod';
+
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please enter your email.')
+    .email('The email address is badly formatted.'),
+  password: z
+    .string()
+    .min(1, 'Please enter your password.')
+    .min(8, 'You password must have 8 characters or more.'),
+});
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<z.input<typeof schema>>({
+    validate: zodForm(schema),
+  });
+
+  return (
+    <Form>
+      <Field name="email">
+        {(field, props) => (
+          <>
+            <input {...props} type="email" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <Field name="password">
+        {(field, props) => (
+          <>
+            <input {...props} type="password" required />
+            {field.error && <div>{field.error}</div>}
+          </>
+        )}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</Preact>

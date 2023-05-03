@@ -1,5 +1,12 @@
 import { A } from 'solid-start';
-import { Description, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  Qwik,
+  QwikOrPreact,
+  Solid,
+  Title,
+} from '~/components';
 
 <Title>Philosophy</Title>
 <Description>
@@ -39,7 +46,13 @@ Qwik is perfect for forms due to its mainly fine-grained reactivity. Without any
 
 </Qwik>
 
-To make a long story short, Modular Forms is built natively on <Solid>SolidJS</Solid><Qwik>Qwik</Qwik> and therefore enjoys all the benefits that the UI library brings. Unlike some other form libraries, Modular Forms requires only little special magic and therefore contains almost exclusively code that is mandatory for form handling, regardless of the underlying UI library.
+<Preact block>
+
+Preact signals are perfect for forms due to its mainly fine-grained reactivity. Without any opimizations, only the code that is really needed for the respective action is executed. Also, the flexible use of the signals, as opposed to the strict rule of hooks, offers a great advantage, as it allows the state of the form, no matter how complex, to be easily mapped.
+
+</Preact>
+
+To make a long story short, Modular Forms is built natively on <Solid>SolidJS</Solid><Qwik>Qwik</Qwik><Preact>Preact</Preact> and therefore enjoys all the benefits that the UI library brings. Unlike some other form libraries, Modular Forms requires only little special magic and therefore contains almost exclusively code that is mandatory for form handling, regardless of the underlying UI library.
 
 ## Bundle-Size
 
@@ -47,7 +60,7 @@ With other form libraries, the bundle size has always been a thorn in my side. S
 
 With Modular Forms I thought a lot about keeping the bundle size as small as possible. On the other hand, extensive functionality was also important to me. It should be possible to implement any form, no matter how complex, with Modular Forms. Therefore, it was clear that the bundle size must be based on the required functionality.
 
-The reason why many form libraries put everything into a single component or hook is that basically every functionality needs access to the state of the form. Therefore, it is natural to locate all the functionality next to the state and return it together. Modular Forms breaks exactly this approach with a fully modular design. By using <Solid><A href="../../api/createForm">`createForm`</A></Solid><Qwik><A href="../../api/useForm">`useForm`</A></Qwik> to create only the state of the form and simply passing it as a parameter to various methods, you only need to import the code you actually need.
+The reason why many form libraries put everything into a single component or hook is that basically every functionality needs access to the state of the form. Therefore, it is natural to locate all the functionality next to the state and return it together. Modular Forms breaks exactly this approach with a fully modular design. By using <Solid><A href="../../api/createForm">`createForm`</A></Solid><QwikOrPreact><A href="../../api/useForm">`useForm`</A></QwikOrPreact> to create only the state of the form and simply passing it as a parameter to various methods, you only need to import the code you actually need.
 
 ## Input validation
 
