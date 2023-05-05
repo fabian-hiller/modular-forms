@@ -125,7 +125,10 @@ export function formActionQrl<
         // Return form action store object
         return formActionStore;
       }
-    )
+    ),
+    {
+      id: action.getHash(),
+    }
   );
 }
 
