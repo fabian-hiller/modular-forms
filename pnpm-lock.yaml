@@ -53,11 +53,11 @@ importers:
   packages/qwik:
     devDependencies:
       '@builder.io/qwik':
-        specifier: ^0.104.0
-        version: 0.104.0(undici@5.21.2)
+        specifier: ^1.0.0
+        version: 1.0.0(undici@5.21.2)
       '@builder.io/qwik-city':
-        specifier: ^0.104.0
-        version: 0.104.0(@builder.io/qwik@0.104.0)
+        specifier: ^1.0.0
+        version: 1.0.0
       '@types/eslint':
         specifier: ^8.37.0
         version: 8.37.0
@@ -74,8 +74,8 @@ importers:
         specifier: ^8.37.0
         version: 8.37.0
       eslint-plugin-qwik:
-        specifier: 0.104.0
-        version: 0.104.0(eslint@8.37.0)
+        specifier: 1.0.0
+        version: 1.0.0(eslint@8.37.0)
       typescript:
         specifier: 4.9.5
         version: 4.9.5
@@ -166,11 +166,11 @@ importers:
         version: 1.2.1
     devDependencies:
       '@builder.io/qwik':
-        specifier: ^0.104.0
-        version: 0.104.0(undici@5.21.0)
+        specifier: ^1.0.0
+        version: 1.0.0(undici@5.21.0)
       '@builder.io/qwik-city':
-        specifier: ^0.104.0
-        version: 0.104.0(@builder.io/qwik@0.104.0)
+        specifier: ^1.0.0
+        version: 1.0.0
       '@types/eslint':
         specifier: ^8.37.0
         version: 8.37.0
@@ -193,8 +193,8 @@ importers:
         specifier: ^8.37.0
         version: 8.37.0
       eslint-plugin-qwik:
-        specifier: ^0.104.0
-        version: 0.104.0(eslint@8.37.0)
+        specifier: ^1.0.0
+        version: 1.0.0(eslint@8.37.0)
       node-fetch:
         specifier: ^3.3.1
         version: 3.3.1
@@ -1642,15 +1642,12 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@builder.io/qwik-city@0.104.0(@builder.io/qwik@0.104.0):
-    resolution: {integrity: sha512-5I3+c1KwmYZf+cAqvdjpydypMqpe6Gd68OCUr969F0bZOGSdZ5iCGKAgWyk2BXiaUdkMawPlTHbsNAzg62pDoA==}
+  /@builder.io/qwik-city@1.0.0:
+    resolution: {integrity: sha512-nHlDsvYHRWpSmRgg3bb93shn0p1OeMLvBYyIINitGDPxRSK1RyddtJXFAE24MlEEwzetF82xSte3SiC55oPUaQ==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
-    peerDependencies:
-      '@builder.io/qwik': '>=0.22.0'
     dependencies:
-      '@builder.io/qwik': 0.104.0(undici@5.21.2)
       '@mdx-js/mdx': 2.3.0
-      '@types/mdx': 2.0.4
+      '@types/mdx': 2.0.5
       source-map: 0.7.4
       vfile: 5.3.7
       zod: 3.21.4
@@ -1658,8 +1655,8 @@ packages:
       - supports-color
     dev: true
 
-  /@builder.io/qwik@0.104.0(undici@5.21.0):
-    resolution: {integrity: sha512-A0+9xeYtACj3TAGfSlgsng7lIO1zHpUIsNHmAAUA3iB470pZ7+dli8McDYF2lP1+pgdIOSFgk20EEBcrLWeZcQ==}
+  /@builder.io/qwik@1.0.0(undici@5.21.0):
+    resolution: {integrity: sha512-U1eTIKTBUiW2dbPMCaTzS7K1bMCI9ovtfsvdduwnVThGXRSrX+v2X4U/UmHHPzfOjC55X5wYLc17cw5EwFBVVA==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
     peerDependencies:
@@ -1668,8 +1665,8 @@ packages:
       undici: 5.21.0
     dev: true
 
-  /@builder.io/qwik@0.104.0(undici@5.21.2):
-    resolution: {integrity: sha512-A0+9xeYtACj3TAGfSlgsng7lIO1zHpUIsNHmAAUA3iB470pZ7+dli8McDYF2lP1+pgdIOSFgk20EEBcrLWeZcQ==}
+  /@builder.io/qwik@1.0.0(undici@5.21.2):
+    resolution: {integrity: sha512-U1eTIKTBUiW2dbPMCaTzS7K1bMCI9ovtfsvdduwnVThGXRSrX+v2X4U/UmHHPzfOjC55X5wYLc17cw5EwFBVVA==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
     peerDependencies:
@@ -2239,7 +2236,7 @@ packages:
     resolution: {integrity: sha512-zEG0lt+Bl/r5U6e0TOS7qDbsXICtemfAPquxWFsMbdzrvlWaqMGemLl+sjVpqlyaaiCiGVQBSGdCk0t1qXjkQg==}
     dependencies:
       '@types/estree-jsx': 1.0.0
-      '@types/mdx': 2.0.4
+      '@types/mdx': 2.0.5
       estree-util-build-jsx: 2.2.0
       estree-util-is-identifier-name: 2.0.1
       estree-util-to-js: 1.1.0
@@ -2263,7 +2260,7 @@ packages:
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
     dependencies:
       '@types/estree-jsx': 1.0.0
-      '@types/mdx': 2.0.4
+      '@types/mdx': 2.0.5
       estree-util-build-jsx: 2.2.0
       estree-util-is-identifier-name: 2.0.1
       estree-util-to-js: 1.1.0
@@ -2734,8 +2731,8 @@ packages:
       '@types/unist': 2.0.6
     dev: true
 
-  /@types/mdx@2.0.4:
-    resolution: {integrity: sha512-qCYrNdpKwN6YO6FVnx+ulfqifKlE3lQGsNhvDaW9Oxzyob/cRLBJWow8GHBBD4NxQ7BVvtsATgLsX0vZAWmtrg==}
+  /@types/mdx@2.0.5:
+    resolution: {integrity: sha512-76CqzuD6Q7LC+AtbPqrvD9AqsN0k8bsYo2bM2J8pmNldP1aIPAbzUQ7QbobyXL4eLr1wK5x8FZFe8eF/ubRuBg==}
     dev: true
 
   /@types/ms@0.7.31:
@@ -4541,8 +4538,8 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-qwik@0.104.0(eslint@8.37.0):
-    resolution: {integrity: sha512-8R4kJ3yyGWmM3j/h5bYjoQ2FmG088Srkz7psIR8pdcSYXOFMadeyhTsuomn3ht50Q+WLeH48c7pC7Bo7pORA3A==}
+  /eslint-plugin-qwik@1.0.0(eslint@8.37.0):
+    resolution: {integrity: sha512-IdnMPpVMEkL/QqBEypitdEpKCZWqeu+DSfJi39FGxnCvzsKTAKGv38Ro/+AEfHgYaAV0CH3sxLzxrr05tlG3+g==}
     engines: {node: '>=16'}
     peerDependencies:
       eslint: '>= 8'

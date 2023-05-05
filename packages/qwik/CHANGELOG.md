@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Fix bug when `formAction$` is used multiple times (issue #62)
+- Upgrade Qwik and Qwik City peer dependency to v1 🎉
 
 ## v0.11.0 (May 01, 2023)
 
