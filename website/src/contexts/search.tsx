@@ -30,6 +30,7 @@ import {
   SearchIcon,
 } from '~/icons';
 import { createFocusTrap } from '~/primitives';
+import { trackEvent } from '~/utils';
 import { getFramework } from './framework';
 
 type HitType = 'lvl2' | 'lvl3' | 'lvl4' | 'lvl5' | 'content';
@@ -138,6 +139,9 @@ export function SearchProvider(props: SearchProviderProps) {
           getInputElement()!.focus();
           document.body.style.overflow = 'hidden';
 
+          // Tracke open search event
+          trackEvent('open_search');
+
           // Otherwise when search is closed, add clicked item to recent and
           // reset state and background scrolling
         } else {
@@ -146,7 +150,15 @@ export function SearchProvider(props: SearchProviderProps) {
             setRecent((current) =>
               [item, ...current!.filter((i) => i !== item)].slice(0, 6)
             );
+
+            // Track seleact search item event
+            trackEvent('select_search_item', {
+              input: getInput(),
+              path: item.path,
+            });
           }
+
+          // Reset state and background scrolling
           setInput('');
           setActiveIndex(0);
           setResult([]);

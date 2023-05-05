@@ -4,11 +4,13 @@ import {
   createEffect,
   createSignal,
   JSX,
+  on,
   Setter,
   useContext,
 } from 'solid-js';
 import { useLocation } from 'solid-start';
 import { frameworkCookie } from '~/cookies';
+import { trackEvent } from '~/utils';
 
 export type Framework = 'solid' | 'qwik' | 'preact';
 
@@ -35,10 +37,17 @@ export function FrameworkProvider(props: FrameworkProviderProps) {
     })()
   );
 
-  // Update cookie when framework changes
-  createEffect(async () => {
-    document.cookie = await frameworkCookie.serialize(getFramework());
-  });
+  // Track event and update cookie when framework changes
+  createEffect(
+    on(
+      getFramework,
+      async (framework, prevFramework) => {
+        trackEvent('switch_framework', { from: prevFramework, to: framework });
+        document.cookie = await frameworkCookie.serialize(framework);
+      },
+      { defer: true }
+    )
+  );
 
   return (
     <FrameworkContext.Provider value={[getFramework, setFramework]}>
