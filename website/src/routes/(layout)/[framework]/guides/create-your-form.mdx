@@ -49,6 +49,19 @@ export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
 
 The <A href="../../api/createForm">`createForm`</A> primitive returns a tuple containing the store of the form in the first place and an object with the <A href="../../api/Form">`Form`</A>, <A href="../../api/Field">`Field`</A> and <A href="../../api/FieldArray">`FieldArray`</A> component afterwards. You can use the store to access the state of the form and make changes to it using methods that will be introduced later.
 
+```tsx
+import { createForm } from '@modular-forms/solid';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export default function App() {
+  const [loginForm, { Form, Field, FieldArray }] = createForm<LoginForm>();
+}
+```
+
 </Solid>
 
 <QwikOrPreact block>
@@ -59,31 +72,9 @@ The initial values are followed by the <A href="../../api/useForm">`useForm`</A>
 
 </QwikOrPreact>
 
-<Solid block>
-
-```tsx
-import { createForm } from '@modular-forms/solid';
-
-type LoginForm = { … };
-
-export default function App() {
-  const [loginForm, { Form, Field, FieldArray }] = createForm<LoginForm>();
-}
-```
-
-</Solid>
-
 <Qwik block>
 
 ```tsx
-import { component$ } from "@builder.io/qwik";
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { type InitialValues, useForm } from '@modular-forms/qwik';
-
-type LoginForm = { … };
-
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
-
 export default component$(() => {
   const [loginForm, { Form, Field, FieldArray }] = useForm<LoginForm>({
     loader: useFormLoader(),
@@ -98,7 +89,10 @@ export default component$(() => {
 ```tsx
 import { useForm } from '@modular-forms/preact';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
   const [loginForm, { Form, Field, FieldArray }] = useForm<LoginForm>();
@@ -109,7 +103,61 @@ export default function App() {
 
 ### Destructuring
 
-You do not have to destructure the object with the components, as you can see in the next code example. In this way, the tuple allows you to freely name the two return values. This can be useful, for example, when a page contains multiple forms.
+You do not have to destructure the object with the components. In this way, the tuple allows you to freely name the two return values. This can be useful, for example, when a page contains multiple forms. Also, you can simply omit the first return value if you don't need it.
+
+<Solid block>
+
+```tsx
+export default function App() {
+  const [, Login] = createForm<LoginForm>();
+  const [, Register] = createForm<RegisterForm>();
+
+  return (
+    <>
+      <Login.Form></Login.Form>
+      <Register.Form></Login.Register>
+    </>
+  );
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+export default component$(() => {
+  const [, Login] = useForm<LoginForm>({ loader: useLoginLoader() });
+  const [, Register] = useForm<RegisterForm>({ loader: useRegisterLoader() });
+
+  return (
+    <>
+      <Login.Form></Login.Form>
+      <Register.Form></Login.Register>
+    </>
+  );
+});
+```
+
+</Qwik>
+
+<Preact block>
+
+```tsx
+export default function App() {
+  const [, Login] = useForm<LoginForm>();
+  const [, Register] = useForm<RegisterForm>();
+
+  return (
+    <>
+      <Login.Form></Login.Form>
+      <Register.Form></Login.Register>
+    </>
+  );
+}
+```
+
+</Preact>
 
 ### Components
 
@@ -124,12 +172,15 @@ In the JSX part of your component you start with the <A href="../../api/Form">`F
 ```tsx
 import { createForm } from '@modular-forms/solid';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
-  const [loginForm, Login] = createForm<LoginForm>();
+  const [loginForm, { Form, Field }] = createForm<LoginForm>();
 
-  return <Login.Form>…</Login.Form>;
+  return <Form></Form>;
 }
 ```
 
@@ -138,20 +189,12 @@ export default function App() {
 <Qwik block>
 
 ```tsx
-import { component$ } from "@builder.io/qwik";
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { type InitialValues, useForm } from '@modular-forms/qwik';
-
-type LoginForm = { … };
-
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
-
 export default component$(() => {
-  const [loginForm, Login] = useForm<LoginForm>({
+  const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
   });
 
-  return <Login.Form>…</Login.Form>;
+  return <Form></Form>;
 });
 ```
 
@@ -162,12 +205,15 @@ export default component$(() => {
 ```tsx
 import { useForm } from '@modular-forms/preact';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
-  const [loginForm, Login] = useForm<LoginForm>();
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
 
-  return <Login.Form>…</Login.Form>;
+  return <Form></Form>;
 }
 ```
 

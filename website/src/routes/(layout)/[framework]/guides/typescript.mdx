@@ -18,7 +18,7 @@ For example, to pass your form to another component via props, you can use the <
 <Solid block>
 
 ```tsx
-import { createFormStore, Form, type FormStore, Field } from '@modular-forms/solid';
+import { createFormStore, Form, FormStore, Field } from '@modular-forms/solid';
 
 type LoginForm = {
   email: string;
@@ -58,9 +58,15 @@ import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { useFormStore, Form, type FormStore, Field } from '@modular-forms/solid';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
+  email: '',
+  password: '',
+}));
 
 export default component$(() => {
   const loginForm = useFormStore<LoginForm>({ loader: useFormLoader() });

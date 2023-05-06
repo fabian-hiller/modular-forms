@@ -4,7 +4,7 @@ import {
   Preact,
   Qwik,
   Solid,
-  SolidOrQwik,
+  SolidOrPreact,
   Title,
 } from '~/components';
 
@@ -18,33 +18,29 @@ import {
 
 Now your first form is almost ready. There is only one little thing missing and that is the data processing when the form is submitted.
 
-<SolidOrQwik block>
+<Qwik block>
 
 ## Form actions
 
 To make your form work even if JavaScript is disabled in your user's browser, we recommend using actions. Optionally, you can also perform the data processing on the client with <Solid>`onSubmit`</Solid><Qwik>`onSubmit$`</Qwik> or use both in parallel.
 
-</SolidOrQwik>
-
-<Qwik block>
-
 > You can find more about progressively enhanced forms in <A href="../enhanced-forms">this</A> guide.
 
 </Qwik>
 
-<Solid block>
-
-> The integration of actions is still under development. We expect to finish the integration in the coming weeks. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
-
-</Solid>
-
-<Preact block>
+<SolidOrPreact block>
 
 ## Submit event
 
 To process the values on submission, you need to pass a function to the `onSubmit` property of the <A href="../../api/Form">`Form`</A> component. The first parameter passed to the function are the form values and the second is the event object.
 
-</Preact>
+</SolidOrPreact>
+
+<Solid block>
+
+> The integration of actions is still under development. Follow me on <a href="https://twitter.com/FabianHiller" target="_blank" rel="noreferrer">Twitter</a> or Modular Forms on <a href={import.meta.env.VITE_GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a> to not miss any important updates.
+
+</Solid>
 
 ### Code example
 
@@ -52,40 +48,20 @@ To process the values on submission, you need to pass a function to the `onSubmi
 
 ```tsx
 import { createForm, SubmitHandler } from '@modular-forms/solid';
-import { createRouteAction } from 'solid-start';
-import { createServerAction$ } from 'solid-start/server';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
-  const [serverAction, runServerAction] = createServerAction$(
-    async (formData: FormData) => {
-      // Runs on server
-    }
-  );
-
-  const [routeAction, runRouteAction] = createRouteAction(
-    async (formData: FormData) => {
-      // Runs on client or server
-    }
-  );
-
-  const [loginForm, { Form, Field }] = createForm<LoginForm>({
-    action: serverAction, // or "routeAction"
-  });
+  const [loginForm, { Form, Field }] = createForm<LoginForm>();
 
   const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
     // Runs on client
   };
 
-  return (
-    <Form
-      action={runServerAction} // or "runRouteAction"
-      onSubmit={handleSubmit}
-    >
-      …
-    </Form>
-  );
+  return <Form onSubmit={handleSubmit}>…</Form>;
 }
 ```
 
@@ -94,15 +70,27 @@ export default function App() {
 <Qwik block>
 
 ```tsx
-import { $, component$ } from "@builder.io/qwik";
+import { $, component$ } from '@builder.io/qwik';
 import { routeLoader$, z } from '@builder.io/qwik-city';
 import { type InitialValues, formAction$, zodForm$ } from '@modular-forms/qwik';
 
-const loginSchema = z.object({ … });
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please enter your email.')
+    .email('The email address is badly formatted.'),
+  password: z
+    .string()
+    .min(1, 'Please enter your password.')
+    .min(8, 'You password must have 8 characters or more.'),
+});
 
-type LoginForm = z.input<typeof loginSchema>;
+type LoginForm = z.infer<typeof loginSchema>;
 
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
+  email: '',
+  password: '',
+}));
 
 export const useFormAction = formAction$<LoginForm>((values) => {
   // Runs on server
@@ -119,11 +107,7 @@ export default component$(() => {
     // Runs on client
   });
 
-  return (
-    <Form onSubmit$={handleSubmit}>
-      …
-    </Form>
-  );
+  return <Form onSubmit$={handleSubmit}>…</Form>;
 });
 ```
 
@@ -134,7 +118,10 @@ export default component$(() => {
 ```tsx
 import { SubmitHandler, useForm } from '@modular-forms/solid';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
   const [loginForm, { Form, Field }] = useForm<LoginForm>();

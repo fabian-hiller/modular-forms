@@ -41,7 +41,10 @@ Also you have the possibility to set your own error message and access the curre
 ```tsx
 import { createForm, email, minLength, required } from '@modular-forms/solid';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
   const [loginForm, { Form, Field }] = createForm<LoginForm>();
@@ -87,7 +90,7 @@ export default function App() {
 <Qwik block>
 
 ```tsx
-import { component$ } from "@builder.io/qwik";
+import { component$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import {
   email,
@@ -95,11 +98,17 @@ import {
   minLength,
   required,
   useForm,
-} from "@modular-forms/qwik";
+} from '@modular-forms/qwik';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
+  email: '',
+  password: '',
+}));
 
 export default component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
@@ -111,8 +120,8 @@ export default component$(() => {
       <Field
         name="email"
         validate={[
-          required("Please enter your email."),
-          email("The email address is badly formatted."),
+          required('Please enter your email.'),
+          email('The email address is badly formatted.'),
         ]}
       >
         {(field, props) => (
@@ -125,8 +134,8 @@ export default component$(() => {
       <Field
         name="password"
         validate={[
-          required("Please enter your password."),
-          minLength(8, "You password must have 8 characters or more."),
+          required('Please enter your password.'),
+          minLength(8, 'You password must have 8 characters or more.'),
         ]}
       >
         {(field, props) => (
@@ -149,7 +158,10 @@ export default component$(() => {
 ```tsx
 import { email, minLength, required, useForm } from '@modular-forms/preact';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
   const [loginForm, { Form, Field }] = useForm<LoginForm>();
@@ -220,7 +232,7 @@ const schema = z.object({
 });
 
 export default function App() {
-  const [loginForm, { Form, Field }] = createForm<z.input<typeof schema>>({
+  const [loginForm, { Form, Field }] = createForm<z.infer<typeof schema>>({
     validate: zodForm(schema),
   });
 
@@ -253,9 +265,9 @@ export default function App() {
 <Qwik block>
 
 ```tsx
-import { $, component$ } from "@builder.io/qwik";
+import { $, component$ } from '@builder.io/qwik';
 import { routeLoader$, z } from '@builder.io/qwik-city';
-import { type InitialValues, useForm, zodForm$ } from "@modular-forms/qwik";
+import { type InitialValues, useForm, zodForm$ } from '@modular-forms/qwik';
 
 const loginSchema = z.object({
   email: z
@@ -268,9 +280,12 @@ const loginSchema = z.object({
     .min(8, 'You password must have 8 characters or more.'),
 });
 
-type LoginForm = z.input<typeof loginSchema>;
+type LoginForm = z.infer<typeof loginSchema>;
 
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
+  email: '',
+  password: '',
+}));
 
 export default component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
@@ -322,7 +337,7 @@ const schema = z.object({
 });
 
 export default function App() {
-  const [loginForm, { Form, Field }] = useForm<z.input<typeof schema>>({
+  const [loginForm, { Form, Field }] = useForm<z.infer<typeof schema>>({
     validate: zodForm(schema),
   });
 

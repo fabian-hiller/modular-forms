@@ -24,7 +24,10 @@ As a child, you pass a function to the <A href="../../api/Field">`Field`</A> com
 ```tsx
 import { createForm } from '@modular-forms/solid';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
   const [loginForm, { Form, Field }] = createForm<LoginForm>();
@@ -48,14 +51,6 @@ export default function App() {
 <Qwik block>
 
 ```tsx
-import { component$ } from "@builder.io/qwik";
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { type InitialValues, useForm } from '@modular-forms/qwik';
-
-type LoginForm = { … };
-
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(…);
-
 export default component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
@@ -82,7 +77,10 @@ export default component$(() => {
 ```tsx
 import { useForm } from '@modular-forms/preact';
 
-type LoginForm = { … };
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export default function App() {
   const [loginForm, { Form, Field }] = useForm<LoginForm>();

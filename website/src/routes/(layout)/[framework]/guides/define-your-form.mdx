@@ -98,7 +98,7 @@ const specialSchema = z.object({
   }),
 });
 
-type SpecialForm = z.input<typeof specialSchema>;
+type SpecialForm = z.infer<typeof specialSchema>;
 ```
 
 </SolidOrPreact>
@@ -125,7 +125,7 @@ const specialSchema = z.object({
   }),
 });
 
-type SpecialForm = z.input<typeof specialSchema>;
+type SpecialForm = z.infer<typeof specialSchema>;
 ```
 
 </Qwik>
