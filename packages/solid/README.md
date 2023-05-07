@@ -6,7 +6,7 @@ Modular Forms is a JavaScript library built on [SolidJS](https://github.com/soli
 
 ## ✨ Highlights
 
-- Small bundle size starting at 2.5 KB
+- Small bundle size starting at 3 KB
 - It's fast – DOM updates are fine-grained
 - Type safety with autocompletion in editor
 - Validate everything from emails to files
