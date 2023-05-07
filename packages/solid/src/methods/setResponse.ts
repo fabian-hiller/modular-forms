@@ -30,14 +30,14 @@ export function setResponse<
   { duration }: Maybe<SetResponseOptions> = {}
 ): void {
   // Set new response
-  form.internal.setResponse(response);
+  form.internal.response.set(response);
 
   // If necessary, remove new response after specified duration if response has
   // not been changed in meantime
   if (duration) {
     setTimeout(() => {
-      if (untrack(form.internal.getResponse) === response) {
-        form.internal.setResponse({});
+      if (untrack(form.internal.response.get) === response) {
+        form.internal.response.set({});
       }
     }, duration);
   }

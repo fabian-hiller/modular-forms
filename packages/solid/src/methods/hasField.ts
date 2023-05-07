@@ -48,16 +48,16 @@ export function hasField<
     // If field is not present, set listener to be notified when a new field is
     // added
     if (!field) {
-      form.internal.getFieldNames();
+      form.internal.fieldNames.get();
     }
 
     // Return whether field is present and matches filter options
     return (
       !!field &&
-      (!shouldActive || field.getActive()) &&
-      (!shouldTouched || field.getTouched()) &&
-      (!shouldDirty || field.getDirty()) &&
-      (!shouldValid || !field.getError())
+      (!shouldActive || field.active.get()) &&
+      (!shouldTouched || field.touched.get()) &&
+      (!shouldDirty || field.dirty.get()) &&
+      (!shouldValid || !field.error.get())
     );
   })();
 }

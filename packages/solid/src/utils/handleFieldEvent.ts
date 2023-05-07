@@ -36,7 +36,7 @@ export function handleFieldEvent<
 ) {
   batch(() => {
     // Update value state
-    field.setValue((prevValue) =>
+    field.value.set((prevValue) =>
       field.transform.reduce(
         (current, transformation) => transformation(current, event),
         inputValue ?? prevValue
@@ -44,8 +44,8 @@ export function handleFieldEvent<
     );
 
     // Update touched state
-    field.setTouched(true);
-    form.internal.setTouched(true);
+    field.touched.set(true);
+    form.internal.touched.set(true);
 
     // Update dirty state
     updateFieldDirty(form, field);

@@ -19,14 +19,14 @@ export function updateFormState<
   // Check each field and field array and update state if necessary
   untrack(() => {
     for (const fieldOrFieldArray of getFieldAndArrayStores(form)) {
-      if (fieldOrFieldArray.getActive()) {
-        if (fieldOrFieldArray.getTouched()) {
+      if (fieldOrFieldArray.active.get()) {
+        if (fieldOrFieldArray.touched.get()) {
           touched = true;
         }
-        if (fieldOrFieldArray.getDirty()) {
+        if (fieldOrFieldArray.dirty.get()) {
           dirty = true;
         }
-        if (fieldOrFieldArray.getError()) {
+        if (fieldOrFieldArray.error.get()) {
           invalid = true;
         }
       }
@@ -40,8 +40,8 @@ export function updateFormState<
 
   // Update state of form
   batch(() => {
-    form.internal.setTouched(touched);
-    form.internal.setDirty(dirty);
-    form.internal.setInvalid(invalid);
+    form.internal.touched.set(touched);
+    form.internal.dirty.set(dirty);
+    form.internal.invalid.set(invalid);
   });
 }

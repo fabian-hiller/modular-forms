@@ -46,7 +46,7 @@ export function remove<
   if (fieldArray) {
     untrack(() => {
       // Get last index of field array
-      const lastIndex = fieldArray.getItems().length - 1;
+      const lastIndex = fieldArray.items.get().length - 1;
 
       // Continue if specified index is valid
       if (index >= 0 && index <= lastIndex) {
@@ -72,8 +72,8 @@ export function remove<
 
         batch(() => {
           // Move state of each field after the removed index back by one index
-          form.internal
-            .getFieldNames()
+          form.internal.fieldNames
+            .get()
             .filter(filterName)
             .sort(sortPathIndex)
             .forEach((fieldName) => {
@@ -85,8 +85,8 @@ export function remove<
             });
 
           // Move state of each field array after the removed index back by one index
-          form.internal
-            .getFieldArrayNames()
+          form.internal.fieldArrayNames
+            .get()
             .filter(filterName)
             .sort(sortPathIndex)
             .forEach((fieldArrayName) => {
@@ -101,15 +101,15 @@ export function remove<
             });
 
           // Delete item from field array
-          fieldArray.setItems((prevItem) => {
+          fieldArray.items.set((prevItem) => {
             const nextItems = [...prevItem];
             nextItems.splice(index, 1);
             return nextItems;
           });
 
           // Set touched at field array and form to true
-          fieldArray.setTouched(true);
-          form.internal.setTouched(true);
+          fieldArray.touched.set(true);
+          form.internal.touched.set(true);
 
           // Update dirty state at field array and form
           updateFieldArrayDirty(form, fieldArray);

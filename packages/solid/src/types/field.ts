@@ -1,4 +1,4 @@
-import type { Accessor, Setter } from 'solid-js';
+import type { Signal } from '../primitives';
 import type { FieldPath, FieldPathValue } from './path';
 import type { MaybeValue, MaybePromise, Maybe } from './utils';
 
@@ -78,22 +78,14 @@ export type InternalFieldStore<
   TFieldName extends FieldPath<TFieldValues>
 > = {
   // Signals
-  getElements: Accessor<FieldElement[]>;
-  setElements: Setter<FieldElement[]>;
-  getInitialValue: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  setInitialValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  getStartValue: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  setStartValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  getValue: Accessor<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  setValue: Setter<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
-  getError: Accessor<string>;
-  setError: Setter<string>;
-  getActive: Accessor<boolean>;
-  setActive: Setter<boolean>;
-  getTouched: Accessor<boolean>;
-  setTouched: Setter<boolean>;
-  getDirty: Accessor<boolean>;
-  setDirty: Setter<boolean>;
+  elements: Signal<FieldElement[]>;
+  initialValue: Signal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+  startValue: Signal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+  value: Signal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>;
+  error: Signal<string>;
+  active: Signal<boolean>;
+  touched: Signal<boolean>;
+  dirty: Signal<boolean>;
 
   // Other
   validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];

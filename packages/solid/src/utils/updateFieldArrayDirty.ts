@@ -23,12 +23,12 @@ export function updateFieldArrayDirty<
   untrack(() => {
     // Check if field array is dirty
     const dirty =
-      fieldArray.getStartItems().join() !== fieldArray.getItems().join();
+      fieldArray.startItems.get().join() !== fieldArray.items.get().join();
 
     // Update dirty state of field array if necessary
-    if (dirty !== fieldArray.getDirty()) {
+    if (dirty !== fieldArray.dirty.get()) {
       batch(() => {
-        fieldArray.setDirty(dirty);
+        fieldArray.dirty.set(dirty);
 
         // Update dirty state of form
         updateFormDirty(form, dirty);

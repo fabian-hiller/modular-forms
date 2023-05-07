@@ -24,9 +24,9 @@ export function setFieldState<
   state: RawFieldState<TFieldValues, TFieldName>
 ): void {
   const field = initializeFieldStore(form, name);
-  field.setStartValue(() => state.startValue);
-  field.setValue(() => state.value);
-  field.setError(state.error);
-  field.setTouched(state.touched);
-  field.setDirty(state.dirty);
+  field.startValue.set(() => state.startValue);
+  field.value.set(() => state.value);
+  field.error.set(state.error);
+  field.touched.set(state.touched);
+  field.dirty.set(state.dirty);
 }

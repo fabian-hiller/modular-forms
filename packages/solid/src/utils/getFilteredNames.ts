@@ -34,8 +34,8 @@ export function getFilteredNames<
 ): [FieldPath<TFieldValues>[], FieldArrayPath<TFieldValues>[]] {
   return untrack(() => {
     // Get all field and field array names of form
-    const allFieldNames = form.internal.getFieldNames();
-    const allFieldArrayNames = form.internal.getFieldArrayNames();
+    const allFieldNames = form.internal.fieldNames.get();
+    const allFieldArrayNames = form.internal.fieldArrayNames.get();
 
     // If names are specified, filter and return them
     if (typeof arg2 === 'string' || Array.isArray(arg2)) {

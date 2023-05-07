@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal } from '../primitives';
 import type {
   FieldElement,
   FieldPath,
@@ -31,46 +31,32 @@ export function initializeFieldStore<
   // Initialize store on first request
   if (!getFieldStore(form, name)) {
     // Get initial value of field
-    const initialValue = getPathValue(name, form.internal.initialValues);
+    const initial = getPathValue(name, form.internal.initialValues);
 
     // Create signals of field store
-    const [getElements, setElements] = createSignal<FieldElement[]>([]);
-    const [getInitialValue, setInitialValue] =
-      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(
-        initialValue
-      );
-    const [getStartValue, setStartValue] =
-      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(
-        initialValue
-      );
-    const [getValue, setValue] =
-      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(
-        initialValue
-      );
-    const [getError, setError] = createSignal('');
-    const [getActive, setActive] = createSignal(false);
-    const [getTouched, setTouched] = createSignal(false);
-    const [getDirty, setDirty] = createSignal(false);
+    const elements = createSignal<FieldElement[]>([]);
+    const initialValue =
+      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(initial);
+    const startValue =
+      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(initial);
+    const value =
+      createSignal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(initial);
+    const error = createSignal('');
+    const active = createSignal(false);
+    const touched = createSignal(false);
+    const dirty = createSignal(false);
 
     // Add store of field to form
     form.internal.fields[name] = {
       // Signals
-      getElements,
-      setElements,
-      getInitialValue,
-      setInitialValue,
-      getStartValue,
-      setStartValue,
-      getValue,
-      setValue,
-      getError,
-      setError,
-      getActive,
-      setActive,
-      getTouched,
-      setTouched,
-      getDirty,
-      setDirty,
+      elements,
+      initialValue,
+      startValue,
+      value,
+      error,
+      active,
+      touched,
+      dirty,
 
       // Other
       validate: [],
@@ -79,7 +65,7 @@ export function initializeFieldStore<
     };
 
     // Add name of field to form
-    form.internal.setFieldNames((names) => [...names, name]);
+    form.internal.fieldNames.set((names) => [...names, name]);
   }
 
   // Return store of field

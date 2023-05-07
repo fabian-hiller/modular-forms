@@ -1,4 +1,4 @@
-import type { Accessor, Setter } from 'solid-js';
+import type { Signal } from '../primitives';
 import type { FieldValue, FieldValues, InternalFieldStore } from './field';
 import type { InternalFieldArrayStore } from './fieldArray';
 import type { FieldArrayPath, FieldPath } from './path';
@@ -81,28 +81,17 @@ export type InternalFormStore<
   revalidateOn: ValidationMode;
 
   // Signals
-  getFieldNames: Accessor<FieldPath<TFieldValues>[]>;
-  setFieldNames: Setter<FieldPath<TFieldValues>[]>;
-  getFieldArrayNames: Accessor<FieldArrayPath<TFieldValues>[]>;
-  setFieldArrayNames: Setter<FieldArrayPath<TFieldValues>[]>;
-  getElement: Accessor<Maybe<HTMLFormElement>>;
-  setElement: Setter<Maybe<HTMLFormElement>>;
-  getSubmitCount: Accessor<number>;
-  setSubmitCount: Setter<number>;
-  getSubmitting: Accessor<boolean>;
-  setSubmitting: Setter<boolean>;
-  getSubmitted: Accessor<boolean>;
-  setSubmitted: Setter<boolean>;
-  getValidating: Accessor<boolean>;
-  setValidating: Setter<boolean>;
-  getTouched: Accessor<boolean>;
-  setTouched: Setter<boolean>;
-  getDirty: Accessor<boolean>;
-  setDirty: Setter<boolean>;
-  getInvalid: Accessor<boolean>;
-  setInvalid: Setter<boolean>;
-  getResponse: Accessor<FormResponse<TResponseData>>;
-  setResponse: Setter<FormResponse<TResponseData>>;
+  fieldNames: Signal<FieldPath<TFieldValues>[]>;
+  fieldArrayNames: Signal<FieldArrayPath<TFieldValues>[]>;
+  element: Signal<Maybe<HTMLFormElement>>;
+  submitCount: Signal<number>;
+  submitting: Signal<boolean>;
+  submitted: Signal<boolean>;
+  validating: Signal<boolean>;
+  touched: Signal<boolean>;
+  dirty: Signal<boolean>;
+  invalid: Signal<boolean>;
+  response: Signal<FormResponse<TResponseData>>;
 
   // Stores
   fields: FieldsStore<TFieldValues>;

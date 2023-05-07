@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal } from '../primitives';
 import type {
   FieldArrayPath,
   FieldValues,
@@ -29,37 +29,30 @@ export function initializeFieldArrayStore<
   // Initialize store on first request
   if (!getFieldArrayStore(form, name)) {
     // Create initial items of field array
-    const initialItems =
+    const initial =
       getPathValue(name, form.internal.initialValues!)?.map(() =>
         getUniqueId()
       ) || [];
 
     // Create signals of field array store
-    const [getInitialItems, setInitialItems] = createSignal(initialItems);
-    const [getStartItems, setStartItems] = createSignal(initialItems);
-    const [getItems, setItems] = createSignal(initialItems);
-    const [getError, setError] = createSignal('');
-    const [getActive, setActive] = createSignal(false);
-    const [getTouched, setTouched] = createSignal(false);
-    const [getDirty, setDirty] = createSignal(false);
+    const initialItems = createSignal(initial);
+    const startItems = createSignal(initial);
+    const items = createSignal(initial);
+    const error = createSignal('');
+    const active = createSignal(false);
+    const touched = createSignal(false);
+    const dirty = createSignal(false);
 
     // Add store of field array to form
     form.internal.fieldArrays[name] = {
       // Signals
-      getInitialItems,
-      setInitialItems,
-      getStartItems,
-      setStartItems,
-      getItems,
-      setItems,
-      getError,
-      setError,
-      getActive,
-      setActive,
-      getTouched,
-      setTouched,
-      getDirty,
-      setDirty,
+      initialItems,
+      startItems,
+      items,
+      error,
+      active,
+      touched,
+      dirty,
 
       // Other
       validate: [],
@@ -67,7 +60,7 @@ export function initializeFieldArrayStore<
     };
 
     // Add name of field array to form
-    form.internal.setFieldArrayNames((names) => [...names, name]);
+    form.internal.fieldArrayNames.set((names) => [...names, name]);
   }
 
   // Return store of field array

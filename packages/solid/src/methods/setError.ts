@@ -50,15 +50,15 @@ export function setError<
       ]) {
         if (
           fieldOrFieldArray &&
-          (!shouldActive || fieldOrFieldArray.getActive()) &&
-          (!shouldTouched || fieldOrFieldArray.getTouched()) &&
-          (!shouldDirty || fieldOrFieldArray.getDirty())
+          (!shouldActive || fieldOrFieldArray.active.get()) &&
+          (!shouldTouched || fieldOrFieldArray.touched.get()) &&
+          (!shouldDirty || fieldOrFieldArray.dirty.get())
         ) {
           // Set error to field or field array
-          fieldOrFieldArray.setError(error);
+          fieldOrFieldArray.error.set(error);
 
           // Focus element if set to "true"
-          if (error && 'getValue' in fieldOrFieldArray && shouldFocus) {
+          if (error && 'value' in fieldOrFieldArray && shouldFocus) {
             focus(form, name as FieldPath<TFieldValues>);
           }
         }

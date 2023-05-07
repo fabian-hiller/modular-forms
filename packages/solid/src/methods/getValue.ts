@@ -46,13 +46,13 @@ export function getValue<
 
   // Continue if field corresponds to filter options
   if (
-    (!shouldActive || field.getActive()) &&
-    (!shouldTouched || field.getTouched()) &&
-    (!shouldDirty || field.getDirty()) &&
-    (!shouldValid || !field.getError())
+    (!shouldActive || field.active.get()) &&
+    (!shouldTouched || field.touched.get()) &&
+    (!shouldDirty || field.dirty.get()) &&
+    (!shouldValid || !field.error.get())
   ) {
     // Return value of field
-    return field.getValue();
+    return field.value.get();
   }
 
   // Otherwise return undefined

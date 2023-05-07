@@ -48,7 +48,7 @@ export function swap<
   if (fieldArray) {
     untrack(() => {
       // Get last index of field array
-      const lastIndex = fieldArray.getItems().length - 1;
+      const lastIndex = fieldArray.items.get().length - 1;
 
       // Continue if specified indexes are valid
       if (
@@ -84,16 +84,16 @@ export function swap<
             : value.replace(index2Prefix, index1Prefix)) as T;
 
         // Add state of each required field to map
-        form.internal
-          .getFieldNames()
+        form.internal.fieldNames
+          .get()
           .filter(filterName)
           .forEach((fieldName) =>
             fieldStateMap.set(fieldName, getFieldState(form, fieldName)!)
           );
 
         // Add state of each required field array to map
-        form.internal
-          .getFieldArrayNames()
+        form.internal.fieldArrayNames
+          .get()
           .filter(filterName)
           .forEach((fieldArrayName) =>
             fieldArrayStateMap.set(
@@ -114,7 +114,7 @@ export function swap<
           );
 
           // Swap items of field array
-          fieldArray.setItems((prevItems) => {
+          fieldArray.items.set((prevItems) => {
             const nextItems = [...prevItems];
             nextItems[index1] = prevItems[index2];
             nextItems[index2] = prevItems[index1];
@@ -122,8 +122,8 @@ export function swap<
           });
 
           // Set touched at field array and form to true;
-          fieldArray.setTouched(true);
-          form.internal.setTouched(true);
+          fieldArray.touched.set(true);
+          form.internal.touched.set(true);
 
           // Update dirty state at field array and form
           updateFieldArrayDirty(form, fieldArray);

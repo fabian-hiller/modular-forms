@@ -16,11 +16,11 @@ export function updateFormInvalid<
   invalid?: Maybe<boolean>
 ): void {
   untrack(() => {
-    form.internal.setInvalid(
+    form.internal.invalid.set(
       invalid ||
         getFieldAndArrayStores(form).some(
           (fieldOrFieldArray) =>
-            fieldOrFieldArray.getActive() && fieldOrFieldArray.getError()
+            fieldOrFieldArray.active.get() && fieldOrFieldArray.error.get()
         )
     );
   });

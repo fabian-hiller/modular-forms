@@ -37,8 +37,8 @@ export function getElementInput<
             .filter((e) => e.selected && !e.disabled)
             .map((e) => e.value)
         : checked
-        ? [...((field.getValue() || []) as string[]), value]
-        : ((field.getValue() || []) as string[]).filter((v) => v !== value)
+        ? [...((field.value.get() || []) as string[]), value]
+        : ((field.value.get() || []) as string[]).filter((v) => v !== value)
       : type === 'number'
       ? valueAsNumber
       : type === 'boolean'
@@ -49,6 +49,6 @@ export function getElementInput<
       ? [...files]
       : type === 'Date' && valueAsDate
       ? valueAsDate
-      : field.getValue()
+      : field.value.get()
   ) as FieldPathValue<TFieldValues, TFieldName>;
 }

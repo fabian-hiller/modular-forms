@@ -67,7 +67,7 @@ export function Form<
     <form
       {...other}
       noValidate
-      ref={props.of.internal.setElement}
+      ref={props.of.internal.element.set}
       onSubmit={async (event: SubmitEvent) => {
         // Prevent default behavior of browser
         event.preventDefault();
@@ -79,13 +79,13 @@ export function Form<
         batch(() => {
           // Reset response if it is not to be kept
           if (!options.keepResponse) {
-            form.internal.setResponse({});
+            form.internal.response.set({});
           }
 
           // Increase submit count and set submitted and submitting to "true"
-          form.internal.setSubmitCount((count) => count + 1);
-          form.internal.setSubmitted(true);
-          form.internal.setSubmitting(true);
+          form.internal.submitCount.set((count) => count + 1);
+          form.internal.submitted.set(true);
+          form.internal.submitting.set(true);
         });
 
         // Try to run submit actions if form is valid
@@ -96,14 +96,14 @@ export function Form<
 
           // If an error occurred, set error response
         } catch (error: any) {
-          form.internal.setResponse({
+          form.internal.response.set({
             status: 'error',
             message: error?.message || 'An unknown error has occurred.',
           });
 
           // Finally set submitting back to "false"
         } finally {
-          form.internal.setSubmitting(false);
+          form.internal.submitting.set(false);
         }
       }}
     />

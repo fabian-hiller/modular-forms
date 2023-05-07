@@ -104,13 +104,13 @@ export function getValues<
   // If no field or field array name is specified, set listener to be notified
   // when a new field is added
   if (typeof arg2 !== 'string' && !Array.isArray(arg2)) {
-    form.internal.getFieldNames();
+    form.internal.fieldNames.get();
 
     // Otherwise if a field array is included, set listener to be notified when
     // a new field array items is added
   } else {
     fieldArrayNames.forEach((fieldArrayName) =>
-      getFieldArrayStore(form, fieldArrayName)!.getItems()
+      getFieldArrayStore(form, fieldArrayName)!.items.get()
     );
   }
 
@@ -122,10 +122,10 @@ export function getValues<
 
       // Add value if field corresponds to filter options
       if (
-        (!shouldActive || field.getActive()) &&
-        (!shouldTouched || field.getTouched()) &&
-        (!shouldDirty || field.getDirty()) &&
-        (!shouldValid || !field.getError())
+        (!shouldActive || field.active.get()) &&
+        (!shouldTouched || field.touched.get()) &&
+        (!shouldDirty || field.dirty.get()) &&
+        (!shouldValid || !field.error.get())
       ) {
         // Split name into keys to be able to add values of nested fields
         (typeof arg2 === 'string' ? name.replace(`${arg2}.`, '') : name)
@@ -135,7 +135,7 @@ export function getValues<
               (object[key] =
                 index === keys.length - 1
                   ? // If it is last key, add value
-                    field.getValue()
+                    field.value.get()
                   : // Otherwise return object or array
                     (typeof object[key] === 'object' && object[key]) ||
                     (isNaN(+keys[index + 1]) ? {} : [])),

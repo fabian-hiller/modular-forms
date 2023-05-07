@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Refactor internal signals to reduce bundle size
+
 ## v0.13.1 (May 01, 2023)
 
 - Fix bug by adding missing `transform` property to `initializeFieldStore` util

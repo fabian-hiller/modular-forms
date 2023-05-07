@@ -1,4 +1,3 @@
-import { createSignal } from 'solid-js';
 import type {
   FieldArrayPath,
   FieldPath,
@@ -9,6 +8,7 @@ import type {
   PartialValues,
   ResponseData,
 } from '../types';
+import { createSignal } from './createSignal';
 
 /**
  * Creates and returns the store of the form.
@@ -27,23 +27,17 @@ export function createFormStore<
   validate,
 }: FormOptions<TFieldValues> = {}): FormStore<TFieldValues, TResponseData> {
   // Create signals of form store
-  const [getFieldNames, setFieldNames] = createSignal<
-    FieldPath<TFieldValues>[]
-  >([]);
-  const [getFieldArrayNames, setFieldArrayNames] = createSignal<
-    FieldArrayPath<TFieldValues>[]
-  >([]);
-  const [getElement, setElement] = createSignal<HTMLFormElement>();
-  const [getSubmitCount, setSubmitCount] = createSignal(0);
-  const [getSubmitting, setSubmitting] = createSignal(false);
-  const [getSubmitted, setSubmitted] = createSignal(false);
-  const [getValidating, setValidating] = createSignal(false);
-  const [getTouched, setTouched] = createSignal(false);
-  const [getDirty, setDirty] = createSignal(false);
-  const [getInvalid, setInvalid] = createSignal(false);
-  const [getResponse, setResponse] = createSignal<FormResponse<TResponseData>>(
-    {}
-  );
+  const fieldNames = createSignal<FieldPath<TFieldValues>[]>([]);
+  const fieldArrayNames = createSignal<FieldArrayPath<TFieldValues>[]>([]);
+  const element = createSignal<HTMLFormElement>();
+  const submitCount = createSignal(0);
+  const submitting = createSignal(false);
+  const submitted = createSignal(false);
+  const validating = createSignal(false);
+  const touched = createSignal(false);
+  const dirty = createSignal(false);
+  const invalid = createSignal(false);
+  const response = createSignal<FormResponse<TResponseData>>({});
 
   // Return form functions and state
   return {
@@ -55,28 +49,17 @@ export function createFormStore<
       revalidateOn,
 
       // Signals
-      getFieldNames,
-      setFieldNames,
-      getFieldArrayNames,
-      setFieldArrayNames,
-      getElement,
-      setElement,
-      getSubmitCount,
-      setSubmitCount,
-      getSubmitting,
-      setSubmitting,
-      getSubmitted,
-      setSubmitted,
-      getValidating,
-      setValidating,
-      getTouched,
-      setTouched,
-      getDirty,
-      setDirty,
-      getInvalid,
-      setInvalid,
-      getResponse,
-      setResponse,
+      fieldNames,
+      fieldArrayNames,
+      element,
+      submitCount,
+      submitting,
+      submitted,
+      validating,
+      touched,
+      dirty,
+      invalid,
+      response,
 
       // Stores
       fields: {},
@@ -86,31 +69,31 @@ export function createFormStore<
       validators: new Set(),
     },
     get element() {
-      return getElement();
+      return element.get();
     },
     get submitCount() {
-      return getSubmitCount();
+      return submitCount.get();
     },
     get submitting() {
-      return getSubmitting();
+      return submitting.get();
     },
     get submitted() {
-      return getSubmitted();
+      return submitted.get();
     },
     get validating() {
-      return getValidating();
+      return validating.get();
     },
     get touched() {
-      return getTouched();
+      return touched.get();
     },
     get dirty() {
-      return getDirty();
+      return dirty.get();
     },
     get invalid() {
-      return getInvalid();
+      return invalid.get();
     },
     get response() {
-      return getResponse();
+      return response.get();
     },
   };
 }

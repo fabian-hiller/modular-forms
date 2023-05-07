@@ -103,18 +103,18 @@ export function setValues<
       const fieldArray = initializeFieldArrayStore(form, name);
 
       // Set array items
-      fieldArray.setItems(value.map(() => getUniqueId()));
+      fieldArray.items.set(value.map(() => getUniqueId()));
 
       // Update touched if set to "true"
       if (shouldTouched) {
-        fieldArray.setTouched(true);
-        form.internal.setTouched(true);
+        fieldArray.touched.set(true);
+        form.internal.touched.set(true);
       }
 
       // Update dirty if set to "true"
       if (shouldDirty) {
-        fieldArray.setDirty(true);
-        form.internal.setDirty(true);
+        fieldArray.dirty.set(true);
+        form.internal.dirty.set(true);
       }
     };
 

@@ -15,5 +15,5 @@ export function focus<
   form: FormStore<TFieldValues, TResponseData>,
   name: FieldPath<TFieldValues>
 ): void {
-  untrack(() => getFieldStore(form, name)?.getElements()[0]?.focus());
+  untrack(() => getFieldStore(form, name)?.elements.get()[0]?.focus());
 }

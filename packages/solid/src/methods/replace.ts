@@ -45,7 +45,7 @@ export function replace<
       const { at: index } = options;
 
       // Get last index of field array
-      const lastIndex = fieldArray.getItems().length - 1;
+      const lastIndex = fieldArray.items.get().length - 1;
 
       // Continue if specified index is valid
       if (index >= 0 && index <= lastIndex) {
@@ -54,19 +54,19 @@ export function replace<
           setFieldArrayValue(form, name, options);
 
           // Replace item at field array
-          fieldArray.setItems((prevItems) => {
+          fieldArray.items.set((prevItems) => {
             const nextItems = [...prevItems];
             nextItems[index] = getUniqueId();
             return nextItems;
           });
 
           // Set touched at field array and form to true
-          fieldArray.setTouched(true);
-          form.internal.setTouched(true);
+          fieldArray.touched.set(true);
+          form.internal.touched.set(true);
 
           // Set dirty at field array and form to true
-          fieldArray.setDirty(true);
-          form.internal.setDirty(true);
+          fieldArray.dirty.set(true);
+          form.internal.dirty.set(true);
         });
       }
     });

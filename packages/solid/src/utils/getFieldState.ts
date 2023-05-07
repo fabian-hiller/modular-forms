@@ -28,11 +28,11 @@ export function getFieldState<
   const field = getFieldStore(form, name);
   return field
     ? untrack(() => ({
-        startValue: field.getStartValue(),
-        value: field.getValue(),
-        error: field.getError(),
-        touched: field.getTouched(),
-        dirty: field.getDirty(),
+        startValue: field.startValue.get(),
+        value: field.value.get(),
+        error: field.error.get(),
+        touched: field.touched.get(),
+        dirty: field.dirty.get(),
       }))
     : undefined;
 }

@@ -46,8 +46,8 @@ export function validateIfRequired<
       (modes as string[]).includes(
         (
           form.internal.validateOn === 'submit'
-            ? form.internal.getSubmitted()
-            : fieldOrFieldArray.getError()
+            ? form.internal.submitted.get()
+            : fieldOrFieldArray.error.get()
         )
           ? form.internal.revalidateOn
           : form.internal.validateOn

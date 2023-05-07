@@ -28,14 +28,14 @@ export function updateFieldDirty<
   untrack(() => {
     // Check if field is dirty
     const dirty = isFieldDirty(
-      field.getStartValue() as Maybe<FieldValue>,
-      field.getValue() as Maybe<FieldValue>
+      field.startValue.get() as Maybe<FieldValue>,
+      field.value.get() as Maybe<FieldValue>
     );
 
     // Update dirty state of field if necessary
-    if (dirty !== field.getDirty()) {
+    if (dirty !== field.dirty.get()) {
       batch(() => {
-        field.setDirty(dirty);
+        field.dirty.set(dirty);
 
         // Update dirty state of form
         updateFormDirty(form, dirty);

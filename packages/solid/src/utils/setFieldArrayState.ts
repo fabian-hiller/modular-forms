@@ -24,9 +24,9 @@ export function setFieldArrayState<
   state: RawFieldArrayState
 ): void {
   const fieldArray = initializeFieldArrayStore(form, name);
-  fieldArray.setStartItems(state.startItems);
-  fieldArray.setItems(state.items);
-  fieldArray.setError(state.error);
-  fieldArray.setTouched(state.touched);
-  fieldArray.setDirty(state.dirty);
+  fieldArray.startItems.set(state.startItems);
+  fieldArray.items.set(state.items);
+  fieldArray.error.set(state.error);
+  fieldArray.touched.set(state.touched);
+  fieldArray.dirty.set(state.dirty);
 }

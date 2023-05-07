@@ -49,19 +49,19 @@ export function getError<
   for (const fieldOrFieldArray of [field, fieldArray]) {
     if (
       fieldOrFieldArray &&
-      (!shouldActive || fieldOrFieldArray.getActive()) &&
-      (!shouldTouched || fieldOrFieldArray.getTouched()) &&
-      (!shouldDirty || fieldOrFieldArray.getDirty())
+      (!shouldActive || fieldOrFieldArray.active.get()) &&
+      (!shouldTouched || fieldOrFieldArray.touched.get()) &&
+      (!shouldDirty || fieldOrFieldArray.dirty.get())
     ) {
-      return fieldOrFieldArray.getError();
+      return fieldOrFieldArray.error.get();
     }
   }
 
   // If field and field array is not present, set listeners to be notified when
   // a new field or field array is added
   if (!field && !fieldArray) {
-    form.internal.getFieldNames();
-    form.internal.getFieldArrayNames();
+    form.internal.fieldNames.get();
+    form.internal.fieldArrayNames.get();
   }
 
   // Otherwise return undefined

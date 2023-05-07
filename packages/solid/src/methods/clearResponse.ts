@@ -9,5 +9,5 @@ export function clearResponse<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData
 >(form: FormStore<TFieldValues, TResponseData>): void {
-  form.internal.setResponse({});
+  form.internal.response.set({});
 }

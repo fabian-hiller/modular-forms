@@ -44,7 +44,7 @@ export function setErrorResponse<
         ].every(
           (fieldOrFieldArray) =>
             !fieldOrFieldArray ||
-            (shouldActive && !untrack(fieldOrFieldArray.getActive))
+            (shouldActive && !untrack(fieldOrFieldArray.active.get))
         )
       ) {
         errors.push(error);
@@ -55,7 +55,7 @@ export function setErrorResponse<
 
   // If there is a error message, set it as form response
   if (message) {
-    form.internal.setResponse({
+    form.internal.response.set({
       status: 'error',
       message,
     });

@@ -141,21 +141,21 @@ export function reset<
 
         // Reset initial value if necessary
         if (resetSingleField ? 'initialValue' in options : initialValues) {
-          field.setInitialValue(() =>
+          field.initialValue.set(() =>
             resetSingleField ? initialValue : getPathValue(name, initialValues!)
           );
         }
 
         // Check if dirty value should be kept
-        const keepDirtyValue = keepDirtyValues && field.getDirty();
+        const keepDirtyValue = keepDirtyValues && field.dirty.get();
 
         // Reset input if it is not to be kept
         if (!keepValues && !keepDirtyValue) {
-          field.setStartValue(field.getInitialValue);
-          field.setValue(field.getInitialValue);
+          field.startValue.set(field.initialValue.get);
+          field.value.set(field.initialValue.get);
 
           // Reset file inputs manually, as they can't be controlled
-          field.getElements().forEach((element) => {
+          field.elements.get().forEach((element) => {
             if (element.type === 'file') {
               element.value = '';
             }
@@ -164,17 +164,17 @@ export function reset<
 
         // Reset touched if it is not to be kept
         if (!keepTouched) {
-          field.setTouched(false);
+          field.touched.set(false);
         }
 
         // Reset dirty if it is not to be kept
         if (!keepDirty && !keepValues && !keepDirtyValue) {
-          field.setDirty(false);
+          field.dirty.set(false);
         }
 
         // Reset error if it is not to be kept
         if (!keepErrors) {
-          field.setError('');
+          field.error.set('');
         }
       });
 
@@ -184,32 +184,32 @@ export function reset<
         const fieldArray = getFieldArrayStore(form, name)!;
 
         // Check if current dirty items should be kept
-        const keepCurrentDirtyItems = keepDirtyItems && fieldArray.getDirty();
+        const keepCurrentDirtyItems = keepDirtyItems && fieldArray.dirty.get();
 
         // Reset initial items and items if it is not to be kept
         if (!keepItems && !keepCurrentDirtyItems) {
           if (initialValues) {
-            fieldArray.setInitialItems(
+            fieldArray.initialItems.set(
               getPathValue(name, initialValues)?.map(() => getUniqueId()) || []
             );
           }
-          fieldArray.setStartItems([...fieldArray.getInitialItems()]);
-          fieldArray.setItems([...fieldArray.getInitialItems()]);
+          fieldArray.startItems.set([...fieldArray.initialItems.get()]);
+          fieldArray.items.set([...fieldArray.initialItems.get()]);
         }
 
         // Reset touched if it is not to be kept
         if (!keepTouched) {
-          fieldArray.setTouched(false);
+          fieldArray.touched.set(false);
         }
 
         // Reset dirty if it is not to be kept
         if (!keepDirty && !keepItems && !keepCurrentDirtyItems) {
-          fieldArray.setDirty(false);
+          fieldArray.dirty.set(false);
         }
 
         // Reset error if it is not to be kept
         if (!keepErrors) {
-          fieldArray.setError('');
+          fieldArray.error.set('');
         }
       });
 
@@ -217,17 +217,17 @@ export function reset<
       if (resetEntireForm) {
         // Reset response if it is not to be kept
         if (!keepResponse) {
-          form.internal.setResponse({});
+          form.internal.response.set({});
         }
 
         // Reset submit count if it is not to be kept
         if (!keepSubmitCount) {
-          form.internal.setSubmitCount(0);
+          form.internal.submitCount.set(0);
         }
 
         // Reset submitted if it is not to be kept
         if (!keepSubmitted) {
-          form.internal.setSubmitted(false);
+          form.internal.submitted.set(false);
         }
       }
 

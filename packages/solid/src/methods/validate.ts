@@ -104,7 +104,7 @@ export async function validate<
   form.internal.validators.add(validator);
 
   // Set validating to "true"
-  form.internal.setValidating(true);
+  form.internal.validating.set(true);
 
   // Run form validation function
   const formErrors: FormErrors<TFieldValues> = form.internal.validate
@@ -124,13 +124,13 @@ export async function validate<
         const field = getFieldStore(form, name)!;
 
         // Continue if field corresponds to filter options
-        if (!shouldActive || untrack(field.getActive)) {
+        if (!shouldActive || untrack(field.active.get)) {
           // Create local error variable
           let localError: string | undefined;
 
           // Run each field validation functions
           for (const validation of field.validate) {
-            localError = await validation(untrack(field.getValue));
+            localError = await validation(untrack(field.value.get));
 
             // Break loop if an error occurred
             if (localError) {
@@ -147,7 +147,7 @@ export async function validate<
           }
 
           // Update error state of field
-          field.setError(fieldError);
+          field.error.set(fieldError);
 
           // Return name if field has an error
           return fieldError ? name : null;
@@ -162,13 +162,13 @@ export async function validate<
         const fieldArray = getFieldArrayStore(form, name)!;
 
         // Continue if field array corresponds to filter options
-        if (!shouldActive || untrack(fieldArray.getActive)) {
+        if (!shouldActive || untrack(fieldArray.active.get)) {
           // Create local error variable
           let localError = '';
 
           // Run each field array validation functions
           for (const validation of fieldArray.validate) {
-            localError = await validation(untrack(fieldArray.getItems));
+            localError = await validation(untrack(fieldArray.items.get));
 
             // Break loop and if an error occurred
             if (localError) {
@@ -185,7 +185,7 @@ export async function validate<
           }
 
           // Update error state of field
-          fieldArray.setError(fieldArrayError);
+          fieldArray.error.set(fieldArrayError);
         }
       })
     ),
@@ -211,7 +211,7 @@ export async function validate<
 
     // Set validating to "false" if there is no other validator
     if (!form.internal.validators.size) {
-      form.internal.setValidating(false);
+      form.internal.validating.set(false);
     }
   });
 

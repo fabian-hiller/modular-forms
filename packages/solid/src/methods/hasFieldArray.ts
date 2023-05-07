@@ -48,16 +48,16 @@ export function hasFieldArray<
     // If field array is not present, set listener to be notified when a new
     // field array is added
     if (!fieldArray) {
-      form.internal.getFieldArrayNames();
+      form.internal.fieldArrayNames.get();
     }
 
     // Return whether field array is present and matches filter options
     return (
       !!fieldArray &&
-      (!shouldActive || fieldArray.getActive()) &&
-      (!shouldTouched || fieldArray.getTouched()) &&
-      (!shouldDirty || fieldArray.getDirty()) &&
-      (!shouldValid || !fieldArray.getError())
+      (!shouldActive || fieldArray.active.get()) &&
+      (!shouldTouched || fieldArray.touched.get()) &&
+      (!shouldDirty || fieldArray.dirty.get()) &&
+      (!shouldValid || !fieldArray.error.get())
     );
   })();
 }

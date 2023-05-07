@@ -70,19 +70,19 @@ export function FieldArray<
           return props.name;
         },
         get items() {
-          return getFieldArray().getItems();
+          return getFieldArray().items.get();
         },
         get error() {
-          return getFieldArray().getError();
+          return getFieldArray().error.get();
         },
         get active() {
-          return getFieldArray().getActive();
+          return getFieldArray().active.get();
         },
         get touched() {
-          return getFieldArray().getTouched();
+          return getFieldArray().touched.get();
         },
         get dirty() {
-          return getFieldArray().getDirty();
+          return getFieldArray().dirty.get();
         },
       })}
     </>

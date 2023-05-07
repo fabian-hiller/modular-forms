@@ -51,12 +51,12 @@ export function setValue<
     const field = initializeFieldStore(form, name);
 
     // Set new value
-    field.setValue(() => value);
+    field.value.set(() => value);
 
     // Update touched if set to "true"
     if (shouldTouched) {
-      field.setTouched(true);
-      form.internal.setTouched(true);
+      field.touched.set(true);
+      form.internal.touched.set(true);
     }
 
     // Update dirty if set to "true"

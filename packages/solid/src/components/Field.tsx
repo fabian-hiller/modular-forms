@@ -109,19 +109,19 @@ export function Field<
             return props.name;
           },
           get value() {
-            return getField().getValue();
+            return getField().value.get();
           },
           get error() {
-            return getField().getError();
+            return getField().error.get();
           },
           get active() {
-            return getField().getActive();
+            return getField().active.get();
           },
           get touched() {
-            return getField().getTouched();
+            return getField().touched.get();
           },
           get dirty() {
-            return getField().getDirty();
+            return getField().dirty.get();
           },
         },
         {
@@ -129,23 +129,23 @@ export function Field<
             return props.name;
           },
           get autoFocus() {
-            return !!getField().getError();
+            return !!getField().error.get();
           },
           ref(element) {
             // Add element to elements
-            getField().setElements((elements) => [...elements, element]);
+            getField().elements.set((elements) => [...elements, element]);
 
             // Create effect that replaces initial input and input of field with
             // initial input of element if both is "undefined", so that dirty
             // state also resets to "false" when user removes input
             createEffect(() => {
               if (
-                getField().getStartValue() === undefined &&
-                untrack(getField().getValue) === undefined
+                getField().startValue.get() === undefined &&
+                untrack(getField().value.get) === undefined
               ) {
                 const input = getElementInput(element, getField(), props.type);
-                getField().setStartValue(() => input);
-                getField().setValue(() => input);
+                getField().startValue.set(() => input);
+                getField().value.set(() => input);
               }
             });
           },

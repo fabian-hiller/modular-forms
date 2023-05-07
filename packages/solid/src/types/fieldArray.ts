@@ -1,4 +1,4 @@
-import type { Accessor, Setter } from 'solid-js';
+import type { Signal } from '../primitives';
 import type { MaybePromise } from './utils';
 
 /**
@@ -18,20 +18,13 @@ export type ValidateFieldArray<TFieldArrayItems> = (
  */
 export type InternalFieldArrayStore = {
   // Signals
-  getInitialItems: Accessor<number[]>;
-  setInitialItems: Setter<number[]>;
-  getStartItems: Accessor<number[]>;
-  setStartItems: Setter<number[]>;
-  getItems: Accessor<number[]>;
-  setItems: Setter<number[]>;
-  getError: Accessor<string>;
-  setError: Setter<string>;
-  getActive: Accessor<boolean>;
-  setActive: Setter<boolean>;
-  getTouched: Accessor<boolean>;
-  setTouched: Setter<boolean>;
-  getDirty: Accessor<boolean>;
-  setDirty: Setter<boolean>;
+  initialItems: Signal<number[]>;
+  startItems: Signal<number[]>;
+  items: Signal<number[]>;
+  error: Signal<string>;
+  active: Signal<boolean>;
+  touched: Signal<boolean>;
+  dirty: Signal<boolean>;
 
   // Other
   validate: ValidateFieldArray<number[]>[];

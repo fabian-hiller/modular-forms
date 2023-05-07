@@ -49,7 +49,7 @@ export function move<
   if (fieldArray) {
     untrack(() => {
       // Get last index of field array
-      const lastIndex = fieldArray.getItems().length - 1;
+      const lastIndex = fieldArray.items.get().length - 1;
 
       // Continue if specified indexes are valid
       if (
@@ -98,12 +98,12 @@ export function move<
           ) as T;
 
         // Create list of all affected field and field array names
-        const fieldNames = form.internal
-          .getFieldNames()
+        const fieldNames = form.internal.fieldNames
+          .get()
           .filter(filterName)
           .sort(sortPathIndex);
-        const fieldArrayNames = form.internal
-          .getFieldArrayNames()
+        const fieldArrayNames = form.internal.fieldArrayNames
+          .get()
           .filter(filterName)
           .sort(sortPathIndex);
 
@@ -187,15 +187,15 @@ export function move<
           });
 
           // Swap items of field array
-          fieldArray.setItems((prevItems) => {
+          fieldArray.items.set((prevItems) => {
             const nextItems = [...prevItems];
             nextItems.splice(toIndex, 0, nextItems.splice(fromIndex, 1)[0]);
             return nextItems;
           });
 
           // Set touched at field array and form to true
-          fieldArray.setTouched(true);
-          form.internal.setTouched(true);
+          fieldArray.touched.set(true);
+          form.internal.touched.set(true);
 
           // Update dirty state at field array and form
           updateFieldArrayDirty(form, fieldArray);

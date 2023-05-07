@@ -54,7 +54,7 @@ export function insert<
   if (fieldArray) {
     untrack(() => {
       // Get length of field array
-      const arrayLength = fieldArray.getItems().length;
+      const arrayLength = fieldArray.items.get().length;
 
       // Destructure options
       const { at: index = arrayLength, value } = options;
@@ -87,8 +87,8 @@ export function insert<
               ) as T;
 
             // Move fields that come after new item one index further
-            form.internal
-              .getFieldNames()
+            form.internal.fieldNames
+              .get()
               .filter(filterName)
               .sort(sortPathIndex)
               .reverse()
@@ -101,8 +101,8 @@ export function insert<
               });
 
             // Move field arrays that come after new item one index further
-            form.internal
-              .getFieldArrayNames()
+            form.internal.fieldArrayNames
+              .get()
               .filter(filterName)
               .sort(sortPathIndex)
               .reverse()
@@ -122,19 +122,19 @@ export function insert<
           setFieldArrayValue(form, name, { at: index, value });
 
           // Insert item into field array
-          fieldArray.setItems((prevItems) => {
+          fieldArray.items.set((prevItems) => {
             const nextItems = [...prevItems];
             nextItems.splice(index, 0, getUniqueId());
             return nextItems;
           });
 
           // Set touched at field array and form to true
-          fieldArray.setTouched(true);
-          form.internal.setTouched(true);
+          fieldArray.touched.set(true);
+          form.internal.touched.set(true);
 
           // Set dirty at field array and form to true
-          fieldArray.setDirty(true);
-          form.internal.setDirty(true);
+          fieldArray.dirty.set(true);
+          form.internal.dirty.set(true);
         });
       }
     });

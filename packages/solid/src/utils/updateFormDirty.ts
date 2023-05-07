@@ -13,11 +13,11 @@ export function updateFormDirty<
   TResponseData extends ResponseData
 >(form: FormStore<TFieldValues, TResponseData>, dirty?: Maybe<boolean>): void {
   untrack(() =>
-    form.internal.setDirty(
+    form.internal.dirty.set(
       dirty ||
         getFieldAndArrayStores(form).some(
           (fieldOrFieldArray) =>
-            fieldOrFieldArray.getActive() && fieldOrFieldArray.getDirty()
+            fieldOrFieldArray.active.get() && fieldOrFieldArray.dirty.get()
         )
     )
   );

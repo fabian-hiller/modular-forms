@@ -88,9 +88,9 @@ export function createLifecycle<
     store.consumers.add(consumer);
 
     // Mark field as active and update form state if necessary
-    if (!untrack(store.getActive)) {
+    if (!untrack(store.active.get)) {
       batch(() => {
-        store.setActive(true);
+        store.active.set(true);
         updateFormState(form);
       });
     }
@@ -102,7 +102,7 @@ export function createLifecycle<
       // Mark field as inactive if there is no other consumer
       batch(() => {
         if (!keepActive && !store.consumers.size) {
-          store.setActive(false);
+          store.active.set(false);
 
           // Reset state if it is not to be kept
           if (!keepState) {
@@ -116,9 +116,9 @@ export function createLifecycle<
       });
 
       // Remove unmounted elements
-      if ('setElements' in store) {
+      if ('elements' in store) {
         setTimeout(() => {
-          store.setElements((elements) =>
+          store.elements.set((elements) =>
             elements.filter((element) => element.isConnected)
           );
         });

@@ -27,11 +27,11 @@ export function getFieldArrayState<
   const fieldArray = getFieldArrayStore(form, name);
   return fieldArray
     ? untrack(() => ({
-        startItems: fieldArray.getStartItems(),
-        items: fieldArray.getItems(),
-        error: fieldArray.getError(),
-        touched: fieldArray.getTouched(),
-        dirty: fieldArray.getDirty(),
+        startItems: fieldArray.startItems.get(),
+        items: fieldArray.items.get(),
+        error: fieldArray.error.get(),
+        touched: fieldArray.touched.get(),
+        dirty: fieldArray.dirty.get(),
       }))
     : undefined;
 }
