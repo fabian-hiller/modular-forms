@@ -5,7 +5,7 @@ import { ActionButton } from './ActionButton';
 
 type FormFooterProps = {
   of: FormStore<any, any>;
-  resetAction?: ActionStore<void, Record<string, any>>;
+  resetAction?: ActionStore<{}, Record<string, any>, true>;
   form?: string;
 };
 

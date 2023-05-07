@@ -6,7 +6,7 @@ import { ActionButton } from './ActionButton';
 type FormHeaderProps = {
   of: FormStore<any, any>;
   heading: string;
-  resetAction?: ActionStore<void, Record<string, any>>;
+  resetAction?: ActionStore<{}, Record<string, any>, true>;
   form?: string;
 };
 
