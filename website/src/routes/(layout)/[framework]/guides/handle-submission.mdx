@@ -152,7 +152,7 @@ Using the `shouldDirty` property of the <A href="../../api/Form">`Form`</A> comp
 
 ## Throw and display errors
 
-You can access errors thrown by your code in `onSubmit$` via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return erros if any occur.
+You can access errors thrown by your code in `onSubmit$` via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return errors if any occur.
 
 ```ts
 export const useFormAction = formAction$<LoginForm>((values) => {
