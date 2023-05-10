@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix redirect behavior in `formAction$` (issue #59)
+- Upgrade Qwik and Qwik City peer dependency to v1.1
+
 ## v0.12.0 (May 05, 2023)
 
 - Fix bug when `formAction$` is used multiple times (issue #62)

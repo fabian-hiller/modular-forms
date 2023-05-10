@@ -4,6 +4,7 @@ import {
   globalActionQrl,
   type Action,
 } from '@builder.io/qwik-city';
+import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
 import type {
   FieldValues,
   ResponseData,
@@ -112,13 +113,17 @@ export function formActionQrl<
               };
             }
 
-            // If an error occurred, set error response
+            // If an error occurred, throw it or set error response
           } catch (error: any) {
-            console.error(error);
-            formActionStore.response = {
-              status: 'error',
-              message: 'An unknown error has occurred.',
-            };
+            if (error instanceof AbortMessage) {
+              throw error;
+            } else {
+              console.error(error);
+              formActionStore.response = {
+                status: 'error',
+                message: 'An unknown error has occurred.',
+              };
+            }
           }
         }
 
