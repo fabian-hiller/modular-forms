@@ -5,6 +5,7 @@ import {
   type Action,
 } from '@builder.io/qwik-city';
 import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
+import { isDev } from '@builder.io/qwik/build';
 import type {
   FieldValues,
   ResponseData,
@@ -115,7 +116,8 @@ export function formActionQrl<
 
             // If an error occurred, throw it or set error response
           } catch (error: any) {
-            if (error instanceof AbortMessage) {
+            if (error instanceof AbortMessage || 
+                (isDev && (error?.constructor?.name === 'AbortMessage' || error?.constructor?.name === 'RedirectMessage'))) {
               throw error;
             } else {
               console.error(error);
