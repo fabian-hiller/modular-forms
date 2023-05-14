@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Delay cleanup in `Lifecycle` component with timeout
+- Remove `PropFunction` in `Field` as it is not longer neccesary
 
 ## v0.13.0 (May 10, 2023)
 

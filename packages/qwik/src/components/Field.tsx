@@ -1,9 +1,4 @@
-import type {
-  PropFunction,
-  QwikChangeEvent,
-  QwikFocusEvent,
-  QRL,
-} from '@builder.io/qwik';
+import type { QwikChangeEvent, QwikFocusEvent, QRL } from '@builder.io/qwik';
 import { $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
@@ -35,14 +30,13 @@ export type FieldElementProps<
 > = {
   name: TFieldName;
   autoFocus: boolean;
-  ref: PropFunction<(element: Element) => void>;
-  onInput$: PropFunction<(event: Event, element: FieldElement) => void>;
-  onChange$: PropFunction<
-    (event: QwikChangeEvent<FieldElement>, element: FieldElement) => void
-  >;
-  onBlur$: PropFunction<
-    (event: QwikFocusEvent<FieldElement>, element: FieldElement) => void
-  >;
+  ref: (element: Element) => void;
+  onInput$: (event: Event, element: FieldElement) => void;
+  onChange$: (
+    event: QwikChangeEvent<FieldElement>,
+    element: FieldElement
+  ) => void;
+  onBlur$: (event: QwikFocusEvent<FieldElement>, element: FieldElement) => void;
 };
 
 /**
