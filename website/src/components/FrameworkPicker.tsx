@@ -7,6 +7,7 @@ import { A, useLocation } from 'solid-start';
 import { frameworks, getFramework, useFramework } from '~/contexts';
 import { AngleDownIcon, PreactIcon, QwikIcon, SolidIcon } from '~/icons';
 import { createFocusTrap } from '~/primitives';
+import { getFrameworkName } from '~/utils';
 
 type FrameworkPickerProps = {
   class?: string;
@@ -34,16 +35,6 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
       }
     });
   }
-
-  /**
-   * Returns the name of the framework.
-   */
-  const getName = (framework: string) =>
-    framework === 'solid'
-      ? 'SolidJS'
-      : framework === 'qwik'
-      ? 'Qwik'
-      : 'Preact';
 
   /**
    * Returns the icon of the framework.
@@ -77,7 +68,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
             component={getIcon(getFramework())}
           />
           <div class="text-slate-900 dark:text-slate-200">
-            {getName(getFramework())}
+            {getFrameworkName(getFramework())}
           </div>
         </div>
         <AngleDownIcon class="h-4" />
@@ -102,7 +93,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
               }}
             >
               <Dynamic class="mr-2.5 h-[22px]" component={getIcon(framework)} />
-              {getName(framework)}
+              {getFrameworkName(framework)}
             </A>
           )}
         </For>
