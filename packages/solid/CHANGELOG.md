@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Delay cleanup in `createLifecycle` primitive with timeout
+
 ## v0.13.2 (May 07, 2023)
 
 - Refactor internal signals to reduce bundle size

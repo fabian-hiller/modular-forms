@@ -96,33 +96,33 @@ export function createLifecycle<
     }
 
     // On cleanup, remove consumer from field
-    onCleanup(() => {
-      store.consumers.delete(consumer);
+    onCleanup(() =>
+      setTimeout(() => {
+        store.consumers.delete(consumer);
 
-      // Mark field as inactive if there is no other consumer
-      batch(() => {
-        if (!keepActive && !store.consumers.size) {
-          store.active.set(false);
+        // Mark field as inactive if there is no other consumer
+        batch(() => {
+          if (!keepActive && !store.consumers.size) {
+            store.active.set(false);
 
-          // Reset state if it is not to be kept
-          if (!keepState) {
-            reset(form, name);
+            // Reset state if it is not to be kept
+            if (!keepState) {
+              reset(form, name);
 
-            // Otherwise just update form state
-          } else {
-            updateFormState(form);
+              // Otherwise just update form state
+            } else {
+              updateFormState(form);
+            }
           }
-        }
-      });
+        });
 
-      // Remove unmounted elements
-      if ('elements' in store) {
-        setTimeout(() => {
+        // Remove unmounted elements
+        if ('elements' in store) {
           store.elements.set((elements) =>
             elements.filter((element) => element.isConnected)
           );
-        });
-      }
-    });
+        }
+      })
+    );
   });
 }

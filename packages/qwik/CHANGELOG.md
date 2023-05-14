@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Delay cleanup in `Lifecycle` component with timeout
+
 ## v0.13.0 (May 10, 2023)
 
 - Fix redirect behavior in `formAction$` (issue #59)

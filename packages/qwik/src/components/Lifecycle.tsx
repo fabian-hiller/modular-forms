@@ -117,35 +117,35 @@ export const Lifecycle: <
       }
 
       // On cleanup, remove consumer from field
-      cleanup(() => {
-        store.internal.consumers.splice(
-          store.internal.consumers.indexOf(consumer),
-          1
-        );
+      cleanup(() =>
+        setTimeout(() => {
+          store.internal.consumers.splice(
+            store.internal.consumers.indexOf(consumer),
+            1
+          );
 
-        // Mark field as inactive if there is no other consumer
-        if (!keepActive && !store.internal.consumers.length) {
-          store.active = false;
+          // Mark field as inactive if there is no other consumer
+          if (!keepActive && !store.internal.consumers.length) {
+            store.active = false;
 
-          // Reset state if it is not to be kept
-          if (!keepState) {
-            reset(form, store.name);
+            // Reset state if it is not to be kept
+            if (!keepState) {
+              reset(form, store.name);
 
-            // Otherwise just update form state
-          } else {
-            updateFormState(form);
+              // Otherwise just update form state
+            } else {
+              updateFormState(form);
+            }
           }
-        }
 
-        // Remove unmounted elements
-        if ('value' in store) {
-          setTimeout(() => {
+          // Remove unmounted elements
+          if ('value' in store) {
             store.internal.elements = store.internal.elements.filter(
               (element) => element.isConnected
             );
-          });
-        }
-      });
+          }
+        }, 15)
+      );
     });
 
     return <Slot />;
