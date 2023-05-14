@@ -135,7 +135,7 @@ export function insert<
           validateIfRequired(form, fieldArray, name, {
             on: ['touched', 'input'],
           }),
-        500
+        250
       );
     }
   }
