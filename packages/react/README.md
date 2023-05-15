@@ -10,7 +10,7 @@ Modular Forms is a JavaScript library built on [React](https://github.com/facebo
 - Validate everything from emails to files
 - Minimal, readable and well thought out API
 - Modular design – only use what you need
-- No dependencies – except for Preact
+- No dependencies – except for Preact Signals
 - It's headless – you define the visual
 - Supports all native HTML form fields
 
