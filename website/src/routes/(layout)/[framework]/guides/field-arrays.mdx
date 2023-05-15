@@ -37,6 +37,12 @@ type TodoForm = {
 
 To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that <Solid>the `For` component</Solid><Qwik>Qwik</Qwik><Preact>Preact</Preact> uses to detect when an item is added, moved, or removed.
 
+<Preact block>
+
+> Currently there is a bug when rendering lists if the `key` property is specified on the first element. Until this is fixed, you simply need to omit the `key` property. This will cause Preact to completely re-render the list, which will prevent the bug from occurring. If you are interested, you can find the issue <a href="https://github.com/preactjs/signals/issues/361" target="_blank" rel="noreferrer">here</a>.
+
+</Preact>
+
 <Solid block>
 
 ```tsx
