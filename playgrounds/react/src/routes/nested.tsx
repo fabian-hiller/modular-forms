@@ -45,11 +45,8 @@ export default function NestedPage() {
         <FieldArray name="items">
           {(fieldArray) => (
             <>
-              {fieldArray.items.value.map((item, index) => (
-                <div
-                  className="flex-1 space-y-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 py-6 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700"
-                  key={item}
-                >
+              {fieldArray.items.value.map((_, index) => (
+                <div className="flex-1 space-y-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 py-6 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700">
                   <div className="flex space-x-5 px-6">
                     <Field name={`${fieldArray.name}.${index}.label`}>
                       {(field, props) => (
@@ -82,8 +79,8 @@ export default function NestedPage() {
                   <FieldArray name={`${fieldArray.name}.${index}.options`}>
                     {(fieldArray) => (
                       <div className="space-y-5 px-6">
-                        {fieldArray.items.value.map((item, index) => (
-                          <div className="flex space-x-5" key={item}>
+                        {fieldArray.items.value.map((_, index) => (
+                          <div className="flex space-x-5">
                             <Field name={`${fieldArray.name}.${index}`}>
                               {(field, props) => (
                                 <TextInput
