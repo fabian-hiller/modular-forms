@@ -16,7 +16,7 @@ Step 2: Install dependencies
 pnpm install
 ```
 
-Step 3: Build `@modular-forms/solid`
+Step 3: Build `@modular-forms/preact`
 
 ```bash
 cd packages/preact && pnpm build

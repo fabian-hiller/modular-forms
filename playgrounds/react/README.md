@@ -16,14 +16,14 @@ Step 2: Install dependencies
 pnpm install
 ```
 
-Step 3: Build `@modular-forms/solid`
+Step 3: Build `@modular-forms/react`
 
 ```bash
-cd packages/preact && pnpm build
+cd packages/react && pnpm build
 ```
 
 Step 4: Start development server
 
 ```bash
-cd ../../playgrounds/preact && pnpm dev
+cd ../../playgrounds/react && pnpm dev
 ```
