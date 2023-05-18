@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/preact",
   "description": "The modular and type-safe form library for Preact",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",

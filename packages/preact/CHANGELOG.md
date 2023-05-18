@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.2.1 (May 19, 2023)
 
 - Fix bug when using dynamic field arrays
 
