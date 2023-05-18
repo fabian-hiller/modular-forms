@@ -1,7 +1,7 @@
 {
   "name": "Modular Forms",
   "short_name": "Modular Forms",
-  "description": "The modular form library for SolidJS",
+  "description": "The modular and type safe form library",
   "theme_color": "#111827",
   "background_color": "#111827",
   "display": "standalone",
