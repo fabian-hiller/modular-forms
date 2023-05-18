@@ -2,7 +2,7 @@ import type { ReadonlySignal } from '@preact/signals';
 import type { ComponentChild } from 'preact';
 import { useMemo } from 'preact/hooks';
 import type { JSX } from 'preact/jsx-runtime';
-import { useLifecycle } from '../hooks';
+import { useLifecycle, useLiveSignal } from '../hooks';
 import type {
   FieldArrayPath,
   FieldValues,
@@ -70,19 +70,28 @@ export function FieldArray<
   // Use lifecycle of field array
   useLifecycle({ ...props, store: fieldArray });
 
+  // Create readonly live signals
+  // https://github.com/preactjs/signals/issues/361
+  const items = useLiveSignal(fieldArray.items);
+  const error = useLiveSignal(fieldArray.error);
+  const active = useLiveSignal(fieldArray.active);
+  const touched = useLiveSignal(fieldArray.touched);
+  const dirty = useLiveSignal(fieldArray.dirty);
+
   return (
     <>
       {children(
         useMemo(
           () => ({
             name,
-            items: fieldArray.items,
-            error: fieldArray.error,
-            active: fieldArray.active,
-            touched: fieldArray.touched,
-            dirty: fieldArray.dirty,
+            items,
+            error,
+            active,
+            touched,
+            dirty,
           }),
-          [fieldArray, name]
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [name]
         )
       )}
     </>

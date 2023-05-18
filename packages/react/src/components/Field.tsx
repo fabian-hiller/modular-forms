@@ -6,7 +6,7 @@ import {
   type ReactNode,
   useMemo,
 } from 'react';
-import { useLifecycle } from '../hooks';
+import { useLifecycle, useLiveSignal } from '../hooks';
 import type {
   FieldElement,
   FieldPath,
@@ -104,19 +104,28 @@ export function Field<
   // Use lifecycle of field
   useLifecycle({ ...props, store: field });
 
+  // Create readonly live signals
+  // https://github.com/preactjs/signals/issues/361
+  const value = useLiveSignal(field.value);
+  const error = useLiveSignal(field.error);
+  const active = useLiveSignal(field.active);
+  const touched = useLiveSignal(field.touched);
+  const dirty = useLiveSignal(field.dirty);
+
   return (
     <>
       {children(
         useMemo(
           () => ({
             name,
-            value: field.value,
-            error: field.error,
-            active: field.active,
-            touched: field.touched,
-            dirty: field.dirty,
+            value,
+            error,
+            active,
+            touched,
+            dirty,
           }),
-          [field, name]
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          [name]
         ),
         useMemo(
           () => ({

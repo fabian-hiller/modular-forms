@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix bug when using dynamic field arrays
+
 ## v0.2.0 (May 14, 2023)
 
 - Delay cleanup in `useLifecycle` hook with timeout

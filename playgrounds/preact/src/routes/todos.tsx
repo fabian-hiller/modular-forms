@@ -85,8 +85,11 @@ export default function TodosPage() {
 
               <div>
                 <div class="space-y-5">
-                  {fieldArray.items.value.map((_, index) => (
-                    <div class="flex flex-wrap gap-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700">
+                  {fieldArray.items.value.map((item, index) => (
+                    <div
+                      key={item}
+                      class="flex flex-wrap gap-5 rounded-2xl border-2 border-slate-200 bg-slate-100/25 p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-800/10 dark:hover:border-slate-700"
+                    >
                       <Field
                         name={`todos.${index}.label`}
                         validate={required('Please enter a label.')}
