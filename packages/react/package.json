@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/react",
   "description": "The modular and type-safe form library for React",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
