@@ -126,9 +126,12 @@ export function Select(props: SelectProps) {
     <Kobalte.Root
       {...rootProps}
       multiple={false}
-      value={props.options.find((option) => props.value === option.value)}
-      optionValue={(option) => option.value}
-      optionTextValue={(option) => option.label}
+      // Currently there is an unexpected behavior when the component is
+      // controlled. We will update the following line as soon as we have a
+      // solution for this problem.
+      // value={props.options.find((option) => props.value === option.value)}
+      optionValue="value"
+      optionTextValue="label"
       validationState={props.error ? 'invalid' : 'valid'}
       itemComponent={(props) => (
         <Kobalte.Item item={props.item}>
