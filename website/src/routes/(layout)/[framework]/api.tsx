@@ -26,6 +26,7 @@ export default function ApiLayout() {
             'clearResponse',
             'focus',
             'getError',
+            'getErrors',
             'getValue',
             'getValues',
             'hasField',

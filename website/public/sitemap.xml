@@ -408,6 +408,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/solid/api/getErrors</loc>
+    <lastmod>2023-05-20</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/solid/api/getValue</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.40</priority>
@@ -415,7 +421,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/solid/api/getValues</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-20</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -800,6 +806,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/qwik/api/getErrors</loc>
+    <lastmod>2023-05-20</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/qwik/api/getValue</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.40</priority>
@@ -807,7 +819,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/qwik/api/getValues</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-20</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -1222,6 +1234,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/preact/api/getErrors</loc>
+    <lastmod>2023-05-20</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/preact/api/getValue</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.40</priority>
@@ -1229,7 +1247,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/preact/api/getValues</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-20</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>

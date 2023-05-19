@@ -1,0 +1,86 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>getErrors</Title>
+<Description>
+  Returns the current errors of the form fields or a field array.
+</Description>
+
+# getErrors
+
+Returns the current errors of the form fields or a field array.
+
+```ts
+// Get errors of each field
+const errors = getErrors(form, options);
+
+// Get errors of a field array
+const errors = getErrors(form, name, options);
+
+// Get errors of specific fields
+const errors = getErrors(form, names, options);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+- `names` <Property type="string" />
+- `names` <Property {...properties.names} />
+- `options` <Property {...properties.options} />
+  - `shouldActive` <Property {...properties.shouldActive} />
+  - `shouldTouched` <Property {...properties.shouldTouched} />
+  - `shouldDirty` <Property {...properties.shouldDirty} />
+
+### Explanation
+
+Besides the names of fields, you can also specify the name of a field array under `names` to get the value of each contained field.
+
+By default, only the errors of fields that are currently active are returned. If you want errors of inactive fields to be returned as well, you can set `shouldActive` to `false`.
+
+By default, the errors of fields that are not touched and not dirty are also returned. If you want only the errors of the touched, and/or dirty fields to be returned, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter and can be combined with each other.
+
+## Return
+
+- `errors` <Property {...properties.errors} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+  names: {
+    type: {
+      type: 'array',
+      item: 'string',
+    },
+  },
+  options: {
+    type: 'object',
+    defaultValue: { type: 'object', entries: [] },
+  },
+  shouldActive: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: true },
+  },
+  shouldTouched: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  shouldDirty: {
+    type: 'boolean',
+    defaultValue: { type: 'boolean', value: false },
+  },
+  errors: {
+    type: [
+      {
+        type: 'custom',
+        name: 'FormErrors',
+        href: '../FormErrors',
+      },
+    ],
+  },
+};

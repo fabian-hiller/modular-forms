@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `getErrors` method (issue #72)
+
 ## v0.14.0 (May 14, 2023)
 
 - Delay cleanup in `Lifecycle` component with timeout

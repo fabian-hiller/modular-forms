@@ -2,6 +2,7 @@ export * from './clearError';
 export * from './clearResponse';
 export * from './focus';
 export * from './getError';
+export * from './getErrors';
 export * from './getValue';
 export * from './getValues';
 export * from './hasField';

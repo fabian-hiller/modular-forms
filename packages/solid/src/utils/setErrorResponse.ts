@@ -5,6 +5,7 @@ import type {
   FieldValues,
   FormErrors,
   FormStore,
+  Maybe,
   ResponseData,
 } from '../types';
 import { getFieldArrayStore } from './getFieldArrayStore';
@@ -35,7 +36,7 @@ export function setErrorResponse<
 ): void {
   // Combine errors that were not set for any field or field array into one
   // general form error response message
-  const message = Object.entries(formErrors)
+  const message = Object.entries<Maybe<string>>(formErrors)
     .reduce<string[]>((errors, [name, error]) => {
       if (
         [
@@ -47,7 +48,7 @@ export function setErrorResponse<
             (shouldActive && !untrack(fieldOrFieldArray.active.get))
         )
       ) {
-        errors.push(error);
+        errors.push(error!);
       }
       return errors;
     }, [])

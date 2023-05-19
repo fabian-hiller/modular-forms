@@ -35,7 +35,7 @@ export type FormErrors<TFieldValues extends FieldValues> = {
   [name in
     | FieldPath<TFieldValues>
     | FieldArrayPath<TFieldValues>]?: Maybe<string>;
-} & { [name: string]: string };
+};
 
 /**
  * Function type to validate a form.

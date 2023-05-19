@@ -10,7 +10,7 @@ import { Description, Property, Title } from '~/components';
 Returns the current values of the form fields or a field array.
 
 ```ts
-// Get value of any field
+// Get values of each field
 const values = getValues(form, options);
 
 // Get values of a field array
@@ -76,10 +76,6 @@ export const properties = {
     defaultValue: { type: 'boolean', value: false },
   },
   shouldValid: {
-    type: 'boolean',
-    defaultValue: { type: 'boolean', value: false },
-  },
-  typeValidated: {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
   },
