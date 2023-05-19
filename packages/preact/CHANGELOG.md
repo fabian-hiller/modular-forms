@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.3.0 (May 20, 2023)
 
 - Add `getErrors` method (issue #72)
 - Fix bug in `validate` method when using form level validation (issue #73)
