@@ -111,7 +111,10 @@ export async function validate<
     : {};
 
   // Create valid variable
-  let valid = !Object.keys(formErrors).length;
+  let valid =
+    typeof arg2 !== 'string' && !Array.isArray(arg2)
+      ? !Object.keys(formErrors).length
+      : true;
 
   const [errorFields] = await Promise.all([
     // Validate each field in list

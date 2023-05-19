@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Add `getErrors` method (issue #72)
+- Fix bug in `validate` method when using form level validation (issue #73)
 
 ## v0.14.0 (May 14, 2023)
 
