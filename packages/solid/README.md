@@ -11,7 +11,6 @@ Modular Forms is a JavaScript library built on [SolidJS](https://github.com/soli
 - Type safety with autocompletion in editor
 - Validate everything from emails to files
 - Readable API that is similar to SolidJS
-- Progressively enhanced forms with actions
 - Modular design – only use what you need
 - No dependencies – except for SolidJS
 - It's headless – you define the visual
