@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.4.0 (May 21, 2023)
 
 - Add `toTrimmed`, `toLowerCase` and `toUpperCase` transformation function
 
