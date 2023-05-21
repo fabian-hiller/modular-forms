@@ -91,7 +91,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/solid/guides/transform-inputs</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-21</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -201,7 +201,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/qwik/guides/transform-inputs</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-21</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -311,7 +311,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/preact/guides/transform-inputs</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-21</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -596,6 +596,24 @@
   <url>
     <loc>https://modularforms.dev/solid/api/toCustom</loc>
     <lastmod>2023-05-18</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/solid/api/toLowerCase</loc>
+    <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/solid/api/toTrimmed</loc>
+    <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/solid/api/toUpperCase</loc>
+    <lastmod>2023-05-21</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -994,6 +1012,24 @@
   <url>
     <loc>https://modularforms.dev/qwik/api/toCustom$</loc>
     <lastmod>2023-05-18</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/qwik/api/toLowerCase</loc>
+    <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/qwik/api/toTrimmed</loc>
+    <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/qwik/api/toUpperCase</loc>
+    <lastmod>2023-05-21</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -1422,6 +1458,24 @@
   <url>
     <loc>https://modularforms.dev/preact/api/toCustom</loc>
     <lastmod>2023-05-18</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/preact/api/toLowerCase</loc>
+    <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/preact/api/toTrimmed</loc>
+    <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/preact/api/toUpperCase</loc>
+    <lastmod>2023-05-21</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>

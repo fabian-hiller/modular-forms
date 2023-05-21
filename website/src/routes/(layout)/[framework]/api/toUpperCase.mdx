@@ -1,0 +1,60 @@
+import { HttpStatusCode } from 'solid-start/server';
+import { Description, Property, Title } from '~/components';
+import { isQwik } from '~/contexts';
+
+<Title>toUpperCase</Title>
+<Description>
+  Creates a transformation functions that converts all the alphabetic characters
+  in a string to uppercase.
+</Description>
+
+# toUpperCase
+
+Creates a transformation functions that converts all the alphabetic characters in a string to uppercase.
+
+```ts
+const transform = toUpperCase(options);
+```
+
+## Parameters
+
+- `options` <Property type="object" />
+  - `on` <Property {...properties.on} />
+
+## Return
+
+- `transform` <Property {...properties[isQwik() ? 'qwik' : 'default'].transform} />
+
+export const properties = {
+  on: {
+    type: [
+      { type: 'string', value: 'input' },
+      { type: 'string', value: 'change' },
+      { type: 'string', value: 'blur' },
+    ],
+  },
+  default: {
+    transform: {
+      type: {
+        type: 'custom',
+        name: 'TransformField',
+        href: '../TransformField',
+      },
+    },
+  },
+  qwik: {
+    transform: {
+      type: {
+        type: 'custom',
+        name: 'QRL',
+        generics: [
+          {
+            type: 'custom',
+            name: 'TransformField',
+            href: '../TransformField',
+          },
+        ],
+      },
+    },
+  },
+};

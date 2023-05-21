@@ -13,12 +13,12 @@ export type TransformOptions = {
 };
 
 /**
- * Creates a custom transformation tuple.
+ * Creates a custom transformation functions.
  *
  * @param action The transform action.
  * @param options The transform options.
  *
- * @returns A transformation tuple.
+ * @returns A transformation functions.
  */
 export function toCustom<TFieldValue extends FieldValue>(
   action: TransformField<TFieldValue>,

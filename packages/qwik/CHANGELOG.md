@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `toTrimmed`, `toLowerCase` and `toUpperCase` transformation function
+
 ## v0.15.0 (May 20, 2023)
 
 - Add `getErrors` method (issue #72)

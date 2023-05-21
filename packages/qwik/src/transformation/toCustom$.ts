@@ -33,11 +33,11 @@ export function toCustomQrl<TFieldValue extends FieldValue>(
 }
 
 /**
- * Creates a custom transformation tuple.
+ * Creates a custom transformation functions.
  *
  * @param action The transform action.
  * @param options The transform options.
  *
- * @returns A transformation tuple.
+ * @returns A transformation functions.
  */
 export const toCustom$ = implicit$FirstArg(toCustomQrl);

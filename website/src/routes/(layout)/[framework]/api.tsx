@@ -66,7 +66,12 @@ export default function ApiLayout() {
         },
         {
           heading: 'Transformation',
-          items: [isQwik() ? 'toCustom$' : 'toCustom'],
+          items: [
+            isQwik() ? 'toCustom$' : 'toCustom',
+            'toLowerCase',
+            'toTrimmed',
+            'toUpperCase',
+          ],
         },
         {
           heading: 'Adapters',
