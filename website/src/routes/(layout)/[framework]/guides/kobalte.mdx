@@ -101,11 +101,16 @@ To select a text value via a dropdown menu we use the <a href="https://kobalte.d
 import { Select as Kobalte } from '@kobalte/core';
 import { type JSX, Show, splitProps } from 'solid-js';
 
+type Option = {
+  label: string;
+  value: string;
+};
+
 type SelectProps = {
   name: string;
   label?: string | undefined;
   placeholder?: string | undefined;
-  options: { label: string; value: string }[];
+  options: Option[];
   value: string | undefined;
   error: string;
   required?: boolean | undefined;
@@ -122,14 +127,16 @@ export function Select(props: SelectProps) {
     ['name', 'placeholder', 'options', 'required', 'disabled'],
     ['placeholder', 'ref', 'onInput', 'onChange', 'onBlur']
   );
+  const [getValue, setValue] = createSignal<Option>();
+  createEffect(() => {
+    setValue(props.options.find((option) => props.value === option.value));
+  });
   return (
     <Kobalte.Root
       {...rootProps}
       multiple={false}
-      // Currently there is an unexpected behavior when the component is
-      // controlled. We will update the following line as soon as we have a
-      // solution for this problem.
-      // value={props.options.find((option) => props.value === option.value)}
+      value={getValue()}
+      onChange={setValue}
       optionValue="value"
       optionTextValue="label"
       validationState={props.error ? 'invalid' : 'valid'}
@@ -147,7 +154,9 @@ export function Select(props: SelectProps) {
       </Show>
       <Kobalte.HiddenSelect {...selectProps} />
       <Kobalte.Trigger>
-        <Kobalte.Value />
+        <Kobalte.Value<Option>>
+          {(state) => state.selectedOption().label}
+        </Kobalte.Value>
         <Kobalte.Icon>{/* Add SVG icon here */}</Kobalte.Icon>
       </Kobalte.Trigger>
       <Kobalte.Portal>
@@ -169,6 +178,7 @@ After adding your own styles, you can use the component together with Modular Fo
     <Select
       {...props}
       label="Framework"
+      placeholder="Select a framework"
       options={[
         { label: 'SolidJS', value: 'solid' },
         { label: 'Qwik', value: 'qwik' },
