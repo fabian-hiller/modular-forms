@@ -12,9 +12,7 @@ type ButtonGroupProps = {
  */
 export function ButtonGroup(props: ButtonGroupProps) {
   return (
-    <div
-      class={clsx('flex flex-wrap gap-6 px-8 lg:gap-8 lg:px-10', props.class)}
-    >
+    <div class={clsx('flex flex-wrap gap-6 lg:gap-8', props.class)}>
       {props.children}
     </div>
   );

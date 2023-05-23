@@ -56,11 +56,9 @@ export function Header() {
       <div
         class={clsx(
           'flex h-full items-center justify-between border-b-2 px-2 backdrop-blur duration-200 lg:px-4',
-          getMenuOpen()
-            ? 'bg-white dark:bg-gray-900'
-            : 'bg-white/90 dark:bg-gray-900/90',
+          getMenuOpen() && 'bg-white dark:bg-gray-900',
           getWindowScrolled()
-            ? 'border-b-slate-200 dark:border-b-slate-800'
+            ? 'border-b-slate-200 bg-white/90 dark:border-b-slate-800 dark:bg-gray-900/90'
             : 'border-b-transparent'
         )}
       >

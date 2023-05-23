@@ -22,7 +22,7 @@ export default function NotFoundPage() {
             to the home page.
           </p>
 
-          <ButtonGroup>
+          <ButtonGroup class="px-8 lg:px-10">
             <ActionButton
               variant="primary"
               label="Create issue"

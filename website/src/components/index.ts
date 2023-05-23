@@ -5,6 +5,7 @@ export * from './ColorButton';
 export * from './Debugger';
 export * from './Description';
 export * from './DocsLayout';
+export * from './Expandable';
 export * from './FileInput';
 export * from './Footer';
 export * from './FormFooter';

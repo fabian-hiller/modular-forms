@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { createEffect, createSignal, JSX, on, onMount } from 'solid-js';
 
 type ExpandableProps = {
+  id?: string;
   class?: string;
   children: JSX.Element;
   expanded: boolean;
@@ -63,6 +64,7 @@ export function Expandable(props: ExpandableProps) {
         props.class
       )}
       ref={setElement}
+      id={props.id}
       style={{ height: `${getElementHeight()}px` }}
       aria-hidden={!props.expanded}
     >
