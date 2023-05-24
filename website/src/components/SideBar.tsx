@@ -86,7 +86,7 @@ export function SideBar(props: SideBarProps) {
         {/* Gradient overlay */}
         <div
           class={clsx(
-            'pointer-events-none fixed bottom-full h-14 w-full origin-bottom translate-y-0.5 bg-gradient-to-b from-transparent to-white duration-300 dark:to-gray-900 lg:hidden',
+            'pointer-events-none fixed bottom-14 h-14 w-full origin-bottom translate-y-0.5 bg-gradient-to-b from-transparent to-white duration-300 dark:to-gray-900 md:bottom-16 lg:hidden',
             !getOpen() && 'invisible scale-y-0'
           )}
         />
