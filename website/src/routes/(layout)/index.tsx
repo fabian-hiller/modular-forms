@@ -234,6 +234,26 @@ export default function HomePage() {
                   ),
                 },
                 {
+                  heading: 'What exactly does Modular Forms do?',
+                  Text: () => (
+                    <>
+                      Modular Forms mainly takes care of the state management
+                      and input validation of your form. The library provides
+                      you with a well thought-out API that takes care of
+                      important functions, such as capturing inputs. I recommend
+                      taking a look at the debugger in our{' '}
+                      <TextLink
+                        href={`/${getFramework()}/playground`}
+                        underlined
+                        colored
+                      >
+                        playground
+                      </TextLink>
+                      .
+                    </>
+                  ),
+                },
+                {
                   heading: 'How does a modular design reduce bundle size?',
                   Text: () => (
                     <>
@@ -324,7 +344,11 @@ export default function HomePage() {
                         stroke-width={6}
                       />
                     </button>
-                    <Expandable id={`faq-${getIndex()}`} expanded={getOpen()}>
+                    <Expandable
+                      id={`faq-${getIndex()}`}
+                      class="overflow-hidden"
+                      expanded={getOpen()}
+                    >
                       <p class="pt-6 leading-loose md:pt-7 md:text-lg md:leading-loose lg:pt-8 lg:text-xl lg:leading-loose">
                         <Text />
                       </p>

@@ -3,7 +3,7 @@
   <!-- Home -->
   <url>
     <loc>https://modularforms.dev/</loc>
-    <lastmod>2023-05-23</lastmod>
+    <lastmod>2023-05-24</lastmod>
     <priority>1.00</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -17,7 +17,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/legal/privacy</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-24</lastmod>
     <priority>0.00</priority>
     <changefreq>never</changefreq>
   </url>
