@@ -1,5 +1,14 @@
 import { A } from 'solid-start';
-import { Description, Preact, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  PreactOrReact,
+  Qwik,
+  React,
+  Solid,
+  SolidQwikOrPreact,
+  Title,
+} from '~/components';
 import { getFramework } from '~/contexts';
 
 <Title>Input components</Title>
@@ -18,6 +27,8 @@ To make your code more readable, we recommend that you develop your own input co
 
 Currently, your fields might look something like this:
 
+<SolidQwikOrPreact block>
+
 ```tsx
 <Field name="email" validate={…}>
   {(field, props) => (
@@ -35,6 +46,30 @@ Currently, your fields might look something like this:
   )}
 </Field>
 ```
+
+</SolidQwikOrPreact>
+
+<React block>
+
+```tsx
+<Field name="email" validate={…}>
+  {(field, props) => (
+    <div>
+      <label htmlFor={field.name}>Email</label>
+      <input
+        {...props}
+        id={field.name}
+        value={field.value.value || ''}
+        type="email"
+        required
+      />
+      {field.error && <div>{field.error}</div>}
+    </div>
+  )}
+</Field>
+```
+
+</React>
 
 If CSS and a few more functionalities are added here, the code quickly becomes confusing. In addition, you have to rewrite the same code for almost every form field.
 
@@ -128,7 +163,6 @@ type TextInputProps = {
   value: ReadonlySignal<string | undefined>;
   error: ReadonlySignal<string>;
   required?: boolean;
-  ref: Ref<HTMLInputElement>;
   onInput: JSX.GenericEventHandler<HTMLInputElement>;
   onChange: JSX.GenericEventHandler<HTMLInputElement>;
   onBlur: JSX.FocusEventHandler<HTMLInputElement>;
@@ -136,6 +170,27 @@ type TextInputProps = {
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+import { ReadonlySignal } from '@preact/signals-react';
+import { ChangeEventHandler, FocusEventHandler } from 'react';
+
+type TextInputProps = {
+  name: string;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
+  label?: string;
+  placeholder?: string;
+  value: ReadonlySignal<string | undefined>;
+  error: ReadonlySignal<string>;
+  required?: boolean;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  onBlur: FocusEventHandler<HTMLInputElement>;
+};
+```
+
+</React>
 
 ### Component function
 
@@ -178,9 +233,13 @@ export const TextInput = component$(
 
 </Qwik>
 
-<Preact block>
+<PreactOrReact block>
 
 In the next step, add the component function to the file and destructure the properties of the HTML `<input />` element from the rest. It is important that you use `forwardRef` to pass the element reference.
+
+</PreactOrReact>
+
+<Preact block>
 
 ```tsx
 import { ReadonlySignal } from '@preact/signals';
@@ -197,6 +256,23 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+import { ReadonlySignal } from '@preact/signals-react';
+import { ChangeEventHandler, FocusEventHandler, forwardRef } from 'react';
+
+type TextInputProps = { … };
+
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+  ({ label, value, error, ...props }, ref) => {
+    const { name, required } = props;
+  }
+);
+```
+
+</React>
 
 ### JSX code
 
@@ -305,6 +381,41 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+import { ReadonlySignal } from '@preact/signals-react';
+import { ChangeEventHandler, FocusEventHandler, forwardRef } from 'react';
+
+type TextInputProps = { … };
+
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+  ({ label, value, error, ...props }, ref) => {
+    const { name, required } = props;
+    return (
+      <div>
+        {label && (
+          <label htmlFor={name}>
+            {label} {required && <span>*</span>}
+          </label>
+        )}
+        <input
+          {...props}
+          ref={ref}
+          id={name}
+          value={value.value || ''}
+          aria-invalid={!!error.value}
+          aria-errormessage={`${name}-error`}
+        />
+        {error.value && <div id={`${name}-error`}>{error}</div>}
+      </div>
+    );
+  }
+);
+```
+
+</React>
 
 ### Next steps
 
@@ -466,3 +577,48 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+import { ReadonlySignal } from '@preact/signals-react';
+import { ChangeEventHandler, FocusEventHandler, forwardRef } from 'react';
+
+type TextInputProps = {
+  name: string;
+  type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
+  label?: string;
+  placeholder?: string;
+  value: ReadonlySignal<string | undefined>;
+  error: ReadonlySignal<string>;
+  required?: boolean;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  onBlur: FocusEventHandler<HTMLInputElement>;
+};
+
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+  ({ label, value, error, ...props }, ref) => {
+    const { name, required } = props;
+    return (
+      <div>
+        {label && (
+          <label htmlFor={name}>
+            {label} {required && <span>*</span>}
+          </label>
+        )}
+        <input
+          {...props}
+          ref={ref}
+          id={name}
+          value={value.value || ''}
+          aria-invalid={!!error.value}
+          aria-errormessage={`${name}-error`}
+        />
+        {error.value && <div id={`${name}-error`}>{error}</div>}
+      </div>
+    );
+  }
+);
+```
+
+</React>

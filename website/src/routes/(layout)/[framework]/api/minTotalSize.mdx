@@ -21,10 +21,10 @@ const validate = minTotalSize(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].validate} />
 
 export const properties = {
-  default: {
+  solidPreactOrReact: {
     validate: {
       type: {
         type: 'function',

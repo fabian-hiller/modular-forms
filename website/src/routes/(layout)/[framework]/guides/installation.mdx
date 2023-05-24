@@ -1,4 +1,12 @@
-import { Description, Preact, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  PreactOrReact,
+  Qwik,
+  React,
+  Solid,
+  Title,
+} from '~/components';
 
 <Title>Installation</Title>
 <Description>
@@ -34,6 +42,36 @@ npm install @modular-forms/preact
 
 </Preact>
 
+<React block>
+
+```bash
+npm install @modular-forms/react
+```
+
+</React>
+
+<PreactOrReact block>
+
+Since Modular Forms<React> for React</React> is implemented with <a href="https://preactjs.com/guide/v10/signals" target="_blank" rel="noreferrer">Preact Signals</a>, you need to install the following peer dependency as well.
+
+</PreactOrReact>
+
+<Preact block>
+
+```bash
+npm install @preact/signals
+```
+
+</Preact>
+
+<React block>
+
+```bash
+npm install @preact/signals-react
+```
+
+</React>
+
 After that you can import it into any JavaScript or TypeScript file.
 
 <Solid block>
@@ -59,3 +97,11 @@ import { … } from '@modular-forms/preact';
 ```
 
 </Preact>
+
+<React block>
+
+```ts
+import { … } from '@modular-forms/react';
+```
+
+</React>

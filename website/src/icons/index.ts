@@ -13,6 +13,7 @@ export * from './PenIcon';
 export * from './PlusIcon';
 export * from './PreactIcon';
 export * from './QwikIcon';
+export * from './ReactIcon';
 export * from './SearchIcon';
 export * from './SolidIcon';
 export * from './SunIcon';

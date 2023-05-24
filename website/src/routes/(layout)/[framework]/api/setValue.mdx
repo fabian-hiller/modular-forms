@@ -2,7 +2,7 @@ import { A } from 'solid-start';
 import {
   Description,
   Property,
-  QwikOrPreact,
+  QwikPreactOrReact,
   Solid,
   Title,
 } from '~/components';
@@ -33,7 +33,7 @@ setValue(form, name, value, options);
 
 By default, the field is set to touched and the dirty state is updated. If you don't want this, you can set `shouldTouched` and/or `shouldDirty` to `false`.
 
-By default, the field is validated according to the rules defined in the `options` of the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><QwikOrPreact><A href="../useForm">`useForm`</A> hook</QwikOrPreact>. To disable validation you can set `shouldValidate` to `false`.
+By default, the field is validated according to the rules defined in the `options` of the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><QwikPreactOrReact><A href="../useForm">`useForm`</A> hook</QwikPreactOrReact>. To disable validation you can set `shouldValidate` to `false`.
 
 By default, the field is focused when an error occurs during validation. To change this behavior you can set `shouldFocus` to `false`.
 

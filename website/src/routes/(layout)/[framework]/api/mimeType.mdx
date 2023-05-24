@@ -21,13 +21,13 @@ const validate = mimeType(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].validate} />
 
 export const properties = {
   requirement: {
     type: ['string', { type: 'array', item: 'string' }],
   },
-  default: {
+  solidPreactOrReact: {
     validate: {
       type: {
         type: 'function',

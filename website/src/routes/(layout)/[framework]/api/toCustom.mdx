@@ -3,7 +3,7 @@ import {
   Description,
   Property,
   Qwik,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 
@@ -12,7 +12,7 @@ import {
 
 # toCustom
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 Creates a custom transformation function.
 
@@ -30,13 +30,13 @@ const transform = toCustom(action, options);
 
 - `transform` <Property {...properties.transform} />
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 <Qwik block>
 
 <HttpStatusCode code={404} />
 
-> This page is exclusively for the SolidJS and Preact library of Modular Forms.
+> This page is exclusively for the SolidJS, Preact and React library of Modular Forms.
 
 </Qwik>
 

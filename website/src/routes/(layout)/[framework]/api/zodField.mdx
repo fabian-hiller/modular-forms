@@ -3,7 +3,7 @@ import {
   Description,
   Property,
   Qwik,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 
@@ -14,7 +14,7 @@ import {
 
 # zodField
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 Creates a validation functions that parses the Zod schema of a field.
 
@@ -30,13 +30,13 @@ const validate = zodField(schema);
 
 - `validate` <Property {...properties.validate} />
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 <Qwik block>
 
 <HttpStatusCode code={404} />
 
-> This page is exclusively for the SolidJS and Preact library of Modular Forms.
+> This page is exclusively for the SolidJS, Preact and React library of Modular Forms.
 
 </Qwik>
 

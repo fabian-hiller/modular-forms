@@ -1,6 +1,6 @@
 import { A } from 'solid-start';
 import { Description, Property, Title } from '~/components';
-import { isPreact } from '~/contexts';
+import { isPreact, isReact } from '~/contexts';
 
 <Title>FormStore</Title>
 <Description>Type that defines the store of a form.</Description>
@@ -12,15 +12,15 @@ Type that defines the store of a form.
 ## Definition
 
 - `FormStore` <Property type="object" />
-  - `element` <Property {...properties[isPreact() ? 'preact' : 'default'].element} />
-  - `submitCount` <Property {...properties[isPreact() ? 'preact' : 'default'].submitCount} />
-  - `submitting` <Property {...properties[isPreact() ? 'preact' : 'default'].submitting} />
-  - `submitted` <Property {...properties[isPreact() ? 'preact' : 'default'].submitted} />
-  - `validating` <Property {...properties[isPreact() ? 'preact' : 'default'].validating} />
-  - `touched` <Property {...properties[isPreact() ? 'preact' : 'default'].touched} />
-  - `dirty` <Property {...properties[isPreact() ? 'preact' : 'default'].dirty} />
-  - `invalid` <Property {...properties[isPreact() ? 'preact' : 'default'].invalid} />
-  - `response` <Property {...properties[isPreact() ? 'preact' : 'default'].response} />
+  - `element` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].element} />
+  - `submitCount` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].submitCount} />
+  - `submitting` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].submitting} />
+  - `submitted` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].submitted} />
+  - `validating` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].validating} />
+  - `touched` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].touched} />
+  - `dirty` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].dirty} />
+  - `invalid` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].invalid} />
+  - `response` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].response} />
 
 > The object also contains a key named `internal` which provides API's that we need internally in the library. You should not access it. Instead, use the form, field and array methods we provide you.
 
@@ -31,7 +31,7 @@ The properties of the form are reactive and can be used, for example, in the JSX
 Errors that occur when submitting the form are made accessible via the `response` object. In conjunction with the <A href="../setResponse">`setResponse`</A> method, you can also use `response` to display custom feedback to your user.
 
 export const properties = {
-  default: {
+  solidOrQwik: {
     element: {
       type: {
         type: 'custom',
@@ -65,7 +65,7 @@ export const properties = {
       type: { type: 'custom', name: 'FormResponse', href: '../FormResponse' },
     },
   },
-  preact: {
+  preactOrReact: {
     element: {
       type: {
         type: 'custom',

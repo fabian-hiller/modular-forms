@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Preact, Qwik, Solid, Title } from '~/components';
+import { Description, Preact, Qwik, React, Solid, Title } from '~/components';
 
 <Title>Add fields to form</Title>
 <Description>
@@ -101,6 +101,35 @@ export default function App() {
 
 </Preact>
 
+<React block>
+
+```tsx
+import { useForm } from '@modular-forms/react';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
+
+  return (
+    <Form>
+      <Field name="email">
+        {(field, props) => <input {...props} type="email" />}
+      </Field>
+      <Field name="password">
+        {(field, props) => <input {...props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</React>
+
 > Please let us know via <A href="/legal/imprint">email</A> or the <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issues</a> on GitHub if something is unclear or you have ideas on how we can further improve the API and documentation.
 
 ### Headless design
@@ -109,7 +138,7 @@ The <A href="../../api/Field">`Field`</A> component does not render its own UI e
 
 ### Data types
 
-If you want your field to capture a data type other than string, a second property called `type` is required. However, based on your type definition, we will recognize this, point it out in your code, and help you fill in the value using autocompletion. This way we know your data type at runtime and can ensure that only valid values are captured.
+If you want your field to capture a data type other than string, a second property called `type` is required. However, based on your type definition, we will recognize this, point it out in your code and help you fill in the value using autocompletion. This way we know your data type at runtime and can ensure that only valid values are captured.
 
 ```tsx
 <Field name="age" type="number">

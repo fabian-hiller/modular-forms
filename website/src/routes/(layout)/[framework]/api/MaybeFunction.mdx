@@ -3,7 +3,7 @@ import {
   Description,
   Property,
   Qwik,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 
@@ -28,13 +28,13 @@ Utility type that transforms a type into a maybe `Function` type.
 
 </Qwik>
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 <HttpStatusCode code={404} />
 
 > This page is exclusively for the Qwik library of Modular Forms.
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 export const properties = {
   Value: {

@@ -2,6 +2,7 @@ import {
   Description,
   Property,
   Qwik,
+  React,
   SolidOrPreact,
   Title,
 } from '~/components';
@@ -17,8 +18,8 @@ Type that defines the HTML element of a field.
 
 <SolidOrPreact block>
 
-- `FieldEvent` <Property {...properties.default.FieldEvent} />
-  - `currentTarget` <Property {...properties.default.currentTarget} />
+- `FieldEvent` <Property {...properties.solidPreactOrReact.FieldEvent} />
+  - `currentTarget` <Property {...properties.solidPreactOrReact.currentTarget} />
 
 </SolidOrPreact>
 
@@ -28,8 +29,15 @@ Type that defines the HTML element of a field.
 
 </Qwik>
 
+<React block>
+
+- `FieldEvent` <Property {...properties.solidPreactOrReact.FieldEvent} />
+  - `target` <Property {...properties.solidPreactOrReact.currentTarget} />
+
+</React>
+
 export const properties = {
-  default: {
+  solidPreactOrReact: {
     FieldEvent: {
       type: {
         type: 'custom',

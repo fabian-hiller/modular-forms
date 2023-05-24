@@ -11,12 +11,12 @@ Type that defines the value of a field.
 
 ## Definition
 
-- `FieldValue` <Property {...properties[isQwik() ? 'qwik' : 'default'].FieldValue} />
+- `FieldValue` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].FieldValue} />
 
 > Make sure to use the correct input fields with the correct setting for the respective values. You can find instructions <A href="../../guides/special-inputs">here</A>.
 
 export const properties = {
-  default: {
+  solidPreactOrReact: {
     FieldValue: {
       type: [
         'string',

@@ -57,7 +57,9 @@ export function Debugger(props: DebuggerProps) {
                 : `${
                     getFramework() === 'solid'
                       ? import.meta.env.VITE_STACKBLITZ_SOLID_URL
-                      : import.meta.env.VITE_STACKBLITZ_PREACT_URL
+                      : getFramework() === 'preact'
+                      ? import.meta.env.VITE_STACKBLITZ_PREACT_URL
+                      : import.meta.env.VITE_STACKBLITZ_REACT_URL
                   }?file=src/routes/${getPath()}.tsx`
             }
             target="_blank"

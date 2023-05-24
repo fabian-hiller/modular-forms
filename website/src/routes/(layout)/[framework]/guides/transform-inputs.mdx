@@ -3,8 +3,11 @@ import {
   Description,
   Preact,
   Qwik,
+  React,
   Solid,
   SolidOrPreact,
+  SolidPreactOrReact,
+  SolidQwikOrPreact,
   Title,
 } from '~/components';
 
@@ -25,7 +28,7 @@ You've probably entered your phone number or bank details into a form and, like 
 
 The goal of input transformation is to change the user's input at a given time. Typically at the `input` or `change` event. This is made possible with the `transform` property of the <A href="../../api/Field">`Field`</A> component.
 
-As with the `validate` property, you can pass a single function or multiple functions in an array. You can use our <SolidOrPreact><A href="../../api/toCustom">`toCustom`</A></SolidOrPreact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function or write your own functions based on it. More on that in a moment.
+As with the `validate` property, you can pass a single function or multiple functions in an array. You can use our <SolidPreactOrReact><A href="../../api/toCustom">`toCustom`</A></SolidPreactOrReact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function or write your own functions based on it. More on that in a moment.
 
 <SolidOrPreact block>
 
@@ -77,17 +80,42 @@ As with the `validate` property, you can pass a single function or multiple func
 
 </Qwik>
 
+<React block>
+
+```tsx
+<Field
+  name="phone"
+  transform={toCustom(
+    (value, event) => {
+      // Transform phone number here
+    },
+    { on: 'input' }
+  )}
+>
+  {(field, props) => (
+    <input
+      {...props}
+      type="tel"
+      placeholder="(000) 000-0000"
+      value={field.value.value || ''}
+    />
+  )}
+</Field>
+```
+
+</React>
+
 ### How toCustom<Qwik>$</Qwik> works
 
-The first parameter of the <SolidOrPreact><A href="../../api/toCustom">`toCustom`</A></SolidOrPreact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function is executed if the current event type is the event type you specified in the second parameter. The function gives you access to the current `value`, as well as to the `event` object<SolidOrPreact>, which you can use to access the reference of the `<input />` element via `event.currentTarget` if needed</SolidOrPreact><Qwik> and `element` reference</Qwik>.
+The first parameter of the <SolidPreactOrReact><A href="../../api/toCustom">`toCustom`</A></SolidPreactOrReact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function is executed if the current event type is the event type you specified in the second parameter. The function gives you access to the current `value`, as well as to the `event` object<SolidPreactOrReact>, which you can use to access the reference of the `<input />` element via <SolidQwikOrPreact>`event.currentTarget`</SolidQwikOrPreact><React>`event.target`</React> if needed</SolidPreactOrReact><Qwik> and `element` reference</Qwik>.
 
 ### String transformation
 
-Besides <SolidOrPreact><A href="../../api/toCustom">`toCustom`</A></SolidOrPreact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik>, Modular Forms also provide <A href="../../api/toTrimmed">`toTrimmed`</A>, <A href="../../api/toLowerCase">`toLowerCase`</A> and <A href="../../api/toUpperCase">`toUpperCase`</A> by default to transform strings. If you have ideas for other useful transformation functions, let us know with an <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issue</a> on GitHub.
+Besides <SolidPreactOrReact><A href="../../api/toCustom">`toCustom`</A></SolidPreactOrReact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik>, Modular Forms also provide <A href="../../api/toTrimmed">`toTrimmed`</A>, <A href="../../api/toLowerCase">`toLowerCase`</A> and <A href="../../api/toUpperCase">`toUpperCase`</A> by default to transform strings. If you have ideas for other useful transformation functions, let us know with an <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issue</a> on GitHub.
 
 ## Create custom functions
 
-To make your code reusable and more readable, you can create your own transformation functions based on <SolidOrPreact><A href="../../api/toCustom">`toCustom`</A></SolidOrPreact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik>. As promised, we show how this works, using a phone number transformation as an example.
+To make your code reusable and more readable, you can create your own transformation functions based on <SolidPreactOrReact><A href="../../api/toCustom">`toCustom`</A></SolidPreactOrReact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik>. As promised, we show how this works, using a phone number transformation as an example.
 
 ### Phone number transformation
 
@@ -210,9 +238,50 @@ export function toPhoneNumber(options: TransformOptions) {
 
 </Preact>
 
+<React block>
+
+```ts
+import { toCustom, TransformOptions } from '@modular-forms/react';
+
+export function toPhoneNumber(options: TransformOptions) {
+  return toCustom<string>((value) => {
+    // Remove everything that is not a number
+    const numbers = value.replace(/\D/g, '');
+
+    // Continue if string is not empty
+    if (numbers) {
+      // Extract area, first 3 and last 4
+      const [, area, first3, last4] = numbers.match(
+        /(\d{0,3})(\d{0,3})(\d{0,4})/
+      );
+
+      // If length or first 3 is less than 1
+      if (first3.length < 1) {
+        return `(${area}`;
+      }
+
+      // If length or last 4 is less than 1
+      if (last4.length < 1) {
+        return `(${area}) ${first3}`;
+      }
+
+      // Otherwise return full US number
+      return `(${area}) ${first3}-${last4}`;
+    }
+
+    // Otherwise return an emty string
+    return '';
+  }, options);
+}
+```
+
+</React>
+
 ### Use custom function in JSX
 
 You can now call the `toPhoneNumber` transformation function and pass it to the `transform` property as follows:
+
+<SolidQwikOrPreact block>
 
 ```tsx
 <Field name="phone" transform={toPhoneNumber({ on: 'input' })}>
@@ -226,6 +295,25 @@ You can now call the `toPhoneNumber` transformation function and pass it to the 
   )}
 </Field>
 ```
+
+</SolidQwikOrPreact>
+
+<React block>
+
+```tsx
+<Field name="phone" transform={toPhoneNumber({ on: 'input' })}>
+  {(field, props) => (
+    <input
+      {...props}
+      type="tel"
+      placeholder="(000) 000-0000"
+      value={field.value.value || ''}
+    />
+  )}
+</Field>
+```
+
+</React>
 
 <Solid block>
 

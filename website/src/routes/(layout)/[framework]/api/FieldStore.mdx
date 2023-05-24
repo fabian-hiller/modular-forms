@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { isPreact } from '~/contexts';
+import { isPreact, isReact } from '~/contexts';
 
 <Title>FieldStore</Title>
 <Description>Type that defines the store of a form field.</Description>
@@ -12,14 +12,14 @@ Type that defines the store of a form field.
 
 - `FieldStore` <Property type="object" />
   - `name` <Property type="string" />
-  - `value` <Property {...properties[isPreact() ? 'preact' : 'default'].value} />
-  - `error` <Property {...properties[isPreact() ? 'preact' : 'default'].error} />
-  - `active` <Property {...properties[isPreact() ? 'preact' : 'default'].active} />
-  - `touched` <Property {...properties[isPreact() ? 'preact' : 'default'].touched} />
-  - `dirty` <Property {...properties[isPreact() ? 'preact' : 'default'].dirty} />
+  - `value` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].value} />
+  - `error` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].error} />
+  - `active` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].active} />
+  - `touched` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].touched} />
+  - `dirty` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].dirty} />
 
 export const properties = {
-  default: {
+  solidOrQwik: {
     value: {
       type: {
         type: 'custom',
@@ -47,7 +47,7 @@ export const properties = {
       type: 'boolean',
     },
   },
-  preact: {
+  preactOrReact: {
     value: {
       type: {
         type: 'custom',

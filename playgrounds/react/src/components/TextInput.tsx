@@ -28,7 +28,7 @@ type TextInputProps = {
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   ({ className, label, value, error, ...props }, ref) => {
     const { name, required } = props;
-    const input = useSignal<string | number | undefined>('');
+    const input = useSignal<string | number>('');
     useSignalEffect(() => {
       if (!Number.isNaN(value.value)) {
         input.value = value.value === undefined ? '' : value.value;

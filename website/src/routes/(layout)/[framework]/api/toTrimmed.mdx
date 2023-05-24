@@ -23,7 +23,7 @@ const transform = toTrimmed(options);
 
 ## Return
 
-- `transform` <Property {...properties[isQwik() ? 'qwik' : 'default'].transform} />
+- `transform` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].transform} />
 
 export const properties = {
   on: {
@@ -33,7 +33,7 @@ export const properties = {
       { type: 'string', value: 'blur' },
     ],
   },
-  default: {
+  solidPreactOrReact: {
     transform: {
       type: {
         type: 'custom',

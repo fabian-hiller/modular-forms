@@ -1,5 +1,5 @@
 import { Description, Property, Qwik, Title } from '~/components';
-import { isPreact } from '~/contexts';
+import { isPreact, isReact } from '~/contexts';
 
 <Title>FieldArrayStore</Title>
 <Description>Type that defines the state of a form field array.</Description>
@@ -12,18 +12,18 @@ Type that defines the state of a form field array.
 
 - `FieldArrayStore` <Property type="object" />
   - `name` <Property type="string" />
-  - `items` <Property {...properties[isPreact() ? 'preact' : 'default'].items} />
-  - `error` <Property {...properties[isPreact() ? 'preact' : 'default'].error} />
-  - `active` <Property {...properties[isPreact() ? 'preact' : 'default'].active} />
-  - `touched` <Property {...properties[isPreact() ? 'preact' : 'default'].touched} />
-  - `dirty` <Property {...properties[isPreact() ? 'preact' : 'default'].dirty} />
+  - `items` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].items} />
+  - `error` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].error} />
+  - `active` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].active} />
+  - `touched` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].touched} />
+  - `dirty` <Property {...properties[isPreact() || isReact() ? 'preactOrReact' : 'solidOrQwik'].dirty} />
 
 ### Explanation
 
 The `items` do not contain the value of the fields, but only a random unique number.<Qwik> You should pass this value in the loop to the first JSX element as `key` property.</Qwik>
 
 export const properties = {
-  default: {
+  solidOrQwik: {
     items: {
       type: 'array',
       item: 'number',
@@ -41,7 +41,7 @@ export const properties = {
       type: 'boolean',
     },
   },
-  preact: {
+  preactOrReact: {
     items: {
       type: {
         type: 'custom',

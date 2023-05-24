@@ -21,7 +21,7 @@ const validate = pattern(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].validate} />
 
 export const properties = {
   requirement: {
@@ -30,7 +30,7 @@ export const properties = {
       name: 'RegExp',
     },
   },
-  default: {
+  solidPreactOrReact: {
     validate: {
       type: {
         type: 'function',

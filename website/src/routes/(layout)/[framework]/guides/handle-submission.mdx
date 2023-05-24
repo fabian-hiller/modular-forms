@@ -3,8 +3,9 @@ import {
   Description,
   Preact,
   Qwik,
+  React,
   Solid,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 
@@ -28,13 +29,13 @@ To make your form work even if JavaScript is disabled in your user's browser, we
 
 </Qwik>
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 ## Submit event
 
 To process the values on submission, you need to pass a function to the `onSubmit` property of the <A href="../../api/Form">`Form`</A> component. The first parameter passed to the function are the form values and the second is the event object.
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 <Solid block>
 
@@ -116,7 +117,7 @@ export default component$(() => {
 <Preact block>
 
 ```tsx
-import { SubmitHandler, useForm } from '@modular-forms/solid';
+import { SubmitHandler, useForm } from '@modular-forms/preact';
 
 type LoginForm = {
   email: string;
@@ -136,6 +137,29 @@ export default function App() {
 
 </Preact>
 
+<React block>
+
+```tsx
+import { SubmitHandler, useForm } from '@modular-forms/react';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
+
+  const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
+    // Your code here
+  };
+
+  return <Form onSubmit={handleSubmit}>…</Form>;
+}
+```
+
+</React>
+
 ### Prevent default
 
 When the form is submitted, `event.preventDefault()` is executed by default to prevent the window from reloading so that the values can also be processed directly in the browser and the state of the form is preserved.
@@ -152,7 +176,7 @@ Using the `shouldDirty` property of the <A href="../../api/Form">`Form`</A> comp
 
 ## Throw and display errors
 
-You can access errors thrown by your code in `onSubmit$` via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here, and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return errors if any occur.
+You can access errors thrown by your code in `onSubmit$` via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return errors if any occur.
 
 ```ts
 export const useFormAction = formAction$<LoginForm>((values) => {

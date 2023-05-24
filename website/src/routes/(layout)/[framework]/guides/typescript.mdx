@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Preact, Qwik, Solid, Title } from '~/components';
+import { Description, Preact, Qwik, React, Solid, Title } from '~/components';
 
 <Title>TypeScript</Title>
 <Description>
@@ -127,3 +127,39 @@ function FormContent({ loginForm }: FormContentProps) {
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+import { Form, type FormStore, Field, useFormStore } from '@modular-forms/react';
+
+type LoginForm = {
+  email: string;
+  password: string;
+}
+
+export function LoginPage() {
+  const loginForm = useFormStore<LoginForm>();
+  return <FormContent loginForm={loginForm} />
+}
+
+type FormContentProps {
+  loginForm: FormStore<LoginForm>;
+}
+
+function FormContent({ loginForm }: FormContentProps) {
+  return (
+    <Form of={loginForm}>
+      <Field of={loginForm} name="email">
+        {(field, props) => <input {...props} type="email" />}
+      </Field>
+      <Field of={loginForm} name="password">
+        {(field, props) => <input {...props} type="password" />}
+      </Field>
+      <input type="submit" />
+    </Form>
+  );
+}
+```
+
+</React>

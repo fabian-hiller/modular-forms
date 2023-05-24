@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { isQwik } from '~/contexts';
+import { isPreact, isQwik, isReact } from '~/contexts';
 
 <Title>FieldArray</Title>
 <Description>
@@ -20,10 +20,10 @@ Headless field array that provides reactive properties and state.
 
 - `of` <Property {...properties.of} />
 - `name` <Property type="string" />
-- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].validate} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
-- `children` <Property {...properties.children} />
+- `children` <Property {...properties[isPreact() ? 'preact' : isReact() ? 'react' : 'solidOrQwik'].children} />
 
 ### Explanation
 
@@ -49,23 +49,7 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  children: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'fieldArray',
-          type: {
-            type: 'custom',
-            name: 'FieldArrayStore',
-            href: '../FieldArrayStore',
-          },
-        },
-      ],
-      return: { type: 'custom', name: 'JSX.Element' },
-    },
-  },
-  default: {
+  solidPreactOrReact: {
     validate: {
       type: {
         type: 'custom',
@@ -85,6 +69,24 @@ export const properties = {
             ],
           },
         ],
+      },
+    },
+  },
+  solidOrQwik: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'fieldArray',
+            type: {
+              type: 'custom',
+              name: 'FieldArrayStore',
+              href: '../FieldArrayStore',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'JSX.Element' },
       },
     },
   },
@@ -114,6 +116,42 @@ export const properties = {
             ],
           },
         ],
+      },
+    },
+  },
+  preact: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'fieldArray',
+            type: {
+              type: 'custom',
+              name: 'FieldArrayStore',
+              href: '../FieldArrayStore',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'ComponentChild' },
+      },
+    },
+  },
+  react: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'fieldArray',
+            type: {
+              type: 'custom',
+              name: 'FieldArrayStore',
+              href: '../FieldArrayStore',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'ReactNode' },
       },
     },
   },

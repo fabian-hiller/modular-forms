@@ -2,7 +2,7 @@ import { HttpStatusCode } from 'solid-start/server';
 import {
   Description,
   Property,
-  QwikOrPreact,
+  QwikPreactOrReact,
   Solid,
   Title,
 } from '~/components';
@@ -12,7 +12,7 @@ import {
 
 # useFormStore
 
-<QwikOrPreact block>
+<QwikPreactOrReact block>
 
 Creates and returns the store of the form.
 
@@ -39,13 +39,13 @@ If you use TypeScript, you should define your field values. This way the library
 
 - `form` <Property {...properties.form} />
 
-</QwikOrPreact>
+</QwikPreactOrReact>
 
 <Solid block>
 
 <HttpStatusCode code={404} />
 
-> This page is exclusively for the Qwik and Preact library of Modular Forms.
+> This page is exclusively for the Qwik, Preact and React library of Modular Forms.
 
 </Solid>
 

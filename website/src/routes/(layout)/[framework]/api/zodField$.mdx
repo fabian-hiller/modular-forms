@@ -3,7 +3,7 @@ import {
   Description,
   Property,
   Qwik,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 
@@ -32,13 +32,13 @@ const validate = zodField$(schema);
 
 </Qwik>
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 <HttpStatusCode code={404} />
 
 > This page is exclusively for the Qwik library of Modular Forms.
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 export const properties = {
   schema: {

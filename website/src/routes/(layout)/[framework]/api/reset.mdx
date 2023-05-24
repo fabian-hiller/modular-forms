@@ -3,9 +3,9 @@ import {
   Description,
   Property,
   Qwik,
-  QwikOrPreact,
+  QwikPreactOrReact,
   Solid,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 import { isQwik } from '~/contexts';
@@ -37,7 +37,7 @@ reset(form, names, options);
 - `name` <Property type="string" />
 - `names` <Property {...properties.names} />
 - `options` <Property {...properties.options} />
-  - `initialValues` <Property {...properties[isQwik() ? 'qwik' : 'default'].initialValues} />
+  - `initialValues` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].initialValues} />
   - `initialValue` <Property {...properties.initialValue} />
   - `keepResponse` <Property {...properties.keepResponse} />
   - `keepSubmitCount` <Property {...properties.keepSubmitCount} />
@@ -54,9 +54,9 @@ reset(form, names, options);
 
 In addition to the names of the fields, you can also specify the name of a field array under `names` or `name`. In this case, the field array and the fields and field arrays it contains will be reset.
 
-When you reset the entire form or several fields, you can specify new `initialValues` that override the <SolidOrPreact>`initialValues`</SolidOrPreact><Qwik>`loader`</Qwik> you <SolidOrPreact>may</SolidOrPreact> specified in the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><QwikOrPreact><A href="../useForm">`useForm`</A> hook</QwikOrPreact>.
+When you reset the entire form or several fields, you can specify new `initialValues` that override the <SolidPreactOrReact>`initialValues`</SolidPreactOrReact><Qwik>`loader`</Qwik> you <SolidPreactOrReact>may</SolidPreactOrReact> specified in the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><QwikPreactOrReact><A href="../useForm">`useForm`</A> hook</QwikPreactOrReact>.
 
-When you reset a single field, you can specify a new `initialValue` that override the initial value you <SolidOrPreact>may</SolidOrPreact> set in the <SolidOrPreact>`initialValues`</SolidOrPreact><Qwik>`loader`</Qwik> of the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><QwikOrPreact><A href="../useForm">`useForm`</A> hook</QwikOrPreact>.
+When you reset a single field, you can specify a new `initialValue` that override the initial value you <SolidPreactOrReact>may</SolidPreactOrReact> set in the <SolidPreactOrReact>`initialValues`</SolidPreactOrReact><Qwik>`loader`</Qwik> of the <Solid><A href="../createForm">`createForm`</A> primitive</Solid><QwikPreactOrReact><A href="../useForm">`useForm`</A> hook</QwikPreactOrReact>.
 
 By default, the `response`, `submitCount` and `submitted` state of the `form` is reset when the entire form is reset. To change this behavior you can set `keepResponse`, `keepSubmitCount` and/or `keepSubmitted` to `true`.
 
@@ -134,7 +134,7 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: false },
   },
-  default: {
+  solidPreactOrReact: {
     initialValues: {
       type: {
         type: 'custom',

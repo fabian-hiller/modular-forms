@@ -3,10 +3,10 @@ import {
   Description,
   Property,
   Qwik,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
-import { isPreact } from '~/contexts';
+import { isPreact, isReact } from '~/contexts';
 
 <Title>Form</Title>
 <Description>
@@ -17,7 +17,7 @@ import { isPreact } from '~/contexts';
 
 Form element that takes care of validation and simplifies submission.
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 ```tsx
 <Form
@@ -33,7 +33,7 @@ Form element that takes care of validation and simplifies submission.
 </Form>
 ```
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 <Qwik block>
 
@@ -58,18 +58,18 @@ Form element that takes care of validation and simplifies submission.
 
 ## Properties
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 - `of` <Property {...properties.of} />
-- `onSubmit` <Property {...properties.default.onSubmit} />
+- `onSubmit` <Property {...properties.solidPreactOrReact.onSubmit} />
 - `keepResponse` <Property {...properties.keepResponse} />
 - `shouldActive` <Property {...properties.shouldActive} />
 - `shouldTouched` <Property {...properties.shouldTouched} />
 - `shouldDirty` <Property {...properties.shouldDirty} />
 - `shouldFocus` <Property {...properties.shouldFocus} />
-- `children` <Property {...properties[isPreact() ? 'preact' : 'default'].children} />
+- `children` <Property {...properties[isPreact() ? 'preact' : isReact() ? 'react' : 'solidOrQwik'].children} />
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 <Qwik block>
 
@@ -83,7 +83,7 @@ Form element that takes care of validation and simplifies submission.
 - `shouldTouched` <Property {...properties.shouldTouched} />
 - `shouldDirty` <Property {...properties.shouldDirty} />
 - `shouldFocus` <Property {...properties.shouldFocus} />
-- `children` <Property {...properties.default.children} />
+- `children` <Property {...properties.solidOrQwik.children} />
 
 </Qwik>
 
@@ -91,15 +91,15 @@ Form element that takes care of validation and simplifies submission.
 
 ### Explanation
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 When the form is submitted, `event.preventDefault()` is executed by default to prevent the window from reloading so that the values can also be processed directly in the browser and the state of the form is preserved.
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
-Before executing the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
+Before executing the <SolidPreactOrReact>`onSubmit`</SolidPreactOrReact><Qwik>`onSubmit$`</Qwik> function, the `response` of the form is reset. To change this behavior you can set the `keepResponse` property to `true`.
 
-Errors thrown by the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <A href="../FormStore">`FormStore`</A> object to display them to your user.
+Errors thrown by the <SolidPreactOrReact>`onSubmit`</SolidPreactOrReact><Qwik>`onSubmit$`</Qwik> function are made available via the `response` property of the <A href="../FormStore">`FormStore`</A> object to display them to your user.
 
 <Qwik block>
 
@@ -107,11 +107,11 @@ If JavaScript is available, we use `preventdefault:submit` to prevent the page f
 
 </Qwik>
 
-By default, the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
+By default, the <SolidPreactOrReact>`onSubmit`</SolidPreactOrReact><Qwik>`onSubmit$`</Qwik> function validates and provides only the values of active fields via the `values` parameter and focuses on the first field with an error during validation if one occurs. To change this behavior you can set the `shouldActive` and `shouldFocus` property to `false`.
 
-By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
+By default, the values of fields that are not touched and not dirty are also provided via the `values` parameter of the <SolidPreactOrReact>`onSubmit`</SolidPreactOrReact><Qwik>`onSubmit$`</Qwik> function. If you want only the values of the touched and/or dirty fields to be provided, you can set `shouldTouched` and/or `shouldDirty` to `true`.
 
-`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <SolidOrPreact>`onSubmit`</SolidOrPreact><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
+`shouldActive`, `shouldTouched` and `shouldDirty` act like a kind of filter for the `values` parameter of the <SolidPreactOrReact>`onSubmit`</SolidPreactOrReact><Qwik>`onSubmit$`</Qwik> function and can be combined with each other.
 
 export const properties = {
   of: {
@@ -141,7 +141,7 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  default: {
+  solidPreactOrReact: {
     onSubmit: {
       type: {
         type: 'custom',
@@ -149,6 +149,8 @@ export const properties = {
         href: '../SubmitHandler',
       },
     },
+  },
+  solidOrQwik: {
     children: {
       type: { type: 'custom', name: 'JSX.Element' },
     },
@@ -222,6 +224,11 @@ export const properties = {
   preact: {
     children: {
       type: { type: 'custom', name: 'ComponentChildren' },
+    },
+  },
+  react: {
+    children: {
+      type: { type: 'custom', name: 'ReactNode' },
     },
   },
 };

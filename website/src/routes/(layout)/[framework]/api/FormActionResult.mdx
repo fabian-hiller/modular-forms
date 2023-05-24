@@ -3,7 +3,7 @@ import {
   Description,
   Property,
   Qwik,
-  SolidOrPreact,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 
@@ -26,13 +26,13 @@ Type that defines the return of a form action.
 
 </Qwik>
 
-<SolidOrPreact block>
+<SolidPreactOrReact block>
 
 <HttpStatusCode code={404} />
 
 > This page is exclusively for the Qwik library of Modular Forms.
 
-</SolidOrPreact>
+</SolidPreactOrReact>
 
 export const properties = {
   status: {

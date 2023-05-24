@@ -1,5 +1,14 @@
 import { A } from 'solid-start';
-import { Description, Preact, Qwik, Solid, Title } from '~/components';
+import {
+  Description,
+  Preact,
+  PreactOrReact,
+  Qwik,
+  React,
+  Solid,
+  SolidQwikOrPreact,
+  Title,
+} from '~/components';
 
 <Title>Special inputs</Title>
 <Description>
@@ -18,6 +27,8 @@ As listed in our features, the library supports all native HTML form fields. Thi
 
 A simple checkbox represents a boolean and is `true` when checked or `false` otherwise.
 
+<SolidQwikOrPreact block>
+
 ```tsx
 <Field name="cookies" type="boolean">
   {(field, props) => (
@@ -28,6 +39,23 @@ A simple checkbox represents a boolean and is `true` when checked or `false` oth
   )}
 </Field>
 ```
+
+</SolidQwikOrPreact>
+
+<React block>
+
+```tsx
+<Field name="cookies" type="boolean">
+  {(field, props) => (
+    <label>
+      <input {...props} type="checkbox" checked={!!field.value.value} />
+      Yes, I want cookies
+    </label>
+  )}
+</Field>
+```
+
+</React>
 
 However, you can also use multiple checkboxes to represent an array of strings. For this you simply have to add the `value` attribute to the HTML `<input />` element.
 
@@ -70,7 +98,7 @@ However, you can also use multiple checkboxes to represent an array of strings. 
     { label: 'Apples', value: 'apples' },
     { label: 'Grapes', value: 'grapes' },
   ].map(({ label, value }) => (
-    <Field name="fruits" type="string[]" key={value}>
+    <Field key={value} name="fruits" type="string[]">
       {(field, props) => (
         <label>
           <input
@@ -98,7 +126,7 @@ However, you can also use multiple checkboxes to represent an array of strings. 
     { label: 'Apples', value: 'apples' },
     { label: 'Grapes', value: 'grapes' },
   ].map(({ label, value }) => (
-    <Field name="fruits" type="string[]">
+    <Field key={value} name="fruits" type="string[]">
       {(field, props) => (
         <label>
           <input
@@ -116,6 +144,34 @@ However, you can also use multiple checkboxes to represent an array of strings. 
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+{
+  [
+    { label: 'Bananas', value: 'bananas' },
+    { label: 'Apples', value: 'apples' },
+    { label: 'Grapes', value: 'grapes' },
+  ].map(({ label, value }) => (
+    <Field key={value} name="fruits" type="string[]">
+      {(field, props) => (
+        <label>
+          <input
+            {...props}
+            type="checkbox"
+            value={value}
+            checked={!!field.value.value?.includes(value)}
+          />
+          {label}
+        </label>
+      )}
+    </Field>
+  ));
+}
+```
+
+</React>
 
 ## Select
 
@@ -158,7 +214,7 @@ An HTML `<select />` element allows you to select a string from a predefined lis
         { label: 'Solid', value: 'solid' },
         { label: 'Qwik', value: 'qwik' },
       ].map(({ label, value }) => (
-        <option value={value} selected={field.value === value} key={value}>
+        <option key={value} value={value} selected={field.value === value}>
           {label}
         </option>
       ))}
@@ -180,7 +236,11 @@ An HTML `<select />` element allows you to select a string from a predefined lis
         { label: 'Solid', value: 'solid' },
         { label: 'Qwik', value: 'qwik' },
       ].map(({ label, value }) => (
-        <option value={value} selected={field.value.value === value}>
+        <option
+          key={value}
+          value={value}
+          selected={field.value.value === value}
+        >
           {label}
         </option>
       ))}
@@ -190,6 +250,28 @@ An HTML `<select />` element allows you to select a string from a predefined lis
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+<Field name="framework">
+  {(field, props) => (
+    <select {...props} value={field.value.value || ''}>
+      {[
+        { label: 'Preact', value: 'preact' },
+        { label: 'Solid', value: 'solid' },
+        { label: 'Qwik', value: 'qwik' },
+      ].map(({ label, value }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
+    </select>
+  )}
+</Field>
+```
+
+</React>
 
 However, if you set the `multiple` attribute, multiple options can be selected making the field represent an array of strings.
 
@@ -233,9 +315,9 @@ However, if you set the `multiple` attribute, multiple options can be selected m
         { label: 'Qwik', value: 'qwik' },
       ].map(({ label, value }) => (
         <option
+          key={value}
           value={value}
           selected={field.value?.includes(value)}
-          key={value}
         >
           {label}
         </option>
@@ -259,7 +341,11 @@ However, if you set the `multiple` attribute, multiple options can be selected m
         { label: 'Solid', value: 'solid' },
         { label: 'Qwik', value: 'qwik' },
       ].map(({ label, value }) => (
-        <option value={value} selected={field.value.value?.includes(value)}>
+        <option
+          key={value}
+          value={value}
+          selected={field.value.value?.includes(value)}
+        >
           {label}
         </option>
       ))}
@@ -269,6 +355,29 @@ However, if you set the `multiple` attribute, multiple options can be selected m
 ```
 
 </Preact>
+
+<React block>
+
+```tsx
+<Field name="framework" type="string[]">
+  {(field, props) => (
+    // Set "multiple" to "true"
+    <select {...props} value={field.value.value || []} multiple>
+      {[
+        { label: 'Preact', value: 'preact' },
+        { label: 'Solid', value: 'solid' },
+        { label: 'Qwik', value: 'qwik' },
+      ].map(({ label, value }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
+    </select>
+  )}
+</Field>
+```
+
+</React>
 
 ## File
 

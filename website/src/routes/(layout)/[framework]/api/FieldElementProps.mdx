@@ -3,6 +3,7 @@ import {
   Property,
   Preact,
   Qwik,
+  React,
   Solid,
   Title,
 } from '~/components';
@@ -44,12 +45,22 @@ Type that defines the element properties of a field.
 
 - `FieldElementProps` <Property type="object" />
   - `name` <Property type="string" />
-  - `ref` <Property {...properties.preact.ref} />
+  - `ref` <Property {...properties.preactOrReact.ref} />
   - `onInput` <Property {...properties.preact.onInput} />
   - `onChange` <Property {...properties.preact.onChange} />
   - `onBlur` <Property {...properties.preact.onBlur} />
 
 </Preact>
+
+<React block>
+
+- `FieldElementProps` <Property type="object" />
+  - `name` <Property type="string" />
+  - `ref` <Property {...properties.preactOrReact.ref} />
+  - `onChange` <Property {...properties.react.onChange} />
+  - `onBlur` <Property {...properties.react.onBlur} />
+
+</React>
 
 ### Explanation
 
@@ -262,19 +273,6 @@ export const properties = {
     },
   },
   preact: {
-    ref: {
-      type: {
-        type: 'custom',
-        name: 'RefCallback',
-        generics: [
-          {
-            type: 'custom',
-            name: 'FieldElement',
-            href: '../FieldElement',
-          },
-        ],
-      },
-    },
     onInput: {
       type: {
         type: 'custom',
@@ -305,6 +303,49 @@ export const properties = {
       type: {
         type: 'custom',
         name: 'JSX.FocusEventHandler',
+        generics: [
+          {
+            type: 'custom',
+            name: 'FieldElement',
+            href: '../FieldElement',
+          },
+        ],
+      },
+    },
+  },
+  preactOrReact: {
+    ref: {
+      type: {
+        type: 'custom',
+        name: 'RefCallback',
+        generics: [
+          {
+            type: 'custom',
+            name: 'FieldElement',
+            href: '../FieldElement',
+          },
+        ],
+      },
+    },
+  },
+  react: {
+    onChange: {
+      type: {
+        type: 'custom',
+        name: 'ChangeEventHandler',
+        generics: [
+          {
+            type: 'custom',
+            name: 'FieldElement',
+            href: '../FieldElement',
+          },
+        ],
+      },
+    },
+    onBlur: {
+      type: {
+        type: 'custom',
+        name: 'FocusEventHandler',
         generics: [
           {
             type: 'custom',

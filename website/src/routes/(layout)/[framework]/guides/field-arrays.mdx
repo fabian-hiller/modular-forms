@@ -2,8 +2,10 @@ import { A } from 'solid-start';
 import {
   Description,
   Preact,
+  PreactOrReact,
   Qwik,
-  QwikOrPreact,
+  React,
+  QwikPreactOrReact,
   Solid,
   Title,
 } from '~/components';
@@ -35,7 +37,7 @@ type TodoForm = {
 };
 ```
 
-To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that <Solid>the `For` component</Solid><Qwik>Qwik</Qwik><Preact>Preact</Preact> uses to detect when an item is added, moved, or removed.
+To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that <Solid>the `For` component</Solid><Qwik>Qwik</Qwik><Preact>Preact</Preact><React>React</React> uses to detect when an item is added, moved or removed.
 
 <Solid block>
 
@@ -81,7 +83,7 @@ To dynamically generate the form fields for the todos, you use our <A href="../.
 
 </Qwik>
 
-<Preact block>
+<PreactOrReact block>
 
 ```tsx
 <FieldArray name="todos">
@@ -100,7 +102,7 @@ To dynamically generate the form fields for the todos, you use our <A href="../.
 </FieldArray>
 ```
 
-</Preact>
+</PreactOrReact>
 
 ### Validation
 
@@ -108,7 +110,7 @@ As with fields, you can also validate field arrays with the `validate` attribute
 
 ### Dot notation
 
-As with nested fields, you use dot notation for the name of each field. It is important that you use the index <Solid>signal of the `For` component</Solid><QwikOrPreact>of the loop</QwikOrPreact> to specify the index of the field, so that they are updated when the items are changed.
+As with nested fields, you use dot notation for the name of each field. It is important that you use the index <Solid>signal of the `For` component</Solid><QwikPreactOrReact>of the loop</QwikPreactOrReact> to specify the index of the field, so that they are updated when the items are changed.
 
 <Solid block>
 
@@ -120,7 +122,7 @@ As with nested fields, you use dot notation for the name of each field. It is im
 
 </Solid>
 
-<QwikOrPreact block>
+<QwikPreactOrReact block>
 
 ```tsx
 <Field name={`todos.${index)}.label`}>
@@ -128,7 +130,7 @@ As with nested fields, you use dot notation for the name of each field. It is im
 </Field>
 ```
 
-</QwikOrPreact>
+</QwikPreactOrReact>
 
 ## Use array methods
 
@@ -188,7 +190,7 @@ If you need to nest multiple field arrays, dot notation can get complicated when
 
 </Qwik>
 
-<Preact block>
+<PreactOrReact block>
 
 ```tsx
 <FieldArray name="todos">
@@ -207,6 +209,6 @@ If you need to nest multiple field arrays, dot notation can get complicated when
 </FieldArray>
 ```
 
-</Preact>
+</PreactOrReact>
 
 You can nest field arrays as deeply as you like. You will also find a suitable example of this on our <A href="/playground/nested">playground</A>.

@@ -21,13 +21,13 @@ const validate = value(requirement, error);
 
 ## Return
 
-- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].validate} />
 
 export const properties = {
   requirement: {
     type: ['string', 'number'],
   },
-  default: {
+  solidPreactOrReact: {
     validate: {
       type: {
         type: 'function',

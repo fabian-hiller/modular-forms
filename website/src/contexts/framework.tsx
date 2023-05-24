@@ -12,9 +12,9 @@ import { useLocation } from 'solid-start';
 import { frameworkCookie } from '~/cookies';
 import { trackEvent } from '~/utils';
 
-export type Framework = 'solid' | 'qwik' | 'preact';
+export type Framework = 'solid' | 'qwik' | 'preact' | 'react';
 
-export const frameworks: Framework[] = ['solid', 'qwik', 'preact'];
+export const frameworks: Framework[] = ['solid', 'qwik', 'preact', 'react'];
 
 // Create framework context
 const FrameworkContext =
@@ -37,16 +37,22 @@ export function FrameworkProvider(props: FrameworkProviderProps) {
     })()
   );
 
-  // Track event and update cookie when framework changes
+  // Track event when framework changes
   createEffect(
     on(
       getFramework,
       async (framework, prevFramework) => {
         trackEvent('switch_framework', { from: prevFramework, to: framework });
-        document.cookie = await frameworkCookie.serialize(framework);
       },
       { defer: true }
     )
+  );
+
+  // Update cookie when framework changes
+  createEffect(
+    on(getFramework, async (framework) => {
+      document.cookie = await frameworkCookie.serialize(framework);
+    })
   );
 
   return (
@@ -99,4 +105,13 @@ export function isQwik() {
  */
 export function isPreact() {
   return getFramework() === 'preact';
+}
+
+/**
+ * Returns whether React is currently selected as framework.
+ *
+ * @returns Whether React is selected.
+ */
+export function isReact() {
+  return getFramework() === 'react';
 }

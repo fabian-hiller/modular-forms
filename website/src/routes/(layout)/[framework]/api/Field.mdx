@@ -1,5 +1,5 @@
 import { Description, Property, Title } from '~/components';
-import { isQwik } from '~/contexts';
+import { isPreact, isQwik, isReact } from '~/contexts';
 
 <Title>Field</Title>
 <Description>
@@ -29,11 +29,11 @@ Headless form field that provides reactive properties and state.
 - `of` <Property {...properties.of} />
 - `name` <Property type="string" />
 - `type` <Property {...properties.type} />
-- `validate` <Property {...properties[isQwik() ? 'qwik' : 'default'].validate} />
-- `transform` <Property {...properties[isQwik() ? 'qwik' : 'default'].transform} />
+- `validate` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].validate} />
+- `transform` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].transform} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
-- `children` <Property {...properties.children} />
+- `children` <Property {...properties[isPreact() ? 'preact' : isReact() ? 'react' : 'solidOrQwik'].children} />
 
 ### Explanation
 
@@ -80,31 +80,33 @@ export const properties = {
     type: 'boolean',
     defaultValue: { type: 'boolean', value: true },
   },
-  children: {
-    type: {
-      type: 'function',
-      params: [
-        {
-          name: 'field',
-          type: {
-            type: 'custom',
-            name: 'FieldStore',
-            href: '../FieldStore',
+  solidOrQwik: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'field',
+            type: {
+              type: 'custom',
+              name: 'FieldStore',
+              href: '../FieldStore',
+            },
           },
-        },
-        {
-          name: 'props',
-          type: {
-            type: 'custom',
-            name: 'FieldElementProps',
-            href: '../FieldElementProps',
+          {
+            name: 'props',
+            type: {
+              type: 'custom',
+              name: 'FieldElementProps',
+              href: '../FieldElementProps',
+            },
           },
-        },
-      ],
-      return: { type: 'custom', name: 'JSX.Element' },
+        ],
+        return: { type: 'custom', name: 'JSX.Element' },
+      },
     },
   },
-  default: {
+  solidPreactOrReact: {
     validate: {
       type: {
         type: 'custom',
@@ -201,6 +203,58 @@ export const properties = {
             ],
           },
         ],
+      },
+    },
+  },
+  preact: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'field',
+            type: {
+              type: 'custom',
+              name: 'FieldStore',
+              href: '../FieldStore',
+            },
+          },
+          {
+            name: 'props',
+            type: {
+              type: 'custom',
+              name: 'FieldElementProps',
+              href: '../FieldElementProps',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'ComponentChild' },
+      },
+    },
+  },
+  react: {
+    children: {
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'field',
+            type: {
+              type: 'custom',
+              name: 'FieldStore',
+              href: '../FieldStore',
+            },
+          },
+          {
+            name: 'props',
+            type: {
+              type: 'custom',
+              name: 'FieldElementProps',
+              href: '../FieldElementProps',
+            },
+          },
+        ],
+        return: { type: 'custom', name: 'ReactNode' },
       },
     },
   },

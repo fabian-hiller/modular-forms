@@ -5,7 +5,13 @@ import { createSignal, For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { A, useLocation } from 'solid-start';
 import { frameworks, getFramework, useFramework } from '~/contexts';
-import { AngleDownIcon, PreactIcon, QwikIcon, SolidIcon } from '~/icons';
+import {
+  AngleDownIcon,
+  PreactIcon,
+  QwikIcon,
+  ReactIcon,
+  SolidIcon,
+} from '~/icons';
 import { createFocusTrap } from '~/primitives';
 import { getFrameworkName } from '~/utils';
 
@@ -40,11 +46,9 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
    * Returns the icon of the framework.
    */
   const getIcon = (framework: string) =>
-    framework === 'solid'
-      ? SolidIcon
-      : framework === 'qwik'
-      ? QwikIcon
-      : PreactIcon;
+    ({ solid: SolidIcon, qwik: QwikIcon, preact: PreactIcon, react: ReactIcon }[
+      framework
+    ]);
 
   /**
    * Returns the pathname to the framework.

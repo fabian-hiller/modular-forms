@@ -8,5 +8,7 @@ import { Framework } from '~/contexts';
  * @returns The name of the Framework
  */
 export function getFrameworkName(framework: Framework) {
-  return { solid: 'SolidJS', qwik: 'Qwik', preact: 'Preact' }[framework];
+  return { solid: 'SolidJS', qwik: 'Qwik', preact: 'Preact', react: 'React' }[
+    framework
+  ];
 }

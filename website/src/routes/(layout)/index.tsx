@@ -42,7 +42,7 @@ export default function HomePage() {
           </h1>
           <p class="text-center leading-loose md:text-xl md:leading-loose xl:text-2xl xl:leading-loose">
             Build your next form with Modular Forms, the open source form
-            library with performance, type safety, and bundle size in mind.
+            library with performance, type safety and bundle size in mind.
           </p>
           <ButtonGroup class="justify-center">
             <ActionButton
