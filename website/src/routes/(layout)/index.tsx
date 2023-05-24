@@ -323,7 +323,7 @@ export default function HomePage() {
                   <li class="flex flex-col px-8">
                     <button
                       class={clsx(
-                        'flex justify-between space-x-4 transition-colors',
+                        'focus-ring flex justify-between space-x-4 rounded-md transition-colors focus-visible:outline-offset-[6px] focus-visible:ring-offset-8',
                         getOpen()
                           ? 'text-sky-600 dark:text-sky-400'
                           : 'text-slate-800 hover:text-slate-700 dark:text-slate-300 hover:dark:text-slate-400'
