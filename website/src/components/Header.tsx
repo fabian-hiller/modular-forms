@@ -87,8 +87,13 @@ export function Header() {
         {/* Main menu */}
         <nav
           class={clsx(
-            'absolute left-0 top-full flex max-h-[60vh] w-full origin-top -translate-y-0.5 flex-col overflow-y-auto border-b-2 border-b-slate-200 bg-white pb-8 pt-4 duration-200 dark:border-b-slate-800 dark:bg-gray-900 lg:static lg:top-auto lg:w-auto lg:translate-y-0 lg:flex-row lg:space-x-10 lg:overflow-visible lg:border-none lg:bg-transparent lg:p-0 lg:dark:bg-transparent',
-            !getMenuOpen() && 'invisible scale-y-0 lg:visible lg:scale-y-100'
+            'absolute left-0 top-full flex max-h-[60vh] w-full origin-top flex-col overflow-y-auto border-b-2 pb-8 pt-4 duration-200 lg:static lg:top-auto lg:w-auto lg:translate-y-0 lg:flex-row lg:space-x-10 lg:overflow-visible lg:border-none lg:bg-transparent lg:p-0 lg:dark:bg-transparent',
+            !getMenuOpen() && 'invisible scale-y-0 lg:visible lg:scale-y-100',
+            (getMenuOpen() && 'bg-white dark:bg-gray-900') ||
+              (getWindowScrolled() && 'bg-white/90  dark:bg-gray-900/90'),
+            getMenuOpen() || getWindowScrolled()
+              ? 'border-b-slate-200 dark:border-b-slate-800'
+              : 'border-b-transparent'
           )}
           id="main-menu"
         >
