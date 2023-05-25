@@ -26,7 +26,7 @@ You've probably entered your phone number or bank details into a form and, like 
 
 ## The transform prop
 
-The goal of input transformation is to change the user's input at a given time. Typically at the `input` or `change` event. This is made possible with the `transform` property of the <A href="../../api/Field">`Field`</A> component.
+The goal of input transformation is to change the user's input at a given time. Typically at the <SolidQwikOrPreact>`input` or `change`</SolidQwikOrPreact><React>`change` or `blur`</React> event. This is made possible with the `transform` property of the <A href="../../api/Field">`Field`</A> component.
 
 As with the `validate` property, you can pass a single function or multiple functions in an array. You can use our <SolidPreactOrReact><A href="../../api/toCustom">`toCustom`</A></SolidPreactOrReact><Qwik><A href="../../api/toCustom$">`toCustom$`</A></Qwik> function or write your own functions based on it. More on that in a moment.
 
@@ -89,7 +89,7 @@ As with the `validate` property, you can pass a single function or multiple func
     (value, event) => {
       // Transform phone number here
     },
-    { on: 'input' }
+    { on: 'change' }
   )}
 >
   {(field, props) => (
@@ -301,7 +301,7 @@ You can now call the `toPhoneNumber` transformation function and pass it to the 
 <React block>
 
 ```tsx
-<Field name="phone" transform={toPhoneNumber({ on: 'input' })}>
+<Field name="phone" transform={toPhoneNumber({ on: 'change' })}>
   {(field, props) => (
     <input
       {...props}
@@ -311,6 +311,202 @@ You can now call the `toPhoneNumber` transformation function and pass it to the 
     />
   )}
 </Field>
+```
+
+</React>
+
+## Advanced usage
+
+Together with <A href="../controlled-fields">controlled fields</A>, the transformation API can also be used to hold values internally in a different format than they are externally accessible. A practical example is the handling of monetary amounts.
+
+### Monetary amounts
+
+In many cases, monetary amounts are stored in the database as integers and thus in cents. However, as an end user, we expect a decimal number in € or $. To save the effort of converting the numbers to € or $ after retrieving them from the database and converting them back to cents before saving them, the following trick can be used.
+
+> Note that this procedure only works if JavaScript is enabled in the browser.
+
+### Practical example
+
+Pass the amounts to Modular Forms in cents. Then, before you display them in an `<input />` element, convert the amount to € or $. Once an input is made, use the transform property to convert the amount back to cents before Modular Forms updates the state. Below is a code example.
+
+<Solid block>
+
+```tsx
+<Field
+  name="price"
+  type="number"
+  transform={toCustom((value) => value && value * 100, {
+    on: 'input',
+  })}
+>
+  {(field, props) => {
+    const getValue = createMemo<number | undefined>((prevValue) =>
+      !Number.isNaN(field.value) ? field.value && field.value / 100 : prevValue
+    );
+    return <input {...props} type="number" value={getValue()} />;
+  }}
+</Field>
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+<Field
+  name="price"
+  type="number"
+  transform={toCustom$((value) => value && value * 100, {
+    on: 'input',
+  })}
+>
+  {(field, props) => {
+    const value = useSignal<number>();
+    useTask$(({ track }) => {
+      if (!Number.isNaN(track(() => field.value))) {
+        value.value = field.value && field.value / 100;
+      }
+    });
+    return <input {...props} type="number" value={value.value} />;
+  }}
+</Field>
+```
+
+</Qwik>
+
+<Preact block>
+
+```tsx
+<Field
+  name="price"
+  type="number"
+  transform={toCustom((value) => value && value * 100, {
+    on: 'input',
+  })}
+>
+  {(field, props) => {
+    const value = useSignal<number | undefined>(undefined);
+    useSignalEffect(() => {
+      if (!Number.isNaN(field.value.value)) {
+        value.value = field.value.value && field.value.value / 100;
+      }
+    });
+    return <input {...props} type="number" value={value} />;
+  }}
+</Field>
+```
+
+</Preact>
+
+<React block>
+
+```tsx
+<Field
+  name="price"
+  type="number"
+  transform={toCustom((value) => value && value * 100, {
+    on: 'change',
+  })}
+>
+  {(field, props) => {
+    const value = useSignal<string | number>('');
+    useSignalEffect(() => {
+      if (!Number.isNaN(field.value.value)) {
+        input.value =
+          field.value.value === undefined ? '' : field.value.value / 100;
+      }
+    });
+    return <input {...props} type="number" value={value.value} />;
+  }}
+</Field>
+```
+
+</React>
+
+### Make it reusable
+
+If you need this functionality for multiple fields, we recommend wrapping the logic in a `PriceInput` component and `toCents` transformation function.
+
+<Solid block>
+
+```ts
+import {
+  Maybe,
+  MaybeValue,
+  toCustom,
+  TransformField,
+} from '@modular-forms/solid';
+
+export function toCents<
+  TValue extends MaybeValue<number>
+>(): TransformField<TValue> {
+  return toCustom<TValue>(
+    (value) => value && ((value * 100) as Maybe<TValue>),
+    { on: 'input' }
+  );
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+```ts
+import type { Maybe, MaybeValue, TransformField } from '@modular-forms/qwik';
+import { toCustom$ } from '@modular-forms/qwik';
+
+export function toCents<
+  TValue extends MaybeValue<number>
+>(): TransformField<TValue> {
+  return toCustom$<TValue>(
+    (value) => value && ((value * 100) as Maybe<TValue>),
+    { on: 'input' }
+  );
+}
+```
+
+</Qwik>
+
+<Preact block>
+
+```ts
+import {
+  Maybe,
+  MaybeValue,
+  toCustom,
+  TransformField,
+} from '@modular-forms/preact';
+
+export function toCents<
+  TValue extends MaybeValue<number>
+>(): TransformField<TValue> {
+  return toCustom<TValue>(
+    (value) => value && ((value * 100) as Maybe<TValue>),
+    { on: 'input' }
+  );
+}
+```
+
+</Preact>
+
+<React block>
+
+```ts
+import {
+  Maybe,
+  MaybeValue,
+  toCustom,
+  TransformField,
+} from '@modular-forms/react';
+
+export function toCents<
+  TValue extends MaybeValue<number>
+>(): TransformField<TValue> {
+  return toCustom<TValue>(
+    (value) => value && ((value * 100) as Maybe<TValue>),
+    { on: 'change' }
+  );
+}
 ```
 
 </React>

@@ -151,15 +151,15 @@ import { forwardRef } from 'preact/compat';
 type NumberInputProps = { … };
 
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
-  (props, ref) => {
+  ({ value, ...props }, ref) => {
     // Update signal if value is not `NaN`
-    const value = useSignal<number | undefined>(undefined);
+    const input = useSignal<number | undefined>(undefined);
     useSignalEffect(() => {
-      if (!Number.isNaN(props.value.value)) {
-        value.value = props.value.value;
+      if (!Number.isNaN(value.value)) {
+        input.value = value.value;
       }
     });
-    return <input {...props} ref={ref} type="number" value={value} />;
+    return <input {...props} ref={ref} type="number" value={input} />;
   }
 );
 ```
@@ -175,15 +175,15 @@ import { forwardRef } from 'react';
 type NumberInputProps = { … };
 
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
-  (props, ref) => {
+  ({ value, ...props }, ref) => {
     // Update signal if value is not `NaN`
-    const value = useSignal<string | number>('');
+    const input = useSignal<string | number>('');
     useSignalEffect(() => {
-      if (!Number.isNaN(props.value.value)) {
+      if (!Number.isNaN(value.value)) {
         input.value = value.value === undefined ? '' : value.value;
       }
     });
-    return <input {...props} ref={ref} type="number" value={value.value} />;
+    return <input {...props} ref={ref} type="number" value={input.value} />;
   }
 );
 ```
@@ -247,19 +247,19 @@ import { forwardRef } from 'preact/compat';
 type DateInputProps = { … };
 
 export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
-  (props, ref) => {
+  ({ value, ...props }, ref) => {
     // Transform date or number to string
-    const value = useComputed(() =>
-      props.value.value &&
+    const input = useComputed(() =>
+      value.value &&
       !Number.isNaN(
-        typeof props.value.value === 'number'
-          ? props.value.value
-          : props.value.value.getTime()
+        typeof value.value === 'number'
+          ? value.value
+          : value.value.getTime()
       )
-        ? new Date(props.value.value).toISOString().split('T', 1)[0]
+        ? new Date(value.value).toISOString().split('T', 1)[0]
         : ''
     );
-    return <input {...props} ref={ref} type="date" value={value} />;
+    return <input {...props} ref={ref} type="date" value={input} />;
   }
 );
 ```
@@ -275,19 +275,19 @@ import { forwardRef } from 'react';
 type DateInputProps = { … };
 
 export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
-  (props, ref) => {
+  ({ value, ...props }, ref) => {
     // Transform date or number to string
-    const value = useComputed(() =>
-      props.value.value &&
+    const input = useComputed(() =>
+      value.value &&
       !Number.isNaN(
-        typeof props.value.value === 'number'
-          ? props.value.value
-          : props.value.value.getTime()
+        typeof value.value === 'number'
+          ? value.value
+          : value.value.getTime()
       )
-        ? new Date(props.value.value).toISOString().split('T', 1)[0]
+        ? new Date(value.value).toISOString().split('T', 1)[0]
         : ''
     );
-    return <input {...props} ref={ref} type="date" value={value.value} />;
+    return <input {...props} ref={ref} type="date" value={input.value} />;
   }
 );
 ```

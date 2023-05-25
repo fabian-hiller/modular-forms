@@ -91,7 +91,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/solid/guides/transform-inputs</loc>
-    <lastmod>2023-05-21</lastmod>
+    <lastmod>2023-05-25</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -201,7 +201,7 @@
   </url>
   <url>
     <loc>https://modularforms.dev/qwik/guides/transform-inputs</loc>
-    <lastmod>2023-05-21</lastmod>
+    <lastmod>2023-05-25</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -305,13 +305,13 @@
   </url>
   <url>
     <loc>https://modularforms.dev/preact/guides/controlled-fields</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-25</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://modularforms.dev/preact/guides/transform-inputs</loc>
-    <lastmod>2023-05-21</lastmod>
+    <lastmod>2023-05-25</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -409,13 +409,13 @@
   </url>
   <url>
     <loc>https://modularforms.dev/react/guides/controlled-fields</loc>
-    <lastmod>2023-05-24</lastmod>
+    <lastmod>2023-05-25</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://modularforms.dev/react/guides/transform-inputs</loc>
-    <lastmod>2023-05-21</lastmod>
+    <lastmod>2023-05-25</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
