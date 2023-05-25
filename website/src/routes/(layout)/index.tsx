@@ -26,17 +26,15 @@ export default function HomePage() {
         and React to validate and handle various types of forms.
       </Description>
 
-      {/* Background gradients */}
-      <div class="absolute left-0 top-0 -z-10 flex h-full w-full justify-center overflow-hidden">
-        <div class="relative w-full xl:w-0">
-          <div class="absolute -right-[300px] -top-[250px] h-[600px] w-[600px] bg-[radial-gradient(theme(colors.yellow.500/.06),transparent_70%)] dark:bg-[radial-gradient(theme(colors.yellow.300/.06),transparent_70%)] md:-right-[500px] md:-top-[500px] md:h-[1000px] md:w-[1000px] xl:-right-[1100px] xl:-top-[500px]" />
-          <div class="absolute -left-[370px] top-[200px] h-[600px] w-[600px] bg-[radial-gradient(theme(colors.sky.600/.08),transparent_70%)] dark:bg-[radial-gradient(theme(colors.sky.400/.08),transparent_70%)] md:-left-[550px] md:top-[100px] md:h-[1000px] md:w-[1000px] lg:top-[200px] xl:-left-[1100px] xl:top-[300px]" />
-        </div>
-      </div>
-
       <main class="flex flex-1 flex-col items-center space-y-24 py-24 md:space-y-36 md:py-36 xl:space-y-52 xl:py-52">
         {/* Pitch */}
         <section class="space-y-8 px-4 text-center md:max-w-4xl md:space-y-12 lg:space-y-16">
+          <div class="absolute left-0 top-0 -z-10 flex w-full justify-center overflow-x-clip">
+            <div class="relative w-full xl:w-0">
+              <div class="absolute -right-[300px] -top-[250px] h-[600px] w-[600px] bg-[radial-gradient(theme(colors.yellow.500/.06),transparent_70%)] dark:bg-[radial-gradient(theme(colors.yellow.300/.06),transparent_70%)] md:-right-[500px] md:-top-[500px] md:h-[1000px] md:w-[1000px] xl:-right-[1100px] xl:-top-[500px]" />
+              <div class="absolute -left-[370px] top-[200px] h-[600px] w-[600px] bg-[radial-gradient(theme(colors.sky.600/.08),transparent_70%)] dark:bg-[radial-gradient(theme(colors.sky.400/.08),transparent_70%)] md:-left-[550px] md:top-[100px] md:h-[1000px] md:w-[1000px] lg:top-[200px] xl:-left-[1100px] xl:top-[300px]" />
+            </div>
+          </div>
           <h1 class="text-xl font-medium text-slate-900 dark:text-slate-200 md:text-3xl lg:text-4xl xl:text-5xl">
             Modular and type-safe forms
           </h1>
