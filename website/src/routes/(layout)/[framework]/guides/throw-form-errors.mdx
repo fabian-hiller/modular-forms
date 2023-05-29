@@ -1,0 +1,213 @@
+import { A } from 'solid-start';
+import {
+  Description,
+  Preact,
+  Qwik,
+  React,
+  Solid,
+  SolidPreactOrReact,
+  Title,
+} from '~/components';
+
+<Title>Throw form errors</Title>
+<Description>
+  Modular Forms has built-in error handling with the FormError class to easily
+  display individual errors when submitting a form.
+</Description>
+
+# Throw form errors
+
+Modular Forms has built-in error handling with the <A href="../api/FormError">`FormError`</A> class to easily display individual errors when submitting a form.
+
+## Throw general error
+
+General errors are errors that affect the entire form and can be displayed via the `response` state in the UI, e.g. above the submit button.
+
+### Client-side errors
+
+When processing the form client-side via the <SolidPreactOrReact>`onSubmit`</SolidPreactOrReact><Qwik>`onSubmit$`</Qwik> event listener, <u>any error</u> thrown is automatically caught and added to the `response` state.
+
+To throw custom errors to be displayed to the user, you can use our <A href="../api/FormError">`FormError`</A> class. It inherits from the default `Error` class and can contain a general error message as well as error messages for individual fields. More about this in a moment.
+
+<Solid block>
+
+```tsx
+import { createForm, FormError, SubmitHandler } from '@modular-forms/solid';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export default function App() {
+  const [loginForm, { Form, Field }] = createForm<LoginForm>();
+
+  const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
+    if (error) {
+      throw new FormError<LoginForm>('An error has occurred.');
+    }
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <div>…</div>
+      <div>{loginForm.response.message}</div>
+      <button type="submit">Login</button>
+    </Form>
+  );
+}
+```
+
+</Solid>
+
+<Qwik block>
+
+```tsx
+import { $, component$ } from '@builder.io/qwik';
+import { routeLoader$, z } from '@builder.io/qwik-city';
+import type { InitialValues, FormError } from '@modular-forms/qwik';
+import { formAction$, zodForm$ } from '@modular-forms/qwik';
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please enter your email.')
+    .email('The email address is badly formatted.'),
+  password: z
+    .string()
+    .min(1, 'Please enter your password.')
+    .min(8, 'You password must have 8 characters or more.'),
+});
+
+type LoginForm = z.infer<typeof loginSchema>;
+
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
+  email: '',
+  password: '',
+}));
+
+export default component$(() => {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>({
+    loader: useFormLoader(),
+    validate: zodForm$(loginSchema),
+  });
+
+  const handleSubmit: SubmitHandler<LoginForm> = $((values, event) => {
+    if (error) {
+      throw new FormError<LoginForm>('An error has occurred.');
+    }
+  });
+
+  return (
+    <Form onSubmit$={handleSubmit}>
+      <div>…</div>
+      <div>{loginForm.response.message}</div>
+      <button type="submit">Login</button>
+    </Form>
+  );
+});
+```
+
+</Qwik>
+
+<Preact block>
+
+```tsx
+import { FormError, SubmitHandler, useForm } from '@modular-forms/preact';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
+
+  const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
+    if (error) {
+      throw new FormError<LoginForm>('An error has occurred.');
+    }
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <div>…</div>
+      <div>{loginForm.response.message}</div>
+      <button type="submit">Login</button>
+    </Form>
+  );
+}
+```
+
+</Preact>
+
+<React block>
+
+```tsx
+import { FormError, SubmitHandler, useForm } from '@modular-forms/react';
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export default function App() {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>();
+
+  const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
+    if (error) {
+      throw new FormError<LoginForm>('An error has occurred.');
+    }
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <div>…</div>
+      <div>{loginForm.response.message}</div>
+      <button type="submit">Login</button>
+    </Form>
+  );
+}
+```
+
+</React>
+
+<Qwik block>
+
+### Server-side errors
+
+For server-side errors, we are a bit more cautious, as secret information might be preserved here and therefore only output a generic error message for all errors that are not an instance of our <A href="../api/FormError">`FormError`</A> class. So, to intentionally output custom errors to the user, our <A href="../api/FormError">`FormError`</A> class must be used.
+
+```tsx
+export const useFormAction = formAction$<LoginForm>((values) => {
+  if (error) {
+    throw new FormError<LoginForm>('An error has occurred.');
+  }
+}, zodForm$(loginSchema));
+```
+
+</Qwik>
+
+## Throw field error
+
+Field errors are errors that are assigned to a specific field and added to its state. In addition to a general error message, you can also add an error message to specific fields using the second argument the `FormError` class.
+
+```ts
+if (error) {
+  throw new FormError<LoginForm>('An error has occurred.', {
+    email: 'This email has been blacklisted.',
+  });
+}
+```
+
+### Field errors only
+
+To not display a general error message and instead display only errors of individual fields, you can simply omit the general message.
+
+```ts
+if (error) {
+  throw new FormError<LoginForm>({
+    email: 'This email has been blacklisted.',
+  });
+}
+```

@@ -174,37 +174,6 @@ Using the `shouldDirty` property of the <A href="../../api/Form">`Form`</A> comp
 
 <Qwik block>
 
-## Throw and display errors
-
-You can access errors thrown by your code in `onSubmit$` via `loginForm.response` to display them in your UI. For server-side code, we are a bit more cautious, as secret information might be preserved here and therefore only output a generic error message. Therefore, for a better user experience, you should intentionally return errors if any occur.
-
-```ts
-export const useFormAction = formAction$<LoginForm>((values) => {
-  if (error) {
-    return {
-      status: 'error',
-      message: 'An error has occurred.',
-    };
-  }
-});
-```
-
-### Specific field errors
-
-You also have the option to add an error message to individual fields. This can be important if you want to do special validations manually in `formAction$`.
-
-```ts
-export const useFormAction = formAction$<LoginForm>((values) => {
-  if (error) {
-    return {
-      errors: {
-        email: 'This email has been blacklisted.',
-      },
-    };
-  }
-});
-```
-
 ## Return custom data
 
 If you process form values with actions, you may wonder how to return individual data to your component. For example, the ID of a user after login.
@@ -224,7 +193,8 @@ export const useFormAction = formAction$<LoginForm, ResponseData>(
       message: 'You are now logged in.',
       data: { userId },
     };
-  }
+  },
+  zodForm$(loginSchema)
 );
 ```
 

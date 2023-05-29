@@ -18,6 +18,7 @@ export default function GuidesLayout() {
             'Validate your fields',
             'Input components',
             'Handle submission',
+            'Throw form errors',
             'Form methods',
           ],
         },

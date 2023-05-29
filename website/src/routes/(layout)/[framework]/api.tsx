@@ -74,6 +74,10 @@ export default function ApiLayout() {
           ],
         },
         {
+          heading: 'Exceptions',
+          items: ['FormError'],
+        },
+        {
           heading: 'Adapters',
           items: isQwik() ? ['zodField$', 'zodForm$'] : ['zodField', 'zodForm'],
         },

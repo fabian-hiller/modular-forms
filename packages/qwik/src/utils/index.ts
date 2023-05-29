@@ -23,6 +23,7 @@ export * from './isFieldDirty';
 export * from './setErrorResponse';
 export * from './setFieldArrayState';
 export * from './setFieldArrayValue';
+export * from './setFieldErrors';
 export * from './setFieldState';
 export * from './updateFieldArrayDirty';
 export * from './updateFieldDirty';

@@ -5,6 +5,7 @@ import {
   type Action,
 } from '@builder.io/qwik-city';
 import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
+import { FormError } from '../exceptions';
 import type {
   FieldValues,
   ResponseData,
@@ -32,7 +33,7 @@ export type FormActionResult<
 /**
  * Function type of the form action.
  */
-type FormActionFunc<
+export type FormActionFunction<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData
 > = (
@@ -43,7 +44,7 @@ type FormActionFunc<
 /**
  * Value type of the second form action argument.
  */
-type FormActionArg2<TFieldValues extends FieldValues> =
+export type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
       validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
@@ -56,7 +57,7 @@ export function formActionQrl<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData = undefined
 >(
-  action: QRL<FormActionFunc<TFieldValues, TResponseData>>,
+  action: QRL<FormActionFunction<TFieldValues, TResponseData>>,
   arg2?: Maybe<FormActionArg2<TFieldValues>>
 ): Action<
   FormActionStore<TFieldValues, TResponseData>,
@@ -113,16 +114,34 @@ export function formActionQrl<
               };
             }
 
-            // If an error occurred, throw it or set error response
-          } catch (error: any) {
+            // If an abort message was thrown (e.g. a redirect), forward it
+          } catch (error) {
             if (error instanceof AbortMessage) {
               throw error;
+
+              // Otherwise log error and set error response
             } else {
               console.error(error);
-              formActionStore.response = {
-                status: 'error',
-                message: 'An unknown error has occurred.',
-              };
+
+              // If it is an expected error, use its error info
+              if (error instanceof FormError) {
+                formActionStore = {
+                  values,
+                  errors: error.errors,
+                  response: {
+                    status: 'error',
+                    message: error.message,
+                  },
+                };
+
+                // Otherwise return a generic message to avoid leaking
+                // sensetive information
+              } else {
+                formActionStore.response = {
+                  status: 'error',
+                  message: 'An unknown error has occurred.',
+                };
+              }
             }
           }
         }
@@ -150,7 +169,7 @@ export const formAction$: <
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData = undefined
 >(
-  actionQrl: FormActionFunc<TFieldValues, TResponseData>,
+  actionQrl: FormActionFunction<TFieldValues, TResponseData>,
   arg2?: Maybe<FormActionArg2<TFieldValues>>
 ) => Action<
   FormActionStore<TFieldValues, TResponseData>,

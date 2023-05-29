@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `FormError` class for simpler error handling
+- Add `FormError` support to `Form` component
+
 ## v0.16.0 (May 21, 2023)
 
 - Add `toTrimmed`, `toLowerCase` and `toUpperCase` transformation function

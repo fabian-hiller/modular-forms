@@ -1,10 +1,9 @@
 import type { QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
-import { getValues, setError, validate } from '../methods';
+import { FormError } from '../exceptions';
+import { getValues, setResponse, validate } from '../methods';
 import type {
-  FieldArrayPath,
-  FieldPath,
   FieldValues,
   FormActionStore,
   FormStore,
@@ -14,7 +13,7 @@ import type {
   PartialValues,
   ResponseData,
 } from '../types';
-import { setErrorResponse } from '../utils';
+import { setErrorResponse, setFieldErrors } from '../utils';
 
 /**
  * Function type to handle the submission of the form.
@@ -43,6 +42,7 @@ export type FormProps<
     >
   >;
   onSubmit$?: Maybe<SubmitHandler<TFieldValues>>;
+  responseDuration?: Maybe<number>;
   keepResponse?: Maybe<boolean>;
   shouldActive?: Maybe<boolean>;
   shouldTouched?: Maybe<boolean>;
@@ -69,6 +69,7 @@ export function Form<
   of: form,
   action,
   onSubmit$,
+  responseDuration: duration,
   keepResponse,
   shouldActive,
   shouldTouched,
@@ -82,7 +83,13 @@ export function Form<
   const { encType } = formProps;
 
   // Create options object
-  const options = { shouldActive, shouldTouched, shouldDirty, shouldFocus };
+  const options = {
+    duration,
+    shouldActive,
+    shouldTouched,
+    shouldDirty,
+    shouldFocus,
+  };
 
   return (
     <form
@@ -123,30 +130,33 @@ export function Form<
             // Set form action result if necessary
             if (actionResult?.value) {
               const { errors, response } = actionResult.value;
-              (
-                Object.entries(errors) as [
-                  FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
-                  string
-                ][]
-              ).forEach(([name, error]) =>
-                setError(form, name, error, {
-                  ...options,
-                  shouldFocus: false,
-                })
-              );
-              setErrorResponse(form, errors, options);
+              setFieldErrors(form, errors, { ...options, shouldFocus: false });
               if (Object.keys(response).length) {
-                form.response = response;
+                setResponse(form, response, options);
+              } else {
+                setErrorResponse(form, errors, options);
               }
             }
           }
 
-          // If an error occurred, set error response
+          // If an error occurred, set error to fields and response
         } catch (error: any) {
-          form.response = {
-            status: 'error',
-            message: error?.message || 'An unknown error has occurred.',
-          };
+          if (error instanceof FormError) {
+            setFieldErrors(form, error.errors, {
+              ...options,
+              shouldFocus: false,
+            });
+          }
+          if (!(error instanceof FormError) || error.message) {
+            setResponse(
+              form,
+              {
+                status: 'error',
+                message: error?.message || 'An unknown error has occurred.',
+              },
+              options
+            );
+          }
 
           // Finally set submitting back to "false"
         } finally {

@@ -1,0 +1,53 @@
+import { A } from 'solid-start';
+import {
+  Description,
+  Property,
+  Qwik,
+  SolidPreactOrReact,
+  Title,
+} from '~/components';
+import { isPreact, isReact } from '~/contexts';
+
+<Title>FormError</Title>
+<Description>
+  An explicit form error with useful information for the user.
+</Description>
+
+# FormError
+
+An explicit form error with useful information for the user.
+
+> `FormError` inherits from the default `Error` class.
+
+```tsx
+// For general errors
+new FormError<Values>(message);
+
+// For general and field errors
+new FormError<Values>(message, errors);
+
+// For field errors only
+new FormError<Values>(errors);
+```
+
+## Generic
+
+- `Values` <Property {...properties.Values} />
+
+## Parameters
+
+- `message` <Property type="string" />
+- `errors` <Property {...properties.errors} />
+
+export const properties = {
+  Values: {
+    type: { type: 'custom', name: 'FieldValues', href: '../FieldValues' },
+  },
+  errors: {
+    type: {
+      type: 'custom',
+      name: 'FormErrors',
+      href: '../FormErrors',
+    },
+  },
+};

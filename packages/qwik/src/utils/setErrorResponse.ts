@@ -1,3 +1,4 @@
+import { setResponse, type SetResponseOptions } from '../methods';
 import type {
   FieldArrayPath,
   FieldPath,
@@ -13,9 +14,10 @@ import { getFieldStore } from './getFieldStore';
 /**
  * Value type of the error response options.
  */
-type ErrorResponseOptions = Partial<{
-  shouldActive: boolean;
-}>;
+type ErrorResponseOptions = SetResponseOptions &
+  Partial<{
+    shouldActive: boolean;
+  }>;
 
 /**
  * Sets an error response if a form error was not set at any field or field
@@ -31,7 +33,7 @@ export function setErrorResponse<
 >(
   form: FormStore<TFieldValues, TResponseData>,
   formErrors: FormErrors<TFieldValues>,
-  { shouldActive = true }: ErrorResponseOptions
+  { duration, shouldActive = true }: ErrorResponseOptions
 ): void {
   // Combine errors that were not set for any field or field array into one
   // general form error response message
@@ -54,9 +56,6 @@ export function setErrorResponse<
 
   // If there is a error message, set it as form response
   if (message) {
-    form.response = {
-      status: 'error',
-      message,
-    };
+    setResponse(form, { status: 'error', message }, { duration });
   }
 }

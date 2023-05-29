@@ -1,10 +1,14 @@
 import { batch } from '@preact/signals';
 import type { ComponentChildren } from 'preact';
 import type { JSX } from 'preact/jsx-runtime';
-import { getValues, validate } from '../methods';
+import { FormError } from '../exceptions';
+import { getValues, setError, setResponse, validate } from '../methods';
 import type {
+  FieldArrayPath,
+  FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
   MaybePromise,
   ResponseData,
 } from '../types';
@@ -36,11 +40,12 @@ export type FormProps<
 > = Omit<JSX.HTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
   of: FormStore<TFieldValues, TResponseData>;
   onSubmit: SubmitHandler<TFieldValues>;
-  keepResponse?: boolean;
-  shouldActive?: boolean;
-  shouldTouched?: boolean;
-  shouldDirty?: boolean;
-  shouldFocus?: boolean;
+  responseDuration?: Maybe<number>;
+  keepResponse?: Maybe<boolean>;
+  shouldActive?: Maybe<boolean>;
+  shouldTouched?: Maybe<boolean>;
+  shouldDirty?: Maybe<boolean>;
+  shouldFocus?: Maybe<boolean>;
   children: ComponentChildren;
 };
 
@@ -54,6 +59,7 @@ export function Form<
 >({
   of: form,
   onSubmit,
+  responseDuration: duration,
   keepResponse,
   shouldActive,
   shouldTouched,
@@ -84,6 +90,7 @@ export function Form<
 
         // Create options object
         const options = {
+          duration,
           shouldActive,
           shouldTouched,
           shouldDirty,
@@ -96,12 +103,35 @@ export function Form<
             await onSubmit(getValues(form, options) as TFieldValues, event);
           }
 
-          // If an error occurred, set error response
+          // If an error occurred, set error to fields and response
         } catch (error: any) {
-          form.response.value = {
-            status: 'error',
-            message: error?.message || 'An unknown error has occurred.',
-          };
+          batch(() => {
+            if (error instanceof FormError) {
+              (
+                Object.entries(error.errors) as [
+                  FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
+                  Maybe<string>
+                ][]
+              ).forEach(([name, error]) => {
+                if (error) {
+                  setError(form, name, error, {
+                    ...options,
+                    shouldFocus: false,
+                  });
+                }
+              });
+            }
+            if (!(error instanceof FormError) || error.message) {
+              setResponse(
+                form,
+                {
+                  status: 'error',
+                  message: error?.message || 'An unknown error has occurred.',
+                },
+                options
+              );
+            }
+          });
 
           // Finally set submitting back to "false"
         } finally {

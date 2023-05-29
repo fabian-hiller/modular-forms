@@ -43,7 +43,7 @@ function FormContent(props: FormContentProps) {
       <Field of={props.loginForm} name="password">
         {(field, props) => <input {...props} type="password" />}
       </Field>
-      <input type="submit" />
+      <button type="submit">Login</button>
     </Form>
   );
 }
@@ -85,7 +85,7 @@ const FormContent = component$(({ loginForm }) => (
     <Field of={loginForm} name="password">
       {(field, props) => <input {...props} type="password" />}
     </Field>
-    <input type="submit" />
+    <button type="submit">Login</button>
   </Form>
 ));
 ```
@@ -120,7 +120,7 @@ function FormContent({ loginForm }: FormContentProps) {
       <Field of={loginForm} name="password">
         {(field, props) => <input {...props} type="password" />}
       </Field>
-      <input type="submit" />
+      <button type="submit">Login</button>
     </Form>
   );
 }
@@ -156,7 +156,7 @@ function FormContent({ loginForm }: FormContentProps) {
       <Field of={loginForm} name="password">
         {(field, props) => <input {...props} type="password" />}
       </Field>
-      <input type="submit" />
+      <button type="submit">Login</button>
     </Form>
   );
 }

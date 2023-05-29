@@ -78,6 +78,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/solid/guides/throw-form-errors</loc>
+    <lastmod>2023-05-29</lastmod>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/solid/guides/form-methods</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.70</priority>
@@ -183,7 +189,13 @@
   </url>
   <url>
     <loc>https://modularforms.dev/qwik/guides/handle-submission</loc>
-    <lastmod>2023-05-18</lastmod>
+    <lastmod>2023-05-29</lastmod>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/qwik/guides/throw-form-errors</loc>
+    <lastmod>2023-05-29</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -298,6 +310,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/preact/guides/throw-form-errors</loc>
+    <lastmod>2023-05-29</lastmod>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/preact/guides/form-methods</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.70</priority>
@@ -398,6 +416,12 @@
   <url>
     <loc>https://modularforms.dev/react/guides/handle-submission</loc>
     <lastmod>2023-05-24</lastmod>
+    <priority>0.70</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/react/guides/throw-form-errors</loc>
+    <lastmod>2023-05-29</lastmod>
     <priority>0.70</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -718,6 +742,12 @@
   <url>
     <loc>https://modularforms.dev/solid/api/toUpperCase</loc>
     <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/solid/api/FormError</loc>
+    <lastmod>2023-05-29</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -1134,6 +1164,12 @@
   <url>
     <loc>https://modularforms.dev/qwik/api/toUpperCase</loc>
     <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/qwik/api/FormError</loc>
+    <lastmod>2023-05-29</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -1584,6 +1620,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/preact/api/FormError</loc>
+    <lastmod>2023-05-29</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/preact/api/zodField</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.40</priority>
@@ -1996,6 +2038,12 @@
   <url>
     <loc>https://modularforms.dev/react/api/toUpperCase</loc>
     <lastmod>2023-05-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/react/api/FormError</loc>
+    <lastmod>2023-05-29</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>

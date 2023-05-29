@@ -1,8 +1,12 @@
 import { batch, type JSX, splitProps } from 'solid-js';
-import { getValues, validate } from '../methods';
+import { FormError } from '../exceptions';
+import { getValues, setError, setResponse, validate } from '../methods';
 import type {
+  FieldArrayPath,
+  FieldPath,
   FieldValues,
   FormStore,
+  Maybe,
   MaybePromise,
   ResponseData,
 } from '../types';
@@ -34,11 +38,12 @@ export type FormProps<
 > = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
   of: FormStore<TFieldValues, TResponseData>;
   onSubmit: SubmitHandler<TFieldValues>;
-  keepResponse?: boolean;
-  shouldActive?: boolean;
-  shouldTouched?: boolean;
-  shouldDirty?: boolean;
-  shouldFocus?: boolean;
+  responseDuration?: Maybe<number>;
+  keepResponse?: Maybe<boolean>;
+  shouldActive?: Maybe<boolean>;
+  shouldTouched?: Maybe<boolean>;
+  shouldDirty?: Maybe<boolean>;
+  shouldFocus?: Maybe<boolean>;
   children: JSX.Element;
 };
 
@@ -51,17 +56,13 @@ export function Form<
   TResponseData extends ResponseData
 >(props: FormProps<TFieldValues, TResponseData>): JSX.Element {
   // Split props between local, options and other
-  const [local, options, other] = splitProps(
-    props,
-    ['of', 'onSubmit'],
-    [
-      'keepResponse',
-      'shouldActive',
-      'shouldTouched',
-      'shouldDirty',
-      'shouldFocus',
-    ]
-  );
+  const [options, other] = splitProps(props, [
+    'keepResponse',
+    'shouldActive',
+    'shouldTouched',
+    'shouldDirty',
+    'shouldFocus',
+  ]);
 
   return (
     <form
@@ -72,9 +73,9 @@ export function Form<
         // Prevent default behavior of browser
         event.preventDefault();
 
-        // Destructure local props
+        // Destructure props
         // eslint-disable-next-line solid/reactivity
-        const { of: form, onSubmit } = local;
+        const { of: form, onSubmit, responseDuration: duration } = props;
 
         batch(() => {
           // Reset response if it is not to be kept
@@ -94,11 +95,34 @@ export function Form<
             await onSubmit(getValues(form, options) as TFieldValues, event);
           }
 
-          // If an error occurred, set error response
+          // If an error occurred, set error to fields and response
         } catch (error: any) {
-          form.internal.response.set({
-            status: 'error',
-            message: error?.message || 'An unknown error has occurred.',
+          batch(() => {
+            if (error instanceof FormError) {
+              (
+                Object.entries(error.errors) as [
+                  FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
+                  Maybe<string>
+                ][]
+              ).forEach(([name, error]) => {
+                if (error) {
+                  setError(form, name, error, {
+                    ...options,
+                    shouldFocus: false,
+                  });
+                }
+              });
+            }
+            if (!(error instanceof FormError) || error.message) {
+              setResponse(
+                form,
+                {
+                  status: 'error',
+                  message: error?.message || 'An unknown error has occurred.',
+                },
+                { duration }
+              );
+            }
           });
 
           // Finally set submitting back to "false"
