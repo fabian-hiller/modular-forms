@@ -17,7 +17,7 @@ import {
 
 # Throw form errors
 
-Modular Forms has built-in error handling with the <A href="../api/FormError">`FormError`</A> class to easily display individual errors when submitting a form.
+Modular Forms has built-in error handling with the <A href="../../api/FormError">`FormError`</A> class to easily display individual errors when submitting a form.
 
 ## Throw general error
 
@@ -27,7 +27,7 @@ General errors are errors that affect the entire form and can be displayed via t
 
 When processing the form client-side via the <SolidPreactOrReact>`onSubmit`</SolidPreactOrReact><Qwik>`onSubmit$`</Qwik> event listener, <u>any error</u> thrown is automatically caught and added to the `response` state.
 
-To throw custom errors to be displayed to the user, you can use our <A href="../api/FormError">`FormError`</A> class. It inherits from the default `Error` class and can contain a general error message as well as error messages for individual fields. More about this in a moment.
+To throw custom errors to be displayed to the user, you can use our <A href="../../api/FormError">`FormError`</A> class. It inherits from the default `Error` class and can contain a general error message as well as error messages for individual fields. More about this in a moment.
 
 <Solid block>
 
@@ -176,7 +176,7 @@ export default function App() {
 
 ### Server-side errors
 
-For server-side errors, we are a bit more cautious, as secret information might be preserved here and therefore only output a generic error message for all errors that are not an instance of our <A href="../api/FormError">`FormError`</A> class. So, to intentionally output custom errors to the user, our <A href="../api/FormError">`FormError`</A> class must be used.
+For server-side errors, we are a bit more cautious, as secret information might be preserved here and therefore only output a generic error message for all errors that are not an instance of our <A href="../../api/FormError">`FormError`</A> class. So, to intentionally output custom errors to the user, our <A href="../../api/FormError">`FormError`</A> class must be used.
 
 ```tsx
 export const useFormAction = formAction$<LoginForm>((values) => {
@@ -190,7 +190,7 @@ export const useFormAction = formAction$<LoginForm>((values) => {
 
 ## Throw field error
 
-Field errors are errors that are assigned to a specific field and added to its state. In addition to a general error message, you can also add an error message to specific fields using the second argument the `FormError` class.
+Field errors are errors that are assigned to a specific field and added to its state. In addition to a general error message, you can also add an error message to specific fields using the second argument the <A href="../../api/FormError">`FormError`</A> class.
 
 ```ts
 if (error) {
