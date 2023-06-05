@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.4.1 (June 05, 2023)
 
 - Fix start value bug when using radio inputs (issue #83)
 
