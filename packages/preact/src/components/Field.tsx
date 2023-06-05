@@ -137,6 +137,7 @@ export function Field<
                 // state also resets to "false" when user removes input
                 effect(() => {
                   if (
+                    element.type !== 'radio' &&
                     field.startValue.value === undefined &&
                     field.value.peek() === undefined
                   ) {

@@ -140,6 +140,7 @@ export function Field<
             // state also resets to "false" when user removes input
             createEffect(() => {
               if (
+                element.type !== 'radio' &&
                 getField().startValue.get() === undefined &&
                 untrack(getField().value.get) === undefined
               ) {

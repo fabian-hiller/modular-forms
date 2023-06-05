@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix start value bug when using radio inputs (issue #83)
+
 ## v0.5.0 (May 29, 2023)
 
 - Add `FormError` class for simpler error handling
