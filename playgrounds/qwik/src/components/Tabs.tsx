@@ -11,8 +11,8 @@ type TabsProps = {
  * between them.
  */
 export const Tabs = component$((props: TabsProps) => {
-  // Use loaction
-  const loaction = useLocation();
+  // Use location
+  const location = useLocation();
 
   // Use navigation element and indicator style signal
   const navElement = useSignal<HTMLElement>();
@@ -27,7 +27,7 @@ export const Tabs = component$((props: TabsProps) => {
   const updateIndicatorStyle = $(() => {
     // Get active navigation element by pathname and href
     const activeElement = [...navElement.value!.children].find(
-      (e) => (e as HTMLAnchorElement).pathname === loaction.url.pathname
+      (e) => (e as HTMLAnchorElement).pathname === location.url.pathname
     ) as HTMLAnchorElement | undefined;
 
     // Update indicator style to active element or reset it to undefined
@@ -41,7 +41,7 @@ export const Tabs = component$((props: TabsProps) => {
 
   // Update indicator style when active element changes
   useVisibleTask$(({ track }) => {
-    track(() => loaction.url.pathname);
+    track(() => location.url.pathname);
     updateIndicatorStyle();
   });
 
@@ -56,7 +56,7 @@ export const Tabs = component$((props: TabsProps) => {
                 key={href}
                 class={clsx(
                   'block pb-4 lg:text-lg',
-                  loaction.url.pathname.endsWith(href)
+                  location.url.pathname.endsWith(href)
                     ? 'text-sky-600 dark:text-sky-400'
                     : 'hover:text-slate-900 dark:hover:text-slate-200'
                 )}
