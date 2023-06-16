@@ -12,8 +12,8 @@ type TabsProps = {
  * between them.
  */
 export function Tabs(props: TabsProps) {
-  // Use loaction
-  const loaction = useLocation();
+  // Use location
+  const location = useLocation();
 
   // Create navigation element and indicator style signal
   const [getNavElement, setNavElement] = createSignal<HTMLElement>();
@@ -28,7 +28,7 @@ export function Tabs(props: TabsProps) {
   const updateIndicatorStyle = () => {
     // Get active navigation element by pathname and href
     const activeElement = [...getNavElement()!.children].find((e) =>
-      (e as HTMLAnchorElement).href.endsWith(loaction.pathname)
+      (e as HTMLAnchorElement).href.endsWith(location.pathname)
     ) as HTMLAnchorElement | undefined;
 
     // Update indicator style to active element or reset it to undefined
