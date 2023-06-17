@@ -10,6 +10,8 @@ import { getInitialStores } from '../utils';
 /**
  * Creates and returns the store of the form.
  *
+ * TODO: Add initialValues option beside loader
+ *
  * @param options The form options.
  *
  * @returns The reactive store.
@@ -38,6 +40,7 @@ export function useFormStore<
         validateOn,
         revalidateOn,
       },
+      // FIXME: Set state based on `action`
       element: undefined,
       submitCount: 0,
       submitting: false,
