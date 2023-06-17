@@ -66,8 +66,8 @@ export function Form<
 
   return (
     <form
-      {...other}
       noValidate
+      {...other}
       ref={props.of.internal.element.set}
       onSubmit={async (event: SubmitEvent) => {
         // Prevent default behavior of browser

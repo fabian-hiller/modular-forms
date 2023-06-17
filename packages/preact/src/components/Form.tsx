@@ -69,8 +69,8 @@ export function Form<
 }: FormProps<TFieldValues, TResponseData>): JSX.Element {
   return (
     <form
-      {...props}
       noValidate
+      {...props}
       ref={(element) => (form.element.value = element)}
       onSubmit={async (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
         // Prevent default behavior of browser

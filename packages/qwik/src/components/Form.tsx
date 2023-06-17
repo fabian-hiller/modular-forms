@@ -93,11 +93,11 @@ export function Form<
 
   return (
     <form
+      noValidate
       {...formProps}
       method="post"
       action={action?.actionPath}
       preventdefault:submit={!reloadDocument}
-      noValidate
       ref={(element: Element) => {
         form.element = element as HTMLFormElement;
       }}

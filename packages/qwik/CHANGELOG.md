@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Allow `noValidate` prop of `Form` to be overwritten (issue #92)
+
 ## v0.17.0 (May 29, 2023)
 
 - Add `FormError` class for simpler error handling
