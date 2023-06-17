@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.17.1 (June 17, 2023)
 
 - Allow `noValidate` prop of `Form` to be overwritten (issue #92)
 
