@@ -1,5 +1,5 @@
 import { A } from 'solid-start';
-import { Description, Solid, SolidPreactOrReact, Title } from '~/components';
+import { Description, Solid, Title } from '~/components';
 
 <Title>FAQ</Title>
 <Description>
@@ -11,6 +11,14 @@ import { Description, Solid, SolidPreactOrReact, Title } from '~/components';
 
 Below you will find an overview of frequently asked questions. Please fill out an <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/new`} target="\_blank" rel="noreferrer">issue</a> to ask us anything. We're looking forward to your message.
 
+## Does the bundle size really start at 3 KB?
+
+Yes, this information should be about right. The <A href="/playground">playground</A> on this website uses almost the entire functionality of Modular Forms through the various examples, coming to a bundle size of 5 KB. However, the size also depends on how much your bundler divides the library into small chunks.
+
+## Is there a framework agnostic core?
+
+In April 2023, I had developed a framework agnostic core package to avoid having to support the same code for each framework separately. However, this implementation brought disadvantages for each framework, because I had to consider some framework dependent details. For this reason, I decided to rather put a little more work into it and make the implementation for each framework completely independent to make it as perfect as possible. Therefore, at the moment there is no framework agnostic core.
+
 <Solid block>
 
 ## Does it work with SolidStart?
@@ -20,11 +28,3 @@ Yes, Modular Forms works with <a href="https://start.solidjs.com" target="_blank
 > Currently, it seems that the implementation is more difficult than expected. You can find the latest information <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/3`} target="\_blank" rel="noreferrer">here</a> on GitHub.
 
 </Solid>
-
-<SolidPreactOrReact block>
-
-## Does the bundle size really start at 3 KB?
-
-Yes, this information should be about right. The <A href="/playground">playground</A> on this website uses almost the entire functionality of Modular Forms through the various examples, coming to a bundle size of 4.7 KB. However, the size also depends on how much your bundler divides the library into small chunks.
-
-</SolidPreactOrReact>
