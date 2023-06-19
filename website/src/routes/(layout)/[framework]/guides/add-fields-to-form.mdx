@@ -149,3 +149,19 @@ If you want your field to capture a data type other than string, a second proper
 ### Type safety
 
 The API design of the <A href="../../api/Field">`Field`</A> component results in a fully type-safe form. For example, if you change the name of a field, TypeScript will immediately alert you. Also, you can't mistype when adding an error message, because it is taken from the provided state of the field. More about this on the next page.
+
+## Field state
+
+In addition to the current value and the error message of a field, the <A href="../../api/Field">`Field`</A> component also tracks whether a field has been touched, is dirty or active.
+
+### Touched and dirty
+
+A field is touched whenever the `blur` event has been triggered at least once or an input has been made and is dirty if the current value does not correspond to the initial value.
+
+### Active state
+
+A field is active when it is part of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model" target="\_blank" rel="noreferrer">DOM</a>. The active state is important because by default Modular Forms only takes active fields into account, e.g. when validating or returning the current form values. If you don't want this behavior, you can use the `keepActive` property of the <A href="../../api/Field">`Field`</A> component to prevent a field from becoming inactive or the `shouldActive` property or option of the <A href="../../api/Form">`Form`</A> component or the various methods to ignore the active state entirely.
+
+#### Why is there an active state?
+
+The active state allows that when fields are shown or hidden depending on the value of another field, that only the values of the shown fields are validated and returned. The <A href="../../playground/payment">payment form</A> in our playground shows this behavior.
