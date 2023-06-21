@@ -50,7 +50,7 @@ export type FieldElementProps<
   TFieldName extends FieldPath<TFieldValues>
 > = {
   get name(): TFieldName;
-  get autoFocus(): boolean;
+  get autofocus(): boolean;
   ref: (element: FieldElement) => void;
   onInput: JSX.EventHandler<FieldElement, InputEvent>;
   onChange: JSX.EventHandler<FieldElement, Event>;
@@ -128,7 +128,7 @@ export function Field<
           get name() {
             return props.name;
           },
-          get autoFocus() {
+          get autofocus() {
             return !!getField().error.get();
           },
           ref(element) {
