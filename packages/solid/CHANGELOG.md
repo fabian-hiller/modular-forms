@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Rename `autoFocus` in `Field` component to `autofocus` (issue #92)
+- Rename `noValidate` in `Form` component to `novalidate` (issue #92)
+
 ## v0.17.2 (June 17, 2023)
 
 - Allow `noValidate` prop of `Form` to be overwritten (issue #92)
