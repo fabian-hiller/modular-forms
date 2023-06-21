@@ -66,7 +66,7 @@ export function Form<
 
   return (
     <form
-      noValidate
+      novalidate
       {...other}
       ref={props.of.internal.element.set}
       onSubmit={async (event: SubmitEvent) => {
