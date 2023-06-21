@@ -119,26 +119,18 @@ export const properties = {
   validate: {
     type: {
       type: 'custom',
-      name: 'Maybe',
-      href: '../Maybe',
+      name: 'QRL',
       generics: [
         {
-          type: 'Custom',
-          name: 'QRL',
-          generics: [
-            {
-              type: 'custom',
-              name: 'ValidateForm',
-              href: '../ValidateForm',
-            },
-          ],
+          type: 'custom',
+          name: 'ValidateForm',
+          href: '../ValidateForm',
         },
       ],
     },
   },
   options: {
     type: 'object',
-    defaultValue: { type: 'object', entries: [] },
   },
   paths: {
     type: {

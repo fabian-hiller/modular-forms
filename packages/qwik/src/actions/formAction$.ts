@@ -47,7 +47,7 @@ export type FormActionFunction<
 export type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
-      validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
+      validate: QRL<ValidateForm<TFieldValues>>;
     });
 
 /**
@@ -58,7 +58,7 @@ export function formActionQrl<
   TResponseData extends ResponseData = undefined
 >(
   action: QRL<FormActionFunction<TFieldValues, TResponseData>>,
-  arg2?: Maybe<FormActionArg2<TFieldValues>>
+  arg2: FormActionArg2<TFieldValues>
 ): Action<
   FormActionStore<TFieldValues, TResponseData>,
   PartialValues<TFieldValues>,
@@ -170,7 +170,7 @@ export const formAction$: <
   TResponseData extends ResponseData = undefined
 >(
   actionQrl: FormActionFunction<TFieldValues, TResponseData>,
-  arg2?: Maybe<FormActionArg2<TFieldValues>>
+  arg2: FormActionArg2<TFieldValues>
 ) => Action<
   FormActionStore<TFieldValues, TResponseData>,
   PartialValues<TFieldValues>,
