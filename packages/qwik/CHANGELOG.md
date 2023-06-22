@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Require validation when using `formAction$` (issue #57)
+- Refactor `getFilteredNames` util
 
 ## v0.17.1 (June 17, 2023)
 

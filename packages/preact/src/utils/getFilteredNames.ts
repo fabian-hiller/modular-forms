@@ -46,7 +46,7 @@ export function getFilteredNames<
           // If it is name of a field array, add it and name of each field
           // and field array it contains to field and field array names
           if (
-            allFieldArrayNames.some((fieldArrayName) => fieldArrayName === name)
+            allFieldArrayNames.includes(name as FieldArrayPath<TFieldValues>)
           ) {
             allFieldArrayNames.forEach((fieldArrayName) => {
               if (fieldArrayName.startsWith(name)) {

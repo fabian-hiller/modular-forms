@@ -6,6 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Rename `autoFocus` in `Field` component to `autofocus` (issue #92)
 - Rename `noValidate` in `Form` component to `novalidate` (issue #92)
+- Refactor `getFilteredNames` util
 
 ## v0.17.2 (June 17, 2023)
 
