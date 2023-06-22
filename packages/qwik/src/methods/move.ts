@@ -16,6 +16,7 @@ import {
   getPathIndex,
   setFieldArrayState,
   setFieldState,
+  sortArrayPathIndex,
   updateFieldArrayDirty,
 } from '../utils';
 
@@ -70,12 +71,6 @@ export function move<
         }
       };
 
-      // Create function to sort by path index
-      const sortPathIndex = (
-        pathA: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
-        pathB: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
-      ) => getPathIndex(name, pathA) - getPathIndex(name, pathB);
-
       // Create function to get previous index name
       const getPrevIndexName = <T extends string>(
         fieldOrFieldArrayName: T,
@@ -98,10 +93,10 @@ export function move<
       // Create list of all affected field and field array names
       const fieldNames = getFieldNames(form)
         .filter(filterName)
-        .sort(sortPathIndex);
+        .sort(sortArrayPathIndex(name));
       const fieldArrayNames = getFieldArrayNames(form)
         .filter(filterName)
-        .sort(sortPathIndex);
+        .sort(sortArrayPathIndex(name));
 
       // Reverse names if "from" index is greater than "to" index
       if (fromIndex > toIndex) {

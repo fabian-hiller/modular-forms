@@ -18,6 +18,7 @@ export * from './setErrorResponse';
 export * from './setFieldArrayState';
 export * from './setFieldArrayValue';
 export * from './setFieldState';
+export * from './sortArrayPathIndex';
 export * from './updateFieldArrayDirty';
 export * from './updateFieldDirty';
 export * from './updateFormDirty';

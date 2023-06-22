@@ -1,7 +1,6 @@
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
-  FieldPath,
   FieldValues,
   FormStore,
   Maybe,
@@ -18,6 +17,7 @@ import {
   setFieldArrayState,
   setFieldArrayValue,
   setFieldState,
+  sortArrayPathIndex,
   validateIfRequired,
 } from '../utils';
 
@@ -68,12 +68,6 @@ export function insert<
         const filterName = (value: string) =>
           value.startsWith(`${name}.`) && getPathIndex(name, value) >= index;
 
-        // Create function to sort by path index
-        const sortPathIndex = (
-          pathA: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
-          pathB: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
-        ) => getPathIndex(name, pathA) - getPathIndex(name, pathB);
-
         // Create function to get next index name
         const getNextIndexName = <T extends string>(
           fieldOrFieldArrayName: T,
@@ -87,7 +81,7 @@ export function insert<
         // Move fields that come after new item one index further
         getFieldNames(form)
           .filter(filterName)
-          .sort(sortPathIndex)
+          .sort(sortArrayPathIndex(name))
           .reverse()
           .forEach((fieldName) => {
             setFieldState(
@@ -100,7 +94,7 @@ export function insert<
         // Move field arrays that come after new item one index further
         getFieldArrayNames(form)
           .filter(filterName)
-          .sort(sortPathIndex)
+          .sort(sortArrayPathIndex(name))
           .reverse()
           .forEach((fieldArrayName) => {
             setFieldArrayState(

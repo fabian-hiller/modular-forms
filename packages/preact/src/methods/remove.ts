@@ -1,7 +1,6 @@
 import { batch } from '@preact/signals';
 import type {
   FieldArrayPath,
-  FieldPath,
   FieldValues,
   FormStore,
   ResponseData,
@@ -13,6 +12,7 @@ import {
   getPathIndex,
   setFieldArrayState,
   setFieldState,
+  sortArrayPathIndex,
   updateFieldArrayDirty,
   validateIfRequired,
 } from '../utils';
@@ -53,12 +53,6 @@ export function remove<
       const filterName = (value: string) =>
         value.startsWith(`${name}.`) && getPathIndex(name, value) > index;
 
-      // Create function to sort by path index
-      const sortPathIndex = (
-        pathA: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
-        pathB: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
-      ) => getPathIndex(name, pathA) - getPathIndex(name, pathB);
-
       // Create function to get previous index name
       const getPrevIndexName = <T extends string>(
         fieldOrFieldArrayName: T,
@@ -74,7 +68,7 @@ export function remove<
         form.internal.fieldNames
           .peek()
           .filter(filterName)
-          .sort(sortPathIndex)
+          .sort(sortArrayPathIndex(name))
           .forEach((fieldName) => {
             setFieldState(
               form,
@@ -87,7 +81,7 @@ export function remove<
         form.internal.fieldArrayNames
           .peek()
           .filter(filterName)
-          .sort(sortPathIndex)
+          .sort(sortArrayPathIndex(name))
           .forEach((fieldArrayName) => {
             setFieldArrayState(
               form,

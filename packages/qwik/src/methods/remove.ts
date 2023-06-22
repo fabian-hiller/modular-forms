@@ -1,6 +1,5 @@
 import type {
   FieldArrayPath,
-  FieldPath,
   FieldValues,
   FormStore,
   ResponseData,
@@ -15,6 +14,7 @@ import {
   updateFieldArrayDirty,
   setFieldArrayState,
   setFieldState,
+  sortArrayPathIndex,
   validateIfRequired,
 } from '../utils';
 
@@ -54,12 +54,6 @@ export function remove<
       const filterName = (value: string) =>
         value.startsWith(`${name}.`) && getPathIndex(name, value) > index;
 
-      // Create function to sort by path index
-      const sortPathIndex = (
-        pathA: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
-        pathB: FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>
-      ) => getPathIndex(name, pathA) - getPathIndex(name, pathB);
-
       // Create function to get previous index name
       const getPrevIndexName = <T extends string>(
         fieldOrFieldArrayName: T,
@@ -73,7 +67,7 @@ export function remove<
       // Move state of each field after the removed index back by one index
       getFieldNames(form)
         .filter(filterName)
-        .sort(sortPathIndex)
+        .sort(sortArrayPathIndex(name))
         .forEach((fieldName) => {
           setFieldState(
             form,
@@ -85,7 +79,7 @@ export function remove<
       // Move state of each field array after the removed index back by one index
       getFieldArrayNames(form)
         .filter(filterName)
-        .sort(sortPathIndex)
+        .sort(sortArrayPathIndex(name))
         .forEach((fieldArrayName) => {
           setFieldArrayState(
             form,

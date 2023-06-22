@@ -6,6 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Require validation when using `formAction$` (issue #57)
 - Refactor `getFilteredNames` util
+- Refactor path index sorting in `insert`, `move` and `remove` method
 
 ## v0.17.1 (June 17, 2023)
 
