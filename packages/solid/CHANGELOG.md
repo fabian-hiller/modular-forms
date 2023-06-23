@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.18.0 (June 23, 2023)
 
 - Rename `autoFocus` in `Field` component to `autofocus` (issue #92)
 - Rename `noValidate` in `Form` component to `novalidate` (issue #92)
