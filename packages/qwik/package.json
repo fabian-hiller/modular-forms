@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/qwik",
   "description": "The modular and type-safe form library for Qwik",
-  "version": "0.17.1",
+  "version": "0.18.0",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
