@@ -6,6 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Refactor `getFilteredNames` util
 - Refactor path index sorting in `insert`, `move` and `remove` method
+- Fix bug by removing invalid field array items (issue #85)
 
 ## v0.4.2 (June 17, 2023)
 

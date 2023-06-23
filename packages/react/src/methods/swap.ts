@@ -9,8 +9,10 @@ import type {
   ResponseData,
 } from '../types';
 import {
+  getFieldArrayNames,
   getFieldArrayState,
   getFieldArrayStore,
+  getFieldNames,
   getFieldState,
   getPathIndex,
   setFieldArrayState,
@@ -83,16 +85,14 @@ export function swap<
           : value.replace(index2Prefix, index1Prefix)) as T;
 
       // Add state of each required field to map
-      form.internal.fieldNames
-        .peek()
+      getFieldNames(form)
         .filter(filterName)
         .forEach((fieldName) =>
           fieldStateMap.set(fieldName, getFieldState(form, fieldName)!)
         );
 
       // Add state of each required field array to map
-      form.internal.fieldArrayNames
-        .peek()
+      getFieldArrayNames(form)
         .filter(filterName)
         .forEach((fieldArrayName) =>
           fieldArrayStateMap.set(

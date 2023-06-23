@@ -1,3 +1,4 @@
+import { untrack } from 'solid-js';
 import type {
   FieldPath,
   FieldValues,
@@ -23,9 +24,7 @@ export function getFieldNames<
   shouldValid: Maybe<boolean> = true
 ): FieldPath<TFieldValues>[] {
   // Get name of every field
-  const fieldNames = Object.keys(
-    form.internal.fields
-  ) as FieldPath<TFieldValues>[];
+  const fieldNames = [...untrack(form.internal.fieldNames.get)];
 
   // Remove invalid field names
   if (shouldValid) {

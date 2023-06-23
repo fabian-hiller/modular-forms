@@ -23,9 +23,7 @@ export function getFieldNames<
   shouldValid: Maybe<boolean> = true
 ): FieldPath<TFieldValues>[] {
   // Get name of every field
-  const fieldNames = Object.keys(
-    form.internal.fields
-  ) as FieldPath<TFieldValues>[];
+  const fieldNames = [...form.internal.fieldNames.peek()];
 
   // Remove invalid field names
   if (shouldValid) {

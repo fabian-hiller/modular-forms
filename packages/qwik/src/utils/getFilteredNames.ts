@@ -17,6 +17,7 @@ import { getFieldNames } from './getFieldNames';
  *
  * @param form The form of the fields.
  * @param arg2 The name of the fields.
+ * @param shouldValid Whether to be valid.
  *
  * @returns A tuple with filtered names.
  */
@@ -31,11 +32,12 @@ export function getFilteredNames<
     | FieldArrayPath<TFieldValues>
     | (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[]
     | TOptions
-  >
+  >,
+  shouldValid?: Maybe<boolean>
 ): [FieldPath<TFieldValues>[], FieldArrayPath<TFieldValues>[]] {
   // Get all field and field array names of form
-  const allFieldNames = getFieldNames(form);
-  const allFieldArrayNames = getFieldArrayNames(form);
+  const allFieldNames = getFieldNames(form, shouldValid);
+  const allFieldArrayNames = getFieldArrayNames(form, shouldValid);
 
   // If names are specified, filter and return them
   if (typeof arg2 === 'string' || Array.isArray(arg2)) {

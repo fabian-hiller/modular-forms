@@ -23,9 +23,7 @@ export function getFieldArrayNames<
   shouldValid: Maybe<boolean> = true
 ): FieldArrayPath<TFieldValues>[] {
   // Get name of every field array
-  const fieldArrayNames = Object.keys(
-    form.internal.fieldArrays
-  ) as FieldArrayPath<TFieldValues>[];
+  const fieldArrayNames = [...form.internal.fieldArrayNames.peek()];
 
   // Remove invalid field array names
   if (shouldValid) {

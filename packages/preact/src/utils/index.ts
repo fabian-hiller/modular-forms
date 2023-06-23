@@ -1,7 +1,9 @@
 export * from './getElementInput';
 export * from './getFieldAndArrayStores';
+export * from './getFieldArrayNames';
 export * from './getFieldArrayState';
 export * from './getFieldArrayStore';
+export * from './getFieldNames';
 export * from './getFieldState';
 export * from './getFieldStore';
 export * from './getFilteredNames';
@@ -14,6 +16,7 @@ export * from './initializeFieldArrayStore';
 export * from './initializeFieldStore';
 export * from './isFieldDirty';
 export * from './readSignal';
+export * from './removeInvalidNames';
 export * from './setErrorResponse';
 export * from './setFieldArrayState';
 export * from './setFieldArrayValue';

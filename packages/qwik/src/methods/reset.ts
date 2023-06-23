@@ -104,7 +104,7 @@ export function reset<
   arg3?: Maybe<ResetOptions<TFieldValues, TFieldName>>
 ): void {
   // Filter names between field and field arrays
-  const [fieldNames, fieldArrayNames] = getFilteredNames(form, arg2);
+  const [fieldNames, fieldArrayNames] = getFilteredNames(form, arg2, false);
 
   // Check if only a single field should be reset
   const resetSingleField = typeof arg2 === 'string' && fieldNames.length === 1;

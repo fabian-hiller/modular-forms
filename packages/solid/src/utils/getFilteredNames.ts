@@ -7,6 +7,8 @@ import type {
   Maybe,
   ResponseData,
 } from '../types';
+import { getFieldArrayNames } from './getFieldArrayNames';
+import { getFieldNames } from './getFieldNames';
 
 /**
  * Returns a tuple with filtered field and field array names. For each
@@ -16,6 +18,7 @@ import type {
  *
  * @param form The form of the fields.
  * @param arg2 The name of the fields.
+ * @param shouldValid Whether to be valid.
  *
  * @returns A tuple with filtered names.
  */
@@ -30,12 +33,13 @@ export function getFilteredNames<
     | FieldArrayPath<TFieldValues>
     | (FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>)[]
     | TOptions
-  >
+  >,
+  shouldValid?: Maybe<boolean>
 ): [FieldPath<TFieldValues>[], FieldArrayPath<TFieldValues>[]] {
   return untrack(() => {
     // Get all field and field array names of form
-    const allFieldNames = form.internal.fieldNames.get();
-    const allFieldArrayNames = form.internal.fieldArrayNames.get();
+    const allFieldNames = getFieldNames(form, shouldValid);
+    const allFieldArrayNames = getFieldArrayNames(form, shouldValid);
 
     // If names are specified, filter and return them
     if (typeof arg2 === 'string' || Array.isArray(arg2)) {

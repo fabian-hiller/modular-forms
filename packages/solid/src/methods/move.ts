@@ -9,8 +9,10 @@ import type {
   ResponseData,
 } from '../types';
 import {
+  getFieldArrayNames,
   getFieldArrayState,
   getFieldArrayStore,
+  getFieldNames,
   getFieldState,
   getPathIndex,
   setFieldArrayState,
@@ -93,12 +95,10 @@ export function move<
           ) as T;
 
         // Create list of all affected field and field array names
-        const fieldNames = form.internal.fieldNames
-          .get()
+        const fieldNames = getFieldNames(form)
           .filter(filterName)
           .sort(sortArrayPathIndex(name));
-        const fieldArrayNames = form.internal.fieldArrayNames
-          .get()
+        const fieldArrayNames = getFieldArrayNames(form)
           .filter(filterName)
           .sort(sortArrayPathIndex(name));
 

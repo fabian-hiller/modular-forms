@@ -18,6 +18,8 @@ import {
   setFieldState,
   sortArrayPathIndex,
   validateIfRequired,
+  getFieldArrayNames,
+  getFieldNames,
 } from '../utils';
 
 /**
@@ -81,8 +83,7 @@ export function insert<
               ) as T;
 
             // Move fields that come after new item one index further
-            form.internal.fieldNames
-              .get()
+            getFieldNames(form)
               .filter(filterName)
               .sort(sortArrayPathIndex(name))
               .reverse()
@@ -95,8 +96,7 @@ export function insert<
               });
 
             // Move field arrays that come after new item one index further
-            form.internal.fieldArrayNames
-              .get()
+            getFieldArrayNames(form)
               .filter(filterName)
               .sort(sortArrayPathIndex(name))
               .reverse()

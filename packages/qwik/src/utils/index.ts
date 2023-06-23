@@ -20,6 +20,7 @@ export * from './handleFieldEvent';
 export * from './initializeFieldArrayStore';
 export * from './initializeFieldStore';
 export * from './isFieldDirty';
+export * from './removeInvalidNames';
 export * from './setErrorResponse';
 export * from './setFieldArrayState';
 export * from './setFieldArrayValue';

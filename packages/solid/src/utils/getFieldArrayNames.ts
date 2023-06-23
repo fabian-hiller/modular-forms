@@ -1,3 +1,4 @@
+import { untrack } from 'solid-js';
 import type {
   FieldValues,
   ResponseData,
@@ -23,9 +24,7 @@ export function getFieldArrayNames<
   shouldValid: Maybe<boolean> = true
 ): FieldArrayPath<TFieldValues>[] {
   // Get name of every field array
-  const fieldArrayNames = Object.keys(
-    form.internal.fieldArrays
-  ) as FieldArrayPath<TFieldValues>[];
+  const fieldArrayNames = [...untrack(form.internal.fieldArrayNames.get)];
 
   // Remove invalid field array names
   if (shouldValid) {

@@ -6,8 +6,10 @@ import type {
   ResponseData,
 } from '../types';
 import {
+  getFieldArrayNames,
   getFieldArrayState,
   getFieldArrayStore,
+  getFieldNames,
   getFieldState,
   getPathIndex,
   setFieldArrayState,
@@ -66,8 +68,7 @@ export function remove<
 
         batch(() => {
           // Move state of each field after the removed index back by one index
-          form.internal.fieldNames
-            .get()
+          getFieldNames(form)
             .filter(filterName)
             .sort(sortArrayPathIndex(name))
             .forEach((fieldName) => {
@@ -79,8 +80,7 @@ export function remove<
             });
 
           // Move state of each field array after the removed index back by one index
-          form.internal.fieldArrayNames
-            .get()
+          getFieldArrayNames(form)
             .filter(filterName)
             .sort(sortArrayPathIndex(name))
             .forEach((fieldArrayName) => {
