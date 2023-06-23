@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.4.3 (June 23, 2023)
 
 - Refactor `getFilteredNames` util
 - Refactor path index sorting in `insert`, `move` and `remove` method
