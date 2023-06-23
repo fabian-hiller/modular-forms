@@ -34,12 +34,19 @@ Type that defines the options of a form.
   - `validate` <Property {...properties.qwik.validate} />
   - `validateOn` <Property {...properties.solidQwikOrReact.validateOn} />
   - `revalidateOn` <Property {...properties.solidQwikOrReact.revalidateOn} />
+  - `fieldArrays` <Property {...properties.qwik.fieldArrays} />
 
 </Qwik>
 
 ### Explanation
 
 With `validateOn` and `revalidateOn` you can define your validation strategy. `validateOn` defines the time of the first validation and `revalidateOn` defines when the validation is performed again. If you set `validateOn` to `'submit'`, you set the validation strategy at the form level. In this case `revalidateOn` is applied whenever the form has already been submitted once. For all other values it refers to a single field. In this case `revalidateOn` is applied if an error has already occurred.
+
+<Qwik block>
+
+If your form contains field arrays, you must specify their paths in `fieldArrays` so that the stores of the field arrays can be initialized properly.
+
+</Qwik>
 
 export const properties = {
   FormOptions: {
@@ -173,6 +180,19 @@ export const properties = {
                 href: '../ValidateForm',
               },
             ],
+          },
+        ],
+      },
+    },
+    fieldArrays: {
+      type: {
+        type: 'custom',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'array',
+            item: 'string',
           },
         ],
       },

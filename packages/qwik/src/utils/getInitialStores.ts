@@ -1,5 +1,3 @@
-import type { Signal } from '@builder.io/qwik';
-import type { ActionStore } from '@builder.io/qwik-city';
 import type {
   FieldArrayPath,
   FieldArrayPathValue,
@@ -8,10 +6,8 @@ import type {
   FieldPathValue,
   FieldsStore,
   FieldValues,
-  FormActionStore,
-  InitialValues,
+  FormOptions,
   Maybe,
-  PartialValues,
   ResponseData,
 } from '../types';
 import { getInitialFieldArrayStore } from './getInitialFieldArrayStore';
@@ -30,16 +26,14 @@ import { getUniqueId } from './getUniqueId';
 export function getInitialStores<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData
->(
-  loader: Signal<InitialValues<TFieldValues>>,
-  action?: Maybe<
-    ActionStore<
-      FormActionStore<TFieldValues, TResponseData>,
-      PartialValues<TFieldValues>,
-      true
-    >
-  >
-): [FieldsStore<TFieldValues>, FieldArraysStore<TFieldValues>] {
+>({
+  loader,
+  action,
+  fieldArrays,
+}: Pick<
+  FormOptions<TFieldValues, TResponseData>,
+  'loader' | 'action' | 'fieldArrays'
+>): [FieldsStore<TFieldValues>, FieldArraysStore<TFieldValues>] {
   // Create function to get value of field or field array
   function getActionValue<TFieldName extends FieldPath<TFieldValues>>(
     name: TFieldName
@@ -72,19 +66,8 @@ export function getInitialStores<
       // Create new compound path
       const compoundPath = prevPath ? `${prevPath}.${path}` : path;
 
-      // Add initial store of field
-      if (!value || typeof value !== 'object' || Array.isArray(value)) {
-        stores[0][compoundPath as FieldPath<TFieldValues>] =
-          getInitialFieldStore(compoundPath as FieldPath<TFieldValues>, {
-            initialValue: value,
-            value:
-              getActionValue(compoundPath as FieldPath<TFieldValues>) ?? value,
-            error: getActionError(compoundPath as FieldPath<TFieldValues>),
-          });
-      }
-
-      // Add initial store of field array
-      if (Array.isArray(value)) {
+      // If it is a field array, set initial store
+      if (fieldArrays?.includes(compoundPath.replace(/.\d+./g, '.$.') as any)) {
         const initialItems = value.map(generateItems);
         stores[1][compoundPath as FieldArrayPath<TFieldValues>] =
           getInitialFieldArrayStore(
@@ -99,9 +82,24 @@ export function getInitialStores<
               ),
             }
           );
+
+        // Otherwise, if it is a field, set initial store
+      } else if (
+        !value ||
+        typeof value !== 'object' ||
+        Array.isArray(value) ||
+        value instanceof Date
+      ) {
+        stores[0][compoundPath as FieldPath<TFieldValues>] =
+          getInitialFieldStore(compoundPath as FieldPath<TFieldValues>, {
+            initialValue: value,
+            value:
+              getActionValue(compoundPath as FieldPath<TFieldValues>) ?? value,
+            error: getActionError(compoundPath as FieldPath<TFieldValues>),
+          });
       }
 
-      // Add stores of nested fields and field arrays
+      // If it is an object or array, add nested stores
       if (value && typeof value === 'object') {
         createInitialStores(stores, value, compoundPath);
       }

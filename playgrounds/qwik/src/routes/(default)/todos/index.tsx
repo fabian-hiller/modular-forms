@@ -50,6 +50,7 @@ export default component$(() => {
   // Use todo form
   const [todoForm, { Form, Field, FieldArray }] = useForm<TodoForm>({
     loader: useFormLoader(),
+    fieldArrays: ['todos'],
   });
 
   return (

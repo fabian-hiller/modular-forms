@@ -20,21 +20,21 @@ export function useFormStore<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData = undefined
 >({
-  loader,
-  action,
   validate,
   validateOn = 'submit',
   revalidateOn = 'input',
+  ...options
 }: FormOptions<TFieldValues, TResponseData>): FormStore<
   TFieldValues,
   TResponseData
 > {
   return useStore(() => {
-    const [fields, fieldArrays] = getInitialStores(loader, action);
+    const [fields, fieldArrays] = getInitialStores(options);
     return {
       internal: {
         fields,
         fieldArrays,
+        fieldArrayPaths: options.fieldArrays,
         validate,
         validators: [],
         validateOn,
@@ -49,7 +49,7 @@ export function useFormStore<
       touched: false,
       dirty: false,
       invalid: false,
-      response: action?.value?.response || {},
+      response: options.action?.value?.response || {},
     };
   });
 }

@@ -35,6 +35,7 @@ export default component$(() => {
   // Use nested form
   const [nestedForm, { Form, Field, FieldArray }] = useForm<NestedForm>({
     loader: useFormLoader(),
+    fieldArrays: ['items', 'items.$.options'],
   });
 
   return (

@@ -44,11 +44,27 @@ export function setFieldArrayValue<
       // Create new compound path
       const compoundPath = `${prevPath}.${path}`;
 
-      // Set field store if it could be a field value
+      // If it is a field array, update field array store
       if (
+        form.internal.fieldArrayPaths?.includes(
+          compoundPath.replace(/.\d+./g, '.$.') as any
+        )
+      ) {
+        const items = value.map(() => getUniqueId());
+        setFieldArrayState(form, compoundPath as FieldArrayPath<TFieldValues>, {
+          startItems: [...items],
+          items,
+          error: '',
+          touched: false,
+          dirty: false,
+        });
+
+        // If it is a field, update field store
+      } else if (
         !value ||
         typeof value !== 'object' ||
         Array.isArray(value) ||
+        value instanceof Date ||
         value instanceof Blob
       ) {
         setFieldState(form, compoundPath as FieldPath<TFieldValues>, {
@@ -60,19 +76,7 @@ export function setFieldArrayValue<
         });
       }
 
-      // Set field array store if it could be a field array value
-      if (Array.isArray(value)) {
-        const items = value.map(() => getUniqueId());
-        setFieldArrayState(form, compoundPath as FieldArrayPath<TFieldValues>, {
-          startItems: [...items],
-          items,
-          error: '',
-          touched: false,
-          dirty: false,
-        });
-      }
-
-      // Update nested stores if it is a field array or nested field
+      // If it is an object or array, update nested stores
       if (value && typeof value === 'object') {
         updateStores(compoundPath, value);
       }

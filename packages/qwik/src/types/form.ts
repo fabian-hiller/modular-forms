@@ -124,6 +124,7 @@ export type FormOptions<
   validate?: Maybe<QRL<ValidateForm<TFieldValues>>>;
   validateOn?: Maybe<ValidationMode>;
   revalidateOn?: Maybe<ValidationMode>;
+  fieldArrays?: TypeInfoPath<TFieldValues, any[]>[];
 };
 
 /**
@@ -132,6 +133,7 @@ export type FormOptions<
 export type InternalFormStore<TFieldValues extends FieldValues> = {
   fields: FieldsStore<TFieldValues>;
   fieldArrays: FieldArraysStore<TFieldValues>;
+  fieldArrayPaths: Maybe<TypeInfoPath<TFieldValues, any[]>[]>;
   validate: Maybe<QRL<ValidateForm<TFieldValues>>>;
   validators: number[];
   validateOn: ValidationMode;

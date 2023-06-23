@@ -25,6 +25,8 @@ A somewhat more special case are dynamically generated form fields based on an a
 
 ## Create a field array
 
+### Type definition
+
 In the following example we create a field array for a todo form with the following fields:
 
 ```ts
@@ -36,6 +38,25 @@ type TodoForm = {
   }[];
 };
 ```
+
+<Qwik block>
+
+### Initialize stores
+
+In order to initialize the stores of your field arrays, you must specify the paths to your field arrays via the options of the <A href="../../api/useForm">`useForm`</A> hook. TypeScript supports you there with autocompletion.
+
+> If you forget this step, an error will be thrown causing your app to crash.
+
+```tsx
+const [todoForm, { Form, Field, FieldArray }] = useForm<TodoForm>({
+  loader: useFormLoader(),
+  fieldArrays: ['todos'],
+});
+```
+
+</Qwik>
+
+### FieldArray component
 
 To dynamically generate the form fields for the todos, you use our <A href="../../api/FieldArray">`FieldArray`</A> component<Solid>{' '}in combination with the `For` component from Solid</Solid>. Then pass the field array items to the loop. These items does not contain the individual fields, but a simple array of unique numbers that <Solid>the `For` component</Solid><Qwik>Qwik</Qwik><Preact>Preact</Preact><React>React</React> uses to detect when an item is added, moved or removed.
 
