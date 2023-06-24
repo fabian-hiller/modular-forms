@@ -2,10 +2,9 @@
 
 All notable changes to the library will be documented in this file.
 
-## v0.18.1 (June 25, 2023)
+## vX.X.X (Month DD, YYYY)
 
 - Fix date support for `insert` and `replace` method
-- Fix invalid `of` attribute in `Form` component (issue #98)
 
 ## v0.18.0 (June 23, 2023)
 
