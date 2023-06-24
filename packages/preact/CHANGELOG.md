@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix date support for `insert` and `replace` method
+
 ## v0.5.3 (June 23, 2023)
 
 - Refactor `getFilteredNames` util
