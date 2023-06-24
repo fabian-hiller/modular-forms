@@ -51,6 +51,7 @@ export function setFieldArrayValue<
           !value ||
           typeof value !== 'object' ||
           Array.isArray(value) ||
+          value instanceof Date ||
           value instanceof Blob
         ) {
           setFieldState(form, compoundPath as FieldPath<TFieldValues>, {
