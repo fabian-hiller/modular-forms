@@ -27,6 +27,12 @@ To make your form work even if JavaScript is disabled in your user's browser, we
 
 > You can find more about progressively enhanced forms in <A href="../enhanced-forms">this</A> guide.
 
+### Create an action
+
+To create an action, you don't use Qwik's `routeAction$` or `globalAction$`, but instead our <A href="../../api/formAction$">`formAction$`</A> which builds on `globalAction$` and adds additional functionality. The code of an action is only executed server-side. This has the advantage that the validation cannot be manipulated and you can communicate directly with backend services like a database.
+
+You can then pass your action to the <A href="../../api/useForm">`useForm`</A> hook, similar to how it works with the loader. More about this in the following code example.
+
 </Qwik>
 
 <SolidPreactOrReact block>
