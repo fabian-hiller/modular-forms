@@ -77,7 +77,7 @@ export default function App() {
 <Qwik block>
 
 ```tsx
-import { $, component$ } from '@builder.io/qwik';
+import { $, component$, QRL } from '@builder.io/qwik';
 import { routeLoader$, z } from '@builder.io/qwik-city';
 import { type InitialValues, formAction$, zodForm$ } from '@modular-forms/qwik';
 
@@ -110,7 +110,7 @@ export default component$(() => {
     validate: zodForm$(loginSchema),
   });
 
-  const handleSubmit: SubmitHandler<LoginForm> = $((values, event) => {
+  const handleSubmit: QRL<SubmitHandler<LoginForm>> = $((values, event) => {
     // Runs on client
   });
 

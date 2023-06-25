@@ -102,7 +102,6 @@ export default function ApiLayout() {
             'MaybeArray',
             isQwik() && 'MaybeFunction',
             'MaybePromise',
-            isQwik() && 'MaybeQRL',
             'MaybeValue',
             'PartialValues',
             'ResponseData',

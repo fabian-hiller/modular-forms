@@ -48,43 +48,36 @@ export const properties = {
   qwik: {
     SubmitHandler: {
       type: {
-        type: 'custom',
-        name: 'MaybeQRL',
-        href: '../MaybeQRL',
-        generics: [
+        type: 'function',
+        params: [
           {
-            type: 'function',
-            params: [
-              {
-                name: 'values',
-                type: {
-                  type: 'custom',
-                  name: 'FieldValues',
-                  href: '../FieldValues',
-                },
-              },
-              {
-                name: 'event',
-                type: {
-                  type: 'custom',
-                  name: 'QwikSubmitEvent',
-                  generics: [
-                    {
-                      type: 'custom',
-                      name: 'HTMLFormElement',
-                    },
-                  ],
-                },
-              },
-            ],
-            return: {
+            name: 'values',
+            type: {
               type: 'custom',
-              name: 'MaybePromise',
-              href: '../MaybePromise',
-              generics: ['any'],
+              name: 'FieldValues',
+              href: '../FieldValues',
+            },
+          },
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'QwikSubmitEvent',
+              generics: [
+                {
+                  type: 'custom',
+                  name: 'HTMLFormElement',
+                },
+              ],
             },
           },
         ],
+        return: {
+          type: 'custom',
+          name: 'MaybePromise',
+          href: '../MaybePromise',
+          generics: ['any'],
+        },
       },
     },
   },
