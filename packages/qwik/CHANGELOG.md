@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Change `SubmitHandler` type due to strange behavior
+
 ## v0.18.0 (June 23, 2023)
 
 - Require validation when using `formAction$` (issue #57)

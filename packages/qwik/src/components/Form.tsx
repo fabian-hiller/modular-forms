@@ -9,7 +9,6 @@ import type {
   FormStore,
   Maybe,
   MaybePromise,
-  MaybeQRL,
   PartialValues,
   ResponseData,
 } from '../types';
@@ -18,12 +17,10 @@ import { setErrorResponse, setFieldErrors } from '../utils';
 /**
  * Function type to handle the submission of the form.
  */
-export type SubmitHandler<TFieldValues extends FieldValues> = MaybeQRL<
-  (
-    values: TFieldValues,
-    event: QwikSubmitEvent<HTMLFormElement>
-  ) => MaybePromise<any>
->;
+export type SubmitHandler<TFieldValues extends FieldValues> = (
+  values: TFieldValues,
+  event: QwikSubmitEvent<HTMLFormElement>
+) => MaybePromise<any>;
 
 /**
  * Value type of the form properties.
