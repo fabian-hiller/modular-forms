@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.4.4 (June 25, 2023)
 
 - Fix date support for `insert` and `replace` method
 
