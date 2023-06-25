@@ -56,13 +56,17 @@ export function Form<
   TResponseData extends ResponseData
 >(props: FormProps<TFieldValues, TResponseData>): JSX.Element {
   // Split props between local, options and other
-  const [options, other] = splitProps(props, [
-    'keepResponse',
-    'shouldActive',
-    'shouldTouched',
-    'shouldDirty',
-    'shouldFocus',
-  ]);
+  const [, options, other] = splitProps(
+    props,
+    ['of'],
+    [
+      'keepResponse',
+      'shouldActive',
+      'shouldTouched',
+      'shouldDirty',
+      'shouldFocus',
+    ]
+  );
 
   return (
     <form
