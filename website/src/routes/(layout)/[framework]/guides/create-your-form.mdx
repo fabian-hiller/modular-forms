@@ -52,10 +52,8 @@ If your initial values are dynamic, we recommend using <a href="https://qwik.bui
 For static values you can also use <a href="https://qwik.builder.io/docs/route-loader/" target="\_blank" rel="noreferrer">`routeLoader$`</a>. However, if your form is a bit deeper in the component tree, you can use <a href="https://qwik.builder.io/docs/components/state/#usesignal" target="\_blank" rel="noreferrer">`useSignal`</a> instead or just a normal JavaScript object where the initial values are available under a `value` key.
 
 ```tsx
-export default component$(() => {
-  const [loginForm, { Form, Field }] = useForm<LoginForm>({
-    loader: { value: { email: '', password: '' } },
-  });
+const [loginForm, { Form, Field }] = useForm<LoginForm>({
+  loader: { value: { email: '', password: '' } },
 });
 ```
 
