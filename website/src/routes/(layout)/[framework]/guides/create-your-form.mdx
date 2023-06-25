@@ -24,9 +24,7 @@ Modular Forms consists of <Solid>primitives</Solid><QwikPreactOrReact>hooks</Qwi
 
 ## Initial values
 
-In Qwik, a form starts with its initial values returned via `routeLoader$`. With this information we can initialize the store of your form and enable Qwik to reliably start rendering your website on the server. We also use the initial values later to check if the value of a field has changed.
-
-> For example, `routeLoader$` is perfect for retrieving data from your database for the initial values of your form.
+In Qwik, a form starts with its initial values. With this information we can initialize the store of your form and enable Qwik to reliably start rendering your website on the server. We also use the initial values later to check if the value of a field has changed.
 
 ```tsx
 import { routeLoader$ } from '@builder.io/qwik-city';
@@ -37,11 +35,31 @@ type LoginForm = {
   password: string;
 };
 
-export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
-  email: '',
-  password: '',
-}));
+export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => {
+  return {
+    email: '',
+    password: '',
+  };
+});
 ```
+
+### Dynamic values
+
+If your initial values are dynamic, we recommend using <a href="https://qwik.builder.io/docs/route-loader/" target="\_blank" rel="noreferrer">`routeLoader$`</a>. The code of your <a href="https://qwik.builder.io/docs/route-loader/" target="\_blank" rel="noreferrer">`routeLoader$`</a> will only be executed server-side, which makes it perfect for retrieving the initial data of your form from a database, for example.
+
+### Static values
+
+For static values you can also use <a href="https://qwik.builder.io/docs/route-loader/" target="\_blank" rel="noreferrer">`routeLoader$`</a>. However, if your form is a bit deeper in the component tree, you can use <a href="https://qwik.builder.io/docs/components/state/#usesignal" target="\_blank" rel="noreferrer">`useSignal`</a> instead or just a normal JavaScript object where the initial values are available under a `value` key.
+
+```tsx
+export default component$(() => {
+  const [loginForm, { Form, Field }] = useForm<LoginForm>({
+    loader: { value: { email: '', password: '' } },
+  });
+});
+```
+
+> It is planned to improve the DX for static values in the future. If you have any ideas, we would be happy to hear from you <a href={`${import.meta.env.VITE_GITHUB_URL}/issues/97`} target="\_blank" rel="noreferrer">here</a>.
 
 </Qwik>
 
