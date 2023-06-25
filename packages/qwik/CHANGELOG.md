@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## v0.18.1 (June 25, 2023)
+## vX.X.X (Month DD, YYYY)
 
 - Change `SubmitHandler` type due to strange behavior
 
