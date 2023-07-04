@@ -89,7 +89,10 @@ export function DocsLayout(props: DocsLayoutProps) {
             type="link"
             href={`${
               import.meta.env.VITE_GITHUB_WEBSITE_URL
-            }/src/routes/(layout)${location.pathname}.mdx`}
+            }/src/routes/(layout)/[framework]/${location.pathname
+              .split('/')
+              .splice(2)
+              .join('/')}.mdx`}
             target="_blank"
             label="Edit page"
             icon={PenIcon}
