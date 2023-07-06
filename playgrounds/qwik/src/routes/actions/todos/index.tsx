@@ -130,6 +130,7 @@ export default component$(() => {
     loader: useFormLoader(),
     action: useFormAction(),
     validate: zodForm$(todoSchema),
+    fieldArrays: ['todos'],
   });
 
   // Use todo and form actions
