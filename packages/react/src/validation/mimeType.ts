@@ -5,7 +5,7 @@ type Value = MaybeValue<File | File[]>;
 /**
  * Creates a validation functions that validates the file type.
  *
- * @param requirement The maximum size.
+ * @param requirement The MIME types.
  * @param error The error message.
  *
  * @returns A validation function.
