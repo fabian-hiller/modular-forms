@@ -18,6 +18,8 @@ export default defineConfig(() => {
           'preact/hooks',
           'preact/jsx-runtime',
           '@preact/signals',
+          'valibot',
+          'zod',
         ],
       },
     },

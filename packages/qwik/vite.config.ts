@@ -18,6 +18,7 @@ export default defineConfig(() => {
           '@builder.io/qwik/jsx-runtime',
           '@builder.io/qwik-city',
           '@builder.io/qwik-city/middleware/request-handler',
+          'valibot',
           'zod',
         ],
       },

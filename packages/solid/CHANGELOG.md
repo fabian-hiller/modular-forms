@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add support for Valibot with `valiField` and `valiForm` adapter
+
 ## v0.18.1 (June 25, 2023)
 
 - Fix date support for `insert` and `replace` method

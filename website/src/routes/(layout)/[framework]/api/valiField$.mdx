@@ -7,19 +7,19 @@ import {
   Title,
 } from '~/components';
 
-<Title>zodField$</Title>
+<Title>valiField$</Title>
 <Description>
-  Creates a validation functions that parses the Zod schema of a field.
+  Creates a validation functions that parses the Valibot schema of a field.
 </Description>
 
-# zodField$
+# valiField$
 
 <Qwik block>
 
-Creates a validation functions that parses the Zod schema of a field.
+Creates a validation functions that parses the Valibot schema of a field.
 
 ```ts
-const validate = zodField$(schema);
+const validate = valiField$(schema);
 ```
 
 ## Parameters
@@ -47,19 +47,32 @@ export const properties = {
       name: 'MaybeFunction',
       href: '../MaybeFunction',
       generics: [
-        {
-          type: 'custom',
-          name: 'ZodType',
-          generics: [
-            'any',
-            'any',
-            {
-              type: 'custom',
-              name: 'FieldValue',
-              href: '../FieldValue',
-            },
-          ],
-        },
+        [
+          {
+            type: 'custom',
+            name: 'BaseSchema',
+            generics: [
+              {
+                type: 'custom',
+                name: 'FieldValue',
+                href: '../FieldValue',
+              },
+              'any',
+            ],
+          },
+          {
+            type: 'custom',
+            name: 'BaseSchemaAsync',
+            generics: [
+              {
+                type: 'custom',
+                name: 'FieldValue',
+                href: '../FieldValue',
+              },
+              'any',
+            ],
+          },
+        ],
       ],
     },
   },

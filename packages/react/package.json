@@ -59,6 +59,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "react": "^18.2.0",
     "typescript": "4.9.5",
+    "valibot": "^0.1.0",
     "vite": "^4.3.9",
     "zod": "^3.21.4"
   },

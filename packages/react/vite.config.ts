@@ -13,7 +13,13 @@ export default defineConfig(() => {
       },
       minify: false,
       rollupOptions: {
-        external: ['react', 'react/jsx-runtime', '@preact/signals-react'],
+        external: [
+          'react',
+          'react/jsx-runtime',
+          '@preact/signals-react',
+          'valibot',
+          'zod',
+        ],
       },
     },
     plugins: [react()],
