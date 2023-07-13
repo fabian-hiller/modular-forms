@@ -79,7 +79,9 @@ export default function ApiLayout() {
         },
         {
           heading: 'Adapters',
-          items: isQwik() ? ['zodField$', 'zodForm$'] : ['zodField', 'zodForm'],
+          items: isQwik()
+            ? ['valiField$', 'valiForm$', 'zodField$', 'zodForm$']
+            : ['valiField', 'valiForm', 'zodField', 'zodForm'],
         },
         {
           heading: 'Types',

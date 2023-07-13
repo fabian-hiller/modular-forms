@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -43,6 +47,9 @@ importers:
       typescript:
         specifier: 4.9.5
         version: 4.9.5
+      valibot:
+        specifier: ^0.1.0
+        version: 0.1.0
       vite:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@18.16.18)
@@ -79,6 +86,9 @@ importers:
       typescript:
         specifier: 4.9.5
         version: 4.9.5
+      valibot:
+        specifier: ^0.1.0
+        version: 0.1.0
       vite:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@18.16.18)
@@ -121,6 +131,9 @@ importers:
       typescript:
         specifier: 4.9.5
         version: 4.9.5
+      valibot:
+        specifier: ^0.1.0
+        version: 0.1.0
       vite:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@18.16.18)
@@ -157,6 +170,9 @@ importers:
       typescript:
         specifier: 4.9.5
         version: 4.9.5
+      valibot:
+        specifier: ^0.1.0
+        version: 0.1.0
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -8033,6 +8049,10 @@ packages:
       diff: 5.1.0
       kleur: 4.1.5
       sade: 1.8.1
+    dev: true
+
+  /valibot@0.1.0:
+    resolution: {integrity: sha512-bUJ3AYalwcYmeqZilsB+sfOfjKyafVdJ539iveuObatIwYSFTJIGWuNBYAYcV8T95vLXBvEijjSmS9nvdAxWEQ==}
     dev: true
 
   /validate-html-nesting@1.2.2:

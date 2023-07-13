@@ -7,19 +7,19 @@ import {
   Title,
 } from '~/components';
 
-<Title>zodForm</Title>
+<Title>valiForm</Title>
 <Description>
-  Creates a validation functions that parses the Zod schema of a form.
+  Creates a validation functions that parses the Valibot schema of a form.
 </Description>
 
-# zodForm
+# valiForm
 
 <SolidPreactOrReact block>
 
-Creates a validation functions that parses the Zod schema of a form.
+Creates a validation functions that parses the Valibot schema of a form.
 
 ```ts
-const validate = zodForm(schema);
+const validate = valiForm(schema);
 ```
 
 ## Parameters
@@ -42,19 +42,32 @@ const validate = zodForm(schema);
 
 export const properties = {
   schema: {
-    type: {
-      type: 'custom',
-      name: 'ZodType',
-      generics: [
-        'any',
-        'any',
-        {
-          type: 'custom',
-          name: 'FieldValues',
-          href: '../FieldValues',
-        },
-      ],
-    },
+    type: [
+      {
+        type: 'custom',
+        name: 'BaseSchema',
+        generics: [
+          {
+            type: 'custom',
+            name: 'FieldValues',
+            href: '../FieldValues',
+          },
+          'any',
+        ],
+      },
+      {
+        type: 'custom',
+        name: 'BaseSchemaAsync',
+        generics: [
+          {
+            type: 'custom',
+            name: 'FieldValues',
+            href: '../FieldValues',
+          },
+          'any',
+        ],
+      },
+    ],
   },
   validate: {
     type: {
