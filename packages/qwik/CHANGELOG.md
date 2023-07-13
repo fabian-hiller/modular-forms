@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Add support for Valibot with `valiField$` and `valiForm$` adapter
+- Require Qwik v1.1.5 due to a bug in production build step in v.1.2.X
 
 ## v0.18.1 (June 25, 2023)
 
