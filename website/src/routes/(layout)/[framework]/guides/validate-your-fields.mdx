@@ -6,6 +6,7 @@ import {
   QwikPreactOrReact,
   React,
   Solid,
+  SolidPreactOrReact,
   Title,
 } from '~/components';
 
@@ -266,7 +267,7 @@ For maximum flexibility, you can also use your familiar schema library for form 
 
 > Valibot fits especially well with Modular Forms, since the library is also modular. Valibot adds about 700 bytes to your JavaScript bundle for the following schema, whereas other schema libraries usually start at more than 10 KB.
 
-Use <A href="../../api/valiForm">`valiForm`</A> to define the validation for the whole form and <A href="../../api/valiField">`valiField`</A> for a single field. Below is the same login form as in the example above. Instead of our validation functions, Valibot is used now.
+Use <SolidPreactOrReact><A href="../../api/valiForm">`valiForm`</A></SolidPreactOrReact><Qwik><A href="../../api/valiForm$">`valiForm$`</A></Qwik> to define the validation for the whole form and <SolidPreactOrReact><A href="../../api/valiField">`valiField`</A></SolidPreactOrReact><Qwik><A href="../../api/valiField$">`valiField$`</A></Qwik> for a single field. Below is the same login form as in the example above. Instead of our validation functions, Valibot is used now.
 
 <Solid block>
 
