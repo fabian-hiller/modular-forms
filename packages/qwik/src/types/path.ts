@@ -123,7 +123,7 @@ type TypeTemplatePaths<Data, Type> = Data extends Array<infer Child>
     }[keyof Data];
 
 /**
- * See {@link TypePaths}
+ * See {@link TypeTemplatePaths}
  */
 export type TypeInfoPath<
   TFieldValues extends FieldValues,

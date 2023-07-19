@@ -64,8 +64,8 @@ export type FieldArraysStore<TFieldValues extends FieldValues> = {
  */
 export type InitialValues<TValue> = TValue extends
   | string[]
-  | NoSerialize<Blob[]>
-  | NoSerialize<File[]>
+  | NoSerialize<Blob>[]
+  | NoSerialize<File>[]
   ? TValue
   : TValue extends FieldValue
   ? Maybe<TValue>
@@ -76,8 +76,8 @@ export type InitialValues<TValue> = TValue extends
  */
 export type PartialValues<TValue> = TValue extends
   | string[]
-  | NoSerialize<Blob[]>
-  | NoSerialize<File[]>
+  | NoSerialize<Blob>[]
+  | NoSerialize<File>[]
   ? TValue
   : TValue extends FieldValue
   ? Maybe<TValue>
@@ -90,7 +90,13 @@ export type FormDataInfo<TFieldValues extends FieldValues> = Partial<{
   arrays: TypeInfoPath<TFieldValues, any[]>[];
   booleans: TypeInfoPath<TFieldValues, boolean>[];
   dates: TypeInfoPath<TFieldValues, Date>[];
-  files: TypeInfoPath<TFieldValues, NoSerialize<Blob> | NoSerialize<File>>[];
+  files: TypeInfoPath<
+    TFieldValues,
+    | NoSerialize<Blob>
+    | NoSerialize<Blob>[]
+    | NoSerialize<File>
+    | NoSerialize<File>[]
+  >[];
   numbers: TypeInfoPath<TFieldValues, number>[];
 }>;
 

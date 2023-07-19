@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix file array type in `FieldValue` type
+
 ## v0.19.0 (July 13, 2023)
 
 - Add support for Valibot with `valiField$` and `valiForm$` adapter

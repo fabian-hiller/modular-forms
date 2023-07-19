@@ -16,9 +16,9 @@ export type FieldValue = MaybeValue<
   | number
   | boolean
   | NoSerialize<Blob>
-  | NoSerialize<Blob[]>
+  | NoSerialize<Blob>[]
   | NoSerialize<File>
-  | NoSerialize<File[]>
+  | NoSerialize<File>[]
   | Date
 >;
 
@@ -35,7 +35,7 @@ export type FieldType<T> = T extends MaybeValue<string>
   ? 'boolean'
   : T extends MaybeValue<NoSerialize<Blob> | NoSerialize<File>>
   ? 'File'
-  : T extends MaybeValue<NoSerialize<Blob[]> | NoSerialize<File[]>>
+  : T extends MaybeValue<NoSerialize<Blob>[] | NoSerialize<File>[]>
   ? 'File[]'
   : T extends MaybeValue<Date>
   ? 'Date'

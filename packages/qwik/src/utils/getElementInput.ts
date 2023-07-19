@@ -46,7 +46,7 @@ export function getElementInput<
       : type === 'File' && files
       ? noSerialize(files[0])
       : type === 'File[]' && files
-      ? noSerialize([...files])
+      ? [...files].map((file) => noSerialize(file))
       : type === 'Date' && valueAsDate
       ? valueAsDate
       : field.value

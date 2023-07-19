@@ -2,7 +2,7 @@ import { $, type NoSerialize, type QRL } from '@builder.io/qwik';
 import type { MaybeValue } from '../types';
 
 type Value = MaybeValue<
-  string | string[] | number[] | NoSerialize<Blob[]> | NoSerialize<File[]>
+  string | string[] | number[] | NoSerialize<Blob>[] | NoSerialize<File>[]
 >;
 
 /**

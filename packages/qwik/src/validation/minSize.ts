@@ -3,9 +3,9 @@ import type { MaybeValue } from '../types';
 
 type Value = MaybeValue<
   | NoSerialize<Blob>
-  | NoSerialize<Blob[]>
+  | NoSerialize<Blob>[]
   | NoSerialize<File>
-  | NoSerialize<File[]>
+  | NoSerialize<File>[]
 >;
 
 /**
@@ -23,7 +23,7 @@ export function minSize(
   return $((value: Value) =>
     value &&
     (Array.isArray(value)
-      ? [...value].some((file) => file.size < requirement)
+      ? [...value].some((file) => file!.size < requirement)
       : value.size < requirement)
       ? error
       : ''

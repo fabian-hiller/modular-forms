@@ -3,9 +3,9 @@ import type { MaybeValue } from '../types';
 
 type Value = MaybeValue<
   | NoSerialize<Blob>
-  | NoSerialize<Blob[]>
+  | NoSerialize<Blob>[]
   | NoSerialize<File>
-  | NoSerialize<File[]>
+  | NoSerialize<File>[]
 >;
 
 /**
@@ -24,7 +24,7 @@ export function mimeType(
   return $((value: Value) =>
     value &&
     (Array.isArray(value)
-      ? [...value].some((file) => !mimeTypes.includes(file.type))
+      ? [...value].some((file) => !mimeTypes.includes(file!.type))
       : !mimeTypes.includes(value.type))
       ? error
       : ''

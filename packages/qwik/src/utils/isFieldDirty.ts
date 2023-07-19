@@ -1,3 +1,4 @@
+import { type NoSerialize } from '@builder.io/qwik';
 import type { FieldValue, Maybe } from '../types';
 
 /**
@@ -12,7 +13,7 @@ export function isFieldDirty<TFieldValue extends FieldValue>(
   startValue: Maybe<TFieldValue>,
   currentValue: Maybe<TFieldValue>
 ) {
-  const toValue = (item: string | File | Blob) =>
+  const toValue = (item: string | NoSerialize<File> | NoSerialize<Blob>) =>
     item instanceof Blob ? item.size : item;
   return Array.isArray(startValue) && Array.isArray(currentValue)
     ? startValue.map(toValue).join() !== currentValue.map(toValue).join()

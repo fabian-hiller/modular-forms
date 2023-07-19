@@ -1,7 +1,6 @@
 import {
   component$,
   type NoSerialize,
-  noSerialize,
   useSignal,
   useTask$,
   type PropFunction,
@@ -17,9 +16,9 @@ type FileInputProps = {
   name: string;
   value:
     | NoSerialize<Blob>
-    | NoSerialize<Blob[]>
+    | NoSerialize<Blob>[]
     | NoSerialize<File>
-    | NoSerialize<File[]>
+    | NoSerialize<File>[]
     | null
     | undefined;
   onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
@@ -50,12 +49,10 @@ export const FileInput = component$(
     const { name, required, multiple } = props;
 
     // Create computed value of selected files
-    const files = useSignal<NoSerialize<Blob[]> | NoSerialize<File[]>>();
+    const files = useSignal<NoSerialize<Blob>[] | NoSerialize<File>[]>();
     useTask$(({ track }) => {
       track(() => value);
-      files.value = noSerialize(
-        value ? (Array.isArray(value) ? value : [value]) : []
-      );
+      files.value = value ? (Array.isArray(value) ? value : [value]) : [];
     });
 
     return (
@@ -69,7 +66,7 @@ export const FileInput = component$(
         >
           {files.value?.length
             ? `Selected file${multiple ? 's' : ''}: ${files.value
-                .map(({ name }) => name)
+                .map((file) => file!.name)
                 .join(', ')}`
             : `Click or drag and drop file${multiple ? 's' : ''}`}
           <input
