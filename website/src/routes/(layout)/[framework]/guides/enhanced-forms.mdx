@@ -22,7 +22,7 @@ Modular Forms makes it easy to create progressively enhanced forms that work in 
 
 ## Server-side validation
 
-There are a few small things to keep in mind during development. First, you need to pass a schema to <A href="../../api/formAction$">`formAction$`</A> with <A href="../../api/zodForm$">`zodForm$`</A> so that we can also validate the submitted data on the server. Since the validation in this case is server-side, it cannot be manipulated by the user.
+There are a few small things to keep in mind during development. First, you need to pass a schema to <A href="../../api/formAction$">`formAction$`</A> with <A href="../../api/valiForm$">`valiForm$`</A> or <A href="../../api/zodForm$">`zodForm$`</A> so that we can also validate the submitted data on the server. Since the validation in this case is server-side, it cannot be manipulated by the user.
 
 ## Special data types
 
@@ -36,7 +36,7 @@ export const useFormAction = formAction$<SpecialForm>(
     // Runs on server
   },
   {
-    validate: zodForm$(specialSchema),
+    validate: valiForm$(SpecialSchema),
     arrays: ['checkbox.array', 'file.list', 'select.array'],
     booleans: ['checkbox.boolean'],
     files: ['file.item', 'file.list'],

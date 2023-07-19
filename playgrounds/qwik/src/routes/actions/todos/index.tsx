@@ -3,7 +3,6 @@ import {
   Form as ActionForm,
   globalAction$,
   routeLoader$,
-  z,
   type DocumentHead,
 } from '@builder.io/qwik-city';
 import {
@@ -14,10 +13,19 @@ import {
   replace,
   swap,
   useForm,
-  zodForm$,
+  valiForm$,
   formAction$,
   getValues,
 } from '@modular-forms/qwik';
+import {
+  array,
+  type Input,
+  maxLength,
+  minLength,
+  object,
+  string,
+  isoDate,
+} from 'valibot';
 import {
   TextInput,
   InputLabel,
@@ -28,26 +36,24 @@ import {
   Response,
 } from '~/components';
 
-const todoSchema = z.object({
-  heading: z.string().min(1, 'Please enter a heading.'),
-  todos: z
-    .array(
-      z.object({
-        label: z.string().min(1, 'Please enter a label.'),
-        deadline: z
-          .string()
-          .min(1, 'Please enter a deadline.')
-          .regex(
-            /^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])$/,
-            'The specified date is invalid.'
-          ),
-      })
-    )
-    .min(1, 'Please add at least one todo.')
-    .max(4, 'You can add a maximum of 4 todos.'),
+const TodoSchema = object({
+  heading: string([minLength(1, 'Please enter a heading.')]),
+  todos: array(
+    object({
+      label: string([minLength(1, 'Please enter a label.')]),
+      deadline: string([
+        minLength(1, 'Please enter a deadline.'),
+        isoDate('The specified date is invalid.'),
+      ]),
+    }),
+    [
+      minLength(1, 'Please add at least one todo.'),
+      maxLength(4, 'You can add a maximum of 4 todos.'),
+    ]
+  ),
 });
 
-type TodoForm = z.input<typeof todoSchema>;
+type TodoForm = Input<typeof TodoSchema>;
 
 const getInitFormValues = (): InitialValues<TodoForm> => ({
   heading: 'Shopping list',
@@ -119,7 +125,7 @@ export const useFormAction = formAction$<TodoForm>(
     todoFormValues = values;
   },
   {
-    validate: zodForm$(todoSchema),
+    validate: valiForm$(TodoSchema),
     arrays: ['todos'],
   }
 );
@@ -129,7 +135,7 @@ export default component$(() => {
   const [todoForm, { Form, Field, FieldArray }] = useForm<TodoForm>({
     loader: useFormLoader(),
     action: useFormAction(),
-    validate: zodForm$(todoSchema),
+    validate: valiForm$(TodoSchema),
     fieldArrays: ['todos'],
   });
 

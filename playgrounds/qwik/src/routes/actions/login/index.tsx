@@ -2,29 +2,29 @@ import { component$ } from '@builder.io/qwik';
 import {
   globalAction$,
   routeLoader$,
-  z,
   type DocumentHead,
 } from '@builder.io/qwik-city';
 import {
   formAction$,
   type InitialValues,
   useForm,
-  zodForm$,
+  valiForm$,
 } from '@modular-forms/qwik';
+import { email, type Input, minLength, object, string } from 'valibot';
 import { FormHeader, TextInput, FormFooter, Response } from '~/components';
 
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Please enter your email.')
-    .email('The email address is badly formatted.'),
-  password: z
-    .string()
-    .min(1, 'Please enter your password.')
-    .min(8, 'You password must have 8 characters or more.'),
+const LoginSchema = object({
+  email: string([
+    minLength(1, 'Please enter your email.'),
+    email('The email address is badly formatted.'),
+  ]),
+  password: string([
+    minLength(1, 'Please enter your password.'),
+    minLength(8, 'You password must have 8 characters or more.'),
+  ]),
 });
 
-type LoginForm = z.input<typeof loginSchema>;
+type LoginForm = Input<typeof LoginSchema>;
 
 const getInitFormValues = (): InitialValues<LoginForm> => ({
   email: '',
@@ -45,14 +45,14 @@ export const useResetFormAction = globalAction$(() => {
 export const useFormAction = formAction$<LoginForm>((values) => {
   // Runs on server
   console.log(values);
-}, zodForm$(loginSchema));
+}, valiForm$(LoginSchema));
 
 export default component$(() => {
   // Use login form
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
     action: useFormAction(),
-    validate: zodForm$(loginSchema),
+    validate: valiForm$(LoginSchema),
   });
 
   // Use reset form action

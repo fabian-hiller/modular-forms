@@ -325,7 +325,7 @@ export default function App() {
 import { $, component$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { type InitialValues, useForm, valiForm$ } from '@modular-forms/qwik';
-import { type Input, email, minLength, object, string } from 'valibot';
+import { email, type Input, minLength, object, string } from 'valibot';
 
 const LoginSchema = object({
   email: string([

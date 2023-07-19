@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@modular-forms/qwik": "workspace:*",
-    "clsx": "^1.2.1"
+    "clsx": "^1.2.1",
+    "valibot": "^0.1.0"
   },
   "devDependencies": {
     "@builder.io/qwik": "1.1.5",

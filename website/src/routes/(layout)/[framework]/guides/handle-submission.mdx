@@ -80,21 +80,26 @@ export default function App() {
 
 ```tsx
 import { $, component$, QRL } from '@builder.io/qwik';
-import { routeLoader$, z } from '@builder.io/qwik-city';
-import { type InitialValues, formAction$, zodForm$ } from '@modular-forms/qwik';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import {
+  type InitialValues,
+  formAction$,
+  valiForm$,
+} from '@modular-forms/qwik';
+import { email, type Input, minLength, object, string } from 'valibot';
 
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Please enter your email.')
-    .email('The email address is badly formatted.'),
-  password: z
-    .string()
-    .min(1, 'Please enter your password.')
-    .min(8, 'You password must have 8 characters or more.'),
+const LoginSchema = object({
+  email: string([
+    minLength(1, 'Please enter your email.'),
+    email('The email address is badly formatted.'),
+  ]),
+  password: string([
+    minLength(1, 'Please enter your password.'),
+    minLength(8, 'You password must have 8 characters or more.'),
+  ]),
 });
 
-type LoginForm = z.infer<typeof loginSchema>;
+type LoginForm = Input<typeof LoginSchema>;
 
 export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
   email: '',
@@ -103,13 +108,13 @@ export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => ({
 
 export const useFormAction = formAction$<LoginForm>((values) => {
   // Runs on server
-}, zodForm$(loginSchema));
+}, valiForm$(LoginSchema));
 
 export default component$(() => {
   const [loginForm, { Form, Field }] = useForm<LoginForm>({
     loader: useFormLoader(),
     action: useFormAction(),
-    validate: zodForm$(loginSchema),
+    validate: valiForm$(LoginSchema),
   });
 
   const handleSubmit: QRL<SubmitHandler<LoginForm>> = $((values, event) => {
@@ -202,7 +207,7 @@ export const useFormAction = formAction$<LoginForm, ResponseData>(
       data: { userId },
     };
   },
-  zodForm$(loginSchema)
+  valiForm$(LoginSchema)
 );
 ```
 

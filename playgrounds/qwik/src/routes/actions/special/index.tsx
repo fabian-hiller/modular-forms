@@ -1,16 +1,25 @@
-import { component$, noSerialize, type NoSerialize } from '@builder.io/qwik';
+import { component$, type NoSerialize } from '@builder.io/qwik';
 import {
   type DocumentHead,
   routeLoader$,
-  z,
   globalAction$,
 } from '@builder.io/qwik-city';
 import {
   type InitialValues,
   useForm,
-  zodForm$,
+  valiForm$,
   formAction$,
 } from '@modular-forms/qwik';
+import {
+  array,
+  boolean,
+  type Input,
+  number,
+  object,
+  optional,
+  special,
+  string,
+} from 'valibot';
 import {
   FormHeader,
   TextInput,
@@ -22,30 +31,26 @@ import {
   Response,
 } from '~/components';
 
-const isBlob = (value: unknown) =>
-  !!value && typeof value === 'object' && 'size' in value && 'type' in value;
+const isBlob = (input: unknown) => input instanceof Blob;
 
-const isBlobArray = (value: unknown) =>
-  Array.isArray(value) && value.every(isBlob);
-
-const specialSchema = z.object({
-  number: z.number(),
-  range: z.number(),
-  checkbox: z.object({
-    array: z.array(z.string()),
-    boolean: z.boolean(),
+const SpecialSchema = object({
+  number: number(),
+  range: number(),
+  checkbox: object({
+    array: array(string()),
+    boolean: boolean(),
   }),
-  select: z.object({
-    array: z.array(z.string()),
-    string: z.string().optional(),
+  select: object({
+    array: array(string()),
+    string: optional(string()),
   }),
-  file: z.object({
-    list: z.custom<NoSerialize<Blob[]>>(isBlobArray),
-    item: z.custom<NoSerialize<Blob>>(isBlob).optional(),
+  file: object({
+    list: array(special<NoSerialize<Blob>>(isBlob)),
+    item: optional(special<NoSerialize<Blob>>(isBlob)),
   }),
 });
 
-type SpecialForm = z.input<typeof specialSchema>;
+type SpecialForm = Input<typeof SpecialSchema>;
 
 const getInitFormValues = (): InitialValues<SpecialForm> => ({
   number: 0,
@@ -59,7 +64,7 @@ const getInitFormValues = (): InitialValues<SpecialForm> => ({
     string: undefined,
   },
   file: {
-    list: noSerialize([]),
+    list: [],
     item: undefined,
   },
 });
@@ -81,7 +86,7 @@ export const useFormAction = formAction$<SpecialForm>(
     console.log(values);
   },
   {
-    validate: zodForm$(specialSchema),
+    validate: valiForm$(SpecialSchema),
     arrays: ['checkbox.array', 'file.list', 'select.array'],
     booleans: ['checkbox.boolean'],
     files: ['file.item', 'file.list'],
@@ -94,6 +99,7 @@ export default component$(() => {
   const [specialForm, { Form, Field }] = useForm<SpecialForm>({
     loader: useFormLoader(),
     action: useFormAction(),
+    validate: valiForm$(SpecialSchema),
   });
 
   // Use reset form action
