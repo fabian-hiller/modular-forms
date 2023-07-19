@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.19.1 (July 20, 2023)
 
 - Fix file array type in `FieldValue` type
 
