@@ -71,15 +71,18 @@ function NavItem(props: NavItemProps) {
 
   return (
     <li class="space-y-6">
-      <h4
-        class={clsx(
-          'text-lg font-medium text-slate-900 dark:text-slate-200',
-          getItems().some(({ slug }) => location.pathname.endsWith(slug)) &&
-            'docsearch-lvl1'
-        )}
-      >
-        {props.heading}
-      </h4>
+      <div class="sticky -top-1 z-10 lg:static">
+        <h4
+          class={clsx(
+            'text-lg font-medium text-slate-900 dark:text-slate-200',
+            getItems().some(({ slug }) => location.pathname.endsWith(slug)) &&
+              'docsearch-lvl1'
+          )}
+        >
+          {props.heading}
+        </h4>
+        <div class="pointer-events-none absolute -top-8 -z-10 h-24 w-full bg-gradient-to-b from-white via-white to-transparent opacity-90 dark:from-gray-900 dark:via-gray-900 lg:hidden" />
+      </div>
       <div class="relative">
         <ul
           class="space-y-5 border-l-2 border-l-slate-200 dark:border-l-slate-800"
