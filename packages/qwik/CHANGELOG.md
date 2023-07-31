@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Fix `valiField` and `valiForm` adapter for Valibot v0.7.0
+- Upgrade Qwik and Qwik City peer dependency to v1.2.4
 
 ## v0.19.1 (July 20, 2023)
 
