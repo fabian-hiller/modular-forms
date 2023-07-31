@@ -18,7 +18,7 @@ export function valiFieldQrl<TFieldValue extends FieldValue>(
       await (typeof resolvedSchema === 'function'
         ? resolvedSchema()
         : resolvedSchema
-      ).parse(value);
+      ).parse(value, { abortPipeEarly: true });
       return '';
     } catch (error) {
       return (error as ValiError).message;

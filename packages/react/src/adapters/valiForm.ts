@@ -18,7 +18,7 @@ export function valiForm<TFieldValues extends FieldValues>(
 ): ValidateForm<TFieldValues> {
   return async (values: PartialValues<TFieldValues>) => {
     try {
-      await schema.parse(values);
+      await schema.parse(values, { abortPipeEarly: true });
       return {};
     } catch (error) {
       return (error as ValiError).issues.reduce<FormErrors<TFieldValues>>(

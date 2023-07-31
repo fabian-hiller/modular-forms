@@ -24,7 +24,7 @@ export function valiFormQrl<TFieldValues extends FieldValues>(
       await (typeof resolvedSchema === 'function'
         ? resolvedSchema()
         : resolvedSchema
-      ).parse(values);
+      ).parse(values, { abortPipeEarly: true });
       return {};
     } catch (error) {
       return (error as ValiError).issues.reduce<FormErrors<TFieldValues>>(

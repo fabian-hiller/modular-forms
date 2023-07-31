@@ -48,8 +48,8 @@ importers:
         specifier: 4.9.5
         version: 4.9.5
       valibot:
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.8.0
+        version: 0.8.0
       vite:
         specifier: ^4.4.3
         version: 4.4.3(@types/node@18.16.19)
@@ -87,8 +87,8 @@ importers:
         specifier: 4.9.5
         version: 4.9.5
       valibot:
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.8.0
+        version: 0.8.0
       vite:
         specifier: ^4.4.3
         version: 4.4.3(@types/node@18.16.19)
@@ -132,8 +132,8 @@ importers:
         specifier: 4.9.5
         version: 4.9.5
       valibot:
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.8.0
+        version: 0.8.0
       vite:
         specifier: ^4.4.3
         version: 4.4.3(@types/node@18.16.19)
@@ -171,8 +171,8 @@ importers:
         specifier: 4.9.5
         version: 4.9.5
       valibot:
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.8.0
+        version: 0.8.0
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -8608,6 +8608,11 @@ packages:
 
   /valibot@0.1.0:
     resolution: {integrity: sha512-bUJ3AYalwcYmeqZilsB+sfOfjKyafVdJ539iveuObatIwYSFTJIGWuNBYAYcV8T95vLXBvEijjSmS9nvdAxWEQ==}
+    dev: false
+
+  /valibot@0.8.0:
+    resolution: {integrity: sha512-wQHXVkVFj6Z0R3297icGCp3UX8S66onuIg03ihJ8aVgMn8pMJvYSfmrKb+aIg7w/Aw08togrklaMSqDP2vKtIA==}
+    dev: true
 
   /validate-html-nesting@1.2.2:
     resolution: {integrity: sha512-hGdgQozCsQJMyfK5urgFcWEqsSSrK63Awe0t/IMR0bZ0QMtnuaiHzThW81guu3qx9abLi99NEuiaN6P9gVYsNg==}

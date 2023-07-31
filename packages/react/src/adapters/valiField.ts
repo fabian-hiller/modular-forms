@@ -13,7 +13,7 @@ export function valiField<TFieldValue extends FieldValue>(
 ): ValidateField<TFieldValue> {
   return async (value: Maybe<TFieldValue>) => {
     try {
-      await schema.parse(value);
+      await schema.parse(value, { abortPipeEarly: true });
       return '';
     } catch (error) {
       return (error as ValiError).message;

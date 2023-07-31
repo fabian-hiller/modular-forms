@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix `valiField` and `valiForm` adapter for Valibot v0.7.0
+
 ## v0.6.0 (July 13, 2023)
 
 - Add support for Valibot with `valiField` and `valiForm` adapter
