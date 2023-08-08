@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix datetime and time regex in `getFormDataValues` util
+
 ## v0.20.0 (July 31, 2023)
 
 - Fix `valiField` and `valiForm` adapter for Valibot v0.7.0

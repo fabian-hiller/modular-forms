@@ -38,7 +38,7 @@ export function getFormDataValues<TFieldValues extends FieldValues>(
         /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])$/.test(value as string)
           ? new Date(`${value}T00:00:00.000Z`)
           : // Datetime (yyyy-mm-ddThh:mm)
-          /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])T(1\d|0[1-9]|2[0-3]):[0-5]\d$/.test(
+          /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])T(1\d|0[0-9]|2[0-3]):[0-5]\d$/.test(
               value as string
             )
           ? new Date(`${value}:00.000Z`)
@@ -51,10 +51,10 @@ export function getFormDataValues<TFieldValues extends FieldValues>(
               return date;
             })()
           : // Time (hh:mm)
-          /^(1\d|0[1-9]|2[0-3]):[0-5]\d$/.test(value as string)
+          /^(1\d|0[0-9]|2[0-3]):[0-5]\d$/.test(value as string)
           ? new Date(`1970-01-01T${value}:00.000Z`)
           : // Time (hh:mm:ss)
-          /^(1\d|0[1-9]|2[0-3]):[0-5]\d:[0-5]\d$/.test(value as string)
+          /^(1\d|0[0-9]|2[0-3]):[0-5]\d:[0-5]\d$/.test(value as string)
           ? new Date(`1970-01-01T${value}.000Z`)
           : // Other
             new Date(value as string);
