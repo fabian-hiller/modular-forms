@@ -337,7 +337,7 @@ export const TextInput = component$(
           aria-invalid={!!error}
           aria-errormessage={`${name}-error`}
         />
-        {props.error && <div id={`${name}-error`}>{error}</div>}
+        {error && <div id={`${name}-error`}>{error}</div>}
       </div>
     );
   }
@@ -521,7 +521,7 @@ export const TextInput = component$(
           aria-invalid={!!error}
           aria-errormessage={`${name}-error`}
         />
-        {props.error && <div id={`${name}-error`}>{error}</div>}
+        {error && <div id={`${name}-error`}>{error}</div>}
       </div>
     );
   }
