@@ -5,6 +5,7 @@ import {
   type Action,
 } from '@builder.io/qwik-city';
 import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
+import { isDev } from '@builder.io/qwik/build';
 import { FormError } from '../exceptions';
 import type {
   FieldValues,
@@ -116,7 +117,12 @@ export function formActionQrl<
 
             // If an abort message was thrown (e.g. a redirect), forward it
           } catch (error) {
-            if (error instanceof AbortMessage) {
+            if (
+              error instanceof AbortMessage ||
+              (isDev &&
+                (error?.constructor?.name === 'AbortMessage' ||
+                  error?.constructor?.name === 'RedirectMessage'))
+            ) {
               throw error;
 
               // Otherwise log error and set error response
