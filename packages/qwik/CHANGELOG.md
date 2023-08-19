@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.20.1 (August 19, 2023)
 
 - Fix datetime and time regex in `getFormDataValues` util
 - Fix redirect behavior of `actionForm$` in development mode
