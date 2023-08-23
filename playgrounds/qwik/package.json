@@ -26,7 +26,7 @@
   "dependencies": {
     "@modular-forms/qwik": "workspace:*",
     "clsx": "^1.2.1",
-    "valibot": "^0.1.0"
+    "valibot": "^0.13.1"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.2.6",

@@ -223,8 +223,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1
       valibot:
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.13.1
+        version: 0.13.1
     devDependencies:
       '@builder.io/qwik':
         specifier: ^1.2.6
@@ -8951,13 +8951,8 @@ packages:
       sade: 1.8.1
     dev: true
 
-  /valibot@0.1.0:
-    resolution: {integrity: sha512-bUJ3AYalwcYmeqZilsB+sfOfjKyafVdJ539iveuObatIwYSFTJIGWuNBYAYcV8T95vLXBvEijjSmS9nvdAxWEQ==}
-    dev: false
-
   /valibot@0.13.1:
     resolution: {integrity: sha512-SG2W1RHqE2LShl3p6tyERt6I+G6PQa9ZFVfkyNKXz01HBzL+tBeH5kXw/5AQeAzPJSjI3djVGBl1CyozA1kyBQ==}
-    dev: true
 
   /validate-html-nesting@1.2.2:
     resolution: {integrity: sha512-hGdgQozCsQJMyfK5urgFcWEqsSSrK63Awe0t/IMR0bZ0QMtnuaiHzThW81guu3qx9abLi99NEuiaN6P9gVYsNg==}
