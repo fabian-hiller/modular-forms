@@ -1,5 +1,5 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
-import type { BaseSchema, BaseSchemaAsync, ValiError } from 'valibot';
+import type { BaseSchema, BaseSchemaAsync } from 'valibot';
 import type {
   FieldValues,
   MaybeFunction,
@@ -19,22 +19,20 @@ export function valiFormQrl<TFieldValues extends FieldValues>(
   >
 ): QRL<ValidateForm<TFieldValues>> {
   return $(async (values: PartialValues<TFieldValues>) => {
-    try {
-      const resolvedSchema = await schema.resolve();
-      await (typeof resolvedSchema === 'function'
-        ? resolvedSchema()
-        : resolvedSchema
-      ).parse(values, { abortPipeEarly: true });
-      return {};
-    } catch (error) {
-      return (error as ValiError).issues.reduce<FormErrors<TFieldValues>>(
-        (errors, issue) => ({
-          ...errors,
-          [issue.path!.map(({ key }) => key).join('.')]: issue.message,
-        }),
-        {}
-      );
-    }
+    const resolvedSchema = await schema.resolve();
+    const result = await (typeof resolvedSchema === 'function'
+      ? resolvedSchema()
+      : resolvedSchema
+    )._parse(values, { abortPipeEarly: true });
+    return result.issues
+      ? result.issues.reduce<FormErrors<TFieldValues>>(
+          (errors, issue) => ({
+            ...errors,
+            [issue.path!.map(({ key }) => key).join('.')]: issue.message,
+          }),
+          {}
+        )
+      : {};
   });
 }
 

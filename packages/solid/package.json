@@ -63,7 +63,7 @@
     "rollup-preset-solid": "^2.0.1",
     "solid-js": "^1.7.8",
     "typescript": "4.9.5",
-    "valibot": "^0.8.0",
+    "valibot": "^0.13.1",
     "zod": "^3.21.4"
   },
   "peerDependencies": {

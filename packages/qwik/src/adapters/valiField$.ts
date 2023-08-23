@@ -1,5 +1,5 @@
 import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
-import type { BaseSchema, BaseSchemaAsync, ValiError } from 'valibot';
+import type { BaseSchema, BaseSchemaAsync } from 'valibot';
 import type { FieldValue, MaybeFunction, ValidateField, Maybe } from '../types';
 
 /**
@@ -13,16 +13,12 @@ export function valiFieldQrl<TFieldValue extends FieldValue>(
   >
 ): QRL<ValidateField<TFieldValue>> {
   return $(async (value: Maybe<TFieldValue>) => {
-    try {
-      const resolvedSchema = await schema.resolve();
-      await (typeof resolvedSchema === 'function'
-        ? resolvedSchema()
-        : resolvedSchema
-      ).parse(value, { abortPipeEarly: true });
-      return '';
-    } catch (error) {
-      return (error as ValiError).message;
-    }
+    const resolvedSchema = await schema.resolve();
+    const result = await (typeof resolvedSchema === 'function'
+      ? resolvedSchema()
+      : resolvedSchema
+    )._parse(value, { abortPipeEarly: true });
+    return result.issues?.[0].message || '';
   });
 }
 

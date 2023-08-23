@@ -1,4 +1,4 @@
-import type { BaseSchema, BaseSchemaAsync, ValiError } from 'valibot';
+import type { BaseSchema, BaseSchemaAsync } from 'valibot';
 import type {
   FieldValues,
   ValidateForm,
@@ -17,17 +17,15 @@ export function valiForm<TFieldValues extends FieldValues>(
   schema: BaseSchema<TFieldValues, any> | BaseSchemaAsync<TFieldValues, any>
 ): ValidateForm<TFieldValues> {
   return async (values: PartialValues<TFieldValues>) => {
-    try {
-      await schema.parse(values, { abortPipeEarly: true });
-      return {};
-    } catch (error) {
-      return (error as ValiError).issues.reduce<FormErrors<TFieldValues>>(
-        (errors, issue) => ({
-          ...errors,
-          [issue.path!.map(({ key }) => key).join('.')]: issue.message,
-        }),
-        {}
-      );
-    }
+    const result = await schema._parse(values, { abortPipeEarly: true });
+    return result.issues
+      ? result.issues.reduce<FormErrors<TFieldValues>>(
+          (errors, issue) => ({
+            ...errors,
+            [issue.path!.map(({ key }) => key).join('.')]: issue.message,
+          }),
+          {}
+        )
+      : {};
   };
 }

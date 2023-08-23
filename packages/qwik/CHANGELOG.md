@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix `valiField$` and `valiForm$` adapter for Valibot v0.13.0
+
 ## v0.20.1 (August 19, 2023)
 
 - Fix datetime and time regex in `getFormDataValues` util
@@ -9,7 +13,7 @@ All notable changes to the library will be documented in this file.
 
 ## v0.20.0 (July 31, 2023)
 
-- Fix `valiField` and `valiForm` adapter for Valibot v0.7.0
+- Fix `valiField$` and `valiForm$` adapter for Valibot v0.7.0
 - Upgrade Qwik and Qwik City peer dependency to v1.2.4
 
 ## v0.19.1 (July 20, 2023)
