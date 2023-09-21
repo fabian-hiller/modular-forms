@@ -1,0 +1,26 @@
+import { Description, Property, Title } from '~/components';
+
+<Title>submit</Title>
+<Description>Validates and submits the specified form.</Description>
+
+# submit
+
+Validates and submits the specified form.
+
+```ts
+submit(form);
+```
+
+## Parameters
+
+- `form` <Property {...properties.form} />
+
+export const properties = {
+  form: {
+    type: {
+      type: 'custom',
+      name: 'FormStore',
+      href: '../FormStore',
+    },
+  },
+};

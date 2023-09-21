@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add `submit` method (issue #130)
+
 ## v0.19.2 (August 23, 2023)
 
 - Fix `valiField$` and `valiForm$` adapter for Valibot v0.13.0
