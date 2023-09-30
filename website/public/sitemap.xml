@@ -620,6 +620,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/solid/api/submit</loc>
+    <lastmod>2023-09-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/solid/api/swap</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.40</priority>
@@ -1038,6 +1044,12 @@
   <url>
     <loc>https://modularforms.dev/qwik/api/setValues</loc>
     <lastmod>2023-05-18</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/qwik/api/submit</loc>
+    <lastmod>2023-09-21</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -1494,6 +1506,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://modularforms.dev/preact/api/submit</loc>
+    <lastmod>2023-09-21</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://modularforms.dev/preact/api/swap</loc>
     <lastmod>2023-05-18</lastmod>
     <priority>0.40</priority>
@@ -1912,6 +1930,12 @@
   <url>
     <loc>https://modularforms.dev/react/api/setValues</loc>
     <lastmod>2023-05-24</lastmod>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://modularforms.dev/react/api/submit</loc>
+    <lastmod>2023-09-21</lastmod>
     <priority>0.40</priority>
     <changefreq>monthly</changefreq>
   </url>

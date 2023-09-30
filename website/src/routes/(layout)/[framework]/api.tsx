@@ -40,6 +40,7 @@ export default function ApiLayout() {
             'setResponse',
             'setValue',
             'setValues',
+            'submit',
             'swap',
             'validate',
           ],
