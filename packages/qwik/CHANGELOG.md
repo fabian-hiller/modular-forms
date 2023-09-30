@@ -4,7 +4,7 @@ All notable changes to the library will be documented in this file.
 
 ## vX.X.X (Month DD, YYYY)
 
-- Add `submit` method (issue #130)
+- Add `submit` method (issue #130, pull request #136)
 
 ## v0.20.2 (August 23, 2023)
 
