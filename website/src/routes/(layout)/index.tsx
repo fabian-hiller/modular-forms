@@ -169,7 +169,7 @@ export default function HomePage() {
                 {
                   emoji: '🧨',
                   heading: 'Powerful features',
-                  text: 'Add dynmaic field arrays and nest your form values as deep as you like ',
+                  text: 'Add dynamic field arrays and nest your form values as deep as you like ',
                 },
               ]}
             >
