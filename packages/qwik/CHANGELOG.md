@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Fix regex in `getFormDataValues` for negative numbers
+- Fix type of `class` and `style` property of `Form` component (pull request #152)
 
 ## v0.21.0 (September 30, 2023)
 
