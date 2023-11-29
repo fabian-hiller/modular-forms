@@ -1,4 +1,4 @@
-import type { QwikSubmitEvent } from '@builder.io/qwik';
+import type { CSSProperties, ClassList, Signal, QwikSubmitEvent } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import { FormError } from '../exceptions';
@@ -49,7 +49,8 @@ export type FormProps<
 
   // HTML props
   id?: Maybe<string>;
-  class?: Maybe<string>;
+  class?: Maybe<ClassList | Signal<ClassList>>;
+  style?: Maybe<string | CSSProperties>;
   autoComplete?: Maybe<'on' | 'off'>;
   encType?: Maybe<'application/x-www-form-urlencoded' | 'multipart/form-data'>;
   name?: Maybe<string>;
