@@ -68,7 +68,7 @@ export function getFormDataValues<TFieldValues extends FieldValues>(
           : files.includes(template) && typeof value !== 'string'
           ? noSerialize(value)
           : numbers.includes(template)
-          ? /^\d*(\.\d+)?$/.test(value as string)
+          ? /^-?\d*(\.\d+)?$/.test(value as string)
             ? parseFloat(value as string)
             : getDate().getTime()
           : value;

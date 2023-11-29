@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix regex in `getFormDataValues` for negative numbers
+
 ## v0.21.0 (September 30, 2023)
 
 - Add `submit` method (issue #130, pull request #136)
