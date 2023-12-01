@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix return type of `toLowerCase`, `toTrimmed` and `toUpperCase` (issue #153)
+
 ## v0.21.1 (November 28, 2023)
 
 - Fix regex in `getFormDataValues` for negative numbers

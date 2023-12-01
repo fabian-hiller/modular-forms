@@ -1,3 +1,4 @@
+import type { QRL } from '@builder.io/qwik';
 import type { Maybe, MaybeValue, TransformField } from '../types';
 import { toCustom$, type TransformOptions } from './toCustom$';
 
@@ -11,7 +12,7 @@ import { toCustom$, type TransformOptions } from './toCustom$';
  */
 export function toTrimmed<TValue extends MaybeValue<string>>(
   options: TransformOptions
-): TransformField<TValue> {
+): QRL<TransformField<TValue>> {
   return toCustom$<TValue>(
     (value) => value && (value.trim() as Maybe<TValue>),
     options
