@@ -111,7 +111,7 @@ To dynamically generate the form fields for the todos, you use our <A href="../.
   {(fieldArray) =>
     fieldArray.items.value.map((item, index) => (
       <div key={item}>
-        <Field name={`todos.${index)}.label`}>
+        <Field name={`todos.${index}.label`}>
           {(field, props) => <input {...props} type="text" />}
         </Field>
         <Field name={`todos.${index}.deadline`}>
@@ -218,7 +218,7 @@ If you need to nest multiple field arrays, dot notation can get complicated when
   {(fieldArray) =>
     fieldArray.items.value.map((item, index) => (
       <div key={item}>
-        <Field name={`${fieldArray.name}.${index)}.label`}>
+        <Field name={`${fieldArray.name}.${index}.label`}>
           {(field, props) => <input {...props} type="text" />}
         </Field>
         <Field name={`${fieldArray.name}.${index}.deadline`}>
