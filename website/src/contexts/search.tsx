@@ -23,7 +23,7 @@ import { Dynamic } from 'solid-js/web';
 import { A, useLocation, useNavigate } from 'solid-start';
 import { SystemIcon, TextLink } from '~/components';
 import {
-  AngleRigthIcon,
+  AngleRightIcon,
   CloseIcon,
   HashtagIcon,
   PageIcon,
@@ -601,7 +601,7 @@ function SearchItem(props: SearchItemProps) {
           }${props.text}`}
         />
       </div>
-      <AngleRigthIcon class="h-3 flex-shrink-0 md:h-4" />
+      <AngleRightIcon class="h-3 flex-shrink-0 md:h-4" />
     </A>
   );
 }

@@ -1,6 +1,6 @@
 import { JSX } from 'solid-js';
 
-export function AngleRigthIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
+export function AngleRightIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 26 48"
