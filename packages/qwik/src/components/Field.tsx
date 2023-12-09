@@ -31,12 +31,12 @@ export type FieldElementProps<
   name: TFieldName;
   autoFocus: boolean;
   ref: (element: Element) => void;
-  onInput$: (event: Event, element: FieldElement) => void;
-  onChange$: (
+  onInput$: QRL<(event: Event, element: FieldElement) => void>;
+  onChange$: QRL<(
     event: QwikChangeEvent<FieldElement>,
     element: FieldElement
-  ) => void;
-  onBlur$: (event: QwikFocusEvent<FieldElement>, element: FieldElement) => void;
+  ) => void>;
+  onBlur$: QRL<(event: QwikFocusEvent<FieldElement>, element: FieldElement) => void>;
 };
 
 /**
