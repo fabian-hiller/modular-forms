@@ -32,7 +32,7 @@ export function valiFormQrl<TFieldValues extends FieldValues>(
           }),
           {}
         )
-      : {};
+      : ({} as FormErrors<TFieldValues>);
   });
 }
 

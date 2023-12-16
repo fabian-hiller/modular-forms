@@ -40,6 +40,7 @@ export const Tabs = component$((props: TabsProps) => {
   });
 
   // Update indicator style when active element changes
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => location.url.pathname);
     updateIndicatorStyle();

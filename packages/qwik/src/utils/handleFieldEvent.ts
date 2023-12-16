@@ -38,6 +38,7 @@ export async function handleFieldEvent<
 ) {
   // Update value state
   if (inputValue !== undefined) {
+    // @ts-ignore FIXME: Resolve type error
     field.value = inputValue;
   }
 

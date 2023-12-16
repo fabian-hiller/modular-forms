@@ -32,6 +32,7 @@ export const Expandable = component$(
     });
 
     // Expand or collapse content when expanded prop change
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ track }) => {
       track(() => expanded);
       updateElementHeight();

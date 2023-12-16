@@ -1,9 +1,4 @@
-import type {
-  NoSerialize,
-  QRL,
-  QwikChangeEvent,
-  QwikFocusEvent,
-} from '@builder.io/qwik';
+import type { NoSerialize, QRL } from '@builder.io/qwik';
 import type { FieldPath, FieldPathValue } from './path';
 import type { Maybe, MaybePromise, MaybeValue } from './utils';
 
@@ -52,10 +47,7 @@ export type FieldElement =
 /**
  * Value type of the field event.
  */
-export type FieldEvent =
-  | Event
-  | QwikChangeEvent<FieldElement>
-  | QwikFocusEvent<FieldElement>;
+export type FieldEvent = Event;
 
 /**
  * Value type of the form fields.

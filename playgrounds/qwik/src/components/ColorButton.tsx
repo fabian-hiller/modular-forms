@@ -1,11 +1,11 @@
-import { component$, type PropFunction } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import clsx from 'clsx';
 
 type ColorButtonProps = {
   type?: 'button' | 'submit';
   color: 'green' | 'yellow' | 'purple' | 'blue' | 'red';
   label: string;
-  onClick$: PropFunction<() => void>;
+  onClick$: () => void;
   width?: 'auto';
 };
 
@@ -32,6 +32,7 @@ export const ColorButton = component$(
       )}
       type={type}
       preventdefault:click={type === 'submit'}
+      // eslint-disable-next-line qwik/valid-lexical-scope
       onClick$={onClick$}
     >
       {label}

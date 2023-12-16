@@ -85,8 +85,10 @@ export const Lifecycle: <
     TFieldArrayName
   >): JSX.Element => {
     // TODO: Switch back to `useTask$` once issue #3193 is fixed
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ cleanup }) => {
       // Add validation functions
+      // @ts-ignore FIXME: Resolve type error
       store.internal.validate = validate
         ? Array.isArray(validate)
           ? validate

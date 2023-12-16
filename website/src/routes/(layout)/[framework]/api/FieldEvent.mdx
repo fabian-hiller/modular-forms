@@ -18,70 +18,38 @@ Type that defines the HTML element of a field.
 
 <SolidOrPreact block>
 
-- `FieldEvent` <Property {...properties.solidPreactOrReact.FieldEvent} />
+- `FieldEvent` <Property {...properties.FieldEvent} />
   - `currentTarget` <Property {...properties.solidPreactOrReact.currentTarget} />
 
 </SolidOrPreact>
 
 <Qwik block>
 
-- `FieldEvent` <Property {...properties.qwik.FieldEvent} />
+- `FieldEvent` <Property {...properties.FieldEvent} />
 
 </Qwik>
 
 <React block>
 
-- `FieldEvent` <Property {...properties.solidPreactOrReact.FieldEvent} />
+- `FieldEvent` <Property {...properties.FieldEvent} />
   - `target` <Property {...properties.solidPreactOrReact.currentTarget} />
 
 </React>
 
 export const properties = {
-  solidPreactOrReact: {
-    FieldEvent: {
-      type: {
-        type: 'custom',
-        name: 'Event',
-      },
+  FieldEvent: {
+    type: {
+      type: 'custom',
+      name: 'Event',
     },
+  },
+  solidPreactOrReact: {
     currentTarget: {
       type: {
         type: 'custom',
         name: 'FieldElement',
         href: '../FieldElement',
       },
-    },
-  },
-  qwik: {
-    FieldEvent: {
-      type: [
-        {
-          type: 'custom',
-          name: 'Event',
-        },
-        {
-          type: 'custom',
-          name: 'QwikChangeEvent',
-          generics: [
-            {
-              type: 'custom',
-              name: 'FieldElement',
-              href: '../FieldElement',
-            },
-          ],
-        },
-        {
-          type: 'custom',
-          name: 'QwikFocusEvent',
-          generics: [
-            {
-              type: 'custom',
-              name: 'FieldElement',
-              href: '../FieldElement',
-            },
-          ],
-        },
-      ],
     },
   },
 };

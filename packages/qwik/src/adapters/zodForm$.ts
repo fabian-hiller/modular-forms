@@ -18,7 +18,7 @@ export function zodFormQrl<TFieldValues extends FieldValues>(
   return $(async (values: PartialValues<TFieldValues>) => {
     const result = await getParsedZodSchema(schema, values);
     return result.success
-      ? {}
+      ? ({} as FormErrors<TFieldValues>)
       : (result.error.issues.reduce<any>((errors, error) => {
           const path = error.path.join('.');
           if (!errors[path]) {

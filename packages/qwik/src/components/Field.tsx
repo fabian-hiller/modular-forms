@@ -1,10 +1,11 @@
-import type { QwikChangeEvent, QwikFocusEvent, QRL } from '@builder.io/qwik';
+import type { QRL } from '@builder.io/qwik';
 import { $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import { getElementInput, getFieldStore, handleFieldEvent } from '../utils';
 import type {
   FieldElement,
+  FieldEvent,
   FieldPath,
   FieldPathValue,
   FieldStore,
@@ -31,12 +32,9 @@ export type FieldElementProps<
   name: TFieldName;
   autoFocus: boolean;
   ref: (element: Element) => void;
-  onInput$: (event: Event, element: FieldElement) => void;
-  onChange$: (
-    event: QwikChangeEvent<FieldElement>,
-    element: FieldElement
-  ) => void;
-  onBlur$: (event: QwikFocusEvent<FieldElement>, element: FieldElement) => void;
+  onInput$: (event: FieldEvent, element: FieldElement) => void;
+  onChange$: (event: FieldEvent, element: FieldElement) => void;
+  onBlur$: (event: FieldEvent, element: FieldElement) => void;
 };
 
 /**
@@ -87,6 +85,7 @@ export function Field<
   const field = getFieldStore(form, name)!;
 
   return (
+    // @ts-ignore FIXME: Resolve type error
     <Lifecycle key={name} store={field} {...props}>
       {children(field, {
         name,
@@ -94,7 +93,7 @@ export function Field<
         ref: $((element: Element) => {
           field.internal.elements.push(element as FieldElement);
         }),
-        onInput$: $((event: Event, element: FieldElement) => {
+        onInput$: $((event: FieldEvent, element: FieldElement) => {
           handleFieldEvent(
             form,
             field,
@@ -105,19 +104,16 @@ export function Field<
             getElementInput(element, field, type)
           );
         }),
-        onChange$: $(
-          (event: QwikChangeEvent<FieldElement>, element: FieldElement) => {
-            handleFieldEvent(form, field, name, event, element, ['change']);
-          }
-        ),
-        onBlur$: $(
-          (event: QwikFocusEvent<FieldElement>, element: FieldElement) => {
-            handleFieldEvent(form, field, name, event, element, [
-              'touched',
-              'blur',
-            ]);
-          }
-        ),
+        onChange$: $((event: FieldEvent, element: FieldElement) => {
+          handleFieldEvent(form, field, name, event, element, ['change']);
+        }),
+        onBlur$: $((event: FieldEvent, element: FieldElement) => {
+          handleFieldEvent(form, field, name, event, element, [
+            'touched',
+
+            'blur',
+          ]);
+        }),
       })}
     </Lifecycle>
   );

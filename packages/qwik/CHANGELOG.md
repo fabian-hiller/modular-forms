@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix type errors after upgrading to Qwik v1.3.1
+- Remove Qwik specific events from `FieldEvent` type
+
 ## v0.21.2 (November 30, 2023)
 
 - Fix return type of `toLowerCase`, `toTrimmed` and `toUpperCase` (issue #153)
