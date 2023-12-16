@@ -2,10 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.22.0 (December 15, 2023)
 
 - Fix type errors after upgrading to Qwik v1.3.1
-- Remove Qwik specific events from `FieldEvent` type
+- Remove Qwik specific events from `FieldEvent` type (issue #159)
 
 ## v0.21.2 (November 30, 2023)
 
