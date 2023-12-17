@@ -6,7 +6,7 @@ import type {
   FieldPath,
   FieldArrayPath,
   Maybe,
-} from '../types';
+} from '../types/index.js';
 import { getFieldArrayStore, getFieldStore, updateFormInvalid } from '../utils';
 import { focus } from './focus';
 

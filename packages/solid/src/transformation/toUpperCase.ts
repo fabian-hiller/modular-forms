@@ -1,4 +1,4 @@
-import type { Maybe, MaybeValue, TransformField } from '../types';
+import type { Maybe, MaybeValue, TransformField } from '../types/index.js';
 import { toCustom, type TransformOptions } from './toCustom';
 
 /**

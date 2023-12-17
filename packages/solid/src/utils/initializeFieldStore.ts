@@ -8,7 +8,7 @@ import type {
   InternalFieldStore,
   Maybe,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getFieldStore } from './getFieldStore';
 import { getPathValue } from './getPathValue';
 

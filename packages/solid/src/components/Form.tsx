@@ -9,7 +9,7 @@ import type {
   Maybe,
   MaybePromise,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Value type of the submit event object.

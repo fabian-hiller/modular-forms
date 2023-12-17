@@ -1,4 +1,4 @@
-import type { FieldArrayPath, FieldPath, FieldValues } from '../types';
+import type { FieldArrayPath, FieldPath, FieldValues } from '../types/index.js';
 import { getPathIndex } from '../utils';
 
 /**

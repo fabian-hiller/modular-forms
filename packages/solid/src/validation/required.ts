@@ -1,4 +1,4 @@
-import type { FieldValue, Maybe } from '../types';
+import type { FieldValue, Maybe } from '../types/index.js';
 
 type Value<TFieldValue extends FieldValue> = Maybe<TFieldValue> | number[];
 

@@ -1,8 +1,8 @@
-export * from './adapters';
-export * from './components';
-export * from './exceptions';
-export * from './methods';
-export { createForm, createFormStore } from './primitives';
-export * from './transformation';
-export * from './types';
-export * from './validation';
+export * from './adapters/index.js';
+export * from './components/index.js';
+export * from './exceptions/index.js';
+export * from './methods/index.js';
+export { createForm, createFormStore } from './primitives/index.js';
+export * from './transformation/index.js';
+export * from './types/index.js';
+export * from './validation/index.js';

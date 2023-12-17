@@ -8,7 +8,7 @@ import type {
   Maybe,
   FieldArrayPath,
   PartialValues,
-} from '../types';
+} from '../types/index.js';
 import {
   getFilteredNames,
   getOptions,

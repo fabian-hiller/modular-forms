@@ -6,7 +6,7 @@ import type {
   Maybe,
   RawFieldState,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getFieldStore } from './getFieldStore';
 
 /**

@@ -7,7 +7,7 @@ import type {
   FormStore,
   Maybe,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getFieldArrayStore } from './getFieldArrayStore';
 import { getFieldStore } from './getFieldStore';
 

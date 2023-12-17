@@ -7,7 +7,7 @@ import type {
   InternalFieldStore,
   Maybe,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { isFieldDirty } from './isFieldDirty';
 import { updateFormDirty } from './updateFormDirty';
 

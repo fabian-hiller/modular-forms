@@ -7,7 +7,7 @@ import type {
   FormStore,
   PartialValues,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { createSignal } from './createSignal';
 
 /**
