@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix `FieldElementProps` type by using `QRL` for functions (issue #168)
+
 ## v0.23.0 (January 19, 2023)
 
 - Fix type errors after upgrading to Qwik v1.4.0

@@ -1,11 +1,11 @@
-import { component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, type QRL, useSignal, useTask$ } from '@builder.io/qwik';
 import clsx from 'clsx';
 import { AngleDownIcon } from '~/icons';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type SelectProps = {
-  ref: (element: Element) => void;
+  ref: QRL<(element: HTMLSelectElement) => void>;
   name: string;
   value: string | string[] | null | undefined;
   onInput$: (event: Event, element: HTMLSelectElement) => void;

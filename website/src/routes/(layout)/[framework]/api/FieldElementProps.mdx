@@ -143,89 +143,114 @@ export const properties = {
   qwik: {
     ref: {
       type: {
-        type: 'function',
-        params: [
+        type: 'custom',
+        name: 'QRL',
+        generics: [
           {
-            name: 'element',
-            type: {
-              type: 'custom',
-              name: 'Element',
-            },
+            type: 'function',
+            params: [
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '../FieldElement',
+                },
+              },
+            ],
+            return: 'void',
           },
         ],
-        return: 'void',
       },
     },
     onInput$: {
       type: {
-        type: 'function',
-        params: [
+        type: 'custom',
+        name: 'QRL',
+        generics: [
           {
-            name: 'event',
-            type: {
-              type: 'custom',
-              name: 'FieldEvent',
-              href: '../FieldEvent',
-            },
-          },
-          {
-            name: 'element',
-            type: {
-              type: 'custom',
-              name: 'FieldElement',
-              href: '../FieldElement',
-            },
+            type: 'function',
+            params: [
+              {
+                name: 'event',
+                type: {
+                  type: 'custom',
+                  name: 'FieldEvent',
+                  href: '../FieldEvent',
+                },
+              },
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '../FieldElement',
+                },
+              },
+            ],
+            return: 'void',
           },
         ],
-        return: 'void',
       },
     },
     onChange$: {
       type: {
-        type: 'function',
-        params: [
+        type: 'custom',
+        name: 'QRL',
+        generics: [
           {
-            name: 'event',
-            type: {
-              type: 'custom',
-              name: 'FieldEvent',
-              href: '../FieldEvent',
-            },
-          },
-          {
-            name: 'element',
-            type: {
-              type: 'custom',
-              name: 'FieldElement',
-              href: '../FieldElement',
-            },
+            type: 'function',
+            params: [
+              {
+                name: 'event',
+                type: {
+                  type: 'custom',
+                  name: 'FieldEvent',
+                  href: '../FieldEvent',
+                },
+              },
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '../FieldElement',
+                },
+              },
+            ],
+            return: 'void',
           },
         ],
-        return: 'void',
       },
     },
     onBlur$: {
       type: {
-        type: 'function',
-        params: [
+        type: 'custom',
+        name: 'QRL',
+        generics: [
           {
-            name: 'event',
-            type: {
-              type: 'custom',
-              name: 'FieldEvent',
-              href: '../FieldEvent',
-            },
-          },
-          {
-            name: 'element',
-            type: {
-              type: 'custom',
-              name: 'FieldElement',
-              href: '../FieldElement',
-            },
+            type: 'function',
+            params: [
+              {
+                name: 'event',
+                type: {
+                  type: 'custom',
+                  name: 'FieldEvent',
+                  href: '../FieldEvent',
+                },
+              },
+              {
+                name: 'element',
+                type: {
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '../FieldElement',
+                },
+              },
+            ],
+            return: 'void',
           },
         ],
-        return: 'void',
       },
     },
   },

@@ -119,6 +119,8 @@ type TextInputProps = {
 <Qwik block>
 
 ```tsx
+import { type QRL } from '@builder.io/qwik';
+
 type TextInputProps = {
   name: string;
   type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
@@ -127,7 +129,7 @@ type TextInputProps = {
   value: string | undefined;
   error: string;
   required?: boolean;
-  ref: (element: Element) => void;
+  ref: QRL<(element: HTMLInputElement) => void>;
   onInput$: (event: Event, element: HTMLInputElement) => void;
   onChange$: (event: Event, element: HTMLInputElement) => void;
   onBlur$: (event: Event, element: HTMLInputElement) => void;
@@ -454,7 +456,7 @@ export function TextInput(props: TextInputProps) {
 <Qwik block>
 
 ```tsx
-import { component$ } from '@builder.io/qwik';
+import { component$, type QRL } from '@builder.io/qwik';
 
 type TextInputProps = {
   name: string;
@@ -464,7 +466,7 @@ type TextInputProps = {
   value: string | undefined;
   error: string;
   required?: boolean;
-  ref: (element: Element) => void;
+  ref: QRL<(element: HTMLInputElement) => void>;
   onInput$: (event: Event, element: HTMLInputElement) => void;
   onChange$: (event: Event, element: HTMLInputElement) => void;
   onBlur$: (event: Event, element: HTMLInputElement) => void;

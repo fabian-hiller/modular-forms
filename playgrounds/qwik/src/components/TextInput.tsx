@@ -1,10 +1,10 @@
-import { component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, type QRL, useSignal, useTask$ } from '@builder.io/qwik';
 import clsx from 'clsx';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type TextInputProps = {
-  ref: (element: Element) => void;
+  ref: QRL<(element: HTMLInputElement) => void>;
   type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
   name: string;
   value: string | number | undefined;

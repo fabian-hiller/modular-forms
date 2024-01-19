@@ -1,10 +1,10 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, type QRL } from '@builder.io/qwik';
 import clsx from 'clsx';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type SliderProps = {
-  ref: (element: Element) => void;
+  ref: QRL<(element: HTMLInputElement) => void>;
   name: string;
   value?: number;
   onInput$: (event: Event, element: HTMLInputElement) => void;

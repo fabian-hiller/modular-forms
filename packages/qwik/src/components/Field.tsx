@@ -30,10 +30,10 @@ export type FieldElementProps<
 > = {
   name: TFieldName;
   autoFocus: boolean;
-  ref: (element: Element) => void;
-  onInput$: (event: FieldEvent, element: FieldElement) => void;
-  onChange$: (event: FieldEvent, element: FieldElement) => void;
-  onBlur$: (event: FieldEvent, element: FieldElement) => void;
+  ref: QRL<(element: FieldElement) => void>;
+  onInput$: QRL<(event: FieldEvent, element: FieldElement) => void>;
+  onChange$: QRL<(event: FieldEvent, element: FieldElement) => void>;
+  onBlur$: QRL<(event: FieldEvent, element: FieldElement) => void>;
 };
 
 /**
@@ -89,8 +89,8 @@ export function Field<
       {children(field, {
         name,
         autoFocus: isServer && !!field.error,
-        ref: $((element: Element) => {
-          field.internal.elements.push(element as FieldElement);
+        ref: $((element: FieldElement) => {
+          field.internal.elements.push(element);
         }),
         onInput$: $((event: FieldEvent, element: FieldElement) => {
           handleFieldEvent(

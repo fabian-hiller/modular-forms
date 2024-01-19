@@ -1,6 +1,7 @@
 import {
   component$,
   type NoSerialize,
+  type QRL,
   useSignal,
   useTask$,
 } from '@builder.io/qwik';
@@ -9,7 +10,7 @@ import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type FileInputProps = {
-  ref: (element: Element) => void;
+  ref: QRL<(element: HTMLInputElement) => void>;
   name: string;
   value:
     | NoSerialize<Blob>
