@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.23.0 (January 19, 2023)
 
 - Fix type errors after upgrading to Qwik v1.4.0
 - Upgrade Qwik and Qwik City peer dependency to v1.4.0
