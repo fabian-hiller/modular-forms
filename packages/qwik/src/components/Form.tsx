@@ -1,6 +1,10 @@
-import type { CSSProperties, ClassList, Signal, QwikSubmitEvent } from '@builder.io/qwik';
+import type {
+  CSSProperties,
+  ClassList,
+  JSXOutput,
+  Signal,
+} from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
-import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import { FormError } from '../exceptions';
 import { getValues, setResponse, validate } from '../methods';
 import type {
@@ -19,7 +23,7 @@ import { setErrorResponse, setFieldErrors } from '../utils';
  */
 export type SubmitHandler<TFieldValues extends FieldValues> = (
   values: TFieldValues,
-  event: QwikSubmitEvent<HTMLFormElement>
+  event: SubmitEvent
 ) => MaybePromise<any>;
 
 /**
@@ -76,7 +80,7 @@ export function Form<
   reloadDocument,
   children,
   ...formProps
-}: FormProps<TFieldValues, TResponseData>): JSX.Element {
+}: FormProps<TFieldValues, TResponseData>): JSXOutput {
   // Destructure form props
   const { encType } = formProps;
 
@@ -99,7 +103,7 @@ export function Form<
       ref={(element: Element) => {
         form.element = element as HTMLFormElement;
       }}
-      onSubmit$={async (event: QwikSubmitEvent<HTMLFormElement>, element) => {
+      onSubmit$={async (event: SubmitEvent, element) => {
         // Reset response if it is not to be kept
         if (!keepResponse) {
           form.response = {};

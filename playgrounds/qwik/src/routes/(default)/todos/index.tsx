@@ -61,7 +61,10 @@ export default component$(() => {
       <FormHeader of={todoForm} heading="Todo form" />
 
       <div class="space-y-8 md:space-y-10 lg:space-y-12">
-        <Field name="heading" validate={required('Please enter a heading.')}>
+        <Field
+          name="heading"
+          validate={required<string>('Please enter a heading.')}
+        >
           {(field, props) => (
             <TextInput
               {...props}
@@ -78,7 +81,7 @@ export default component$(() => {
         <FieldArray
           name="todos"
           validate={[
-            required('Please add at least one todo.'),
+            required<string>('Please add at least one todo.'),
             maxLength(4, 'You can add a maximum of 4 todos.'),
           ]}
         >
@@ -100,7 +103,7 @@ export default component$(() => {
                     >
                       <Field
                         name={`todos.${index}.label`}
-                        validate={required('Please enter a label.')}
+                        validate={required<string>('Please enter a label.')}
                       >
                         {(field, props) => (
                           <TextInput
@@ -117,7 +120,7 @@ export default component$(() => {
 
                       <Field
                         name={`todos.${index}.deadline`}
-                        validate={required('Please enter a deadline.')}
+                        validate={required<string>('Please enter a deadline.')}
                       >
                         {(field, props) => (
                           <TextInput

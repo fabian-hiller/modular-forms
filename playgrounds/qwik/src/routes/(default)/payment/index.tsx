@@ -47,7 +47,10 @@ export default component$(() => {
     >
       <FormHeader of={paymentForm} heading="Payment form" />
       <div class="space-y-8 md:space-y-10 lg:space-y-12">
-        <Field name="owner" validate={required('Please enter your name.')}>
+        <Field
+          name="owner"
+          validate={required<string>('Please enter your name.')}
+        >
           {(field, props) => (
             <TextInput
               {...props}
@@ -62,7 +65,7 @@ export default component$(() => {
         </Field>
         <Field
           name="type"
-          validate={required('Please select the payment type.')}
+          validate={required<string>('Please select the payment type.')}
         >
           {(field, props) => (
             <Select
@@ -84,7 +87,7 @@ export default component$(() => {
             <Field
               name="card.number"
               validate={[
-                required('Please enter your card number.'),
+                required<string>('Please enter your card number.'),
                 pattern(
                   /^\d{4}\s?(\d{6}\s?\d{5}|\d{4}\s?\d{4}\s?\d{4})$/,
                   'The card number is badly formatted.'
@@ -106,7 +109,7 @@ export default component$(() => {
             <Field
               name="card.expiration"
               validate={[
-                required('Please enter your card number.'),
+                required<string>('Please enter your card number.'),
                 pattern(
                   /^(0[1-9]|1[0-2])\/2[2-9]$/,
                   'The expiration date is badly formatted.'
@@ -131,7 +134,7 @@ export default component$(() => {
           <Field
             name="paypal.email"
             validate={[
-              required('Please enter your PayPal email.'),
+              required<string>('Please enter your PayPal email.'),
               email('The email address is badly formatted.'),
             ]}
           >

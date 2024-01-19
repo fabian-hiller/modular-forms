@@ -3,16 +3,13 @@ import {
   type NoSerialize,
   useSignal,
   useTask$,
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
 } from '@builder.io/qwik';
 import clsx from 'clsx';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type FileInputProps = {
-  ref: PropFunction<(element: Element) => void>;
+  ref: (element: Element) => void;
   name: string;
   value:
     | NoSerialize<Blob>
@@ -21,16 +18,9 @@ type FileInputProps = {
     | NoSerialize<File>[]
     | null
     | undefined;
-  onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
-  onChange$: PropFunction<
-    (
-      event: QwikChangeEvent<HTMLInputElement>,
-      element: HTMLInputElement
-    ) => void
-  >;
-  onBlur$: PropFunction<
-    (event: QwikFocusEvent<HTMLInputElement>, element: HTMLInputElement) => void
-  >;
+  onInput$: (event: Event, element: HTMLInputElement) => void;
+  onChange$: (event: Event, element: HTMLInputElement) => void;
+  onBlur$: (event: Event, element: HTMLInputElement) => void;
   accept?: string;
   required?: boolean;
   multiple?: boolean;
@@ -66,6 +56,7 @@ export const FileInput = component$(
         >
           {files.value?.length
             ? `Selected file${multiple ? 's' : ''}: ${files.value
+                // @ts-ignore
                 .map((file) => file!.name)
                 .join(', ')}`
             : `Click or drag and drop file${multiple ? 's' : ''}`}

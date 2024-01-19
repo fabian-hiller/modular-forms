@@ -1,4 +1,3 @@
-import { Fragment } from '@builder.io/qwik';
 import { type ActionStore, Form } from '@builder.io/qwik-city';
 import { type FormStore, reset } from '@modular-forms/qwik';
 import { ActionButton } from './ActionButton';
@@ -17,7 +16,6 @@ export function FormFooter({
   resetAction,
   form,
 }: FormFooterProps) {
-  const ResetForm = resetAction ? Form : Fragment;
   return (
     <footer class="flex space-x-6 px-8 md:space-x-8 lg:hidden">
       <ActionButton
@@ -26,7 +24,17 @@ export function FormFooter({
         type="submit"
         form={form}
       />
-      <ResetForm action={resetAction!}>
+      {resetAction ? (
+        <Form action={resetAction}>
+          <ActionButton
+            variant="secondary"
+            label="Reset"
+            type={resetAction ? 'submit' : 'button'}
+            preventdefault:click
+            onClick$={() => reset(formStore)}
+          />
+        </Form>
+      ) : (
         <ActionButton
           variant="secondary"
           label="Reset"
@@ -34,7 +42,7 @@ export function FormFooter({
           preventdefault:click
           onClick$={() => reset(formStore)}
         />
-      </ResetForm>
+      )}
     </footer>
   );
 }

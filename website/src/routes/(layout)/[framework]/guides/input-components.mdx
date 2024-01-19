@@ -119,12 +119,6 @@ type TextInputProps = {
 <Qwik block>
 
 ```tsx
-import {
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
-} from '@builder.io/qwik';
-
 type TextInputProps = {
   name: string;
   type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'date';
@@ -133,17 +127,10 @@ type TextInputProps = {
   value: string | undefined;
   error: string;
   required?: boolean;
-  ref: PropFunction<(element: Element) => void>;
-  onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
-  onChange$: PropFunction<
-    (
-      event: QwikChangeEvent<HTMLInputElement>,
-      element: HTMLInputElement
-    ) => void
-  >;
-  onBlur$: PropFunction<
-    (event: QwikFocusEvent<HTMLInputElement>, element: HTMLInputElement) => void
-  >;
+  ref: (element: Element) => void;
+  onInput$: (event: Event, element: HTMLInputElement) => void;
+  onChange$: (event: Event, element: HTMLInputElement) => void;
+  onBlur$: (event: Event, element: HTMLInputElement) => void;
 };
 ```
 
@@ -215,12 +202,7 @@ export function TextInput(props: TextInputProps) {
 In the next step, add the `component$` function to the file and destructure the properties of the HTML `<input />` element from the rest.
 
 ```tsx
-import {
-  component$,
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
-} from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
 type TextInputProps = { … };
 
@@ -312,12 +294,7 @@ export function TextInput(props: TextInputProps) {
 <Qwik block>
 
 ```tsx
-import {
-  component$,
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
-} from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
 type TextInputProps = { … };
 
@@ -477,12 +454,7 @@ export function TextInput(props: TextInputProps) {
 <Qwik block>
 
 ```tsx
-import {
-  component$,
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
-} from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 
 type TextInputProps = {
   name: string;
@@ -492,17 +464,10 @@ type TextInputProps = {
   value: string | undefined;
   error: string;
   required?: boolean;
-  ref: PropFunction<(element: Element) => void>;
-  onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
-  onChange$: PropFunction<
-    (
-      event: QwikChangeEvent<HTMLInputElement>,
-      element: HTMLInputElement
-    ) => void
-  >;
-  onBlur$: PropFunction<
-    (event: QwikFocusEvent<HTMLInputElement>, element: HTMLInputElement) => void
-  >;
+  ref: (element: Element) => void;
+  onInput$: (event: Event, element: HTMLInputElement) => void;
+  onChange$: (event: Event, element: HTMLInputElement) => void;
+  onBlur$: (event: Event, element: HTMLInputElement) => void;
 };
 
 export const TextInput = component$(

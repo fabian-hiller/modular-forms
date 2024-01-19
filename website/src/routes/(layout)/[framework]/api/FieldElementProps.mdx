@@ -142,134 +142,104 @@ export const properties = {
   },
   qwik: {
     ref: {
-      type: [
-        {
-          type: 'custom',
-          name: 'PropFunction',
-          generics: [
-            {
-              type: 'function',
-              params: [
-                {
-                  name: 'element',
-                  type: {
-                    type: 'custom',
-                    name: 'Element',
-                  },
-                },
-              ],
-              return: 'void',
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'element',
+            type: {
+              type: 'custom',
+              name: 'Element',
             },
-          ],
-        },
-      ],
+          },
+        ],
+        return: 'void',
+      },
     },
     onInput$: {
-      type: [
-        {
-          type: 'custom',
-          name: 'PropFunction',
-          generics: [
-            {
-              type: 'function',
-              params: [
-                {
-                  name: 'event',
-                  type: {
-                    type: 'custom',
-                    name: 'Event',
-                  },
-                },
-                {
-                  name: 'element',
-                  type: {
-                    type: 'custom',
-                    name: 'FieldElement',
-                    href: '../FieldElement',
-                  },
-                },
-              ],
-              return: 'void',
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'Event',
             },
-          ],
-        },
-      ],
+          },
+          {
+            name: 'element',
+            type: {
+              type: 'custom',
+              name: 'FieldElement',
+              href: '../FieldElement',
+            },
+          },
+        ],
+        return: 'void',
+      },
     },
     onChange$: {
-      type: [
-        {
-          type: 'custom',
-          name: 'PropFunction',
-          generics: [
-            {
-              type: 'function',
-              params: [
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'FieldEvent',
+              href: '../FieldEvent',
+              generics: [
                 {
-                  name: 'event',
-                  type: {
-                    type: 'custom',
-                    name: 'QwikChangeEvent',
-                    generics: [
-                      {
-                        type: 'custom',
-                        name: 'FieldElement',
-                        href: '../FieldElement',
-                      },
-                    ],
-                  },
-                },
-                {
-                  name: 'element',
-                  type: {
-                    type: 'custom',
-                    name: 'FieldElement',
-                    href: '../FieldElement',
-                  },
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '../FieldElement',
                 },
               ],
-              return: 'void',
             },
-          ],
-        },
-      ],
+          },
+          {
+            name: 'element',
+            type: {
+              type: 'custom',
+              name: 'FieldElement',
+              href: '../FieldElement',
+            },
+          },
+        ],
+        return: 'void',
+      },
     },
     onBlur$: {
-      type: [
-        {
-          type: 'custom',
-          name: 'PropFunction',
-          generics: [
-            {
-              type: 'function',
-              params: [
+      type: {
+        type: 'function',
+        params: [
+          {
+            name: 'event',
+            type: {
+              type: 'custom',
+              name: 'FieldEvent',
+              href: '../FieldEvent',
+              generics: [
                 {
-                  name: 'event',
-                  type: {
-                    type: 'custom',
-                    name: 'QwikFocusEvent',
-                    generics: [
-                      {
-                        type: 'custom',
-                        name: 'FieldElement',
-                        href: '../FieldElement',
-                      },
-                    ],
-                  },
-                },
-                {
-                  name: 'element',
-                  type: {
-                    type: 'custom',
-                    name: 'FieldElement',
-                    href: '../FieldElement',
-                  },
+                  type: 'custom',
+                  name: 'FieldElement',
+                  href: '../FieldElement',
                 },
               ],
-              return: 'void',
             },
-          ],
-        },
-      ],
+          },
+          {
+            name: 'element',
+            type: {
+              type: 'custom',
+              name: 'FieldElement',
+              href: '../FieldElement',
+            },
+          },
+        ],
+        return: 'void',
+      },
     },
   },
   preact: {

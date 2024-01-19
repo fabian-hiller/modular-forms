@@ -3,8 +3,8 @@ import {
   Slot,
   useVisibleTask$,
   type PublicProps,
-  type JSXNode,
   type QRL,
+  type JSXOutput,
 } from '@builder.io/qwik';
 import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import { reset } from '../methods';
@@ -65,7 +65,7 @@ export const Lifecycle: <
   >,
   key: string | null,
   flags: number
-) => JSXNode | null = component$(
+) => JSXOutput = component$(
   <
     TFieldValues extends FieldValues,
     TResponseData extends ResponseData,
@@ -76,8 +76,8 @@ export const Lifecycle: <
     store,
     validate,
     transform,
-    keepActive,
-    keepState,
+    keepActive = false,
+    keepState = true,
   }: LifecycleProps<
     TFieldValues,
     TResponseData,
@@ -92,9 +92,7 @@ export const Lifecycle: <
       store.internal.validate = validate
         ? Array.isArray(validate)
           ? validate
-          : ([validate] as
-              | QRL<ValidateFieldArray<number[]>>[]
-              | QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[])
+          : [validate]
         : [];
 
       // Add transformation functions

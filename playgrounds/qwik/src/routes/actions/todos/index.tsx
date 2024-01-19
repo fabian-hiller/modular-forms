@@ -17,15 +17,7 @@ import {
   formAction$,
   getValues,
 } from '@modular-forms/qwik';
-import {
-  array,
-  type Input,
-  maxLength,
-  minLength,
-  object,
-  string,
-  isoDate,
-} from 'valibot';
+import * as v from 'valibot';
 import {
   TextInput,
   InputLabel,
@@ -36,24 +28,24 @@ import {
   Response,
 } from '~/components';
 
-const TodoSchema = object({
-  heading: string([minLength(1, 'Please enter a heading.')]),
-  todos: array(
-    object({
-      label: string([minLength(1, 'Please enter a label.')]),
-      deadline: string([
-        minLength(1, 'Please enter a deadline.'),
-        isoDate('The specified date is invalid.'),
+const TodoSchema = v.object({
+  heading: v.string([v.minLength(1, 'Please enter a heading.')]),
+  todos: v.array(
+    v.object({
+      label: v.string([v.minLength(1, 'Please enter a label.')]),
+      deadline: v.string([
+        v.minLength(1, 'Please enter a deadline.'),
+        v.isoDate('The specified date is invalid.'),
       ]),
     }),
     [
-      minLength(1, 'Please add at least one todo.'),
-      maxLength(4, 'You can add a maximum of 4 todos.'),
+      v.minLength(1, 'Please add at least one todo.'),
+      v.maxLength(4, 'You can add a maximum of 4 todos.'),
     ]
   ),
 });
 
-type TodoForm = Input<typeof TodoSchema>;
+type TodoForm = v.Input<typeof TodoSchema>;
 
 const getInitFormValues = (): InitialValues<TodoForm> => ({
   heading: 'Shopping list',

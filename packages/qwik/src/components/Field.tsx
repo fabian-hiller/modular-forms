@@ -1,7 +1,6 @@
-import type { QRL } from '@builder.io/qwik';
+import type { JSXOutput, QRL } from '@builder.io/qwik';
 import { $ } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
-import type { JSX } from '@builder.io/qwik/jsx-runtime';
 import { getElementInput, getFieldStore, handleFieldEvent } from '../utils';
 import type {
   FieldElement,
@@ -51,7 +50,7 @@ export type FieldProps<
   children: (
     store: FieldStore<TFieldValues, TFieldName>,
     props: FieldElementProps<TFieldValues, TFieldName>
-  ) => JSX.Element;
+  ) => JSXOutput;
   validate?: Maybe<
     MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
@@ -77,7 +76,7 @@ export function Field<
   ...props
 }: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
   ? PartialKey<FieldProps<TFieldValues, TResponseData, TFieldName>, 'type'>
-  : FieldProps<TFieldValues, TResponseData, TFieldName>): JSX.Element {
+  : FieldProps<TFieldValues, TResponseData, TFieldName>): JSXOutput {
   // Destructure props
   const { of: form } = props;
 

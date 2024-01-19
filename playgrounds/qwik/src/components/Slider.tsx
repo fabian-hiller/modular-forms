@@ -1,27 +1,15 @@
-import {
-  component$,
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
-} from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import clsx from 'clsx';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type SliderProps = {
-  ref: PropFunction<(element: Element) => void>;
+  ref: (element: Element) => void;
   name: string;
   value?: number;
-  onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
-  onChange$: PropFunction<
-    (
-      event: QwikChangeEvent<HTMLInputElement>,
-      element: HTMLInputElement
-    ) => void
-  >;
-  onBlur$: PropFunction<
-    (event: QwikFocusEvent<HTMLInputElement>, element: HTMLInputElement) => void
-  >;
+  onInput$: (event: Event, element: HTMLInputElement) => void;
+  onChange$: (event: Event, element: HTMLInputElement) => void;
+  onBlur$: (event: Event, element: HTMLInputElement) => void;
   min?: number;
   max?: number;
   step?: number;

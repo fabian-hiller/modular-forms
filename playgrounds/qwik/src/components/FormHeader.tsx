@@ -1,4 +1,3 @@
-import { Fragment } from '@builder.io/qwik';
 import { type ActionStore, Form } from '@builder.io/qwik-city';
 import { reset, type FormStore } from '@modular-forms/qwik';
 import { ActionButton } from './ActionButton';
@@ -19,14 +18,23 @@ export function FormHeader({
   resetAction,
   form,
 }: FormHeaderProps) {
-  const ResetForm = resetAction ? Form : Fragment;
   return (
     <header class="flex items-center justify-between px-8 lg:px-10">
       <h1 class="text-2xl text-slate-900 dark:text-slate-200 md:text-3xl lg:text-4xl">
         {heading}
       </h1>
       <div class="hidden lg:flex lg:space-x-8">
-        <ResetForm action={resetAction!}>
+        {resetAction ? (
+          <Form action={resetAction}>
+            <ActionButton
+              variant="secondary"
+              label="Reset"
+              type={resetAction ? 'submit' : 'button'}
+              preventdefault:click
+              onClick$={() => reset(formStore)}
+            />
+          </Form>
+        ) : (
           <ActionButton
             variant="secondary"
             label="Reset"
@@ -34,7 +42,7 @@ export function FormHeader({
             preventdefault:click
             onClick$={() => reset(formStore)}
           />
-        </ResetForm>
+        )}
         <ActionButton
           variant="primary"
           label="Submit"

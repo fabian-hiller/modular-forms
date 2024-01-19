@@ -1,10 +1,4 @@
-import {
-  $,
-  component$,
-  type PropFunction,
-  Slot,
-  useSignal,
-} from '@builder.io/qwik';
+import { $, component$, Slot, useSignal } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import clsx from 'clsx';
 import { Spinner } from './Spinner';
@@ -19,7 +13,7 @@ type LinkProps = {
 type ButtonProps = {
   type: 'button' | 'reset' | 'submit';
   'preventdefault:click'?: boolean;
-  onClick$?: PropFunction<() => unknown>;
+  onClick$?: () => unknown;
   loading?: boolean;
   form?: string;
 };

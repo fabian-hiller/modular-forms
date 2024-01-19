@@ -1,33 +1,16 @@
-import {
-  component$,
-  useSignal,
-  useTask$,
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
-} from '@builder.io/qwik';
+import { component$, useSignal, useTask$ } from '@builder.io/qwik';
 import clsx from 'clsx';
 import { AngleDownIcon } from '~/icons';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type SelectProps = {
-  ref: PropFunction<(element: Element) => void>;
+  ref: (element: Element) => void;
   name: string;
   value: string | string[] | null | undefined;
-  onInput$: PropFunction<(event: Event, element: HTMLSelectElement) => void>;
-  onChange$: PropFunction<
-    (
-      event: QwikChangeEvent<HTMLSelectElement>,
-      element: HTMLSelectElement
-    ) => void
-  >;
-  onBlur$: PropFunction<
-    (
-      event: QwikFocusEvent<HTMLSelectElement>,
-      element: HTMLSelectElement
-    ) => void
-  >;
+  onInput$: (event: Event, element: HTMLSelectElement) => void;
+  onChange$: (event: Event, element: HTMLSelectElement) => void;
+  onBlur$: (event: Event, element: HTMLSelectElement) => void;
   options: { label: string; value: string }[];
   multiple?: boolean;
   size?: number;

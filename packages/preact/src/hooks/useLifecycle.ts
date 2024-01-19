@@ -60,12 +60,11 @@ export function useLifecycle<
 }: LifecycleProps<TFieldValues, TResponseData, TFieldName>) {
   useEffect(() => {
     // Add validation functions
+    // @ts-ignore FIXME: Resolve type error
     store.validate = validate
       ? Array.isArray(validate)
         ? validate
-        : ([validate] as
-            | ValidateFieldArray<number[]>[]
-            | ValidateField<FieldPathValue<TFieldValues, TFieldName>>[])
+        : [validate]
       : [];
 
     // Add transformation functions

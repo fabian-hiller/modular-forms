@@ -64,12 +64,11 @@ export function createLifecycle<
     const store = getStore();
 
     // Add validation functions
+    // @ts-ignore FIXME: Resolve type error
     store.validate = validate
       ? Array.isArray(validate)
         ? validate
-        : ([validate] as
-            | ValidateFieldArray<number[]>[]
-            | ValidateField<FieldPathValue<TFieldValues, TFieldName>>[])
+        : [validate]
       : [];
 
     // Add transformation functions

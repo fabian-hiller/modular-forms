@@ -10,21 +10,21 @@ import {
   useForm,
   valiForm$,
 } from '@modular-forms/qwik';
-import { email, type Input, minLength, object, string } from 'valibot';
+import * as v from 'valibot';
 import { FormHeader, TextInput, FormFooter, Response } from '~/components';
 
-const LoginSchema = object({
-  email: string([
-    minLength(1, 'Please enter your email.'),
-    email('The email address is badly formatted.'),
+const LoginSchema = v.object({
+  email: v.string([
+    v.minLength(1, 'Please enter your email.'),
+    v.email('The email address is badly formatted.'),
   ]),
-  password: string([
-    minLength(1, 'Please enter your password.'),
-    minLength(8, 'You password must have 8 characters or more.'),
+  password: v.string([
+    v.minLength(1, 'Please enter your password.'),
+    v.minLength(8, 'You password must have 8 characters or more.'),
   ]),
 });
 
-type LoginForm = Input<typeof LoginSchema>;
+type LoginForm = v.Input<typeof LoginSchema>;
 
 const getInitFormValues = (): InitialValues<LoginForm> => ({
   email: '',

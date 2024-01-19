@@ -1,30 +1,16 @@
-import {
-  component$,
-  useSignal,
-  useTask$,
-  type PropFunction,
-  type QwikChangeEvent,
-  type QwikFocusEvent,
-} from '@builder.io/qwik';
+import { component$, useSignal, useTask$ } from '@builder.io/qwik';
 import clsx from 'clsx';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type TextInputProps = {
-  ref: PropFunction<(element: Element) => void>;
+  ref: (element: Element) => void;
   type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
   name: string;
   value: string | number | undefined;
-  onInput$: PropFunction<(event: Event, element: HTMLInputElement) => void>;
-  onChange$: PropFunction<
-    (
-      event: QwikChangeEvent<HTMLInputElement>,
-      element: HTMLInputElement
-    ) => void
-  >;
-  onBlur$: PropFunction<
-    (event: QwikFocusEvent<HTMLInputElement>, element: HTMLInputElement) => void
-  >;
+  onInput$: (event: Event, element: HTMLInputElement) => void;
+  onChange$: (event: Event, element: HTMLInputElement) => void;
+  onBlur$: (event: Event, element: HTMLInputElement) => void;
   placeholder?: string;
   required?: boolean;
   class?: string;

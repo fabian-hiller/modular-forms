@@ -1,5 +1,4 @@
-import type { QRL } from '@builder.io/qwik';
-import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import type { JSXOutput, QRL } from '@builder.io/qwik';
 import { getFieldArrayStore } from '../utils';
 import type {
   FieldArrayPath,
@@ -25,7 +24,7 @@ export type FieldArrayProps<
   name: TFieldArrayName;
   children: (
     store: FieldArrayStore<TFieldValues, TFieldArrayName>
-  ) => JSX.Element;
+  ) => JSXOutput;
   validate?: Maybe<MaybeArray<QRL<ValidateFieldArray<number[]>>>>;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
@@ -42,7 +41,7 @@ export function FieldArray<
   children,
   name,
   ...props
-}: FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>): JSX.Element {
+}: FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>): JSXOutput {
   // Get store of specified field
   const fieldArray = getFieldArrayStore(props.of, name)!;
 

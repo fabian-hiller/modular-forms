@@ -10,16 +10,7 @@ import {
   valiForm$,
   formAction$,
 } from '@modular-forms/qwik';
-import {
-  array,
-  boolean,
-  type Input,
-  number,
-  object,
-  optional,
-  special,
-  string,
-} from 'valibot';
+import * as v from 'valibot';
 import {
   FormHeader,
   TextInput,
@@ -33,24 +24,24 @@ import {
 
 const isBlob = (input: unknown) => input instanceof Blob;
 
-const SpecialSchema = object({
-  number: number(),
-  range: number(),
-  checkbox: object({
-    array: array(string()),
-    boolean: boolean(),
+const SpecialSchema = v.object({
+  number: v.number(),
+  range: v.number(),
+  checkbox: v.object({
+    array: v.array(v.string()),
+    boolean: v.boolean(),
   }),
-  select: object({
-    array: array(string()),
-    string: optional(string()),
+  select: v.object({
+    array: v.array(v.string()),
+    string: v.optional(v.string()),
   }),
-  file: object({
-    list: array(special<NoSerialize<Blob>>(isBlob)),
-    item: optional(special<NoSerialize<Blob>>(isBlob)),
+  file: v.object({
+    list: v.array(v.special<NoSerialize<Blob>>(isBlob)),
+    item: v.optional(v.special<NoSerialize<Blob>>(isBlob)),
   }),
 });
 
-type SpecialForm = Input<typeof SpecialSchema>;
+type SpecialForm = v.Input<typeof SpecialSchema>;
 
 const getInitFormValues = (): InitialValues<SpecialForm> => ({
   number: 0,

@@ -1,4 +1,4 @@
-import type { JSX } from '@builder.io/qwik/jsx-runtime';
+import type { JSXOutput } from '@builder.io/qwik';
 import type { FieldProps, FormProps, FieldArrayProps } from '../components';
 import { Field, Form, FieldArray } from '../components';
 import type {
@@ -32,7 +32,7 @@ export function useForm<
   {
     Form: (
       props: Omit<FormProps<TFieldValues, TResponseData>, 'of' | 'action'>
-    ) => JSX.Element;
+    ) => JSXOutput;
     Field: <TFieldName extends FieldPath<TFieldValues>>(
       props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
         ? PartialKey<
@@ -40,13 +40,13 @@ export function useForm<
             'type'
           >
         : Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>
-    ) => JSX.Element;
+    ) => JSXOutput;
     FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
       props: Omit<
         FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>,
         'of'
       >
-    ) => JSX.Element;
+    ) => JSXOutput;
   }
 ] {
   // Use form store
@@ -59,6 +59,7 @@ export function useForm<
       Form: (
         props: Omit<FormProps<TFieldValues, TResponseData>, 'of' | 'action'>
       ) => Form({ of: form, action: options.action, ...props }),
+      // @ts-ignore FIXME: Resolve type error
       Field: <TFieldName extends FieldPath<TFieldValues>>(
         props: FieldPathValue<
           TFieldValues,

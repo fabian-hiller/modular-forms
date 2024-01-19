@@ -35,7 +35,7 @@ export default component$(() => {
         <Field
           name="email"
           validate={[
-            required('Please enter your email.'),
+            required<string>('Please enter your email.'),
             email('The email address is badly formatted.'),
           ]}
         >
@@ -54,7 +54,7 @@ export default component$(() => {
         <Field
           name="password"
           validate={[
-            required('Please enter your password.'),
+            required<string>('Please enter your password.'),
             minLength(8, 'You password must have 8 characters or more.'),
           ]}
         >
