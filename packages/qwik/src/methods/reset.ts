@@ -40,7 +40,7 @@ export type ResetOptions<
 }>;
 
 /**
- * Resets the entire form, several fields and field arrays or a singel field or
+ * Resets the entire form, several fields and field arrays or a single field or
  * field array.
  *
  * @param form The form to be reset.
@@ -55,7 +55,7 @@ export function reset<
 ): void;
 
 /**
- * Resets the entire form, several fields and field arrays or a singel field or
+ * Resets the entire form, several fields and field arrays or a single field or
  * field array.
  *
  * @param form The form to be reset.
@@ -73,7 +73,7 @@ export function reset<
 ): void;
 
 /**
- * Resets the entire form, several fields and field arrays or a singel field or
+ * Resets the entire form, several fields and field arrays or a single field or
  * field array.
  *
  * @param form The form to be reset.
