@@ -20,7 +20,7 @@ import type {
   ResponseData,
   TransformField,
   ValidateField,
-} from '../types';
+} from '../types/index.js';
 import {
   getElementInput,
   handleFieldEvent,

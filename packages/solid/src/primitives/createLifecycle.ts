@@ -14,7 +14,7 @@ import type {
   TransformField,
   ValidateField,
   ValidateFieldArray,
-} from '../types';
+} from '../types/index.js';
 import { getUniqueId, updateFormState } from '../utils';
 
 /**

@@ -5,7 +5,7 @@ import type {
   FormStore,
   Maybe,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Value type of the set response options.

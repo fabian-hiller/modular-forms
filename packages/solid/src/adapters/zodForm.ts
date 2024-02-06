@@ -4,7 +4,7 @@ import type {
   ValidateForm,
   PartialValues,
   FormErrors,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Creates a validation functions that parses the Zod schema of a form.

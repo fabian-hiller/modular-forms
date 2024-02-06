@@ -7,7 +7,7 @@ import type {
   FieldPath,
   FieldArrayPath,
   FormErrors,
-} from '../types';
+} from '../types/index.js';
 import {
   getFilteredNames,
   getOptions,

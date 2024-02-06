@@ -7,7 +7,7 @@ import type {
   FieldValues,
   InternalFieldStore,
   Maybe,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Returns the current input of the element.

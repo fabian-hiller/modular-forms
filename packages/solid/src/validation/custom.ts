@@ -1,4 +1,4 @@
-import type { FieldValue, Maybe, MaybePromise } from '../types';
+import type { FieldValue, Maybe, MaybePromise } from '../types/index.js';
 
 /**
  * Creates a custom validation function.

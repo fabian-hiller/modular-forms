@@ -6,7 +6,7 @@ import type {
   FieldValues,
   FormStore,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getUniqueId } from './getUniqueId';
 import { setFieldArrayState } from './setFieldArrayState';
 import { setFieldState } from './setFieldState';

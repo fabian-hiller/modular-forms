@@ -9,7 +9,7 @@ import type {
   Maybe,
   ResponseData,
   ValidationMode,
-} from '../types';
+} from '../types/index.js';
 import { validate } from '../methods';
 
 /**

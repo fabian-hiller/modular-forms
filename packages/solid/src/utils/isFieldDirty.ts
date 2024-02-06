@@ -1,4 +1,4 @@
-import type { FieldValue, Maybe } from '../types';
+import type { FieldValue, Maybe } from '../types/index.js';
 
 /**
  * Returns whether the field is dirty.

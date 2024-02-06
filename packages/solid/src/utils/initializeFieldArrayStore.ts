@@ -5,7 +5,7 @@ import type {
   FormStore,
   InternalFieldArrayStore,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getFieldArrayStore } from './getFieldArrayStore';
 import { getPathValue } from './getPathValue';
 import { getUniqueId } from './getUniqueId';

@@ -5,7 +5,7 @@ import type {
   InternalFieldStore,
   Maybe,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Returns the store of a field.

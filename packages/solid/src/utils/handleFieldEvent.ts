@@ -8,7 +8,7 @@ import type {
   InternalFieldStore,
   ResponseData,
   ValidationMode,
-} from '../types';
+} from '../types/index.js';
 import { updateFieldDirty } from './updateFieldDirty';
 import { validateIfRequired } from './validateIfRequired';
 

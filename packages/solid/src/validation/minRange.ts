@@ -1,4 +1,4 @@
-import type { MaybeValue } from '../types';
+import type { MaybeValue } from '../types/index.js';
 
 type Value = MaybeValue<string | number | Date>;
 

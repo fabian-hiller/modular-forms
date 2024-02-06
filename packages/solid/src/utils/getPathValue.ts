@@ -6,7 +6,7 @@ import type {
   FieldValues,
   Maybe,
   PartialValues,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Returns the value of a dot path in an object.

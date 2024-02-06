@@ -1,5 +1,5 @@
 import { untrack } from 'solid-js';
-import type { FieldPath, FieldValues, FormStore, ResponseData } from '../types';
+import type { FieldPath, FieldValues, FormStore, ResponseData } from '../types/index.js';
 import { getFieldStore } from '../utils';
 
 /**

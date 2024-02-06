@@ -5,7 +5,7 @@ import type {
   FieldPath,
   FieldArrayPath,
   Maybe,
-} from '../types';
+} from '../types/index.js';
 import { setError, type SetErrorOptions } from './setError';
 
 /**

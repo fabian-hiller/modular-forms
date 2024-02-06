@@ -4,7 +4,7 @@ import type {
   FormStore,
   RawFieldArrayState,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { initializeFieldArrayStore } from './initializeFieldArrayStore';
 
 /**
