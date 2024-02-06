@@ -12,6 +12,7 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldType,
+  FieldValue,
   FieldValues,
   FormStore,
   Maybe,
@@ -27,6 +28,8 @@ import {
   handleFieldEvent,
   initializeFieldStore,
 } from '../utils';
+import type { SetValueOptions } from '../methods/setValue';
+import { setValue } from '../methods/setValue';
 
 /**
  * Value type ot the field store.
@@ -54,6 +57,7 @@ export type FieldElementProps<
   ref: RefCallback<FieldElement>;
   onChange: ChangeEventHandler<FieldElement>;
   onBlur: FocusEventHandler<FieldElement>;
+  onData: (data: FieldValue, options?: SetValueOptions) => void;
 };
 
 /**
@@ -166,6 +170,9 @@ export function Field<
             onBlur(event) {
               handleFieldEvent(form, field, name, event, ['touched', 'blur']);
             },
+            onData(data, options) {
+              setValue(form, name, data, options);
+            }
           }),
           [field, form, name, type]
         )

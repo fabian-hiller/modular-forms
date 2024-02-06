@@ -8,6 +8,7 @@ import type {
   FieldPath,
   FieldPathValue,
   FieldType,
+  FieldValue,
   FieldValues,
   FormStore,
   Maybe,
@@ -23,6 +24,8 @@ import {
   handleFieldEvent,
   initializeFieldStore,
 } from '../utils';
+import { setValue } from '../methods/setValue';
+import type { SetValueOptions } from '../methods/setValue';
 
 /**
  * Value type ot the field store.
@@ -51,6 +54,7 @@ export type FieldElementProps<
   onInput: JSX.GenericEventHandler<FieldElement>;
   onChange: JSX.GenericEventHandler<FieldElement>;
   onBlur: JSX.FocusEventHandler<FieldElement>;
+  onData: (data: FieldValue, options?: SetValueOptions) => void;
 };
 
 /**
@@ -164,6 +168,9 @@ export function Field<
             onBlur(event) {
               handleFieldEvent(form, field, name, event, ['touched', 'blur']);
             },
+            onData(data, options) {
+              setValue(form, name, data, options);
+            }
           }),
           [field, form, name, type]
         )

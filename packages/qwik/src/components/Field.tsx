@@ -9,6 +9,7 @@ import type {
   FieldPathValue,
   FieldStore,
   FieldType,
+  FieldValue,
   FieldValues,
   FormStore,
   Maybe,
@@ -20,6 +21,8 @@ import type {
   ValidateField,
 } from '../types';
 import { Lifecycle } from './Lifecycle';
+import type { SetValueOptions } from '../methods/setValue';
+import { setValue } from '../methods/setValue';
 
 /**
  * Value type of the field element props.
@@ -34,6 +37,7 @@ export type FieldElementProps<
   onInput$: QRL<(event: FieldEvent, element: FieldElement) => void>;
   onChange$: QRL<(event: FieldEvent, element: FieldElement) => void>;
   onBlur$: QRL<(event: FieldEvent, element: FieldElement) => void>;
+  onData$: QRL<(data: FieldValue, options?: SetValueOptions) => void>;
 };
 
 /**
@@ -112,6 +116,9 @@ export function Field<
 
             'blur',
           ]);
+        }),
+        onData$: $((data: FieldValue, options?: SetValueOptions) => {
+          setValue(form, name, data, options);
         }),
       })}
     </Lifecycle>
