@@ -22,6 +22,10 @@ export default defineConfig(() => {
         ],
       },
     },
-    plugins: [react()],
+    plugins: [react({
+      babel: {
+        plugins: [["module:@preact/signals-react-transform"]]
+      }
+    })],
   };
 });
