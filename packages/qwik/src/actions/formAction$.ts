@@ -80,11 +80,26 @@ export function formActionQrl<
           .get('content-type')
           ?.split(/[;,]/, 1)[0];
 
+        const getFormData = async () => {
+          const data = await event.parseBody()
+          const formData = new FormData();
+          if (typeof data === 'object' && data !== null) {
+            Object.entries(data).forEach(([key, value]) => {
+              if (value instanceof File) {
+                formData.append(key, value, value.name);
+              } else {
+                formData.append(key, value);
+              }
+            });
+          }
+          return formData
+        }
+
         // Get form values from form or JSON data
         const values: PartialValues<TFieldValues> =
           type === 'application/x-www-form-urlencoded' ||
           type === 'multipart/form-data'
-            ? getFormDataValues(await event.request.formData(), formDataInfo)
+            ? getFormDataValues(await getFormData(), formDataInfo)
             : (jsonData as PartialValues<TFieldValues>);
 
         // Validate values and get errors if necessary
