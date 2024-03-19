@@ -80,7 +80,6 @@ export function formActionQrl<
           .get('content-type')
           ?.split(/[;,]/, 1)[0];
 
-
         // Get form values from form or JSON data
         const values: PartialValues<TFieldValues> =
           type === 'application/x-www-form-urlencoded' ||
