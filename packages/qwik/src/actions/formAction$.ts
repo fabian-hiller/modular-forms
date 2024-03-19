@@ -1,23 +1,23 @@
-import { $, type QRL, implicit$FirstArg } from '@builder.io/qwik';
+import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
 import {
-  type RequestEventAction,
   globalActionQrl,
   type Action,
+  type RequestEventAction,
 } from '@builder.io/qwik-city';
 import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
 import { isDev } from '@builder.io/qwik/build';
 import { FormError } from '../exceptions';
 import type {
   FieldValues,
-  ResponseData,
+  FormActionStore,
+  FormDataInfo,
+  FormErrors,
   FormResponse,
   Maybe,
-  FormErrors,
   MaybePromise,
-  ValidateForm,
-  FormDataInfo,
-  FormActionStore,
   PartialValues,
+  ResponseData,
+  ValidateForm,
 } from '../types';
 import { getFormDataValues } from '../utils';
 
@@ -48,8 +48,8 @@ export type FormActionFunction<
 export type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
-      validate: QRL<ValidateForm<TFieldValues>>;
-    });
+    validate: QRL<ValidateForm<TFieldValues>>;
+  });
 
 /**
  * See {@link formAction$}
@@ -80,26 +80,12 @@ export function formActionQrl<
           .get('content-type')
           ?.split(/[;,]/, 1)[0];
 
-        const getFormData = async () => {
-          const data = await event.parseBody()
-          const formData = new FormData();
-          if (typeof data === 'object' && data !== null) {
-            Object.entries(data).forEach(([key, value]) => {
-              if (value instanceof File) {
-                formData.append(key, value, value.name);
-              } else {
-                formData.append(key, value);
-              }
-            });
-          }
-          return formData
-        }
 
         // Get form values from form or JSON data
         const values: PartialValues<TFieldValues> =
           type === 'application/x-www-form-urlencoded' ||
-          type === 'multipart/form-data'
-            ? getFormDataValues(await getFormData(), formDataInfo)
+            type === 'multipart/form-data'
+            ? getFormDataValues(event.sharedMap.get('@actionFormData'), formDataInfo)
             : (jsonData as PartialValues<TFieldValues>);
 
         // Validate values and get errors if necessary
