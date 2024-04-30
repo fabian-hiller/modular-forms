@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.24.0 (April 30, 2024)
 
 - Replace `getFormDataValues` util with `decode-formdata` package
 - Change `FormData` access in `formActionQrl` to `event.sharedMap.get('@actionFormData')` (pull request #194)
