@@ -100,7 +100,7 @@ type TypeTemplatePath<
 > = Value extends Type
   ? Value extends Array<any> | Record<string, any>
     ? `${Key}` | `${Key}.${TypeTemplatePaths<Value, Type>}`
-    : `${Key}`
+    : `${Key extends number ? '$' : Key}`
   : Value extends FieldValues | (FieldValue | FieldValues)[]
   ? `${Key extends number ? '$' : Key}.${TypeTemplatePaths<Value, Type>}`
   : never;

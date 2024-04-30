@@ -1,25 +1,25 @@
-import { $, type QRL, implicit$FirstArg } from '@builder.io/qwik';
+import { $, implicit$FirstArg, noSerialize, type QRL } from '@builder.io/qwik';
 import {
-  type RequestEventAction,
   globalActionQrl,
   type Action,
+  type RequestEventAction,
 } from '@builder.io/qwik-city';
 import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
 import { isDev } from '@builder.io/qwik/build';
+import { decode } from 'decode-formdata';
 import { FormError } from '../exceptions';
 import type {
   FieldValues,
-  ResponseData,
+  FormActionStore,
+  FormDataInfo,
+  FormErrors,
   FormResponse,
   Maybe,
-  FormErrors,
   MaybePromise,
-  ValidateForm,
-  FormDataInfo,
-  FormActionStore,
   PartialValues,
+  ResponseData,
+  ValidateForm,
 } from '../types';
-import { getFormDataValues } from '../utils';
 
 /**
  * Value type of the form action result.
@@ -84,7 +84,12 @@ export function formActionQrl<
         const values: PartialValues<TFieldValues> =
           type === 'application/x-www-form-urlencoded' ||
           type === 'multipart/form-data'
-            ? getFormDataValues(await event.request.formData(), formDataInfo)
+            ? decode(
+                event.sharedMap.get('@actionFormData'),
+                formDataInfo,
+                ({ output }) =>
+                  output instanceof Blob ? noSerialize(output) : output
+              )
             : (jsonData as PartialValues<TFieldValues>);
 
         // Validate values and get errors if necessary

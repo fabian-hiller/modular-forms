@@ -58,6 +58,10 @@ importers:
         version: 3.21.4
 
   packages/qwik:
+    dependencies:
+      decode-formdata:
+        specifier: ^0.7.2
+        version: 0.7.2
     devDependencies:
       '@builder.io/qwik':
         specifier: ^1.4.0
@@ -5138,6 +5142,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /decode-formdata@0.7.2:
+    resolution: {integrity: sha512-TaUPp8jmomdGWNind2R9MBIgZfYM4XSTebC+5d28dDx4k4BuZ5fiDvCutY0XQd2UJxrAHWq6CGXLmmbP5Ty8Vw==}
+    dev: false
+
   /decode-named-character-reference@1.0.2:
     resolution: {integrity: sha512-O8x12RzrUF8xyVcY0KJowWsmaJxQbmy0/EtnNtHRpsOcT7dFk5W598coHqBVpmWo1oQQfsCqfCmkZN5DJrZVdg==}
     dependencies:
@@ -8504,7 +8512,7 @@ packages:
       postcss: 8.4.33
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
-      resolve: 1.22.8
+      resolve: 1.22.2
     dev: true
 
   /postcss-js@4.0.1(postcss@8.4.32):
@@ -8578,7 +8586,7 @@ packages:
       postcss: ^8.2.14
     dependencies:
       postcss: 8.4.33
-      postcss-selector-parser: 6.0.15
+      postcss-selector-parser: 6.0.13
     dev: true
 
   /postcss-selector-parser@6.0.13:
