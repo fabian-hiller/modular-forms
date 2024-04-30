@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Replace `getFormDataValues` util with `decode-formdata` package
+- Change `FormData` access in `formActionQrl` to `event.sharedMap.get('@actionFormData')` (pull request #194)
+
 ## v0.23.1 (January 19, 2023)
 
 - Fix `FieldElementProps` type by using `QRL` for functions (issue #168)

@@ -1,4 +1,4 @@
-import { $, implicit$FirstArg, type QRL } from '@builder.io/qwik';
+import { $, implicit$FirstArg, noSerialize, type QRL } from '@builder.io/qwik';
 import {
   globalActionQrl,
   type Action,
@@ -6,6 +6,7 @@ import {
 } from '@builder.io/qwik-city';
 import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
 import { isDev } from '@builder.io/qwik/build';
+import { decode } from 'decode-formdata';
 import { FormError } from '../exceptions';
 import type {
   FieldValues,
@@ -19,7 +20,6 @@ import type {
   ResponseData,
   ValidateForm,
 } from '../types';
-import { getFormDataValues } from '../utils';
 
 /**
  * Value type of the form action result.
@@ -48,8 +48,8 @@ export type FormActionFunction<
 export type FormActionArg2<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
-    validate: QRL<ValidateForm<TFieldValues>>;
-  });
+      validate: QRL<ValidateForm<TFieldValues>>;
+    });
 
 /**
  * See {@link formAction$}
@@ -83,8 +83,13 @@ export function formActionQrl<
         // Get form values from form or JSON data
         const values: PartialValues<TFieldValues> =
           type === 'application/x-www-form-urlencoded' ||
-            type === 'multipart/form-data'
-            ? getFormDataValues(event.sharedMap.get('@actionFormData'), formDataInfo)
+          type === 'multipart/form-data'
+            ? decode(
+                event.sharedMap.get('@actionFormData'),
+                formDataInfo,
+                ({ output }) =>
+                  output instanceof Blob ? noSerialize(output) : output
+              )
             : (jsonData as PartialValues<TFieldValues>);
 
         // Validate values and get errors if necessary

@@ -7,7 +7,6 @@ export * from './getFieldNames';
 export * from './getFieldState';
 export * from './getFieldStore';
 export * from './getFilteredNames';
-export * from './getFormDataValues';
 export * from './getInitialFieldArrayStore';
 export * from './getInitialFieldStore';
 export * from './getInitialStores';
