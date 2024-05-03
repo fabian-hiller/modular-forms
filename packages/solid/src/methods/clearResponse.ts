@@ -1,4 +1,4 @@
-import type { FieldValues, FormStore, ResponseData } from '../types';
+import type { FieldValues, FormStore, ResponseData } from '../types/index.js';
 
 /**
  * Clears the response of the form.

@@ -1,5 +1,5 @@
 import { untrack } from 'solid-js';
-import type { FieldValues, FormStore, ResponseData } from '../types';
+import type { FieldValues, FormStore, ResponseData } from '../types/index.js';
 
 /**
  * Validates and submits the form.

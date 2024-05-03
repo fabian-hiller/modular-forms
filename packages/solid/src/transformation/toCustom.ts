@@ -1,4 +1,4 @@
-import type { FieldEvent, FieldValue, Maybe, TransformField } from '../types';
+import type { FieldEvent, FieldValue, Maybe, TransformField } from '../types/index.js';
 
 /**
  * Value type of the transform mode.

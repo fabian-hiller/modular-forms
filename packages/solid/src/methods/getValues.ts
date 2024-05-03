@@ -7,7 +7,7 @@ import type {
   Maybe,
   PartialValues,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import {
   getFieldArrayStore,
   getFieldStore,

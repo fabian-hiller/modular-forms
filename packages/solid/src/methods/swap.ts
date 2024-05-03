@@ -7,7 +7,7 @@ import type {
   RawFieldArrayState,
   RawFieldState,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import {
   getFieldArrayNames,
   getFieldArrayState,

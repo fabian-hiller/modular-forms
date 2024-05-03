@@ -5,7 +5,7 @@ import type {
   FieldValues,
   FormStore,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getFieldArrayStore, getUniqueId, setFieldArrayValue } from '../utils';
 
 /**

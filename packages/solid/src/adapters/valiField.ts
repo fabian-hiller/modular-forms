@@ -1,5 +1,5 @@
 import type { BaseSchema, BaseSchemaAsync } from 'valibot';
-import type { FieldValue, ValidateField, Maybe } from '../types';
+import type { FieldValue, ValidateField, Maybe } from '../types/index.js';
 
 /**
  * Creates a validation functions that parses the Valibot schema of a field.

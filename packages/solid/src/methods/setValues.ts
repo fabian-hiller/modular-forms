@@ -8,7 +8,7 @@ import type {
   Maybe,
   PartialValues,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getUniqueId, initializeFieldArrayStore } from '../utils';
 import { setValue } from './setValue';
 import { validate } from './validate';

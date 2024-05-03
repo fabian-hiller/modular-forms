@@ -5,7 +5,7 @@ import type {
   InternalFieldArrayStore,
   InternalFieldStore,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Returns a tuple with all field and field array stores of a form.

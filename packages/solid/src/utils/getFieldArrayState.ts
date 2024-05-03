@@ -6,7 +6,7 @@ import type {
   Maybe,
   RawFieldArrayState,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { getFieldArrayStore } from './getFieldArrayStore';
 
 /**

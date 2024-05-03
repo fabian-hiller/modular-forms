@@ -8,7 +8,7 @@ import type {
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
-} from '../types';
+} from '../types/index.js';
 import { initializeFieldArrayStore } from '../utils';
 
 /**

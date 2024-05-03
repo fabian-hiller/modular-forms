@@ -11,7 +11,7 @@ import type {
   MaybeValue,
   PartialKey,
   ResponseData,
-} from '../types';
+} from '../types/index.js';
 import { createFormStore } from './createFormStore';
 
 /**

@@ -5,7 +5,7 @@ import type {
   FieldArrayPath,
   FormStore,
   Maybe,
-} from '../types';
+} from '../types/index.js';
 import { removeInvalidNames } from './removeInvalidNames';
 
 /**

@@ -1,4 +1,4 @@
-import type { FieldValues, FormErrors, Maybe } from '../types';
+import type { FieldValues, FormErrors, Maybe } from '../types/index.js';
 
 /**
  * An explicit form error with useful information for the user.
