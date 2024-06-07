@@ -36,12 +36,12 @@ const SpecialSchema = v.object({
     string: v.optional(v.string()),
   }),
   file: v.object({
-    list: v.array(v.special<NoSerialize<Blob>>(isBlob)),
-    item: v.optional(v.special<NoSerialize<Blob>>(isBlob)),
+    list: v.array(v.custom<NoSerialize<Blob>>(isBlob)),
+    item: v.optional(v.custom<NoSerialize<Blob>>(isBlob)),
   }),
 });
 
-type SpecialForm = v.Input<typeof SpecialSchema>;
+type SpecialForm = v.InferInput<typeof SpecialSchema>;
 
 const getInitFormValues = (): InitialValues<SpecialForm> => ({
   number: 0,

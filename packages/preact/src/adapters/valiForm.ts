@@ -1,4 +1,9 @@
-import type { BaseSchema, BaseSchemaAsync } from 'valibot';
+import {
+  type GenericSchema,
+  type GenericSchemaAsync,
+  getDotPath,
+  safeParseAsync,
+} from 'valibot';
 import type {
   FieldValues,
   ValidateForm,
@@ -14,18 +19,18 @@ import type {
  * @returns A validation function.
  */
 export function valiForm<TFieldValues extends FieldValues>(
-  schema: BaseSchema<TFieldValues, any> | BaseSchemaAsync<TFieldValues, any>
+  schema: GenericSchema | GenericSchemaAsync
 ): ValidateForm<TFieldValues> {
   return async (values: PartialValues<TFieldValues>) => {
-    const result = await schema._parse(values, { abortPipeEarly: true });
-    return result.issues
-      ? result.issues.reduce<FormErrors<TFieldValues>>(
-          (errors, issue) => ({
-            ...errors,
-            [issue.path!.map(({ key }) => key).join('.')]: issue.message,
-          }),
-          {}
-        )
-      : {};
+    const result = await safeParseAsync(schema, values, {
+      abortPipeEarly: true,
+    });
+    const formErrors: Record<string, string> = {};
+    if (result.issues) {
+      for (const issue of result.issues) {
+        formErrors[getDotPath(issue)!] = issue.message;
+      }
+    }
+    return formErrors as FormErrors<TFieldValues>;
   };
 }

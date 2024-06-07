@@ -17,15 +17,16 @@ export function zodFormQrl<TFieldValues extends FieldValues>(
 ): QRL<ValidateForm<TFieldValues>> {
   return $(async (values: PartialValues<TFieldValues>) => {
     const result = await getParsedZodSchema(schema, values);
-    return result.success
-      ? ({} as FormErrors<TFieldValues>)
-      : (result.error.issues.reduce<any>((errors, error) => {
-          const path = error.path.join('.');
-          if (!errors[path]) {
-            errors[path] = error.message;
-          }
-          return errors;
-        }, {}) as FormErrors<TFieldValues>);
+    const formErrors: Record<string, string> = {};
+    if (!result.success) {
+      for (const issue of result.error.issues) {
+        const path = issue.path.join('.');
+        if (!formErrors[path]) {
+          formErrors[path] = issue.message;
+        }
+      }
+    }
+    return formErrors as FormErrors<TFieldValues>;
   });
 }
 

@@ -1,4 +1,8 @@
-import type { BaseSchema, BaseSchemaAsync } from 'valibot';
+import {
+  type GenericSchema,
+  type GenericSchemaAsync,
+  safeParseAsync,
+} from 'valibot';
 import type { FieldValue, ValidateField, Maybe } from '../types';
 
 /**
@@ -9,10 +13,12 @@ import type { FieldValue, ValidateField, Maybe } from '../types';
  * @returns A validation function.
  */
 export function valiField<TFieldValue extends FieldValue>(
-  schema: BaseSchema<TFieldValue, any> | BaseSchemaAsync<TFieldValue, any>
+  schema: GenericSchema | GenericSchemaAsync
 ): ValidateField<TFieldValue> {
   return async (value: Maybe<TFieldValue>) => {
-    const result = await schema._parse(value, { abortPipeEarly: true });
+    const result = await safeParseAsync(schema, value, {
+      abortPipeEarly: true,
+    });
     return result.issues?.[0]?.message || '';
   };
 }

@@ -29,23 +29,24 @@ import {
 } from '~/components';
 
 const TodoSchema = v.object({
-  heading: v.string([v.minLength(1, 'Please enter a heading.')]),
-  todos: v.array(
-    v.object({
-      label: v.string([v.minLength(1, 'Please enter a label.')]),
-      deadline: v.string([
-        v.minLength(1, 'Please enter a deadline.'),
-        v.isoDate('The specified date is invalid.'),
-      ]),
-    }),
-    [
-      v.minLength(1, 'Please add at least one todo.'),
-      v.maxLength(4, 'You can add a maximum of 4 todos.'),
-    ]
+  heading: v.pipe(v.string(), v.nonEmpty('Please enter a heading.')),
+  todos: v.pipe(
+    v.array(
+      v.object({
+        label: v.pipe(v.string(), v.nonEmpty('Please enter a label.')),
+        deadline: v.pipe(
+          v.string(),
+          v.nonEmpty('Please enter a deadline.'),
+          v.isoDate('The specified date is invalid.')
+        ),
+      })
+    ),
+    v.nonEmpty('Please add at least one todo.'),
+    v.maxLength(4, 'You can add a maximum of 4 todos.')
   ),
 });
 
-type TodoForm = v.Input<typeof TodoSchema>;
+type TodoForm = v.InferInput<typeof TodoSchema>;
 
 const getInitFormValues = (): InitialValues<TodoForm> => ({
   heading: 'Shopping list',

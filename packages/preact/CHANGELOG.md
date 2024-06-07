@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## v0.8.0 (June 06, 2024)
+
+- Upgrade `valiField` and `valiForm` adapter for Valibot v0.31.0
+- Improve `zodForm` adapter
+
 ## v0.7.0 (September 30, 2023)
 
 - Add `submit` method (issue #130, pull request #136)
