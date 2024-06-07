@@ -42,13 +42,13 @@
   },
   "scripts": {
     "build": "vite build --mode lib && tsc",
-    "format": "prettier --write .",
-    "format.check": "prettier --check .",
-    "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit",
+    "format": "prettier --write \"./src\"",
+    "format.check": "prettier --check \"./src\"",
+    "lint": "eslint \"./src/**/*.ts*\" && tsc --noEmit",
     "publish": "npm publish"
   },
   "dependencies": {
-    "decode-formdata": "^0.7.2",
+    "decode-formdata": ">=0.7.5 <1",
     "valibot": ">=0.31.0 <1"
   },
   "peerDependencies": {
@@ -56,17 +56,17 @@
     "@builder.io/qwik-city": "^1.4.0"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^1.4.0",
-    "@builder.io/qwik-city": "^1.4.0",
-    "@types/eslint": "^8.56.2",
-    "@types/node": "^20.11.5",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
-    "@typescript-eslint/utils": "^6.19.0",
-    "eslint": "^8.56.0",
-    "eslint-plugin-qwik": "^1.4.0",
-    "typescript": "4.9.5",
-    "vite": "^4.5.2",
-    "zod": "^3.22.4"
+    "@builder.io/qwik": "^1.5.5",
+    "@builder.io/qwik-city": "^1.5.5",
+    "@types/eslint": "^8.56.10",
+    "@types/node": "^20.14.2",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
+    "@typescript-eslint/utils": "^7.12.0",
+    "eslint": "8.57.0",
+    "eslint-plugin-qwik": "^1.5.5",
+    "typescript": "5.4.5",
+    "vite": "^5.2.12",
+    "zod": "^3.23.8"
   }
 }

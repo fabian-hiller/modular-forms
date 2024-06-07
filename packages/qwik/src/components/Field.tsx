@@ -76,7 +76,16 @@ export function Field<
   ...props
 }: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
   ? PartialKey<FieldProps<TFieldValues, TResponseData, TFieldName>, 'type'>
-  : FieldProps<TFieldValues, TResponseData, TFieldName>): JSXOutput {
+  : FieldProps<TFieldValues, TResponseData, TFieldName>): JSXOutput;
+
+export function Field({
+  children,
+  name,
+  type,
+  ...props
+}:
+  | PartialKey<FieldProps<FieldValues, ResponseData, string>, 'type'>
+  | FieldProps<FieldValues, ResponseData, string>): JSXOutput {
   // Destructure props
   const { of: form } = props;
 
@@ -84,7 +93,6 @@ export function Field<
   const field = getFieldStore(form, name)!;
 
   return (
-    // @ts-ignore FIXME: Resolve type error
     <Lifecycle key={name} store={field} {...props}>
       {children(field, {
         name,

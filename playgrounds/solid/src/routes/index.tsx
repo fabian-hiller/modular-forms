@@ -1,4 +1,4 @@
-import { Navigate } from 'solid-start';
+import { Navigate } from '@solidjs/router';
 import { redirect } from '~/utils';
 
 export function GET() {

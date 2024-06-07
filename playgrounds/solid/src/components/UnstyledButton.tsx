@@ -1,5 +1,5 @@
 import { createSignal, JSX, Match, Switch } from 'solid-js';
-import { A } from 'solid-start';
+import { A } from '@solidjs/router';
 
 export type DefaultButtonProps =
   | {

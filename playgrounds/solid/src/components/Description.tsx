@@ -1,5 +1,5 @@
 import { Accessor } from 'solid-js';
-import { Meta } from 'solid-start';
+import { Meta } from '@solidjs/meta';
 
 type DescriptionProps = {
   children: string | Accessor<HTMLElement>;

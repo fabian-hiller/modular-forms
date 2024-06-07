@@ -1,7 +1,7 @@
 import { makeEventListener } from '@solid-primitives/event-listener';
 import { isClient } from '@solid-primitives/utils';
 import { createEffect, createSignal, For } from 'solid-js';
-import { A, useLocation } from 'solid-start';
+import { A, useLocation } from '@solidjs/router';
 
 type TabsProps = {
   items: string[];

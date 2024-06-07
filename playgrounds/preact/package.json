@@ -16,17 +16,17 @@
   },
   "dependencies": {
     "@modular-forms/preact": "workspace:*",
-    "@preact/signals": "^1.1.5",
-    "clsx": "^1.2.1",
-    "preact": "^10.16.0",
-    "preact-router": "^4.1.1"
+    "@preact/signals": "^1.2.3",
+    "clsx": "^2.1.1",
+    "preact": "^10.22.0",
+    "preact-router": "^4.1.2"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.5.0",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.25",
-    "tailwindcss": "^3.3.2",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.3"
+    "@preact/preset-vite": "^2.8.2",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.12"
   }
 }

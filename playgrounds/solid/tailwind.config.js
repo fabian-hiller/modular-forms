@@ -1,6 +1,6 @@
-const { fontFamily } = require('tailwindcss/defaultTheme');
-
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+import { fontFamily } from 'tailwindcss/defaultTheme';
+export default {
   content: ['./src/**/*.{ts,tsx}'],
   darkMode: 'class',
   future: {

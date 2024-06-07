@@ -48,42 +48,40 @@ export function createForm<
       >
     ) => JSX.Element;
   }
+];
+
+export function createForm(options?: FormOptions<FieldValues>): [
+  FormStore<FieldValues, ResponseData>,
+  {
+    Form: (
+      props: Omit<FormProps<FieldValues, ResponseData>, 'of'>
+    ) => JSX.Element;
+    Field: (
+      props: Omit<FieldProps<FieldValues, ResponseData, string>, 'of'>
+    ) => JSX.Element;
+    FieldArray: (
+      props: Omit<FieldArrayProps<FieldValues, ResponseData, string>, 'of'>
+    ) => JSX.Element;
+  }
 ] {
   // Create form store
-  const form = createFormStore<TFieldValues, TResponseData>(options);
+  const form = createFormStore<FieldValues, ResponseData>(options);
 
   // Return form store and linked components
   return [
     form,
     {
       Form: (
-        props: Omit<FormProps<TFieldValues, TResponseData>, 'of'>
+        props
         // eslint-disable-next-line solid/reactivity
       ) => Form(mergeProps({ of: form }, props)),
-      Field: <TFieldName extends FieldPath<TFieldValues>>(
-        props: FieldPathValue<
-          TFieldValues,
-          TFieldName
-        > extends MaybeValue<string>
-          ? PartialKey<
-              Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>,
-              'type'
-            >
-          : Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>
-      ) =>
+      Field: (props) =>
         Field(
           // eslint-disable-next-line solid/reactivity
-          mergeProps({ of: form }, props) as FieldProps<
-            TFieldValues,
-            TResponseData,
-            TFieldName
-          >
+          mergeProps({ of: form }, props)
         ),
-      FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
-        props: Omit<
-          FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>,
-          'of'
-        >
+      FieldArray: (
+        props
         // eslint-disable-next-line solid/reactivity
       ) => FieldArray(mergeProps({ of: form }, props)),
     },

@@ -48,39 +48,33 @@ export function useForm<
       >
     ) => JSX.Element;
   }
+];
+
+export function useForm(options?: FormOptions<FieldValues>): [
+  FormStore<FieldValues, ResponseData>,
+  {
+    Form: (
+      props: Omit<FormProps<FieldValues, ResponseData>, 'of'>
+    ) => JSX.Element;
+    Field: (
+      props: Omit<FieldProps<FieldValues, ResponseData, string>, 'of'>
+    ) => JSX.Element;
+    FieldArray: (
+      props: Omit<FieldArrayProps<FieldValues, ResponseData, string>, 'of'>
+    ) => JSX.Element;
+  }
 ] {
   // Create form store
-  const form = useFormStore<TFieldValues, TResponseData>(options);
+  const form = useFormStore(options);
 
   // Return form store and linked components
   return useMemo(
     () => [
       form,
       {
-        Form: (props: Omit<FormProps<TFieldValues, TResponseData>, 'of'>) =>
-          Form({ ...props, of: form }),
-        Field: <TFieldName extends FieldPath<TFieldValues>>(
-          props: FieldPathValue<
-            TFieldValues,
-            TFieldName
-          > extends MaybeValue<string>
-            ? PartialKey<
-                Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>,
-                'type'
-              >
-            : Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>
-        ) =>
-          Field({ ...props, of: form } as FieldProps<
-            TFieldValues,
-            TResponseData,
-            TFieldName
-          >),
-        FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
-          props: Omit<
-            FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>,
-            'of'
-          >
-        ) => FieldArray({ ...props, of: form }),
+        Form: (props) => Form({ ...props, of: form }),
+        Field: (props) => Field({ ...props, of: form }),
+        FieldArray: (props) => FieldArray({ ...props, of: form }),
       },
     ],
     [form]

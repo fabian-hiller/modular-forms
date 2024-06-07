@@ -38,6 +38,13 @@ export function setValue<
   form: FormStore<TFieldValues, TResponseData>,
   name: TFieldName,
   value: FieldPathValue<TFieldValues, TFieldName>,
+  options?: Maybe<SetValueOptions>
+): void;
+
+export function setValue(
+  form: FormStore<FieldValues, ResponseData>,
+  name: string,
+  value: FieldPathValue<FieldValues, string>,
   {
     shouldTouched = true,
     shouldDirty = true,

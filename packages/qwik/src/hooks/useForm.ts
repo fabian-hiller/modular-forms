@@ -48,40 +48,32 @@ export function useForm<
       >
     ) => JSXOutput;
   }
+];
+
+export function useForm(options: FormOptions<FieldValues, ResponseData>): [
+  FormStore<FieldValues, ResponseData>,
+  {
+    Form: (
+      props: Omit<FormProps<FieldValues, ResponseData>, 'of' | 'action'>
+    ) => JSXOutput;
+    Field: (
+      props: Omit<FieldProps<FieldValues, ResponseData, string>, 'of'>
+    ) => JSXOutput;
+    FieldArray: (
+      props: Omit<FieldArrayProps<FieldValues, ResponseData, string>, 'of'>
+    ) => JSXOutput;
+  }
 ] {
   // Use form store
-  const form = useFormStore<TFieldValues, TResponseData>(options);
+  const form = useFormStore(options);
 
   // Return form store and linked components
   return [
     form,
     {
-      Form: (
-        props: Omit<FormProps<TFieldValues, TResponseData>, 'of' | 'action'>
-      ) => Form({ of: form, action: options.action, ...props }),
-      // @ts-ignore FIXME: Resolve type error
-      Field: <TFieldName extends FieldPath<TFieldValues>>(
-        props: FieldPathValue<
-          TFieldValues,
-          TFieldName
-        > extends MaybeValue<string>
-          ? PartialKey<
-              Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>,
-              'type'
-            >
-          : Omit<FieldProps<TFieldValues, TResponseData, TFieldName>, 'of'>
-      ) =>
-        Field({ of: form, ...props } as FieldProps<
-          TFieldValues,
-          TResponseData,
-          TFieldName
-        >),
-      FieldArray: <TFieldArrayName extends FieldArrayPath<TFieldValues>>(
-        props: Omit<
-          FieldArrayProps<TFieldValues, TResponseData, TFieldArrayName>,
-          'of'
-        >
-      ) => FieldArray({ of: form, ...props }),
+      Form: (props) => Form({ of: form, action: options.action, ...props }),
+      Field: (props) => Field({ of: form, ...props }),
+      FieldArray: (props) => FieldArray({ of: form, ...props }),
     },
   ];
 }

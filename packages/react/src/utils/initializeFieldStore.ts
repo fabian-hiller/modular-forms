@@ -27,22 +27,27 @@ export function initializeFieldStore<
 >(
   form: FormStore<TFieldValues, TResponseData>,
   name: TFieldName
-): InternalFieldStore<TFieldValues, TFieldName> {
+): InternalFieldStore<TFieldValues, TFieldName>;
+
+export function initializeFieldStore(
+  form: FormStore<FieldValues, ResponseData>,
+  name: string
+): InternalFieldStore<FieldValues, string> {
   // Initialize store on first request
   if (!getFieldStore(form, name)) {
     // Get initial value of field
     const initialValue = getPathValue(name, form.internal.initialValues);
 
     // Add store of field to form
+    // @ts-expect-error
     form.internal.fields[name] = {
       // Signals
       elements: signal<FieldElement[]>([]),
       initialValue:
-        signal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(initialValue),
+        signal<Maybe<FieldPathValue<FieldValues, string>>>(initialValue),
       startValue:
-        signal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(initialValue),
-      value:
-        signal<Maybe<FieldPathValue<TFieldValues, TFieldName>>>(initialValue),
+        signal<Maybe<FieldPathValue<FieldValues, string>>>(initialValue),
+      value: signal<Maybe<FieldPathValue<FieldValues, string>>>(initialValue),
       error: signal(''),
       active: signal(false),
       touched: signal(false),

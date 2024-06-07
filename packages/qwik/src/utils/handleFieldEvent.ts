@@ -35,10 +35,19 @@ export async function handleFieldEvent<
   element: FieldElement,
   validationModes: Exclude<ValidationMode, 'submit'>[],
   inputValue?: FieldPathValue<TFieldValues, TFieldName>
-) {
+): Promise<void>;
+
+export async function handleFieldEvent(
+  form: FormStore<FieldValues, ResponseData>,
+  field: FieldStore<FieldValues, string>,
+  name: string,
+  event: FieldEvent,
+  element: FieldElement,
+  validationModes: Exclude<ValidationMode, 'submit'>[],
+  inputValue?: FieldPathValue<FieldValues, string>
+): Promise<void> {
   // Update value state
   if (inputValue !== undefined) {
-    // @ts-ignore FIXME: Resolve type error
     field.value = inputValue;
   }
 

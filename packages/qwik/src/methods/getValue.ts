@@ -34,13 +34,19 @@ export function getValue<
 >(
   form: FormStore<TFieldValues, TResponseData>,
   name: TFieldName,
+  options?: Maybe<GetValueOptions>
+): Maybe<FieldPathValue<TFieldValues, TFieldName>>;
+
+export function getValue(
+  form: FormStore<FieldValues, ResponseData>,
+  name: string,
   {
     shouldActive = true,
     shouldTouched = false,
     shouldDirty = false,
     shouldValid = false,
   }: Maybe<GetValueOptions> = {}
-): Maybe<FieldPathValue<TFieldValues, TFieldName>> {
+): Maybe<FieldPathValue<FieldValues, string>> {
   // Get store of specified field
   const field = getFieldStore(form, name);
 

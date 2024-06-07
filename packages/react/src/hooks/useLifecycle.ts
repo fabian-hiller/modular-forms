@@ -49,7 +49,9 @@ export function useLifecycle<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>
->({
+>(props: LifecycleProps<TFieldValues, TResponseData, TFieldName>): void;
+
+export function useLifecycle({
   of: form,
   name,
   store,
@@ -57,10 +59,9 @@ export function useLifecycle<
   transform,
   keepActive = false,
   keepState = true,
-}: LifecycleProps<TFieldValues, TResponseData, TFieldName>) {
+}: LifecycleProps<FieldValues, ResponseData, string>): void {
   useEffect(() => {
     // Add validation functions
-    // @ts-ignore FIXME: Resolve type error
     store.validate = validate
       ? Array.isArray(validate)
         ? validate

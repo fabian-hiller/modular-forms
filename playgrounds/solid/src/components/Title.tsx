@@ -1,4 +1,5 @@
-import { Title as SolidTitle, useLocation } from 'solid-start';
+import { Title as SolidTitle } from '@solidjs/meta';
+import { useLocation } from '@solidjs/router';
 
 type TitleProps = {
   children: string;

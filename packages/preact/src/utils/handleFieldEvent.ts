@@ -33,7 +33,16 @@ export function handleFieldEvent<
   event: FieldEvent,
   validationModes: Exclude<ValidationMode, 'submit'>[],
   inputValue?: FieldPathValue<TFieldValues, TFieldName>
-) {
+): void;
+
+export function handleFieldEvent(
+  form: FormStore<FieldValues, ResponseData>,
+  field: InternalFieldStore<FieldValues, string>,
+  name: string,
+  event: FieldEvent,
+  validationModes: Exclude<ValidationMode, 'submit'>[],
+  inputValue?: FieldPathValue<FieldValues, string>
+): void {
   batch(() => {
     // Update value state
     field.value.value = field.transform.reduce(

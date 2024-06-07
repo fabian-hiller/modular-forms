@@ -4,6 +4,7 @@ All notable changes to the library will be documented in this file.
 
 ## v0.25.0 (June 06, 2024)
 
+- Upgrade `decode-formdata` package to v0.7.5
 - Upgrade `valiField$` and `valiForm$` adapter for Valibot v0.31.0
 - Improve `zodForm$` adapter
 

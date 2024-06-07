@@ -54,7 +54,7 @@ type LifecycleProps<
  * Component that handles the lifecycle dependent state of a field or field
  * array.
  */
-export const Lifecycle: <
+export function Lifecycle<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
   TFieldName extends FieldPath<TFieldValues>,
@@ -65,89 +65,91 @@ export const Lifecycle: <
   >,
   key: string | null,
   flags: number
-) => JSXOutput = component$(
-  <
-    TFieldValues extends FieldValues,
-    TResponseData extends ResponseData,
-    TFieldName extends FieldPath<TFieldValues>,
-    TFieldArrayName extends FieldArrayPath<TFieldValues>
-  >({
-    of: form,
-    store,
-    validate,
-    transform,
-    keepActive = false,
-    keepState = true,
-  }: LifecycleProps<
-    TFieldValues,
-    TResponseData,
-    TFieldName,
-    TFieldArrayName
-  >): JSX.Element => {
-    // TODO: Switch back to `useTask$` once issue #3193 is fixed
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(({ cleanup }) => {
-      // Add validation functions
-      // @ts-ignore FIXME: Resolve type error
-      store.internal.validate = validate
-        ? Array.isArray(validate)
-          ? validate
-          : [validate]
-        : [];
+): JSXOutput;
 
-      // Add transformation functions
-      if ('value' in store) {
-        store.internal.transform = transform
-          ? Array.isArray(transform)
-            ? transform
-            : [transform]
+export function Lifecycle(
+  props: PublicProps<LifecycleProps<FieldValues, ResponseData, string, string>>,
+  key: string | null,
+  flags: number
+): JSXOutput {
+  return component$(
+    ({
+      of: form,
+      store,
+      validate,
+      transform,
+      keepActive = false,
+      keepState = true,
+    }: LifecycleProps<
+      FieldValues,
+      ResponseData,
+      string,
+      string
+    >): JSX.Element => {
+      // TODO: Switch back to `useTask$` once issue #3193 is fixed
+      // eslint-disable-next-line qwik/no-use-visible-task
+      useVisibleTask$(({ cleanup }) => {
+        // Add validation functions
+        store.internal.validate = validate
+          ? Array.isArray(validate)
+            ? validate
+            : [validate]
           : [];
-      }
 
-      // Create unique consumer ID
-      const consumer = getUniqueId();
+        // Add transformation functions
+        if ('value' in store) {
+          store.internal.transform = transform
+            ? Array.isArray(transform)
+              ? transform
+              : [transform]
+            : [];
+        }
 
-      // Add consumer to field
-      store.internal.consumers.push(consumer);
+        // Create unique consumer ID
+        const consumer = getUniqueId();
 
-      // Mark field as active and update form state if necessary
-      if (!store.active) {
-        store.active = true;
-        updateFormState(form);
-      }
+        // Add consumer to field
+        store.internal.consumers.push(consumer);
 
-      // On cleanup, remove consumer from field
-      cleanup(() =>
-        setTimeout(() => {
-          store.internal.consumers.splice(
-            store.internal.consumers.indexOf(consumer),
-            1
-          );
+        // Mark field as active and update form state if necessary
+        if (!store.active) {
+          store.active = true;
+          updateFormState(form);
+        }
 
-          // Mark field as inactive if there is no other consumer
-          if (!keepActive && !store.internal.consumers.length) {
-            store.active = false;
-
-            // Reset state if it is not to be kept
-            if (!keepState) {
-              reset(form, store.name);
-
-              // Otherwise just update form state
-            } else {
-              updateFormState(form);
-            }
-          }
-
-          // Remove unmounted elements
-          if ('value' in store) {
-            store.internal.elements = store.internal.elements.filter(
-              (element) => element.isConnected
+        // On cleanup, remove consumer from field
+        cleanup(() =>
+          setTimeout(() => {
+            store.internal.consumers.splice(
+              store.internal.consumers.indexOf(consumer),
+              1
             );
-          }
-        }, 15)
-      );
-    });
 
-    return <Slot />;
-  }
-);
+            // Mark field as inactive if there is no other consumer
+            if (!keepActive && !store.internal.consumers.length) {
+              store.active = false;
+
+              // Reset state if it is not to be kept
+              if (!keepState) {
+                reset(form, store.name);
+
+                // Otherwise just update form state
+              } else {
+                updateFormState(form);
+              }
+            }
+
+            // Remove unmounted elements
+            if ('value' in store) {
+              store.internal.elements = store.internal.elements.filter(
+                (element) => element.isConnected
+              );
+            }
+          }, 15)
+        );
+      });
+
+      return <Slot />;
+    }
+  )(props, key, flags);
+}

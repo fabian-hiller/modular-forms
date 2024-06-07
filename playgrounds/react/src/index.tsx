@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import '@preact/signals-react/auto';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Tabs } from './components';
