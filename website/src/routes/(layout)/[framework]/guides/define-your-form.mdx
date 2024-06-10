@@ -79,36 +79,28 @@ If you prefer to infer your type definition from a schema, you can optionally us
 <SolidPreactOrReact block>
 
 ```ts
-import {
-  InferInput,
-  array,
-  boolean,
-  number,
-  object,
-  special,
-  string,
-} from 'valibot';
+import * as v from 'valibot';
 
 const isFile = (input: unknown) => input instanceof File;
 
-const SpecialSchema = object({
-  number: number(),
-  range: number(),
-  checkbox: object({
-    array: array(string()),
-    boolean: boolean(),
+const SpecialSchema = v.object({
+  number: v.number(),
+  range: v.number(),
+  checkbox: v.object({
+    array: v.array(v.string()),
+    boolean: v.boolean(),
   }),
-  select: object({
-    array: array(string()),
-    string: string(),
+  select: v.object({
+    array: v.array(v.string()),
+    string: v.string(),
   }),
-  file: object({
-    list: array(special<File>(isFile)),
-    item: special<File>(isFile),
+  file: v.object({
+    list: v.array(v.custom<File>(isFile)),
+    item: v.custom<File>(isFile),
   }),
 });
 
-type SpecialForm = InferInput<typeof SpecialSchema>;
+type SpecialForm = v.InferInput<typeof SpecialSchema>;
 ```
 
 </SolidPreactOrReact>
@@ -117,37 +109,28 @@ type SpecialForm = InferInput<typeof SpecialSchema>;
 
 ```ts
 import { type NoSerialize } from '@builder.io/qwik';
-import {
-  array,
-  boolean,
-  type InferInput,
-  number,
-  object,
-  optional,
-  special,
-  string,
-} from 'valibot';
+import * as v from 'valibot';
 
 const isBlob = (input: unknown) => input instanceof Blob;
 
-const SpecialSchema = object({
-  number: number(),
-  range: number(),
-  checkbox: object({
-    array: array(string()),
-    boolean: boolean(),
+const SpecialSchema = v.object({
+  number: v.number(),
+  range: v.number(),
+  checkbox: v.object({
+    array: v.array(v.string()),
+    boolean: v.boolean(),
   }),
-  select: object({
-    array: array(string()),
-    string: optional(string()),
+  select: v.object({
+    array: v.array(v.string()),
+    string: optional(v.string()),
   }),
-  file: object({
-    list: array(special<NoSerialize<Blob>>(isBlob)),
-    item: optional(special<NoSerialize<Blob>>(isBlob)),
+  file: v.object({
+    list: v.array(v.custom<NoSerialize<Blob>>(isBlob)),
+    item: optional(v.custom<NoSerialize<Blob>>(isBlob)),
   }),
 });
 
-type SpecialForm = InferInput<typeof SpecialSchema>;
+type SpecialForm = v.InferInput<typeof SpecialSchema>;
 ```
 
 </Qwik>
