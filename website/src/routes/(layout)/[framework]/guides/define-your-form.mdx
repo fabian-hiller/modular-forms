@@ -80,7 +80,7 @@ If you prefer to infer your type definition from a schema, you can optionally us
 
 ```ts
 import {
-  Input,
+  InferInput,
   array,
   boolean,
   number,
@@ -108,7 +108,7 @@ const SpecialSchema = object({
   }),
 });
 
-type SpecialForm = Input<typeof SpecialSchema>;
+type SpecialForm = InferInput<typeof SpecialSchema>;
 ```
 
 </SolidPreactOrReact>
@@ -120,7 +120,7 @@ import { type NoSerialize } from '@builder.io/qwik';
 import {
   array,
   boolean,
-  type Input,
+  type InferInput,
   number,
   object,
   optional,
@@ -147,7 +147,7 @@ const SpecialSchema = object({
   }),
 });
 
-type SpecialForm = Input<typeof SpecialSchema>;
+type SpecialForm = InferInput<typeof SpecialSchema>;
 ```
 
 </Qwik>
