@@ -182,6 +182,9 @@ export function SearchProvider(props: SearchProviderProps) {
     on(
       getInput,
       (input) => {
+        // Reset error state
+        setError(false);
+
         // If input is present, query and set search result
         if (input) {
           // Get current selected framework
@@ -221,6 +224,7 @@ export function SearchProvider(props: SearchProviderProps) {
                       body: JSON.stringify({
                         query: input,
                         facetFilters: `framework:${framework}`,
+                        filters: 'NOT type:lvl1',
                       }),
                     }
                   )
