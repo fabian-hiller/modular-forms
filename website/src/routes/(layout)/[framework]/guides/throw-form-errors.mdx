@@ -128,7 +128,7 @@ export default function App() {
 
   const handleSubmit: SubmitHandler<LoginForm> = (values, event) => {
     if (error) {
-      throw new FormError<LoginForm>('An error has occurred.');
+      throw new FormError<LoginForm>('An error has occurred.', {});
     }
   };
 
