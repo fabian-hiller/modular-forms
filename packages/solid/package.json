@@ -54,7 +54,7 @@
     "publish": "npm publish"
   },
   "dependencies": {
-    "valibot": ">=0.31.0 <1"
+    "valibot": ">=0.33.0 <1"
   },
   "devDependencies": {
     "@types/eslint": "^8.56.10",

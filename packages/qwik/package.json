@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "decode-formdata": ">=0.7.5 <1",
-    "valibot": ">=0.31.0 <1"
+    "valibot": ">=0.33.0 <1"
   },
   "peerDependencies": {
     "@builder.io/qwik": "^1.4.0",

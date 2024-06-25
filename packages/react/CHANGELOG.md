@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Upgrade Valibot dependency to >=v0.33.0
+
 ## v0.7.0 (June 06, 2024)
 
 - Upgrade `valiField` and `valiForm` adapter for Valibot v0.31.0
