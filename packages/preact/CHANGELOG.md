@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.9.1 (June 27, 2024)
 
 - Fix missing default for generic of `FormStore` type (issue #219)
 
