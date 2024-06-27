@@ -151,7 +151,7 @@ export type InternalFormStore<TFieldValues extends FieldValues> = {
  */
 export type FormStore<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData
+  TResponseData extends ResponseData = undefined
 > = {
   internal: InternalFormStore<TFieldValues>;
   element: HTMLFormElement | undefined;
