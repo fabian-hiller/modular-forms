@@ -137,8 +137,8 @@ export function Select(props: SelectProps) {
       multiple={false}
       value={getValue()}
       onChange={setValue}
-      optionValue="value"
-      optionTextValue="label"
+      optionValue={(option: Option) => option.value}
+      optionTextValue={(option: Option) => option.label}
       validationState={props.error ? 'invalid' : 'valid'}
       itemComponent={(props) => (
         <Kobalte.Item item={props.item}>
