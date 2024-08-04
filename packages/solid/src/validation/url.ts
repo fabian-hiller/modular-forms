@@ -12,9 +12,9 @@ type Value = MaybeValue<string>;
 export function url(error: string): (value: Value) => string {
   return (value: Value) => {
     try {
-      value && new URL(value);
+      new URL(value);
       return '';
-    } catch (_) {
+    } catch {
       return error;
     }
   };
