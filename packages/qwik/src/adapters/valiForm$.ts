@@ -17,7 +17,13 @@ import type {
  * See {@link valiForm$}
  */
 export function valiFormQrl<TFieldValues extends FieldValues>(
-  schema: QRL<MaybeFunction<GenericSchema | GenericSchemaAsync>>
+  schema: QRL<MaybeFunction<GenericSchema | GenericSchemaAsync>>,
+  validater$?: QRL<
+    (
+      values: PartialValues<TFieldValues>,
+      errors: FormErrors<TFieldValues>
+    ) => Promise<void>
+  >
 ): QRL<ValidateForm<TFieldValues>> {
   return $(async (values: PartialValues<TFieldValues>) => {
     const resolvedSchema = await schema.resolve();
@@ -31,6 +37,10 @@ export function valiFormQrl<TFieldValues extends FieldValues>(
       for (const issue of result.issues) {
         formErrors[getDotPath(issue)!] = issue.message;
       }
+    }
+    if (validater$) {
+      const varidater = await validater$.resolve();
+      await varidater(values, formErrors);
     }
     return formErrors as FormErrors<TFieldValues>;
   });
