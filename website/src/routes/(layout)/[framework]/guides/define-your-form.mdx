@@ -122,11 +122,11 @@ const SpecialSchema = v.object({
   }),
   select: v.object({
     array: v.array(v.string()),
-    string: optional(v.string()),
+    string: v.optional(v.string()),
   }),
   file: v.object({
     list: v.array(v.custom<NoSerialize<Blob>>(isBlob)),
-    item: optional(v.custom<NoSerialize<Blob>>(isBlob)),
+    item: v.optional(v.custom<NoSerialize<Blob>>(isBlob)),
   }),
 });
 
