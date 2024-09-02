@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Add support for async validation with Zod (issue #233)
+
 ## v0.8.1 (June 27, 2024)
 
 - Fix missing default for generic of `FormStore` type (issue #219)

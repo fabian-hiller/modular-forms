@@ -15,7 +15,7 @@ export async function getParsedZodSchema<Schema, Value>(
   value: Value
 ): Promise<SafeParseReturnType<Schema, any>> {
   const zodSchema = await schema.resolve();
-  return (typeof zodSchema === 'function' ? zodSchema() : zodSchema).safeParse(
-    value
-  );
+  return (
+    typeof zodSchema === 'function' ? zodSchema() : zodSchema
+  ).safeParseAsync(value);
 }

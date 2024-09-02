@@ -11,8 +11,8 @@ import type { FieldValue, ValidateField, Maybe } from '../types';
 export function zodField<TFieldValue extends FieldValue>(
   schema: ZodType<any, any, TFieldValue>
 ): ValidateField<TFieldValue> {
-  return (value: Maybe<TFieldValue>) => {
-    const result = schema.safeParse(value);
+  return async (value: Maybe<TFieldValue>) => {
+    const result = await schema.safeParseAsync(value);
     return result.success ? '' : result.error.issues[0].message;
   };
 }

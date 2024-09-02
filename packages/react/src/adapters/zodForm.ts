@@ -16,8 +16,8 @@ import type {
 export function zodForm<TFieldValues extends FieldValues>(
   schema: ZodType<any, any, TFieldValues>
 ): ValidateForm<TFieldValues> {
-  return (values: PartialValues<TFieldValues>) => {
-    const result = schema.safeParse(values);
+  return async (values: PartialValues<TFieldValues>) => {
+    const result = await schema.safeParseAsync(values);
     const formErrors: Record<string, string> = {};
     if (!result.success) {
       for (const issue of result.error.issues) {
