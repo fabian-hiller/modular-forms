@@ -34,6 +34,8 @@ export function getInitialFieldArrayStore<
       initialItems: [...initialItems],
       startItems: [...initialItems],
       validate: [],
+      validateOn: undefined,
+      revalidateOn: undefined,
       consumers: [],
     },
     name,

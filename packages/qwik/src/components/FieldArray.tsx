@@ -9,6 +9,7 @@ import type {
   MaybeArray,
   ResponseData,
   ValidateFieldArray,
+  ValidationMode,
 } from '../types';
 import { Lifecycle } from './Lifecycle';
 
@@ -26,6 +27,8 @@ export type FieldArrayProps<
     store: FieldArrayStore<TFieldValues, TFieldArrayName>
   ) => JSXOutput;
   validate?: Maybe<MaybeArray<QRL<ValidateFieldArray<number[]>>>>;
+  validateOn?: Maybe<ValidationMode>;
+  revalidateOn?: Maybe<ValidationMode>;
   keepActive?: Maybe<boolean>;
   keepState?: Maybe<boolean>;
 };

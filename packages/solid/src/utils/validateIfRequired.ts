@@ -42,15 +42,18 @@ export function validateIfRequired<
   { on: modes, shouldFocus = false }: ValidateOptions
 ): void {
   untrack(() => {
+    const validateOn = fieldOrFieldArray.validateOn ?? form.internal.validateOn;
+    const revalidateOn =
+      fieldOrFieldArray.revalidateOn ?? form.internal.revalidateOn;
     if (
       (modes as string[]).includes(
         (
-          form.internal.validateOn === 'submit'
+          validateOn === 'submit'
             ? form.internal.submitted.get()
             : fieldOrFieldArray.error.get()
         )
-          ? form.internal.revalidateOn
-          : form.internal.validateOn
+          ? revalidateOn
+          : validateOn
       )
     ) {
       validate(form, name, { shouldFocus });

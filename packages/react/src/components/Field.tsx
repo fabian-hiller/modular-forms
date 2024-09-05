@@ -21,6 +21,7 @@ import type {
   ResponseData,
   TransformField,
   ValidateField,
+  ValidationMode,
 } from '../types';
 import {
   getElementInput,
@@ -74,6 +75,8 @@ export type FieldProps<
   validate?: Maybe<
     MaybeArray<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
   >;
+  validateOn?: Maybe<ValidationMode>;
+  revalidateOn?: Maybe<ValidationMode>;
   transform?: Maybe<
     MaybeArray<TransformField<FieldPathValue<TFieldValues, TFieldName>>>
   >;

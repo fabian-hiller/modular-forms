@@ -1,4 +1,5 @@
 import type { Signal } from '../primitives';
+import type { ValidationMode } from './form';
 import type { FieldPath, FieldPathValue } from './path';
 import type { MaybeValue, MaybePromise, Maybe } from './utils';
 
@@ -89,6 +90,8 @@ export type InternalFieldStore<
 
   // Other
   validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+  validateOn: Maybe<ValidationMode>;
+  revalidateOn: Maybe<ValidationMode>;
   transform: TransformField<FieldPathValue<TFieldValues, TFieldName>>[];
   consumers: Set<number>;
 };

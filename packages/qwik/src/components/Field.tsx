@@ -18,6 +18,7 @@ import type {
   ResponseData,
   TransformField,
   ValidateField,
+  ValidationMode,
 } from '../types';
 import { Lifecycle } from './Lifecycle';
 
@@ -54,6 +55,8 @@ export type FieldProps<
   validate?: Maybe<
     MaybeArray<QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;
+  validateOn?: Maybe<ValidationMode>;
+  revalidateOn?: Maybe<ValidationMode>;
   transform?: Maybe<
     MaybeArray<QRL<TransformField<FieldPathValue<TFieldValues, TFieldName>>>>
   >;

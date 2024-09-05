@@ -51,6 +51,8 @@ export function getInitialFieldStore<
       initialValue,
       startValue: initialValue,
       validate: [],
+      validateOn: undefined,
+      revalidateOn: undefined,
       transform: [],
       elements: [],
       consumers: [],

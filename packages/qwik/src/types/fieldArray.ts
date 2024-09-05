@@ -1,7 +1,8 @@
 import type { QRL } from '@builder.io/qwik';
 import type { FieldValues } from './field';
 import type { FieldArrayPath } from './path';
-import type { MaybePromise } from './utils';
+import type { Maybe, MaybePromise } from './utils';
+import type { ValidationMode } from './form';
 
 /**
  * Function type to validate a field array.
@@ -22,6 +23,8 @@ export type InternalFieldArrayStore = {
   initialItems: number[];
   startItems: number[];
   validate: QRL<ValidateFieldArray<number[]>>[];
+  validateOn: Maybe<ValidationMode>;
+  revalidateOn: Maybe<ValidationMode>;
   consumers: number[];
 };
 

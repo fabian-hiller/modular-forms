@@ -40,15 +40,18 @@ export function validateIfRequired<
   name: TFieldName | TFieldArrayName,
   { on: modes, shouldFocus = false }: ValidateOptions
 ): void {
+  const validateOn = fieldOrFieldArray.validateOn ?? form.internal.validateOn;
+  const revalidateOn =
+    fieldOrFieldArray.revalidateOn ?? form.internal.revalidateOn;
   if (
     (modes as string[]).includes(
       (
-        form.internal.validateOn === 'submit'
+        validateOn === 'submit'
           ? form.submitted.peek()
           : fieldOrFieldArray.error.peek()
       )
-        ? form.internal.revalidateOn
-        : form.internal.validateOn
+        ? revalidateOn
+        : validateOn
     )
   ) {
     validate(form, name, { shouldFocus });

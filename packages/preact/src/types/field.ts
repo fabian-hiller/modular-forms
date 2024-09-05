@@ -1,6 +1,7 @@
 import type { Signal } from '@preact/signals';
 import type { FieldPath, FieldPathValue } from './path';
 import type { MaybeValue, MaybePromise, Maybe } from './utils';
+import type { ValidationMode } from './form';
 
 /**
  * Value type of the field value.
@@ -89,6 +90,8 @@ export type InternalFieldStore<
 
   // Other
   validate: ValidateField<FieldPathValue<TFieldValues, TFieldName>>[];
+  validateOn: Maybe<ValidationMode>;
+  revalidateOn: Maybe<ValidationMode>;
   transform: TransformField<FieldPathValue<TFieldValues, TFieldName>>[];
   consumers: Set<number>;
 };
