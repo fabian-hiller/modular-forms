@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/preact",
   "description": "The modular and type-safe form library for Preact",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
@@ -44,8 +44,7 @@
     "build": "vite build --mode lib && tsc",
     "format": "prettier --write \"./src\"",
     "format.check": "prettier --check \"./src\"",
-    "lint": "eslint \"./src/**/*.ts*\" && tsc --noEmit",
-    "publish": "npm publish"
+    "lint": "eslint \"./src/**/*.ts*\" && tsc --noEmit"
   },
   "dependencies": {
     "valibot": ">=0.33.0 <1"
