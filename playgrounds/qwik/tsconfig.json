@@ -23,7 +23,7 @@
   },
   "files": [
     "./.eslintrc.cjs",
-    "./postcss.config.js",
+    "./postcss.config.cjs",
     "./tailwind.config.js",
     "./vite.config.ts"
   ],
