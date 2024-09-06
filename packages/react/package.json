@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/react",
   "description": "The modular and type-safe form library for React",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
@@ -44,8 +44,7 @@
     "build": "vite build --mode lib && tsc",
     "format": "prettier --write .",
     "format.check": "prettier --check .",
-    "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit",
-    "publish": "npm publish"
+    "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit"
   },
   "dependencies": {
     "valibot": ">=0.33.0 <1"

@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.9.0 (September 06, 2024)
 
 - Add support for async validation with Zod (issue #233)
 - Add `validateOn` and `revalidateOn` option to `Field` and `FieldArray` component (pull request #247)
