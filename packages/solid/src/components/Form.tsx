@@ -12,16 +12,6 @@ import type {
 } from '../types';
 
 /**
- * Value type of the submit event object.
- */
-export type SubmitEvent = Event & {
-  submitter: HTMLElement;
-} & {
-  currentTarget: HTMLFormElement;
-  target: Element;
-};
-
-/**
  * Function type to handle the submission of the form.
  */
 export type SubmitHandler<TFieldValues extends FieldValues> = (
@@ -34,7 +24,7 @@ export type SubmitHandler<TFieldValues extends FieldValues> = (
  */
 export type FormProps<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData
+  TResponseData extends ResponseData,
 > = Omit<JSX.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
   of: FormStore<TFieldValues, TResponseData>;
   onSubmit?: Maybe<SubmitHandler<TFieldValues>>;
@@ -53,7 +43,7 @@ export type FormProps<
  */
 export function Form<
   TFieldValues extends FieldValues,
-  TResponseData extends ResponseData
+  TResponseData extends ResponseData,
 >(props: FormProps<TFieldValues, TResponseData>): JSX.Element {
   // Split props between local, options and other
   const [, options, other] = splitProps(
@@ -73,7 +63,7 @@ export function Form<
       novalidate
       {...other}
       ref={props.of.internal.element.set}
-      onSubmit={async (event: SubmitEvent) => {
+      onSubmit={async (event) => {
         // Prevent default behavior of browser
         event.preventDefault();
 
@@ -106,7 +96,7 @@ export function Form<
               (
                 Object.entries(error.errors) as [
                   FieldPath<TFieldValues> | FieldArrayPath<TFieldValues>,
-                  Maybe<string>
+                  Maybe<string>,
                 ][]
               ).forEach(([name, error]) => {
                 if (error) {
