@@ -47,6 +47,8 @@ export function initializeFieldArrayStore<
 
       // Other
       validate: [],
+      validateOn: undefined,
+      revalidateOn: undefined,
       consumers: new Set(),
     };
 

@@ -21,6 +21,8 @@ Headless field array that provides reactive properties and state.
 - `of` <Property {...properties.of} />
 - `name` <Property type="string" />
 - `validate` <Property {...properties[isQwik() ? 'qwik' : 'solidPreactOrReact'].validate} />
+- `validateOn` <Property {...properties[isReact() ? 'react' : 'solidQwikOrReact'].validateOn} />
+- `revalidateOn` <Property {...properties[isReact() ? 'react' : 'solidQwikOrReact'].revalidateOn} />
 - `keepActive` <Property {...properties.keepActive} />
 - `keepState` <Property {...properties.keepState} />
 - `children` <Property {...properties[isPreact() ? 'preact' : isReact() ? 'react' : 'solidOrQwik'].children} />
@@ -90,6 +92,28 @@ export const properties = {
       },
     },
   },
+  solidQwikOrReact: {
+    validateOn: {
+      type: [
+        { type: 'string', value: 'touched' },
+        { type: 'string', value: 'input' },
+        { type: 'string', value: 'change' },
+        { type: 'string', value: 'blur' },
+        { type: 'string', value: 'submit' },
+      ],
+      defaultValue: { type: 'string', value: 'submit' },
+    },
+    revalidateOn: {
+      type: [
+        { type: 'string', value: 'touched' },
+        { type: 'string', value: 'input' },
+        { type: 'string', value: 'change' },
+        { type: 'string', value: 'blur' },
+        { type: 'string', value: 'submit' },
+      ],
+      defaultValue: { type: 'string', value: 'input' },
+    },
+  },
   qwik: {
     validate: {
       type: {
@@ -153,6 +177,24 @@ export const properties = {
         ],
         return: { type: 'custom', name: 'ReactNode' },
       },
+    },
+    validateOn: {
+      type: [
+        { type: 'string', value: 'touched' },
+        { type: 'string', value: 'change' },
+        { type: 'string', value: 'blur' },
+        { type: 'string', value: 'submit' },
+      ],
+      defaultValue: { type: 'string', value: 'submit' },
+    },
+    revalidateOn: {
+      type: [
+        { type: 'string', value: 'touched' },
+        { type: 'string', value: 'change' },
+        { type: 'string', value: 'blur' },
+        { type: 'string', value: 'submit' },
+      ],
+      defaultValue: { type: 'string', value: 'change' },
     },
   },
 };

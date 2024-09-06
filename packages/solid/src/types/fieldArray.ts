@@ -1,5 +1,6 @@
 import type { Signal } from '../primitives';
-import type { MaybePromise } from './utils';
+import type { ValidationMode } from './form';
+import type { Maybe, MaybePromise } from './utils';
 
 /**
  * Function type to validate a field array.
@@ -28,6 +29,8 @@ export type InternalFieldArrayStore = {
 
   // Other
   validate: ValidateFieldArray<number[]>[];
+  validateOn: Maybe<ValidationMode>;
+  revalidateOn: Maybe<ValidationMode>;
   consumers: Set<number>;
 };
 

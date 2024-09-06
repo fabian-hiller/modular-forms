@@ -1,5 +1,6 @@
 import type { Signal } from '@preact/signals';
-import type { MaybePromise } from './utils';
+import type { Maybe, MaybePromise } from './utils';
+import type { ValidationMode } from './form';
 
 /**
  * Function type to validate a field array.
@@ -28,6 +29,8 @@ export type InternalFieldArrayStore = {
 
   // Other
   validate: ValidateFieldArray<number[]>[];
+  validateOn: Maybe<ValidationMode>;
+  revalidateOn: Maybe<ValidationMode>;
   consumers: Set<number>;
 };
 

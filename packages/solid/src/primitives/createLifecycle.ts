@@ -14,6 +14,7 @@ import type {
   TransformField,
   ValidateField,
   ValidateFieldArray,
+  ValidationMode,
 } from '../types';
 import { getUniqueId, updateFormState } from '../utils';
 
@@ -34,6 +35,8 @@ type LifecycleProps<
     | MaybeArray<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>
     | MaybeArray<ValidateFieldArray<number[]>>
   >;
+  validateOn?: Maybe<ValidationMode>;
+  revalidateOn?: Maybe<ValidationMode>;
   transform?: Maybe<
     MaybeArray<TransformField<FieldPathValue<TFieldValues, TFieldName>>>
   >;
@@ -57,6 +60,8 @@ export function createLifecycle({
   name,
   getStore,
   validate,
+  validateOn,
+  revalidateOn,
   transform,
   keepActive = false,
   keepState = true,
@@ -71,6 +76,10 @@ export function createLifecycle({
         ? validate
         : [validate]
       : [];
+
+    // Set validation mode overrides
+    store.validateOn = validateOn;
+    store.revalidateOn = revalidateOn;
 
     // Add transformation functions
     if ('transform' in store) {

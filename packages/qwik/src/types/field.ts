@@ -1,6 +1,7 @@
 import type { NoSerialize, QRL } from '@builder.io/qwik';
 import type { FieldPath, FieldPathValue } from './path';
 import type { Maybe, MaybePromise, MaybeValue } from './utils';
+import type { ValidationMode } from './form';
 
 /**
  * Value type of the field value.
@@ -87,6 +88,8 @@ export type InternalFieldStore<
   initialValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   startValue: Maybe<FieldPathValue<TFieldValues, TFieldName>>;
   validate: QRL<ValidateField<FieldPathValue<TFieldValues, TFieldName>>>[];
+  validateOn: Maybe<ValidationMode>;
+  revalidateOn: Maybe<ValidationMode>;
   transform: QRL<TransformField<FieldPathValue<TFieldValues, TFieldName>>>[];
   elements: FieldElement[];
   consumers: number[];
