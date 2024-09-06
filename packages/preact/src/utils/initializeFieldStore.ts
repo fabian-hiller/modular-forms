@@ -55,6 +55,8 @@ export function initializeFieldStore(
 
       // Other
       validate: [],
+      validateOn: undefined,
+      revalidateOn: undefined,
       transform: [],
       consumers: new Set(),
     };
