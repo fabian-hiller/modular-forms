@@ -145,8 +145,15 @@ export const properties = {
     onSubmit: {
       type: {
         type: 'custom',
-        name: 'SubmitHandler',
-        href: '../SubmitHandler',
+        name: 'Maybe',
+        href: '../Maybe',
+        generics: [
+          {
+            type: 'custom',
+            name: 'SubmitHandler',
+            href: '../SubmitHandler',
+          },
+        ],
       },
     },
   },

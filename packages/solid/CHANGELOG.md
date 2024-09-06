@@ -6,6 +6,7 @@ All notable changes to the library will be documented in this file.
 
 - Add support for async validation with Zod (issue #233)
 - Add `validateOn` and `revalidateOn` option to `Field` and `FieldArray` component (pull request #247)
+- Change `onSubmit` property of `Form` component to be optional (issue #237)
 
 ## v0.22.1 (June 27, 2024)
 

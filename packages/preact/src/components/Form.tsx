@@ -39,7 +39,7 @@ export type FormProps<
   TResponseData extends ResponseData
 > = Omit<JSX.HTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
   of: FormStore<TFieldValues, TResponseData>;
-  onSubmit: SubmitHandler<TFieldValues>;
+  onSubmit?: Maybe<SubmitHandler<TFieldValues>>;
   responseDuration?: Maybe<number>;
   keepResponse?: Maybe<boolean>;
   shouldActive?: Maybe<boolean>;
@@ -100,7 +100,7 @@ export function Form<
         // Try to run submit actions if form is valid
         try {
           if (await validate(form, options)) {
-            await onSubmit(getValues(form, options) as TFieldValues, event);
+            await onSubmit?.(getValues(form, options) as TFieldValues, event);
           }
 
           // If an error occurred, set error to fields and response
