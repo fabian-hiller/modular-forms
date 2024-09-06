@@ -17,19 +17,20 @@
   "dependencies": {
     "@modular-forms/solid": "workspace:*",
     "@solid-primitives/event-listener": "^2.3.3",
-    "@solid-primitives/storage": "^3.5.0",
+    "@solid-primitives/storage": "^3.8.0",
     "@solid-primitives/utils": "^6.2.3",
     "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.13.5",
-    "@solidjs/start": "^1.0.1",
+    "@solidjs/router": "^0.14.3",
+    "@solidjs/start": "^1.0.6",
     "clsx": "^2.1.1",
-    "solid-js": "^1.8.17",
-    "vinxi": "^0.3.11"
+    "solid-js": "^1.8.22",
+    "vinxi": "^0.4.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4"
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.4"
   },
   "engines": {
     "node": ">=18"

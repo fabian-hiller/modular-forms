@@ -56,17 +56,17 @@
     "@builder.io/qwik-city": "^1.4.0"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^1.5.5",
-    "@builder.io/qwik-city": "^1.5.5",
-    "@types/eslint": "^8.56.10",
-    "@types/node": "^20.14.2",
-    "@typescript-eslint/eslint-plugin": "^7.12.0",
-    "@typescript-eslint/parser": "^7.12.0",
-    "@typescript-eslint/utils": "^7.12.0",
+    "@builder.io/qwik": "^1.8.0",
+    "@builder.io/qwik-city": "^1.8.0",
+    "@types/eslint": "^8.56.12",
+    "@types/node": "^20.16.5",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/utils": "^7.18.0",
     "eslint": "8.57.0",
-    "eslint-plugin-qwik": "^1.5.5",
-    "typescript": "5.4.5",
-    "vite": "^5.2.12",
+    "eslint-plugin-qwik": "^1.8.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.3",
     "zod": "^3.23.8"
   }
 }
