@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/solid",
   "description": "The modular and type-safe form library for SolidJS",
-  "version": "0.22.1",
+  "version": "0.23.0",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
@@ -50,8 +50,7 @@
     "build": "rollup -c ./rollup.config.js",
     "format": "prettier --write .",
     "format.check": "prettier --check .",
-    "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit",
-    "publish": "npm publish"
+    "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit"
   },
   "dependencies": {
     "valibot": ">=0.33.0 <1"
