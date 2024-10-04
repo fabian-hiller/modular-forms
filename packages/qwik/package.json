@@ -47,12 +47,7 @@
     "lint": "eslint \"./src/**/*.ts*\" && tsc --noEmit"
   },
   "dependencies": {
-    "decode-formdata": ">=0.7.5 <1",
-    "valibot": ">=0.33.0 <1"
-  },
-  "peerDependencies": {
-    "@builder.io/qwik": "^1.4.0",
-    "@builder.io/qwik-city": "^1.4.0"
+    "decode-formdata": ">=0.7.5 <1"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.8.0",
@@ -65,7 +60,18 @@
     "eslint": "8.57.0",
     "eslint-plugin-qwik": "^1.8.0",
     "typescript": "^5.5.4",
+    "valibot": "1.0.0-beta.0",
     "vite": "^5.4.3",
     "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "@builder.io/qwik": "^1.4.0",
+    "@builder.io/qwik-city": "^1.4.0",
+    "valibot": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "valibot": {
+      "optional": true
+    }
   }
 }

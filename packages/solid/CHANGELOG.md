@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Upgrade Valibot peer dependency to v1.0.0
+
 ## v0.23.0 (September 06, 2024)
 
 - Add support for async validation with Zod (issue #233)

@@ -19,10 +19,6 @@ importers:
         version: 5.5.4
 
   packages/preact:
-    dependencies:
-      valibot:
-        specifier: '>=0.33.0 <1'
-        version: 0.41.0(typescript@5.5.4)
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.9.0
@@ -51,6 +47,9 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
       vite:
         specifier: ^5.4.2
         version: 5.4.2(@types/node@22.5.4)(terser@5.31.6)
@@ -63,9 +62,6 @@ importers:
       decode-formdata:
         specifier: '>=0.7.5 <1'
         version: 0.8.0
-      valibot:
-        specifier: '>=0.33.0 <1'
-        version: 0.35.0
     devDependencies:
       '@builder.io/qwik':
         specifier: ^1.8.0
@@ -97,6 +93,9 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
       vite:
         specifier: ^5.4.3
         version: 5.4.3(@types/node@20.16.5)(terser@5.31.6)
@@ -105,10 +104,6 @@ importers:
         version: 3.23.8
 
   packages/react:
-    dependencies:
-      valibot:
-        specifier: '>=0.33.0 <1'
-        version: 0.41.0(typescript@5.5.4)
     devDependencies:
       '@preact/signals-react':
         specifier: ^2.2.0
@@ -143,6 +138,9 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
       vite:
         specifier: ^5.4.2
         version: 5.4.2(@types/node@22.5.4)(terser@5.31.6)
@@ -151,10 +149,6 @@ importers:
         version: 3.23.8
 
   packages/solid:
-    dependencies:
-      valibot:
-        specifier: '>=0.33.0 <1'
-        version: 0.41.0(typescript@5.5.4)
     devDependencies:
       '@types/eslint':
         specifier: ^8.56.12
@@ -183,6 +177,9 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -7834,8 +7831,8 @@ packages:
   valibot@0.35.0:
     resolution: {integrity: sha512-+i2aCRkReTrd5KBN/dW2BrPOvFnU5LXTV2xjZnjnqUIO8YUx6P2+MgRrkwF2FhkexgyKq/NIZdPdknhHf5A/Ww==}
 
-  valibot@0.41.0:
-    resolution: {integrity: sha512-igDBb8CTYr8YTQlOKgaN9nSS0Be7z+WRuaeYqGf3Cjz3aKmSnqEmYnkfVjzIuumGqfHpa3fLIvMEAfhrpqN8ng==}
+  valibot@1.0.0-beta.0:
+    resolution: {integrity: sha512-Q/oine+NPMXdIy3vwluw0vidHLk0mTPUQBRHc+EHZXnEWF3KzLx1YLsVHPVrgHaMGRfV58P9eGOgxJvi0a059w==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -17611,7 +17608,7 @@ snapshots:
 
   valibot@0.35.0: {}
 
-  valibot@0.41.0(typescript@5.5.4):
+  valibot@1.0.0-beta.0(typescript@5.5.4):
     optionalDependencies:
       typescript: 5.5.4
 

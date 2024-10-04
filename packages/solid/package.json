@@ -52,9 +52,6 @@
     "format.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit"
   },
-  "dependencies": {
-    "valibot": ">=0.33.0 <1"
-  },
   "devDependencies": {
     "@types/eslint": "^8.56.12",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
@@ -65,9 +62,16 @@
     "rollup-preset-solid": "^2.0.1",
     "solid-js": "^1.8.22",
     "typescript": "^5.5.4",
+    "valibot": "1.0.0-beta.0",
     "zod": "^3.23.8"
   },
   "peerDependencies": {
-    "solid-js": "^1.3.1"
+    "solid-js": "^1.3.1",
+    "valibot": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "valibot": {
+      "optional": true
+    }
   }
 }
