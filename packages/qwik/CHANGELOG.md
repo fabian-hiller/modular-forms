@@ -5,6 +5,7 @@ All notable changes to the library will be documented in this file.
 ## vX.X.X (Month DD, YYYY)
 
 - Upgrade Valibot peer dependency to v1.0.0
+- Upgrade Qwik and Qwik City peer dependency to v1.9.0
 
 ## v0.27.0 (September 06, 2024)
 
