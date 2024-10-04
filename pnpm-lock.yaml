@@ -239,8 +239,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       valibot:
-        specifier: ^0.35.0
-        version: 0.35.0
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
     devDependencies:
       '@types/eslint':
         specifier: ^8.56.12
@@ -7966,9 +7966,6 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.35.0:
-    resolution: {integrity: sha512-+i2aCRkReTrd5KBN/dW2BrPOvFnU5LXTV2xjZnjnqUIO8YUx6P2+MgRrkwF2FhkexgyKq/NIZdPdknhHf5A/Ww==}
-
   valibot@0.42.1:
     resolution: {integrity: sha512-3keXV29Ar5b//Hqi4MbSdV7lfVp6zuYLZuA9V1PvQUsXqogr+u5lvLPLk3A4f74VUXDnf/JfWMN6sB+koJ/FFw==}
     peerDependencies:
@@ -12147,7 +12144,7 @@ snapshots:
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.6.2))(eslint@8.57.0)(typescript@5.6.2)':
     dependencies:
-      '@eslint-community/regexpp': 4.11.1
+      '@eslint-community/regexpp': 4.11.0
       '@typescript-eslint/parser': 7.18.0(eslint@8.57.0)(typescript@5.6.2)
       '@typescript-eslint/scope-manager': 7.18.0
       '@typescript-eslint/type-utils': 7.18.0(eslint@8.57.0)(typescript@5.6.2)
@@ -18026,8 +18023,6 @@ snapshots:
       diff: 5.1.0
       kleur: 4.1.5
       sade: 1.8.1
-
-  valibot@0.35.0: {}
 
   valibot@0.42.1(typescript@5.6.2):
     optionalDependencies:
