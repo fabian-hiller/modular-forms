@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## vX.X.X (Month DD, YYYY)
+
+- Fix installation error when Valibot dependency is missing (issue #255)
+
 ## v0.28.0 (October 03, 2024)
 
 - Upgrade Valibot peer dependency to v1.0.0
