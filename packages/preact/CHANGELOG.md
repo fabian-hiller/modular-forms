@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.11.1 (October 07, 2024)
 
 - Fix installation error when Valibot dependency is missing (issue #255)
 
