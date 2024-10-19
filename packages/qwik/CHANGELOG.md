@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## v0.28.2 (October 19, 2024)
+
+- Fix Qwik and Qwik City peer dependency specification
+
 ## v0.28.1 (October 07, 2024)
 
 - Fix installation error when Valibot dependency is missing (issue #255)

@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/qwik",
   "description": "The modular and type-safe form library for Qwik",
-  "version": "0.28.1",
+  "version": "0.28.2",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
@@ -51,15 +51,15 @@
     "valibot": "1.0.0-beta.0"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^1.9.0",
-    "@builder.io/qwik-city": "^1.9.0",
+    "@builder.io/qwik": "^1.9.1",
+    "@builder.io/qwik-city": "^1.9.1",
     "@types/eslint": "^8.56.12",
     "@types/node": "^20.16.10",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@typescript-eslint/utils": "^7.18.0",
     "eslint": "8.57.0",
-    "eslint-plugin-qwik": "^1.9.0",
+    "eslint-plugin-qwik": "^1.9.1",
     "typescript": "^5.6.2",
     "vite": "^5.4.8",
     "zod": "^3.23.8"

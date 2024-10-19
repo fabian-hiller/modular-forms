@@ -19,6 +19,10 @@ importers:
         version: 5.5.4
 
   packages/preact:
+    dependencies:
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.9.0
@@ -47,9 +51,6 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
-      valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.5.4)
       vite:
         specifier: ^5.4.2
         version: 5.4.2(@types/node@22.7.4)(terser@5.31.6)
@@ -62,13 +63,16 @@ importers:
       decode-formdata:
         specifier: ^0.8.0
         version: 0.8.0
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.6.2)
     devDependencies:
       '@builder.io/qwik':
-        specifier: ^1.9.0
-        version: 1.9.0(@types/node@20.16.10)(terser@5.31.6)
+        specifier: ^1.9.1
+        version: 1.9.1(@types/node@20.16.10)(terser@5.31.6)
       '@builder.io/qwik-city':
-        specifier: ^1.9.0
-        version: 1.9.0(@types/node@20.16.10)(rollup@4.24.0)(terser@5.31.6)(typescript@5.6.2)
+        specifier: ^1.9.1
+        version: 1.9.1(@types/node@20.16.10)(rollup@4.24.0)(terser@5.31.6)(typescript@5.6.2)
       '@types/eslint':
         specifier: ^8.56.12
         version: 8.56.12
@@ -88,14 +92,11 @@ importers:
         specifier: 8.57.0
         version: 8.57.0
       eslint-plugin-qwik:
-        specifier: ^1.9.0
-        version: 1.9.0(eslint@8.57.0)
+        specifier: ^1.9.1
+        version: 1.9.1(eslint@8.57.0)
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
-      valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.6.2)
       vite:
         specifier: ^5.4.8
         version: 5.4.8(@types/node@20.16.10)(terser@5.31.6)
@@ -104,6 +105,10 @@ importers:
         version: 3.23.8
 
   packages/react:
+    dependencies:
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
     devDependencies:
       '@preact/signals-react':
         specifier: ^2.2.0
@@ -138,9 +143,6 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
-      valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.5.4)
       vite:
         specifier: ^5.4.2
         version: 5.4.2(@types/node@22.7.4)(terser@5.31.6)
@@ -149,6 +151,10 @@ importers:
         version: 3.23.8
 
   packages/solid:
+    dependencies:
+      valibot:
+        specifier: 1.0.0-beta.0
+        version: 1.0.0-beta.0(typescript@5.5.4)
     devDependencies:
       '@types/eslint':
         specifier: ^8.56.12
@@ -177,9 +183,6 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
-      valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.5.4)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -1873,8 +1876,8 @@ packages:
     resolution: {integrity: sha512-3WCyKFf8E5W2HlL/VtYneXsY/d7llNRUo3Bc/PonOgEUpNYM3i7ts9M3MSnkKYf7dLm648+MSeP/x2Ll01lz7Q==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
 
-  '@builder.io/qwik-city@1.9.0':
-    resolution: {integrity: sha512-N+TARxsrVMNpIQQ+cnTN+c/gCdI5PlUGPFaRnWT4dw3ug+bizoaldksFvdATarWVYUMkoK7tTpop3cORKN9tAg==}
+  '@builder.io/qwik-city@1.9.1':
+    resolution: {integrity: sha512-GEM4Ybjg9edSWzAtp38mAyb2lIeuQYlcpyrDJ9W/KhXPoIQ7CAjhE2w1XaYXrtfg4iJOgCkiCXjL3JxobxNLxw==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
 
   '@builder.io/qwik@1.8.0':
@@ -1882,8 +1885,8 @@ packages:
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
 
-  '@builder.io/qwik@1.9.0':
-    resolution: {integrity: sha512-E4EFXOaUz4A6D48lw1CwKR4CLZCPquetuMPrRoAPZjBueL/R1oBzXdRt5zVemS6lAoTSjXBsnxXo2kGYKCI7pA==}
+  '@builder.io/qwik@1.9.1':
+    resolution: {integrity: sha512-7Dqty4625BJFDcPSy52M2ZS/CpI9yimMFjFyuhyOLjS8BbHVBFtiGIQ0nL133S447K+oU5T2QZzdvjBKsSPlsg==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
 
@@ -4652,8 +4655,8 @@ packages:
     peerDependencies:
       eslint: ^8.57.0
 
-  eslint-plugin-qwik@1.9.0:
-    resolution: {integrity: sha512-9EsvIVwtpANSj/ICKMoR5aeabDPgPVcW58bxY8N7R/9oQs6piCm7XbFErxAeaGxmhuvpMZsc+7AN5DizDfDdrw==}
+  eslint-plugin-qwik@1.9.1:
+    resolution: {integrity: sha512-H8WKYfFsubQh4rcAGYuZh6gX1pReHZGBwCi3l4bJ+7Oa1XqqBr6E8O70+Jv9RoXg9dH99zfWSdWjap9/N/4Pqw==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     peerDependencies:
       eslint: ^8.57.0
@@ -10896,7 +10899,7 @@ snapshots:
       - supports-color
       - terser
 
-  '@builder.io/qwik-city@1.9.0(@types/node@20.16.10)(rollup@4.24.0)(terser@5.31.6)(typescript@5.6.2)':
+  '@builder.io/qwik-city@1.9.1(@types/node@20.16.10)(rollup@4.24.0)(terser@5.31.6)(typescript@5.6.2)':
     dependencies:
       '@mdx-js/mdx': 3.0.1
       '@types/mdx': 2.0.13
@@ -10935,7 +10938,7 @@ snapshots:
       - sugarss
       - terser
 
-  '@builder.io/qwik@1.9.0(@types/node@20.16.10)(terser@5.31.6)':
+  '@builder.io/qwik@1.9.1(@types/node@20.16.10)(terser@5.31.6)':
     dependencies:
       csstype: 3.1.3
       vite: 5.4.8(@types/node@20.16.10)(terser@5.31.6)
@@ -13827,7 +13830,7 @@ snapshots:
       eslint: 8.57.0
       jsx-ast-utils: 3.3.5
 
-  eslint-plugin-qwik@1.9.0(eslint@8.57.0):
+  eslint-plugin-qwik@1.9.1(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
       jsx-ast-utils: 3.3.5
