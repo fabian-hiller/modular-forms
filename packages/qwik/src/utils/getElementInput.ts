@@ -40,7 +40,9 @@ export function getElementInput<
         ? [...((field.value || []) as string[]), value]
         : ((field.value || []) as string[]).filter((v) => v !== value)
       : type === 'number'
-      ? valueAsNumber
+      ? element instanceof HTMLSelectElement?
+                        value ? parseFloat(value) : undefined
+      : valueAsNumber
       : type === 'boolean'
       ? checked
       : type === 'File' && files
