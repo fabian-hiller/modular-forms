@@ -21,6 +21,7 @@ type SpecialForm = {
   select: {
     array: string[];
     string: string;
+    number: number;
   };
   file: {
     list: File[];
@@ -137,6 +138,23 @@ export default function SpecialPage() {
               />
             )}
           </Field>
+
+          <Field name="select.number" type="number">
+            {(field, props) => (
+              <Select
+                {...props}
+                value={field.value}
+                options={[
+                  { label: 'Option 1', value: 1},
+                  { label: 'Option 2', value: 2},
+                  { label: 'Option 3', value: 3},
+                ]}
+                error={field.error}
+                label="Select number"
+              />
+            )}
+          </Field>
+
 
           <Field name="file.list" type="File[]">
             {(field, props) => (
