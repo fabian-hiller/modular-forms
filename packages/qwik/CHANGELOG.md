@@ -2,7 +2,7 @@
 
 All notable changes to the library will be documented in this file.
 
-## vX.X.X (Month DD, YYYY)
+## v0.29.0 (November 15, 2024)
 
 - Upgrade Valibot dependency to v1.0.0-beta.6
 
