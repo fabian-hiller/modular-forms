@@ -21,8 +21,8 @@ importers:
   packages/preact:
     dependencies:
       valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.5.4)
+        specifier: ^1.0.0-beta.6
+        version: 1.0.0-beta.6(typescript@5.5.4)
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.9.0
@@ -64,8 +64,8 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0
       valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.6.2)
+        specifier: ^1.0.0-beta.6
+        version: 1.0.0-beta.6(typescript@5.6.2)
     devDependencies:
       '@builder.io/qwik':
         specifier: ^1.9.1
@@ -107,8 +107,8 @@ importers:
   packages/react:
     dependencies:
       valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.5.4)
+        specifier: ^1.0.0-beta.6
+        version: 1.0.0-beta.6(typescript@5.5.4)
     devDependencies:
       '@preact/signals-react':
         specifier: ^2.2.0
@@ -153,8 +153,8 @@ importers:
   packages/solid:
     dependencies:
       valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.5.4)
+        specifier: ^1.0.0-beta.6
+        version: 1.0.0-beta.6(typescript@5.5.4)
     devDependencies:
       '@types/eslint':
         specifier: ^8.56.12
@@ -242,8 +242,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       valibot:
-        specifier: 1.0.0-beta.0
-        version: 1.0.0-beta.0(typescript@5.5.4)
+        specifier: ^1.0.0-beta.6
+        version: 1.0.0-beta.6(typescript@5.5.4)
     devDependencies:
       '@types/eslint':
         specifier: ^8.56.12
@@ -7977,8 +7977,8 @@ packages:
       typescript:
         optional: true
 
-  valibot@1.0.0-beta.0:
-    resolution: {integrity: sha512-Q/oine+NPMXdIy3vwluw0vidHLk0mTPUQBRHc+EHZXnEWF3KzLx1YLsVHPVrgHaMGRfV58P9eGOgxJvi0a059w==}
+  valibot@1.0.0-beta.6:
+    resolution: {integrity: sha512-x9ObzhqDCWFaWOa6Zri1mbFcc8OIIKP7cQtD9JauKt5pJFhpJkvAXT+49bFKjoVikiKVk7m33mXgUJb/Wfknmw==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -18031,11 +18031,11 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.2
 
-  valibot@1.0.0-beta.0(typescript@5.5.4):
+  valibot@1.0.0-beta.6(typescript@5.5.4):
     optionalDependencies:
       typescript: 5.5.4
 
-  valibot@1.0.0-beta.0(typescript@5.6.2):
+  valibot@1.0.0-beta.6(typescript@5.6.2):
     optionalDependencies:
       typescript: 5.6.2
 
