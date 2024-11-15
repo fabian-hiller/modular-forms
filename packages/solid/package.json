@@ -1,7 +1,7 @@
 {
   "name": "@modular-forms/solid",
   "description": "The modular and type-safe form library for SolidJS",
-  "version": "0.24.1",
+  "version": "0.25.0",
   "license": "MIT",
   "author": "Fabian Hiller",
   "homepage": "https://modularforms.dev",
