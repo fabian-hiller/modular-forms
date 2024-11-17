@@ -5,13 +5,13 @@ import { AngleDownIcon } from '../icons';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
-type SelectProps = {
+type SelectProps<T> = {
   name: string;
-  value: ReadonlySignal<string | string[] | null | undefined>;
+  value: ReadonlySignal<T | T[] | null | undefined>;
   ref: Ref<HTMLSelectElement>;
   onChange: ChangeEventHandler<HTMLSelectElement>;
   onBlur: FocusEventHandler<HTMLSelectElement>;
-  options: { label: string; value: string }[];
+  options: { label: string; value: T }[];
   multiple?: boolean;
   size?: number;
   placeholder?: string;
@@ -26,9 +26,17 @@ type SelectProps = {
  * decorations can be displayed in or around the field to communicate the
  * entry requirements.
  */
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const Select = forwardRef<HTMLSelectElement, SelectProps<string | number>>(
   ({ className, value, options, label, error, ...props }, ref) => {
     const { name, required, multiple, placeholder } = props;
+    // Create computed value of selected values
+    const values = Array.isArray(value.value)
+        ? value.value
+      : (typeof value === 'string' || typeof value === 'number')
+        ? [value]
+        : [];
+
+
     return (
       <div className={clsx('px-8 lg:px-10', className)}>
         <InputLabel name={name} label={label} required={required} />
@@ -42,10 +50,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                 ? 'border-red-600/50 dark:border-red-400/50'
                 : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50',
               multiple ? 'py-5' : 'h-14 md:h-16 lg:h-[70px]',
-              placeholder && !value.value?.length && 'text-slate-500'
+              placeholder && !value.value && 'text-slate-500'
             )}
             id={name}
-            value={value.value || (multiple ? [] : '')}
             aria-invalid={!!error}
             aria-errormessage={`${name}-error`}
           >
@@ -53,7 +60,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               {placeholder}
             </option>
             {options.map(({ label, value }) => (
-              <option key={value} value={value}>
+              <option key={value} value={value} selected={values?.includes(value)}>
                 {label}
               </option>
             ))}

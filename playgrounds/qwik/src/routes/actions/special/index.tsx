@@ -34,6 +34,7 @@ const SpecialSchema = v.object({
   select: v.object({
     array: v.array(v.string()),
     string: v.optional(v.string()),
+    number: v.optional(v.number()),
   }),
   file: v.object({
     list: v.array(v.custom<NoSerialize<Blob>>(isBlob)),
@@ -53,6 +54,7 @@ const getInitFormValues = (): InitialValues<SpecialForm> => ({
   select: {
     array: [],
     string: undefined,
+    number: undefined,
   },
   file: {
     list: [],
@@ -205,6 +207,23 @@ export default component$(() => {
             />
           )}
         </Field>
+
+        <Field name="select.number" type="number">
+          {(field, props) => (
+            <Select
+              {...props}
+              value={field.value}
+              options={[
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 },
+                { label: 'Option 3', value: 3 },
+              ]}
+              error={field.error}
+              label="Select number"
+            />
+          )}
+        </Field>
+
 
         <Field name="file.list" type="File[]">
           {(field, props) => (
