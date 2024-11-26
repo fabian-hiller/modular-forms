@@ -45,8 +45,15 @@ export type FormActionFunction<
 
 /**
  * Value type of the second form action argument.
+ * @deprecated Use `FormDataOrValidation` instead.
  */
 export type FormActionArg2<TFieldValues extends FieldValues> =
+  FormDataOrValidation<TFieldValues>;
+
+/**
+ * Value type of the second form action argument.
+ */
+export type FormDataOrValidation<TFieldValues extends FieldValues> =
   | QRL<ValidateForm<TFieldValues>>
   | (FormDataInfo<TFieldValues> & {
       validate: QRL<ValidateForm<TFieldValues>>;
@@ -60,7 +67,7 @@ export function routeFormActionQrl<
   TResponseData extends ResponseData = undefined,
 >(
   action: QRL<FormActionFunction<TFieldValues, TResponseData>>,
-  arg2: FormActionArg2<TFieldValues>
+  dataOrValidation: FormDataOrValidation<TFieldValues>
 ): Action<
   FormActionStore<TFieldValues, TResponseData>,
   PartialValues<TFieldValues>,
@@ -76,7 +83,7 @@ export function routeFormActionQrl<
           jsonData,
           event,
           action,
-          arg2
+          dataOrValidation
         );
       }
     ),
@@ -96,7 +103,7 @@ export function routeFormActionQrl<
  * see https://qwik.dev/docs/re-exporting-loaders/ for ho to do it.
  *
  * @param action The server action function.
- * @param arg2 Validation and/or form data info.
+ * @param dataOrValidation Validation and/or form data info.
  *
  * @returns Form action constructor.
 
@@ -106,7 +113,7 @@ export const routeFormAction$: <
   TResponseData extends ResponseData = undefined,
 >(
   actionQrl: FormActionFunction<TFieldValues, TResponseData>,
-  arg2: FormActionArg2<TFieldValues>
+  dataOrValidation: FormDataOrValidation<TFieldValues>
 ) => Action<
   FormActionStore<TFieldValues, TResponseData>,
   PartialValues<TFieldValues>,
@@ -121,7 +128,7 @@ export function globalFormActionQrl<
   TResponseData extends ResponseData = undefined,
 >(
   action: QRL<FormActionFunction<TFieldValues, TResponseData>>,
-  arg2: FormActionArg2<TFieldValues>
+  dataOrValidation: FormDataOrValidation<TFieldValues>
 ): Action<
   FormActionStore<TFieldValues, TResponseData>,
   PartialValues<TFieldValues>,
@@ -137,7 +144,7 @@ export function globalFormActionQrl<
           jsonData,
           event,
           action,
-          arg2
+          dataOrValidation
         );
       }
     ),
@@ -155,7 +162,7 @@ export function globalFormActionQrl<
  * and submission on the server.
  *
  * @param action The server action function.
- * @param arg2 Validation and/or form data info.
+ * @param dataOrValidation Validation and/or form data info.
  *
  * @returns Form action constructor.
 
@@ -165,7 +172,7 @@ export const globalFormAction$: <
   TResponseData extends ResponseData = undefined,
 >(
   actionQrl: FormActionFunction<TFieldValues, TResponseData>,
-  arg2: FormActionArg2<TFieldValues>
+  dataOrValidation: FormDataOrValidation<TFieldValues>
 ) => Action<
   FormActionStore<TFieldValues, TResponseData>,
   PartialValues<TFieldValues>,
@@ -193,7 +200,7 @@ export const formAction$: <
   TResponseData extends ResponseData = undefined,
 >(
   actionQrl: FormActionFunction<TFieldValues, TResponseData>,
-  arg2: FormActionArg2<TFieldValues>
+  dataOrValidation: FormActionArg2<TFieldValues>
 ) => Action<
   FormActionStore<TFieldValues, TResponseData>,
   PartialValues<TFieldValues>,
@@ -203,7 +210,6 @@ export const formAction$: <
 /**
  * @internal
  */
-
 export async function formActionLogic<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData = undefined,
@@ -211,11 +217,13 @@ export async function formActionLogic<
   jsonData: unknown,
   event: RequestEventAction,
   action: QRL<FormActionFunction<TFieldValues, TResponseData>>,
-  arg2: FormActionArg2<TFieldValues>
+  dataOrValidation: FormDataOrValidation<TFieldValues>
 ) {
   // Destructure validate function and form data info
   const { validate, ...formDataInfo } =
-    typeof arg2 === 'object' ? arg2 : { validate: arg2 };
+    typeof dataOrValidation === 'object'
+      ? dataOrValidation
+      : { validate: dataOrValidation };
 
   // Get content type of request
   const type = event.request.headers.get('content-type')?.split(/[;,]/, 1)[0];
