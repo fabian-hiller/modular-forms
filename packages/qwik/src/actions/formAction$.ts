@@ -6,7 +6,7 @@ import {
   type RequestEventAction,
 } from '@builder.io/qwik-city';
 import { AbortMessage } from '@builder.io/qwik-city/middleware/request-handler';
-import { isDev } from '@builder.io/qwik/build';
+import { isDev, isServer } from '@builder.io/qwik/build';
 import { decode } from 'decode-formdata';
 import { FormError } from '../exceptions';
 import type {
@@ -250,56 +250,58 @@ export async function formActionLogic<
     response: {},
   };
 
-  // Try to run submit action if form has no errors
-  if (!Object.keys(errors).length) {
-    try {
-      const result = await action(values as TFieldValues, event);
+  if (isServer) {
+    // Try to run submit action if form has no errors
+    if (!Object.keys(errors).length) {
+      try {
+        const result = await action(values as TFieldValues, event);
 
-      // Add result to form action store if necessary
-      if (result && typeof result === 'object') {
-        formActionStore = {
-          values,
-          errors: result.errors || {},
-          response: {
-            status: result.status,
-            message: result.message,
-            data: result.data,
-          },
-        };
-      }
-
-      // If an abort message was thrown (e.g. a redirect), forward it
-    } catch (error) {
-      if (
-        error instanceof AbortMessage ||
-        (isDev &&
-          (error?.constructor?.name === 'AbortMessage' ||
-            error?.constructor?.name === 'RedirectMessage'))
-      ) {
-        throw error;
-
-        // Otherwise log error and set error response
-      } else {
-        console.error(error);
-
-        // If it is an expected error, use its error info
-        if (error instanceof FormError) {
+        // Add result to form action store if necessary
+        if (result && typeof result === 'object') {
           formActionStore = {
             values,
-            errors: error.errors,
+            errors: result.errors || {},
             response: {
-              status: 'error',
-              message: error.message,
+              status: result.status,
+              message: result.message,
+              data: result.data,
             },
           };
+        }
 
-          // Otherwise return a generic message to avoid leaking
-          // sensetive information
+        // If an abort message was thrown (e.g. a redirect), forward it
+      } catch (error) {
+        if (
+          error instanceof AbortMessage ||
+          (isDev &&
+            (error?.constructor?.name === 'AbortMessage' ||
+              error?.constructor?.name === 'RedirectMessage'))
+        ) {
+          throw error;
+
+          // Otherwise log error and set error response
         } else {
-          formActionStore.response = {
-            status: 'error',
-            message: 'An unknown error has occurred.',
-          };
+          console.error(error);
+
+          // If it is an expected error, use its error info
+          if (error instanceof FormError) {
+            formActionStore = {
+              values,
+              errors: error.errors,
+              response: {
+                status: 'error',
+                message: error.message,
+              },
+            };
+
+            // Otherwise return a generic message to avoid leaking
+            // sensetive information
+          } else {
+            formActionStore.response = {
+              status: 'error',
+              message: 'An unknown error has occurred.',
+            };
+          }
         }
       }
     }
