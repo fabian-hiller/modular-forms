@@ -46,9 +46,12 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
    * Returns the icon of the framework.
    */
   const getIcon = (framework: string) =>
-    ({ solid: SolidIcon, qwik: QwikIcon, preact: PreactIcon, react: ReactIcon }[
-      framework
-    ]);
+    ({
+      solid: SolidIcon,
+      qwik: QwikIcon,
+      preact: PreactIcon,
+      react: ReactIcon,
+    })[framework];
 
   /**
    * Returns the pathname to the framework.
@@ -79,7 +82,7 @@ export function FrameworkPicker(props: FrameworkPickerProps) {
       </button>
       <nav
         class={clsx(
-          'absolute z-10 w-full origin-top rounded-xl border-2 border-slate-200 bg-white/90 py-2 backdrop-blur duration-200 hover:border-slate-300 dark:border-slate-800 dark:bg-gray-900/90 dark:hover:border-slate-700',
+          'absolute z-30 w-full origin-top rounded-xl border-2 border-slate-200 bg-white/90 py-2 backdrop-blur duration-200 hover:border-slate-300 dark:border-slate-800 dark:bg-gray-900/90 dark:hover:border-slate-700',
           getOpen() ? 'translate-y-2' : 'invisible scale-y-75 opacity-0'
         )}
         aria-hidden={!getOpen()}
