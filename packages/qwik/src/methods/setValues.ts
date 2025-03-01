@@ -123,7 +123,7 @@ export function setValues<
       const compoundPath = prevPath ? `${prevPath}.${path}` : path;
 
       // Set value of fields
-      if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      if (!value || typeof value !== 'object' || !Array.isArray(value)) {
         setValue(form, compoundPath as FieldPath<TFieldValues>, value, {
           ...options,
           shouldValidate: false,
