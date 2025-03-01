@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## v0.25.1 (February 28, 2025)
+
+- Fix `setValues` for field arrays (pull request #274)
+
 ## v0.25.0 (November 15, 2024)
 
 - Upgrade Valibot dependency to v1.0.0-beta.6
