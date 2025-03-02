@@ -20,7 +20,7 @@ import type {
  */
 export function getElementInput<
   TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>,
 >(
   element: FieldElement,
   field: InternalFieldStore<TFieldValues, TFieldName>,
@@ -28,27 +28,42 @@ export function getElementInput<
 ): FieldPathValue<TFieldValues, TFieldName> {
   const { checked, files, options, value, valueAsDate, valueAsNumber } =
     element as HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement;
-  return untrack(() =>
-    !type || type === 'string'
-      ? value
-      : type === 'string[]'
-      ? options
+  return untrack(() => {
+    if (!type || type === 'string') {
+      return value;
+    }
+    if (type === 'string[]') {
+      return options
         ? [...options]
             .filter((e) => e.selected && !e.disabled)
             .map((e) => e.value)
         : checked
-        ? [...((field.value.get() || []) as string[]), value]
-        : ((field.value.get() || []) as string[]).filter((v) => v !== value)
-      : type === 'number'
-      ? valueAsNumber
-      : type === 'boolean'
-      ? checked
-      : type === 'File' && files
-      ? files[0]
-      : type === 'File[]' && files
-      ? [...files]
-      : type === 'Date' && valueAsDate
-      ? valueAsDate
-      : field.value.get()
-  ) as FieldPathValue<TFieldValues, TFieldName>;
+          ? [...((field.value.get() || []) as string[]), value]
+          : ((field.value.get() || []) as string[]).filter((v) => v !== value);
+    }
+
+    if (type === 'number') {
+      if (element instanceof HTMLSelectElement) {
+        return value ? parseFloat(value) : undefined;
+      }
+
+      return valueAsNumber;
+    }
+
+    if (type === 'boolean') {
+      return checked;
+    }
+
+    if (type === 'File') {
+      return files ? files[0] : undefined;
+    }
+
+    if (type === 'File[]') {
+      return files ? [...files] : undefined;
+    }
+
+    if (type === 'Date') {
+      return valueAsDate;
+    }
+  }) as FieldPathValue<TFieldValues, TFieldName>;
 }

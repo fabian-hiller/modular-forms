@@ -21,6 +21,7 @@ type SpecialForm = {
   select: {
     array: string[];
     string?: string;
+    number?: number;
   };
   file: {
     list: NoSerialize<File>[];
@@ -38,6 +39,7 @@ export const useFormLoader = routeLoader$<InitialValues<SpecialForm>>(() => ({
   select: {
     array: [],
     string: undefined,
+    number: undefined,
   },
   file: {
     list: [],
@@ -146,6 +148,22 @@ export default component$(() => {
               ]}
               error={field.error}
               label="Select string"
+            />
+          )}
+        </Field>
+
+        <Field name="select.number" type="number">
+          {(field, props) => (
+            <Select
+              {...props}
+              value={field.value}
+              options={[
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 },
+                { label: 'Option 3', value: 3 },
+              ]}
+              error={field.error}
+              label="Select number"
             />
           )}
         </Field>

@@ -7,14 +7,14 @@ import { AngleDownIcon } from '../icons';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
-type SelectProps = {
+type SelectProps<T> = {
   name: string;
-  value: ReadonlySignal<string | string[] | null | undefined>;
+  value: ReadonlySignal<T | T[] | null | undefined>;
   ref: Ref<HTMLSelectElement>;
   onInput: JSX.GenericEventHandler<HTMLSelectElement>;
   onChange: JSX.GenericEventHandler<HTMLSelectElement>;
   onBlur: JSX.FocusEventHandler<HTMLSelectElement>;
-  options: { label: string; value: string }[];
+  options: { label: string; value: T }[];
   multiple?: boolean;
   size?: number;
   placeholder?: string;
@@ -29,7 +29,7 @@ type SelectProps = {
  * decorations can be displayed in or around the field to communicate the
  * entry requirements.
  */
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const Select = forwardRef<HTMLSelectElement, SelectProps<string | number>>(
   ({ value, options, label, error, ...props }, ref) => {
     const { name, required, multiple, placeholder } = props;
 
@@ -37,7 +37,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const values = useComputed(() =>
       Array.isArray(value.value)
         ? value.value
-        : value.value && typeof value.value === 'string'
+      : (typeof props.value === 'string' || typeof props.value === 'number')
         ? [value.value]
         : []
     );
