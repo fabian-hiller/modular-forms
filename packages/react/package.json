@@ -65,7 +65,7 @@
     "zod": "^3.23.8"
   },
   "peerDependencies": {
-    "@preact/signals-react": "^1.0.0",
+    "@preact/signals-react": "^2.2.0",
     "react": "^18.0.0"
   }
 }
