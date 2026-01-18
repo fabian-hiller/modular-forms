@@ -29,11 +29,11 @@ import {
 } from '../utils';
 
 /**
- * Value type ot the field store.
+ * Value type of the field store.
  */
 export type FieldStore<
   TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>,
 > = {
   get name(): TFieldName;
   get value(): Maybe<FieldPathValue<TFieldValues, TFieldName>>;
@@ -48,7 +48,7 @@ export type FieldStore<
  */
 export type FieldElementProps<
   TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>,
 > = {
   get name(): TFieldName;
   get autofocus(): boolean;
@@ -64,7 +64,7 @@ export type FieldElementProps<
 export type FieldProps<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>,
 > = {
   of: FormStore<TFieldValues, TResponseData>;
   name: TFieldName;
@@ -91,7 +91,7 @@ export type FieldProps<
 export function Field<
   TFieldValues extends FieldValues,
   TResponseData extends ResponseData,
-  TFieldName extends FieldPath<TFieldValues>
+  TFieldName extends FieldPath<TFieldValues>,
 >(
   props: FieldPathValue<TFieldValues, TFieldName> extends MaybeValue<string>
     ? PartialKey<FieldProps<TFieldValues, TResponseData, TFieldName>, 'type'>
