@@ -2,6 +2,11 @@
 
 All notable changes to the library will be documented in this file.
 
+## v0.12.0 (January 18, 2026)
+
+- Upgrade Valibot dependency to v1.2.0
+- Upgrade `@preact/signals-react` peer dependency to v2.2.0
+
 ## v0.11.1 (February 28, 2025)
 
 - Fix `setValues` for field arrays (pull request #274)
