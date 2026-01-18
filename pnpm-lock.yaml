@@ -21,8 +21,8 @@ importers:
   packages/preact:
     dependencies:
       valibot:
-        specifier: ^1.0.0-beta.6
-        version: 1.0.0-beta.6(typescript@5.5.4)
+        specifier: ^1.2.0
+        version: 1.2.0(typescript@5.5.4)
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.9.0
@@ -64,8 +64,8 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0
       valibot:
-        specifier: ^1.0.0-beta.6
-        version: 1.0.0-beta.6(typescript@5.6.2)
+        specifier: ^1.2.0
+        version: 1.2.0(typescript@5.6.2)
     devDependencies:
       '@builder.io/qwik':
         specifier: ^1.9.1
@@ -107,8 +107,8 @@ importers:
   packages/react:
     dependencies:
       valibot:
-        specifier: ^1.0.0-beta.6
-        version: 1.0.0-beta.6(typescript@5.5.4)
+        specifier: ^1.2.0
+        version: 1.2.0(typescript@5.5.4)
     devDependencies:
       '@preact/signals-react':
         specifier: ^2.2.0
@@ -153,8 +153,8 @@ importers:
   packages/solid:
     dependencies:
       valibot:
-        specifier: ^1.0.0-beta.6
-        version: 1.0.0-beta.6(typescript@5.5.4)
+        specifier: ^1.2.0
+        version: 1.2.0(typescript@5.5.4)
     devDependencies:
       '@types/eslint':
         specifier: ^8.56.12
@@ -1733,7 +1733,6 @@ packages:
   '@img/sharp-darwin-x64@0.33.5':
     resolution: {integrity: sha512-fyHac4jIc1ANYGRDxtiqelIbdWkIuQaI84Mv45KvGRRxSAa7o7d1ZKAOBaYbnepLC1WqxfpimdeWfvqqSGwR2Q==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
-    cpu: [x64]
     os: [darwin]
 
   '@img/sharp-libvips-darwin-arm64@1.0.4':
@@ -7031,16 +7030,16 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  valibot@0.42.1:
-    resolution: {integrity: sha512-3keXV29Ar5b//Hqi4MbSdV7lfVp6zuYLZuA9V1PvQUsXqogr+u5lvLPLk3A4f74VUXDnf/JfWMN6sB+koJ/FFw==}
+  valibot@1.0.0-beta.6:
+    resolution: {integrity: sha512-x9ObzhqDCWFaWOa6Zri1mbFcc8OIIKP7cQtD9JauKt5pJFhpJkvAXT+49bFKjoVikiKVk7m33mXgUJb/Wfknmw==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  valibot@1.0.0-beta.6:
-    resolution: {integrity: sha512-x9ObzhqDCWFaWOa6Zri1mbFcc8OIIKP7cQtD9JauKt5pJFhpJkvAXT+49bFKjoVikiKVk7m33mXgUJb/Wfknmw==}
+  valibot@1.2.0:
+    resolution: {integrity: sha512-mm1rxUsmOxzrwnX5arGS+U4T25RdvpPjPN4yR0u9pUBov9+zGVtO84tif1eY4r6zWxVxu3KzIyknJy3rxfRZZg==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -8434,7 +8433,7 @@ snapshots:
       source-map: 0.7.4
       svgo: 3.3.2
       undici: 6.19.8
-      valibot: 0.42.1(typescript@5.6.2)
+      valibot: 1.2.0(typescript@5.6.2)
       vfile: 6.0.1
       vite: 5.4.8(@types/node@20.16.10)(terser@5.31.6)
       vite-imagetools: 7.0.4(rollup@4.24.0)
@@ -15248,15 +15247,15 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  valibot@0.42.1(typescript@5.6.2):
-    optionalDependencies:
-      typescript: 5.6.2
-
   valibot@1.0.0-beta.6(typescript@5.5.4):
     optionalDependencies:
       typescript: 5.5.4
 
-  valibot@1.0.0-beta.6(typescript@5.6.2):
+  valibot@1.2.0(typescript@5.5.4):
+    optionalDependencies:
+      typescript: 5.5.4
+
+  valibot@1.2.0(typescript@5.6.2):
     optionalDependencies:
       typescript: 5.6.2
 
