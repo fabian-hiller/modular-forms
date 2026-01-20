@@ -4,14 +4,14 @@ import { AngleDownIcon } from '~/icons';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
-type SelectProps = {
+type SelectProps<T> = {
   ref: (element: HTMLSelectElement) => void;
   name: string;
-  value: string | string[] | undefined;
+  value: T | T[] | undefined;
   onInput: JSX.EventHandler<HTMLSelectElement, InputEvent>;
   onChange: JSX.EventHandler<HTMLSelectElement, Event>;
   onBlur: JSX.EventHandler<HTMLSelectElement, FocusEvent>;
-  options: { label: string; value: string }[];
+  options: { label: string; value: T }[];
   multiple?: boolean;
   size?: string | number;
   placeholder?: string;
@@ -26,7 +26,7 @@ type SelectProps = {
  * decorations can be displayed in or around the field to communicate the
  * entry requirements.
  */
-export function Select(props: SelectProps) {
+export function Select<T>(props: SelectProps<T>) {
   // Split select element props
   const [, selectProps] = splitProps(props, [
     'class',
@@ -40,7 +40,7 @@ export function Select(props: SelectProps) {
   const getValues = createMemo(() =>
     Array.isArray(props.value)
       ? props.value
-      : typeof props.value === 'string'
+      : (typeof props.value === 'string' || typeof props.value === 'number')
       ? [props.value]
       : []
   );
@@ -61,7 +61,7 @@ export function Select(props: SelectProps) {
               ? 'border-red-600/50 dark:border-red-400/50'
               : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50',
             props.multiple ? 'py-5' : 'h-14 md:h-16 lg:h-[70px]',
-            props.placeholder && !props.value?.length && 'text-slate-500'
+            props.placeholder && !props.value && 'text-slate-500'
           )}
           id={props.name}
           aria-invalid={!!props.error}
@@ -72,7 +72,7 @@ export function Select(props: SelectProps) {
           </option>
           <For each={props.options}>
             {({ label, value }) => (
-              <option value={value} selected={getValues().includes(value)}>
+              <option value={String(value)} selected={getValues().includes(value)}>
                 {label}
               </option>
             )}
