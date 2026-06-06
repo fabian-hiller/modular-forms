@@ -1,4 +1,5 @@
 export * from './ActionButton';
+export * from './Banner';
 export * from './ButtonGroup';
 export * from './Checkbox';
 export * from './ColorButton';

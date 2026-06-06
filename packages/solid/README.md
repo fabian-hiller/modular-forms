@@ -4,6 +4,8 @@
 
 Modular Forms is a JavaScript library built on [SolidJS](https://github.com/solidjs/solid) to validate and handle various types of forms. It is type-safe, fast by default and the bundle size is small due to a modular design. Try it out in our [playground](https://modularforms.dev/playground)!
 
+> **Important:** Modular Forms is in maintenance mode. We recommend [Formisch](https://formisch.dev/), its official successor, for new projects.
+
 ## ✨ Highlights
 
 - Small bundle size starting at 3 KB
