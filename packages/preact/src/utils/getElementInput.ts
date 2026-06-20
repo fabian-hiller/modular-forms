@@ -39,7 +39,9 @@ export function getElementInput<
         ? [...((field.value.peek() || []) as string[]), value]
         : ((field.value.peek() || []) as string[]).filter((v) => v !== value)
       : type === 'number'
-      ? valueAsNumber
+      ? element instanceof HTMLSelectElement?
+                        value ? parseFloat(value) : undefined
+      : valueAsNumber
       : type === 'boolean'
       ? checked
       : type === 'File' && files

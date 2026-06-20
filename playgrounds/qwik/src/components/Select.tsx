@@ -4,14 +4,14 @@ import { AngleDownIcon } from '~/icons';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
-type SelectProps = {
+type SelectProps<T> = {
   ref: QRL<(element: HTMLSelectElement) => void>;
   name: string;
-  value: string | string[] | null | undefined;
+  value: T | T[] | null | undefined;
   onInput$: (event: Event, element: HTMLSelectElement) => void;
   onChange$: (event: Event, element: HTMLSelectElement) => void;
   onBlur$: (event: Event, element: HTMLSelectElement) => void;
-  options: { label: string; value: string }[];
+  options: { label: string; value: T }[];
   multiple?: boolean;
   size?: number;
   placeholder?: string;
@@ -27,16 +27,16 @@ type SelectProps = {
  * entry requirements.
  */
 export const Select = component$(
-  ({ value, options, label, error, ...props }: SelectProps) => {
+  ({ value, options, label, error, ...props }: SelectProps<string | number>) => {
     const { name, required, multiple, placeholder } = props;
 
     // Create computed value of selected values
-    const values = useSignal<string[]>();
+    const values = useSignal<(string | number)[]>();
     useTask$(({ track }) => {
       track(() => value);
       values.value = Array.isArray(value)
         ? value
-        : value && typeof value === 'string'
+        : value && (typeof value === 'string' || typeof value === 'number')
         ? [value]
         : [];
     });
