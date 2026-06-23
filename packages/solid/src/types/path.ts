@@ -38,13 +38,17 @@ type PathValue<TValue, TPath> = TPath extends `${infer TKey1}.${infer TKey2}`
       ? PathValue<TValue[TKey1], TKey2>
       : never
     : TKey1 extends `${ArrayKey}`
-    ? TValue extends Array<infer TChild>
-      ? PathValue<TChild, TKey2 & (ValuePaths<TChild> | ArrayPaths<TChild>)>
+      ? TValue extends Array<infer TChild>
+        ? PathValue<TChild, TKey2 & (ValuePaths<TChild> | ArrayPaths<TChild>)>
+        : never
       : never
-    : never
   : TPath extends keyof TValue
-  ? TValue[TPath]
-  : never;
+    ? TValue[TPath]
+    : TPath extends `${ArrayKey}`
+      ? TValue extends Array<infer TChild>
+        ? TChild
+        : never
+      : never;
 
 /**
  * See {@link PathValue}
